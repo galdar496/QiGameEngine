@@ -1,0 +1,298 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C3D7EBC51A61D42700FC46B6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EBC41A61D42700FC46B6 /* main.cpp */; };
+		C3D7EC6A1A61DCAF00FC46B6 /* libQi Game Engine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D7EC631A61DC5700FC46B6 /* libQi Game Engine.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C3D7EC621A61DC5700FC46B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C3D7EC4A1A61DC2E00FC46B6;
+			remoteInfo = "Qi Game Engine";
+		};
+		C3D7EC681A61DCAA00FC46B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C3D7EC491A61DC2E00FC46B6;
+			remoteInfo = "Qi Game Engine";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C3D7EBB81A61D39800FC46B6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C3D7EBBA1A61D39800FC46B6 /* Qi */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Qi; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3D7EBC41A61D42700FC46B6 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = QiExample/main.cpp; sourceTree = SOURCE_ROOT; };
+		C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Qi Game Engine.xcodeproj"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C3D7EBB71A61D39800FC46B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3D7EC6A1A61DCAF00FC46B6 /* libQi Game Engine.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C3D7EBB11A61D39800FC46B6 = {
+			isa = PBXGroup;
+			children = (
+				C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */,
+				C3D7EBBC1A61D39800FC46B6 /* QiExample */,
+				C3D7EBBB1A61D39800FC46B6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C3D7EBBB1A61D39800FC46B6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3D7EBBA1A61D39800FC46B6 /* Qi */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C3D7EBBC1A61D39800FC46B6 /* QiExample */ = {
+			isa = PBXGroup;
+			children = (
+				C3D7EBC41A61D42700FC46B6 /* main.cpp */,
+			);
+			name = QiExample;
+			path = Qi;
+			sourceTree = "<group>";
+		};
+		C3D7EC5F1A61DC5700FC46B6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3D7EC631A61DC5700FC46B6 /* libQi Game Engine.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C3D7EBB91A61D39800FC46B6 /* Qi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3D7EBC11A61D39800FC46B6 /* Build configuration list for PBXNativeTarget "Qi" */;
+			buildPhases = (
+				C3D7EBB61A61D39800FC46B6 /* Sources */,
+				C3D7EBB71A61D39800FC46B6 /* Frameworks */,
+				C3D7EBB81A61D39800FC46B6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C3D7EC691A61DCAA00FC46B6 /* PBXTargetDependency */,
+			);
+			name = Qi;
+			productName = Qi;
+			productReference = C3D7EBBA1A61D39800FC46B6 /* Qi */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C3D7EBB21A61D39800FC46B6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Cody White";
+				TargetAttributes = {
+					C3D7EBB91A61D39800FC46B6 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = C3D7EBB51A61D39800FC46B6 /* Build configuration list for PBXProject "Qi" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C3D7EBB11A61D39800FC46B6;
+			productRefGroup = C3D7EBBB1A61D39800FC46B6 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C3D7EC5F1A61DC5700FC46B6 /* Products */;
+					ProjectRef = C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				C3D7EBB91A61D39800FC46B6 /* Qi */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C3D7EC631A61DC5700FC46B6 /* libQi Game Engine.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libQi Game Engine.a";
+			remoteRef = C3D7EC621A61DC5700FC46B6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C3D7EBB61A61D39800FC46B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3D7EBC51A61D42700FC46B6 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C3D7EC691A61DCAA00FC46B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Qi Game Engine";
+			targetProxy = C3D7EC681A61DCAA00FC46B6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C3D7EBBF1A61D39800FC46B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C3D7EBC01A61D39800FC46B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C3D7EBC21A61D39800FC46B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_X86_VECTOR_INSTRUCTIONS = sse4.2;
+				LIBRARY_SEARCH_PATHS = build/Debug;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C3D7EBC31A61D39800FC46B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_X86_VECTOR_INSTRUCTIONS = sse4.2;
+				LIBRARY_SEARCH_PATHS = build/Release;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C3D7EBB51A61D39800FC46B6 /* Build configuration list for PBXProject "Qi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3D7EBBF1A61D39800FC46B6 /* Debug */,
+				C3D7EBC01A61D39800FC46B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3D7EBC11A61D39800FC46B6 /* Build configuration list for PBXNativeTarget "Qi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3D7EBC21A61D39800FC46B6 /* Debug */,
+				C3D7EBC31A61D39800FC46B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C3D7EBB21A61D39800FC46B6 /* Project object */;
+}
