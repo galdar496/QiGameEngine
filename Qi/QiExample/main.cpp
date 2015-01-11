@@ -7,6 +7,7 @@
 //
 
 #include "../Source/Core/Math/Vec4.h"
+#include "../Source/Core/Math/Matrix.h"
 
 #include <iostream>
 
@@ -21,6 +22,12 @@ int main(int argc, const char* argv[])
     float dot = vec1.dot(vec2);
     
     cout << dot << endl;
+    
+    Matrix m;
+    
+    vec2 = m.transform(vec1);
+    
+    cout << vec2.x << " " << vec2.y << " " << vec2.z << " " << vec2.w << endl;
     
     return 0;
 }

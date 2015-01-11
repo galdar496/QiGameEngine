@@ -8,11 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC661A61DC8700FC46B6 /* Vec4.h */; };
+		C3D7EC6E1A61F8A000FC46B6 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC6D1A61F8A000FC46B6 /* Matrix.h */; };
+		C3D7EC701A61FA9600FC46B6 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC6F1A61FA9600FC46B6 /* Matrix.cpp */; };
+		C3D7EC721A61FDCD00FC46B6 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC711A61FDCD00FC46B6 /* Constants.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C3D7EC4A1A61DC2E00FC46B6 /* libQi Game Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libQi Game Engine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3D7EC661A61DC8700FC46B6 /* Vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vec4.h; path = Source/Core/Math/Vec4.h; sourceTree = "<group>"; };
+		C3D7EC6D1A61F8A000FC46B6 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix.h; path = Source/Core/Math/Matrix.h; sourceTree = "<group>"; };
+		C3D7EC6F1A61FA9600FC46B6 /* Matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Matrix.cpp; path = Source/Core/Math/Matrix.cpp; sourceTree = "<group>"; };
+		C3D7EC711A61FDCD00FC46B6 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Source/Core/Math/Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,9 @@
 			isa = PBXGroup;
 			children = (
 				C3D7EC661A61DC8700FC46B6 /* Vec4.h */,
+				C3D7EC6D1A61F8A000FC46B6 /* Matrix.h */,
+				C3D7EC6F1A61FA9600FC46B6 /* Matrix.cpp */,
+				C3D7EC711A61FDCD00FC46B6 /* Constants.h */,
 			);
 			name = Math;
 			sourceTree = "<group>";
@@ -66,6 +75,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */,
+				C3D7EC6E1A61F8A000FC46B6 /* Matrix.h in Headers */,
+				C3D7EC721A61FDCD00FC46B6 /* Constants.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3D7EC701A61FA9600FC46B6 /* Matrix.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

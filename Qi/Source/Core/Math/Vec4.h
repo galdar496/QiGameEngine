@@ -32,6 +32,11 @@ class __attribute__ ((aligned(16))) Vec4
         }
     
         /**
+          * Destructor.
+          */
+        ~Vec4() {}
+    
+        /**
           * Constructor with per-component initialization.
           */
         Vec4(float _x, float _y, float _z, float _w)
