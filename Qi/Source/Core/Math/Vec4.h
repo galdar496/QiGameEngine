@@ -175,11 +175,6 @@ class __attribute__ ((aligned(16))) Vec4
             __m128 inv_length_squared = _mm_dp_ps(mm_value, mm_value, SIMDMask::AllChannels_StoreLow);
             return _mm_cvtss_f32(_mm_rsqrt_ps(inv_length_squared));
         }
-    
-        /**
-         * Construction from a SIMD type
-         */
-        Vec4(__m128 value) : mm_value(value) {}
         
         // Definition of the vector.
         union
@@ -189,6 +184,11 @@ class __attribute__ ((aligned(16))) Vec4
         };
     
     private:
+    
+        /**
+         * Construction from a SIMD type
+         */
+        Vec4(__m128 value) : mm_value(value) {}
     
         // Mask values to use in all simd operations.
         enum SIMDMask
