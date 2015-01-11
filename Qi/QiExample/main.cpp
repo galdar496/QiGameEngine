@@ -9,6 +9,8 @@
 #include "../Source/Core/Math/Vec4.h"
 #include "../Source/Core/Math/Matrix.h"
 
+#include "../Source/Managers/System/SystemManager.h"
+
 #include <iostream>
 
 using namespace Qi;
@@ -28,6 +30,12 @@ int main(int argc, const char* argv[])
     vec2 = m.transform(vec1);
     
     cout << vec2.x << " " << vec2.y << " " << vec2.z << " " << vec2.w << endl;
+    
+    SystemManager engine;
+    if (engine.initialize())
+    {
+        engine.run();
+    }
     
     return 0;
 }

@@ -13,6 +13,10 @@
 		C3D7EC721A61FDCD00FC46B6 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC711A61FDCD00FC46B6 /* Constants.h */; };
 		C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC741A622EEC00FC46B6 /* Random.cpp */; };
 		C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC751A622EEC00FC46B6 /* Random.h */; };
+		C3D7EC7D1A62625F00FC46B6 /* SystemManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC7B1A62625F00FC46B6 /* SystemManager.cpp */; };
+		C3D7EC7E1A62625F00FC46B6 /* SystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC7C1A62625F00FC46B6 /* SystemManager.h */; };
+		C3D7EC801A62634B00FC46B6 /* FastDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC7F1A62634B00FC46B6 /* FastDelegate.h */; };
+		C3D7EC821A62649100FC46B6 /* Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC811A62649100FC46B6 /* Timer.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,10 @@
 		C3D7EC711A61FDCD00FC46B6 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Source/Core/Math/Constants.h; sourceTree = "<group>"; };
 		C3D7EC741A622EEC00FC46B6 /* Random.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Random.cpp; path = Source/Core/Utility/Random.cpp; sourceTree = "<group>"; };
 		C3D7EC751A622EEC00FC46B6 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = Source/Core/Utility/Random.h; sourceTree = "<group>"; };
+		C3D7EC7B1A62625F00FC46B6 /* SystemManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SystemManager.cpp; path = Source/Managers/System/SystemManager.cpp; sourceTree = "<group>"; };
+		C3D7EC7C1A62625F00FC46B6 /* SystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemManager.h; path = Source/Managers/System/SystemManager.h; sourceTree = "<group>"; };
+		C3D7EC7F1A62634B00FC46B6 /* FastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FastDelegate.h; path = Source/Core/Utility/FastDelegate.h; sourceTree = "<group>"; };
+		C3D7EC811A62649100FC46B6 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Timer.h; path = Source/Core/Utility/Timer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +47,7 @@
 		C3D7EC411A61DC2E00FC46B6 = {
 			isa = PBXGroup;
 			children = (
+				C3D7EC791A62621400FC46B6 /* Managers */,
 				C3D7EC641A61DC6600FC46B6 /* Core */,
 				C3D7EC4B1A61DC2E00FC46B6 /* Products */,
 			);
@@ -75,10 +84,29 @@
 		C3D7EC731A622ECA00FC46B6 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				C3D7EC7F1A62634B00FC46B6 /* FastDelegate.h */,
 				C3D7EC741A622EEC00FC46B6 /* Random.cpp */,
 				C3D7EC751A622EEC00FC46B6 /* Random.h */,
+				C3D7EC811A62649100FC46B6 /* Timer.h */,
 			);
 			name = Utility;
+			sourceTree = "<group>";
+		};
+		C3D7EC791A62621400FC46B6 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C3D7EC7A1A62623A00FC46B6 /* System */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		C3D7EC7A1A62623A00FC46B6 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				C3D7EC7B1A62625F00FC46B6 /* SystemManager.cpp */,
+				C3D7EC7C1A62625F00FC46B6 /* SystemManager.h */,
+			);
+			name = System;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,8 +117,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */,
+				C3D7EC801A62634B00FC46B6 /* FastDelegate.h in Headers */,
+				C3D7EC7E1A62625F00FC46B6 /* SystemManager.h in Headers */,
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix.h in Headers */,
 				C3D7EC721A61FDCD00FC46B6 /* Constants.h in Headers */,
+				C3D7EC821A62649100FC46B6 /* Timer.h in Headers */,
 				C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */,
+				C3D7EC7D1A62625F00FC46B6 /* SystemManager.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
