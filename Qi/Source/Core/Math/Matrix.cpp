@@ -62,7 +62,7 @@ Matrix::Matrix(float x0, float y0, float z0, float w0,
 }
 
 /**
- * Transform a vector by this matrix.
+ * Transform a vector by this matrix. Assumes a right-handed coordinate system.
  */
 Vec4 Matrix::transform(const Vec4 &v) const
 {

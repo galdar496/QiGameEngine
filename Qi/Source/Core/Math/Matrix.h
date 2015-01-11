@@ -46,7 +46,7 @@ class Matrix
                float x3, float y3, float z3, float w3);
     
         /**
-          * Transform a vector by this matrix.
+          * Transform a vector by this matrix. Assumes a right-handed coordinate system.
           */
         Vec4 transform(const Vec4 &v) const;
         
