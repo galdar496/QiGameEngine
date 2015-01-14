@@ -46,10 +46,39 @@ class Matrix
                float x3, float y3, float z3, float w3);
     
         /**
+          * Vector initialization.
+          */
+        Matrix(const Vec4 &row1, const Vec4 &row2, const Vec4 &row3, const Vec4 &row4);
+    
+        /**
           * Transform a vector by this matrix. Assumes a right-handed coordinate system.
           */
         Vec4 transform(const Vec4 &v) const;
-        
+    
+        /**
+          * Transpose the matrix.
+          */
+        void transpose();
+    
+        /**
+          * Premultiply this matrix.
+          */
+        void preMultiply(const Matrix &other);
+    
+        /**
+          * Post multiply this matrix.
+          */
+        void postMultiply(const Matrix &other);
+    
+        /**
+          * Access the matrix by row and column index.
+          */
+        float operator()(int row, int col) const;
+    
+        /**
+          * Access the matrix by reference.
+          */
+        float &operator()(int row, int col);
     
         Vec4 m_matrix[4]; // Internal matrix object.
 };

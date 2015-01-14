@@ -17,6 +17,8 @@
 		C3D7EC7E1A62625F00FC46B6 /* SystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC7C1A62625F00FC46B6 /* SystemManager.h */; };
 		C3D7EC801A62634B00FC46B6 /* FastDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC7F1A62634B00FC46B6 /* FastDelegate.h */; };
 		C3D7EC821A62649100FC46B6 /* Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC811A62649100FC46B6 /* Timer.h */; };
+		C3D7EC851A62D3C000FC46B6 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC831A62D3C000FC46B6 /* Logger.cpp */; };
+		C3D7EC861A62D3C000FC46B6 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC841A62D3C000FC46B6 /* Logger.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		C3D7EC7C1A62625F00FC46B6 /* SystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemManager.h; path = Source/Managers/System/SystemManager.h; sourceTree = "<group>"; };
 		C3D7EC7F1A62634B00FC46B6 /* FastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FastDelegate.h; path = Source/Core/Utility/FastDelegate.h; sourceTree = "<group>"; };
 		C3D7EC811A62649100FC46B6 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Timer.h; path = Source/Core/Utility/Timer.h; sourceTree = "<group>"; };
+		C3D7EC831A62D3C000FC46B6 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Logger.cpp; path = Source/Core/Utility/Logger.cpp; sourceTree = "<group>"; };
+		C3D7EC841A62D3C000FC46B6 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logger.h; path = Source/Core/Utility/Logger.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,8 @@
 				C3D7EC741A622EEC00FC46B6 /* Random.cpp */,
 				C3D7EC751A622EEC00FC46B6 /* Random.h */,
 				C3D7EC811A62649100FC46B6 /* Timer.h */,
+				C3D7EC831A62D3C000FC46B6 /* Logger.cpp */,
+				C3D7EC841A62D3C000FC46B6 /* Logger.h */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -122,6 +128,7 @@
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix.h in Headers */,
 				C3D7EC721A61FDCD00FC46B6 /* Constants.h in Headers */,
 				C3D7EC821A62649100FC46B6 /* Timer.h in Headers */,
+				C3D7EC861A62D3C000FC46B6 /* Logger.h in Headers */,
 				C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +192,7 @@
 				C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */,
 				C3D7EC7D1A62625F00FC46B6 /* SystemManager.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix.cpp in Sources */,
+				C3D7EC851A62D3C000FC46B6 /* Logger.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -185,7 +185,8 @@ class __attribute__ ((aligned(16))) Vec4
         union
         {
             struct {float x, y, z, w; }; // Simple access to simd vector.
-            __m128 mm_value;    // SIMD version of the vector.
+            float v[4];                  // Array access.
+            __m128 mm_value;             // SIMD version of the vector.
         };
     
     private:
