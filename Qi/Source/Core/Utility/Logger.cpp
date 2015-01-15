@@ -10,9 +10,17 @@
 //
 
 #include "Logger.h"
-#include <sstream>
 #include <assert.h>
 #include <stdarg.h>
+#include <iomanip>
+
+// ASCII color codes
+#define COLOR_HEADER "\x1b["
+#define WHITE "37m"
+#define YELLOW "33m"
+#define RED "31m"
+#define DIM "2;"
+#define RESET ("\x1b[0m")
 
 namespace Qi
 {
@@ -23,7 +31,6 @@ namespace Qi
 Logger::Logger() :
     m_initialized(false)
 {
-    m_messages.resize(static_cast<int>(Channel::kNumChannels));
 }
 
 /**
@@ -31,6 +38,7 @@ Logger::Logger() :
  */
 Logger::~Logger()
 {
+    m_output.close();
 }
 
 /**
@@ -47,9 +55,39 @@ Logger &Logger::getInstance()
   */
 bool Logger::initialize()
 {
-    m_messages.resize(static_cast<int>(Channel::kNumChannels));
-    m_initialized = true;
+    // Default to all channels on.
+    m_channel_filter = ~0;
+    
+    m_message_handlers.resize(kNumChannels);
+    
+    m_output.open("QiRunLog.txt");
+    if (m_output.good())
+    {
+        m_output << "Qi Game Engine Runtime Log" << std::endl;
+        m_output << std::setfill('-') << std::setw(80) << "-" << std::endl;
+        m_output << std::setfill(' ');
+        m_initialized = true;
+    }
+    
     return m_initialized;
+}
+
+/**
+ * Close any input files and shutdown.
+ */
+void Logger::deinitialize()
+{
+    m_output.close();
+    m_initialized = false;
+}
+
+/**
+ * Enable/disable a specific channel.
+ */
+void Logger::enableChannel(Channel channel, bool enable)
+{
+    unsigned int filter = 1 << channel;
+    m_channel_filter &= enable ? filter : ~filter;
 }
 
 /**
@@ -61,39 +99,61 @@ bool Logger::initialize()
  */
 void Logger::log(Channel channel, int line, const char *filename, const char *message, ...)
 {
+    assert(m_initialized && "Logger attempted to be used without being initialized");
+    
     va_list args;
     va_start( args, message );
     char final_message[256];
     vsprintf(final_message, message, args);
     va_end( args );
     
-    std::stringstream stream;
-    #if DEBUG
-        stream << filename << "(" << line << "): ";
-    #endif
-    stream << final_message;
-    m_messages[static_cast<int>(channel)].push_back(stream.str());
+    // Write the message to the file before invoking any message handlers. First color the
+    // output for the file.
+    std::string color = COLOR_HEADER;
+    switch (channel)
+    {
+        case kInfo:
+            color += DIM;
+            color += WHITE;
+            break;
+            
+        case kDebug:
+            color += WHITE;
+            break;
+        
+        case kWarning:
+            color += YELLOW;
+            break;
+        
+        case kError:
+            color += RED;
+            break;
+            
+        default:
+            assert(0 && "Invalid channel specified");
+            break;
+    }
+    m_output << color << filename << "(" << line << "): " << final_message << RESET << std::endl;
+    
+    // Notify the handlers if we pass the channel filter test. Otherwise this message
+    // will be ignored.
+    unsigned int filter = 1 << channel;
+    if (m_channel_filter & filter)
+    {
+        const PerChannelHandlers *handlers = &m_message_handlers[channel];
+        for (size_t ii = 0; ii < handlers->size(); ++ii)
+        {
+            handlers->at(ii)(final_message, channel);
+        }
+    }
 }
 
 /**
- * Get the most recently logged message for a particular channel.
+ * Register for a message event for a particular channel.
  */
-const std::string &Logger::getLastMessage(Channel channel)
+void Logger::registerForMessages(const MessageEvent &handler, Channel channel)
 {
-    assert(m_initialized && "Logger is being used before being initialized");
-    MessageBuffer &messages = m_messages[static_cast<int>(channel)];
-    assert(messages.size() && "No messages to get");
-    return messages[messages.size() - 1];
+    m_message_handlers[channel].push_back(handler);
 }
-
-/**
- * Get all messages for a particular channel.
- */
-const Logger::MessageBuffer &Logger::getAllMessages(Channel channel)
-{
-    assert(m_initialized && "Logger is being used before being initialized");
-    return m_messages[static_cast<int>(channel)];
-}
-
 
 } // namespace Qi

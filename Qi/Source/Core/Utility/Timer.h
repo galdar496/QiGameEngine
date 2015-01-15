@@ -13,15 +13,15 @@
 namespace Qi
 {
     
-    class Timer
-    {
+class Timer
+{
     public:
         
         typedef std::chrono::high_resolution_clock Clock;
         
         /// Default constructor.
         Timer() :
-        m_dt(0.0f)
+            m_dt(0.0f)
         {
         }
         
@@ -49,12 +49,12 @@ namespace Qi
             return m_dt;
         }
         
-    protected:
+    private:
         
         Clock::time_point m_start_time; // Time recorded with a call to start().
         float m_dt;                     // Time between a call to start() and stop() in seconds.
         
-    };
+};
     
 } // namespace Qi
 

@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../../Core/Utility/FastDelegate.h"
+#include "../../Core/Utility/Logger.h"
 #include <vector>
 
 namespace Qi
@@ -37,7 +38,7 @@ class SystemManager
         /**
           * Initialize the Qi game engine for use. Must be called before calling 'run'.
           */
-        bool initialize();
+        bool initialize(const std::string &configFile);
     
         /**
           * Register for an update event.
@@ -50,6 +51,11 @@ class SystemManager
           */
         void run();
     
+        /**
+          * Shutdown the engine and cleanup everything.
+          */
+        void shutdown();
+    
     private:
     
         // Purposely not implemented.
@@ -57,10 +63,33 @@ class SystemManager
         SystemManager &operator=(const SystemManager &other);
     
         /**
+          * Default message handler for log messages. This funtion prints the 
+          * incoming message to the console and is only used in debug.
+          */
+        void handleLogMessages(const char *message, Logger::Channel channel);
+    
+        /**
           * Update all game systems.
           */
         void update();
     
+        /**
+          * Populate the internal configuration object. 
+          * @return False if the config file could not be read.
+          */
+        bool readConfigFile(const std::string &config_file);
+    
+        /**
+          * Engine configuration.
+          */
+        struct Config
+        {
+            /// Screen dimensions (in pixels).
+            int screen_width;
+            int screen_height;
+        };
+    
+        Config m_engineConfig;
         std::vector<UpdateEvent> m_update_handlers; // Update event handlers. Called during system updating.
 };
 

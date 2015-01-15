@@ -19,6 +19,8 @@
 		C3D7EC821A62649100FC46B6 /* Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC811A62649100FC46B6 /* Timer.h */; };
 		C3D7EC851A62D3C000FC46B6 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC831A62D3C000FC46B6 /* Logger.cpp */; };
 		C3D7EC861A62D3C000FC46B6 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC841A62D3C000FC46B6 /* Logger.h */; };
+		C3D7EC8A1A6657B000FC46B6 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC881A6657B000FC46B6 /* tinyxml2.cpp */; };
+		C3D7EC8B1A6657B000FC46B6 /* tinyxml2.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC891A6657B000FC46B6 /* tinyxml2.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		C3D7EC811A62649100FC46B6 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Timer.h; path = Source/Core/Utility/Timer.h; sourceTree = "<group>"; };
 		C3D7EC831A62D3C000FC46B6 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Logger.cpp; path = Source/Core/Utility/Logger.cpp; sourceTree = "<group>"; };
 		C3D7EC841A62D3C000FC46B6 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logger.h; path = Source/Core/Utility/Logger.h; sourceTree = "<group>"; };
+		C3D7EC881A6657B000FC46B6 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml2.cpp; path = Source/ThirdParty/tinyxml2.cpp; sourceTree = "<group>"; };
+		C3D7EC891A6657B000FC46B6 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml2.h; path = Source/ThirdParty/tinyxml2.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,9 +55,10 @@
 		C3D7EC411A61DC2E00FC46B6 = {
 			isa = PBXGroup;
 			children = (
-				C3D7EC791A62621400FC46B6 /* Managers */,
 				C3D7EC641A61DC6600FC46B6 /* Core */,
+				C3D7EC791A62621400FC46B6 /* Managers */,
 				C3D7EC4B1A61DC2E00FC46B6 /* Products */,
+				C3D7EC871A66578C00FC46B6 /* ThirdParty */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +120,15 @@
 			name = System;
 			sourceTree = "<group>";
 		};
+		C3D7EC871A66578C00FC46B6 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				C3D7EC881A6657B000FC46B6 /* tinyxml2.cpp */,
+				C3D7EC891A6657B000FC46B6 /* tinyxml2.h */,
+			);
+			name = ThirdParty;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -123,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */,
+				C3D7EC8B1A6657B000FC46B6 /* tinyxml2.h in Headers */,
 				C3D7EC801A62634B00FC46B6 /* FastDelegate.h in Headers */,
 				C3D7EC7E1A62625F00FC46B6 /* SystemManager.h in Headers */,
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix.h in Headers */,
@@ -193,6 +208,7 @@
 				C3D7EC7D1A62625F00FC46B6 /* SystemManager.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix.cpp in Sources */,
 				C3D7EC851A62D3C000FC46B6 /* Logger.cpp in Sources */,
+				C3D7EC8A1A6657B000FC46B6 /* tinyxml2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
