@@ -18,7 +18,7 @@ namespace Qi
 /**
   * 4x4 matrix class. Matrices are stored as row-major.
   */
-class Matrix
+class __attribute__ ((aligned(16))) Matrix
 {
     public:
     
@@ -80,7 +80,11 @@ class Matrix
           */
         float &operator()(int row, int col);
     
-        Vec4 m_matrix[4]; // Internal matrix object.
+        union
+        {
+            float m[16];
+            Vec4 m_matrix[4]; // Internal matrix object.
+        };
 };
 
 } // namespace Qi

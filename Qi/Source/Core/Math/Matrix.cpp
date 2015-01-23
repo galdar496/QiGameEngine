@@ -92,19 +92,10 @@ Vec4 Matrix::transform(const Vec4 &v) const
  */
 void Matrix::transpose()
 {
-    // This code performs a two-stage interleaving process that will
-    // leave the matrix transposed. For a better explaination, see
-    // http://www.randombit.net/bitbashing/2009/10/08/integer_matrix_transpose_in_sse2.html
-    
-    __m128 t0 = _mm_unpacklo_ps(m_matrix[0].mm_value, m_matrix[1].mm_value);
-    __m128 t1 = _mm_unpacklo_ps(m_matrix[2].mm_value, m_matrix[3].mm_value);
-    __m128 t2 = _mm_unpackhi_ps(m_matrix[0].mm_value, m_matrix[1].mm_value);
-    __m128 t3 = _mm_unpackhi_ps(m_matrix[2].mm_value, m_matrix[3].mm_value);
-    
-    m_matrix[0].mm_value = _mm_movelh_ps(t0, t1);
-    m_matrix[1].mm_value = _mm_movehl_ps(t1, t0);
-    m_matrix[2].mm_value = _mm_movelh_ps(t2, t3);
-    m_matrix[3].mm_value = _mm_movehl_ps(t3, t2);
+    _MM_TRANSPOSE4_PS(m_matrix[0].mm_value,
+                      m_matrix[1].mm_value,
+                      m_matrix[2].mm_value,
+                      m_matrix[3].mm_value);
 }
 
 /**

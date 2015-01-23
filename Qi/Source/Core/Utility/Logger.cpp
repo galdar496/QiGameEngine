@@ -20,7 +20,8 @@
 #define YELLOW "33m"
 #define RED "31m"
 #define DIM "2;"
-#define RESET ("\x1b[0m")
+#define RESET "\x1b[0m"
+#define BOLD "\x1b[1m"
 
 namespace Qi
 {
@@ -63,7 +64,7 @@ bool Logger::initialize()
     m_output.open("QiRunLog.txt");
     if (m_output.good())
     {
-        m_output << "Qi Game Engine Runtime Log" << std::endl;
+        m_output << BOLD << "Qi Game Engine Runtime Log" << RESET << std::endl;
         m_output << std::setfill('-') << std::setw(80) << "-" << std::endl;
         m_output << std::setfill(' ');
         m_initialized = true;

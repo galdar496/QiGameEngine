@@ -19,7 +19,8 @@ namespace Qi
 /**
  * Default constructor.
  */
-SystemManager::SystemManager()
+SystemManager::SystemManager() :
+    m_running(false)
 {
 }
 
@@ -57,6 +58,8 @@ bool SystemManager::initialize(const std::string &configFile)
         return false;
     }
     
+    m_running = false;
+    
     return true;
 }
 
@@ -74,6 +77,13 @@ void SystemManager::registerUpdateHandler(const UpdateEvent &handler)
  */
 void SystemManager::run()
 {
+    m_running = true;
+    
+    m_timer.start();
+    while(m_running)
+    {
+        update();
+    }
 }
 
 /**
@@ -81,6 +91,7 @@ void SystemManager::run()
  */
 void SystemManager::shutdown()
 {
+    m_running = false;
 }
 
 /**
@@ -98,14 +109,6 @@ void SystemManager::handleLogMessages(const char *message, Logger::Channel chann
  */
 bool SystemManager::readConfigFile(const std::string &config_file)
 {
-//    tinyxml2::XMLDocument config_file;
-//    const tinyxml2::XMLElement *root_config_node;
-//    if (config_file.LoadFile(config_file_path.c_str()) != tinyxml2::XML_SUCCESS)
-//    {
-//        std::cout << "Unable to load configuration file " << config_file_path << std::endl;
-//        return false;
-//    }
-
     tinyxml2::XMLDocument file;
     const tinyxml2::XMLElement *root_config_node = NULL;
     if (file.LoadFile(config_file.c_str()) != tinyxml2::XML_SUCCESS)
@@ -116,6 +119,18 @@ bool SystemManager::readConfigFile(const std::string &config_file)
     Qi_LogInfo("Opened configuration file %s", config_file.c_str());
     
     return true;
+}
+
+/**
+ * Update all game systems.
+ */
+void SystemManager::update()
+{
+    float dt = m_timer.dt();
+    for (size_t ii = 0; ii < m_update_handlers.size(); ++ii)
+    {
+        m_update_handlers[ii](dt);
+    }
 }
 
 } // namespace Qi

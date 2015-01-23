@@ -12,6 +12,7 @@
 
 #include "../../Core/Utility/FastDelegate.h"
 #include "../../Core/Utility/Logger.h"
+#include "../../Core/Utility/Timer.h"
 #include <vector>
 
 namespace Qi
@@ -91,6 +92,10 @@ class SystemManager
     
         Config m_engineConfig;
         std::vector<UpdateEvent> m_update_handlers; // Update event handlers. Called during system updating.
+    
+        bool m_running; // If true, the engine is currently running.
+    
+        Timer m_timer;
 };
 
 } // namespace Qi
