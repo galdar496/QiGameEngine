@@ -17,8 +17,9 @@ using namespace std;
 int main(int argc, const char* argv[])
 {
     SystemManager engine;
-    std::string config_file = "engineConfig.xml";
-    if (engine.initialize(config_file))
+//    std::string config_file = "engineConfig.xml";
+//    if (engine.initialize(config_file))
+    if (engine.initialize())
     {
         engine.run();
         engine.shutdown();

@@ -23,37 +23,27 @@
 #define RESET "\x1b[0m"
 #define BOLD "\x1b[1m"
 
+#define LOGFILE_NAME "QiLogfile.txt"
+
 namespace Qi
 {
 
-/**
- * Default constructor.
- */
 Logger::Logger() :
     m_initialized(false)
 {
 }
 
-/**
- * Destructor.
- */
 Logger::~Logger()
 {
     m_output.close();
 }
 
-/**
- * Instance accesor.
- */
 Logger &Logger::getInstance()
 {
     static Logger instance;
     return instance;
 }
 
-/**
-  * Initialize the logging system.
-  */
 bool Logger::initialize()
 {
     // Default to all channels on.
@@ -61,7 +51,7 @@ bool Logger::initialize()
     
     m_message_handlers.resize(kNumChannels);
     
-    m_output.open("QiRunLog.txt");
+    m_output.open(LOGFILE_NAME);
     if (m_output.good())
     {
         m_output << BOLD << "Qi Game Engine Runtime Log" << RESET << std::endl;
@@ -73,31 +63,18 @@ bool Logger::initialize()
     return m_initialized;
 }
 
-/**
- * Close any input files and shutdown.
- */
 void Logger::deinitialize()
 {
     m_output.close();
     m_initialized = false;
 }
 
-/**
- * Enable/disable a specific channel.
- */
 void Logger::enableChannel(Channel channel, bool enable)
 {
     unsigned int filter = 1 << channel;
     m_channel_filter &= enable ? filter : ~filter;
 }
 
-/**
- * Log a message.
- * @param channel Channel to log the message to.
- * @param line Line number where the message occured (for debugging).
- * @param filename Filename which generated the message (for debugging).
- * @param message Message to log.
- */
 void Logger::log(Channel channel, int line, const char *filename, const char *message, ...)
 {
     assert(m_initialized && "Logger attempted to be used without being initialized");
@@ -149,9 +126,6 @@ void Logger::log(Channel channel, int line, const char *filename, const char *me
     }
 }
 
-/**
- * Register for a message event for a particular channel.
- */
 void Logger::registerForMessages(const MessageEvent &handler, Channel channel)
 {
     m_message_handlers[channel].push_back(handler);

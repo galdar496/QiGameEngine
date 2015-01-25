@@ -8,6 +8,10 @@
 
 #pragma once
 
+///
+/// Various mathematical constants.
+///
+
 namespace Qi
 {
 

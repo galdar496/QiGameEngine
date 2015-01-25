@@ -2,8 +2,6 @@
 //  Matrix.cpp
 //  Qi Game Engine
 //
-//  4x4 float matrix
-//
 //  Created by Cody White on 1/10/15.
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
@@ -14,9 +12,6 @@
 namespace Qi
 {
 
-/**
- * Default constructor. Initializes the matrix to identity.
- */
 Matrix::Matrix()
 {
     m_matrix[0].zero();
@@ -30,16 +25,10 @@ Matrix::Matrix()
     m_matrix[3].w = 1.0f;
 }
 
-/**
- * Destructor.
- */
 Matrix::~Matrix()
 {
 }
 
-/**
- * Copy constructor.
- */
 Matrix::Matrix(const Matrix &other)
 {
     m_matrix[0] = other.m_matrix[0];
@@ -48,9 +37,6 @@ Matrix::Matrix(const Matrix &other)
     m_matrix[3] = other.m_matrix[3];
 }
 
-/**
- * Component-initialized constructor.
- */
 Matrix::Matrix(float x0, float y0, float z0, float w0,
                float x1, float y1, float z1, float w1,
                float x2, float y2, float z2, float w2,
@@ -62,9 +48,6 @@ Matrix::Matrix(float x0, float y0, float z0, float w0,
     m_matrix[3].x = x3; m_matrix[3].y = y3; m_matrix[3].z = z3; m_matrix[3].w = w3;
 }
 
-/**
- * Vector initialization.
- */
 Matrix::Matrix(const Vec4 &row1, const Vec4 &row2, const Vec4 &row3, const Vec4 &row4)
 {
     m_matrix[0] = row1;
@@ -73,9 +56,6 @@ Matrix::Matrix(const Vec4 &row1, const Vec4 &row2, const Vec4 &row3, const Vec4 
     m_matrix[3] = row4;
 }
 
-/**
- * Transform a vector by this matrix. Assumes a right-handed coordinate system.
- */
 Vec4 Matrix::transform(const Vec4 &v) const
 {
     Vec4 result;
@@ -87,9 +67,6 @@ Vec4 Matrix::transform(const Vec4 &v) const
     return result;
 }
 
-/**
- * Transpose the matrix.
- */
 void Matrix::transpose()
 {
     _MM_TRANSPOSE4_PS(m_matrix[0].mm_value,
@@ -98,9 +75,6 @@ void Matrix::transpose()
                       m_matrix[3].mm_value);
 }
 
-/**
- * Premultiply this matrix.
- */
 void Matrix::preMultiply(const Matrix &other)
 {
     // First transpose this matrix so we can do easy SIMD multiplication.
@@ -116,9 +90,6 @@ void Matrix::preMultiply(const Matrix &other)
     }
 }
 
-/**
- * Post multiply this matrix.
- */
 void Matrix::postMultiply(const Matrix &other)
 {
     Matrix t(other);
@@ -134,17 +105,11 @@ void Matrix::postMultiply(const Matrix &other)
     }
 }
 
-/**
- * Access the matrix by row and column index.
- */
 float Matrix::operator()(int row, int col) const
 {
     return m_matrix[row].v[col];
 }
 
-/**
- * Access the matrix by reference.
- */
 float &Matrix::operator()(int row, int col)
 {
     return m_matrix[row].v[col];

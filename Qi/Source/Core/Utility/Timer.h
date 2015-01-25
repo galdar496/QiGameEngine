@@ -12,47 +12,55 @@
 
 namespace Qi
 {
-    
+
+///
+/// Wall clock timer.
+///
 class Timer
 {
     public:
-        
+    
+        ///
+        /// Using a high-resolution clock for the timer.
+        ///
         typedef std::chrono::high_resolution_clock Clock;
-        
-        /// Default constructor.
-        Timer() :
-            m_dt(0.0f)
-        {
-        }
-        
+    
+        Timer()  {}
+        ~Timer() {}
+    
+        ///
         /// Start the timer.
+        ///
         inline void start()
         {
             m_start_time = Clock::now();
         }
-        
-        /// Step the timer. The time in seconds between the last call to start() and this
-        /// call to stop() is returned.
+    
+        ///
+        /// Stop the timer.
+        /// @return Time in seconds since the last call to start().
+        ///
         inline float stop()
         {
             std::chrono::duration<float> duration = Clock::now() - m_start_time;
-            m_dt = duration.count();
-            return m_dt;
+            float delta_time = duration.count();
+            return delta_time;
         }
-        
-        /// Get the time from the last call to start() or dt() and call start() again. This is
-        /// justa  convenience function.
+
+        /// Get the change in time since the last call to either start() or dt(). This function
+        /// will restart the timer before returning.
+        /// @return Elapsed time in seconds.
+        ///
         inline float dt()
         {
-            stop();
+            float delta_time = stop();
             start();
-            return m_dt;
+            return delta_time;
         }
         
     private:
         
-        Clock::time_point m_start_time; // Time recorded with a call to start().
-        float m_dt;                     // Time between a call to start() and stop() in seconds.
+        Clock::time_point m_start_time; ///< Time recorded with a call to start().
         
 };
     
