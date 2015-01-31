@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C3D7EBC51A61D42700FC46B6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EBC41A61D42700FC46B6 /* main.cpp */; };
 		C3D7EC6A1A61DCAF00FC46B6 /* libQi Game Engine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D7EC631A61DC5700FC46B6 /* libQi Game Engine.a */; };
+		C3D7ECA81A7CD74E00FC46B6 /* QiExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA71A7CD57A00FC46B6 /* QiExample.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,8 +42,8 @@
 
 /* Begin PBXFileReference section */
 		C3D7EBBA1A61D39800FC46B6 /* Qi */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Qi; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3D7EBC41A61D42700FC46B6 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = QiExample/main.cpp; sourceTree = SOURCE_ROOT; };
 		C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Qi Game Engine.xcodeproj"; sourceTree = "<group>"; };
+		C3D7ECA71A7CD57A00FC46B6 /* QiExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QiExample.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +78,7 @@
 		C3D7EBBC1A61D39800FC46B6 /* QiExample */ = {
 			isa = PBXGroup;
 			children = (
-				C3D7EBC41A61D42700FC46B6 /* main.cpp */,
+				C3D7ECA71A7CD57A00FC46B6 /* QiExample.cpp */,
 			);
 			name = QiExample;
 			path = Qi;
@@ -165,7 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3D7EBC51A61D42700FC46B6 /* main.cpp in Sources */,
+				C3D7ECA81A7CD74E00FC46B6 /* QiExample.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

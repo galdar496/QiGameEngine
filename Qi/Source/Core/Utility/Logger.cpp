@@ -111,7 +111,10 @@ void Logger::log(Channel channel, int line, const char *filename, const char *me
             assert(0 && "Invalid channel specified");
             break;
     }
+    
+    m_mutex.lock();
     m_output << color << filename << "(" << line << "): " << final_message << RESET << std::endl;
+    m_mutex.unlock();
     
     // Notify the handlers if we pass the channel filter test. Otherwise this message
     // will be ignored.

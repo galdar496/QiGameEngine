@@ -10,6 +10,7 @@
 
 #include <fstream>
 #include <vector>
+#include <mutex>
 #include "../../ThirdParty/FastDelegate.h"
 
 namespace Qi
@@ -117,6 +118,8 @@ class Logger
         bool m_initialized;            ///< If true, the logger has been initialized.
         std::ofstream m_output;        ///< Log file all messages are written to.
         unsigned int m_channel_filter; ///< Filter for each channel. Every bit corresponds to a different channel. 1 is on, 0 is off.
+    
+        std::mutex m_mutex; ///< Mutex used for locking while writing to the output file.
 };
 
 } // namespace Qi
