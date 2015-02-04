@@ -291,6 +291,7 @@
 				C3D7EBC31A61D39800FC46B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

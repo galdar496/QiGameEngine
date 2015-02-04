@@ -11,6 +11,7 @@
 #include <assert.h>
 
 QiApp::QiApp(QiAppImpl *app) :
+    m_engine(NULL),
     m_app(app)
 {
 }

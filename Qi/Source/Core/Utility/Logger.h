@@ -25,14 +25,14 @@ namespace Qi
 
 // Convenience defines for logging.
 #if DEBUG
-    #define Qi_LogInfo(message, args...) Logger::getInstance().log(Logger::kInfo, __LINE__, __FILE__, message, ##args);
-    #define Qi_LogDebug(message, args...) Logger::getInstance().log(Logger::kDebug, __LINE__, __FILE__, message, ##args);
+    #define Qi_LogInfo(message, args...) Qi::Logger::getInstance().log(Qi::Logger::kInfo, __LINE__, __FILE__, message, ##args);
+    #define Qi_LogDebug(message, args...) Qi::Logger::getInstance().log(Qi::Logger::kDebug, __LINE__, __FILE__, message, ##args);
 #else
     #define Qi_LogInfo(message, args...)
     #define Qi_LogDebug(message, args...)
 #endif
-#define Qi_LogWarning(message, args...) Logger::getInstance().log(Logger::kWarning, __LINE__, __FILE__, message, ##args);
-#define Qi_LogError(message, args...) Logger::getInstance().log(Logger::kError, __LINE__, __FILE__, message, ##args);
+#define Qi_LogWarning(message, args...) Qi::Logger::getInstance().log(Qi::Logger::kWarning, __LINE__, __FILE__, message, ##args);
+#define Qi_LogError(message, args...) Qi::Logger::getInstance().log(Qi::Logger::kError, __LINE__, __FILE__, message, ##args);
 
 class Logger
 {
