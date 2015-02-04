@@ -27,11 +27,11 @@ QiApp::~QiApp()
 
 bool QiApp::init()
 {
-    QiEngineConfig config;
+    Qi::EngineConfig config;
     m_app->configure(config);
     
     m_engine = new Qi::Engine;
-    return m_engine->init();
+    return m_engine->init(config);
 }
 
 void QiApp::deinit()

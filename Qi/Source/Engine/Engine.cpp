@@ -23,7 +23,7 @@ Engine::~Engine()
 {
 }
 
-bool Engine::init()
+bool Engine::init(const EngineConfig &config)
 {
     // Initialize the logging system first as all systems will use it.
     if (!Logger::getInstance().initialize())
@@ -40,8 +40,11 @@ bool Engine::init()
         Logger::getInstance().registerForMessages(handler, Logger::kError);
     #endif
     
-    Qi_LogInfo("Logger successfully initialized");
+    Qi_LogInfo("-Initializing engine-");
     
+    Qi_LogInfo("EngingConfig -- screen (%u x %u)", config.screen_width, config.screen_height);
+    
+    Qi_LogInfo("-Engine successfully initialized-");
     m_initiailzed = true;
     return m_initiailzed;
 }
@@ -55,6 +58,8 @@ void Engine::shutdown()
 {
     assert(m_initiailzed);
     m_initiailzed = false;
+    
+    Qi_LogInfo("-Shutting down the engine-");
 }
 
 void Engine::handleLogMessages(const char *message, Logger::Channel channel)

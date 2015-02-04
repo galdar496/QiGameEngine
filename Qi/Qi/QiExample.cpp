@@ -12,7 +12,7 @@ class QiExample : public QiAppImpl
 {
     public:
     
-        virtual void configure(QiEngineConfig &config) {}
+        virtual void configure(Qi::EngineConfig &config) {}
         
         virtual bool init() { return true; }
         

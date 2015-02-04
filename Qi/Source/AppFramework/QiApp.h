@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
+#pragma once
+
 ///
 /// Application driver for all Qi apps. Invoke the macro QI_IMPLEMENT_APP
 /// to define a main function which will properly initialize

@@ -15,6 +15,7 @@
 ///
 
 #include "../Core/Utility/Logger.h"
+#include "EngineConfig.h"
 
 namespace Qi
 {
@@ -29,9 +30,10 @@ class Engine
         ///
         /// Initialize the engine for use. All subsystems will be initialized
         /// during this call. After returning, the engine is ready for use.
+        /// @param config Configuration object which is used to setup the engine.
         /// @return Initialization success.
         ///
-        bool init();
+        bool init(const EngineConfig &config);
     
         ///
         /// Step the game scene forward one frame. This updates all systems/game objects

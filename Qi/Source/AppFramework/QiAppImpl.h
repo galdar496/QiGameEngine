@@ -6,13 +6,15 @@
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
+#pragma once
+
 ///
 /// Base class to provide an application framework for creating
 /// games with the Qi Game Engine. Inherit from this class
 /// and override its members to easily drive the engine.
 ///
 
-#include "QiEngineConfig.h"
+#include "../Engine/EngineConfig.h"
 
 class QiAppImpl
 {
@@ -22,7 +24,7 @@ class QiAppImpl
         /// Setup a configuration object for engine config.
         /// This function is called before the engine is initialized.
         ///
-        virtual void configure(QiEngineConfig &config) {}
+        virtual void configure(Qi::EngineConfig &config) {}
     
         ///
         /// Initialize the application. This function is called

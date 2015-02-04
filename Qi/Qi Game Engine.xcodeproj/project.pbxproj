@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */; };
 		C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC661A61DC8700FC46B6 /* Vec4.h */; };
 		C3D7EC6E1A61F8A000FC46B6 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC6D1A61F8A000FC46B6 /* Matrix.h */; };
 		C3D7EC701A61FA9600FC46B6 /* Matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC6F1A61FA9600FC46B6 /* Matrix.cpp */; };
@@ -25,11 +26,11 @@
 		C3D7EC991A7CC98B00FC46B6 /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC981A7CC98B00FC46B6 /* Defines.h */; };
 		C3D7ECA21A7CD18600FC46B6 /* QiApp.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA01A7CD18600FC46B6 /* QiApp.h */; };
 		C3D7ECA51A7CD1E100FC46B6 /* QiAppImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA31A7CD1E100FC46B6 /* QiAppImpl.h */; };
-		C3D7ECA61A7CD1E100FC46B6 /* QiEngineConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA41A7CD1E100FC46B6 /* QiEngineConfig.h */; };
 		C3D7ECAA1A7CD89000FC46B6 /* QiApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA91A7CD89000FC46B6 /* QiApp.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EngineConfig.h; path = Source/Engine/EngineConfig.h; sourceTree = "<group>"; };
 		C3D7EC4A1A61DC2E00FC46B6 /* libQi Game Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libQi Game Engine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3D7EC661A61DC8700FC46B6 /* Vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vec4.h; path = Source/Core/Math/Vec4.h; sourceTree = "<group>"; };
 		C3D7EC6D1A61F8A000FC46B6 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix.h; path = Source/Core/Math/Matrix.h; sourceTree = "<group>"; };
@@ -49,7 +50,6 @@
 		C3D7EC981A7CC98B00FC46B6 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Source/Defines.h; sourceTree = "<group>"; };
 		C3D7ECA01A7CD18600FC46B6 /* QiApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QiApp.h; path = Source/AppFramework/QiApp.h; sourceTree = "<group>"; };
 		C3D7ECA31A7CD1E100FC46B6 /* QiAppImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QiAppImpl.h; path = Source/AppFramework/QiAppImpl.h; sourceTree = "<group>"; };
-		C3D7ECA41A7CD1E100FC46B6 /* QiEngineConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QiEngineConfig.h; path = Source/AppFramework/QiEngineConfig.h; sourceTree = "<group>"; };
 		C3D7ECA91A7CD89000FC46B6 /* QiApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QiApp.cpp; path = Source/AppFramework/QiApp.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,6 +129,7 @@
 		C3D7EC901A7CC8EA00FC46B6 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */,
 				C3D7EC921A7CC90700FC46B6 /* Engine.cpp */,
 				C3D7EC931A7CC90700FC46B6 /* Engine.h */,
 				C3D7EC911A7CC8F000FC46B6 /* Systems */,
@@ -148,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				C3D7ECA31A7CD1E100FC46B6 /* QiAppImpl.h */,
-				C3D7ECA41A7CD1E100FC46B6 /* QiEngineConfig.h */,
 				C3D7ECA01A7CD18600FC46B6 /* QiApp.h */,
 				C3D7ECA91A7CD89000FC46B6 /* QiApp.cpp */,
 			);
@@ -173,8 +173,8 @@
 				C3D7EC721A61FDCD00FC46B6 /* Constants.h in Headers */,
 				C3D7EC821A62649100FC46B6 /* Timer.h in Headers */,
 				C3D7ECA51A7CD1E100FC46B6 /* QiAppImpl.h in Headers */,
-				C3D7ECA61A7CD1E100FC46B6 /* QiEngineConfig.h in Headers */,
 				C3D7EC861A62D3C000FC46B6 /* Logger.h in Headers */,
+				C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */,
 				C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
