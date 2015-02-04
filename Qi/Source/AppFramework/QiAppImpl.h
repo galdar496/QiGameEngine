@@ -15,6 +15,13 @@
 ///
 
 #include "../Engine/EngineConfig.h"
+#include <vector>
+
+// Forward declarations.
+namespace Qi
+{
+    class SystemBase;
+} // namespace Qi
 
 class QiAppImpl
 {
@@ -32,6 +39,15 @@ class QiAppImpl
         /// @return Initialization success.
         ///
         virtual bool init() { return true; }
+    
+        ///
+        /// Add any custom systems to the engine. The system must conform
+        /// to the contract specified in SystemBase.h and should be already
+        /// initialized. The engine will manage the system from this point,
+        /// including its memory.
+        /// @param systems A list of systems to populate. Default is empty.
+        ///
+        virtual void addCustomSystems(std::vector<Qi::SystemBase *> systems) {}
     
         ///
         /// Deinitialize the application. This function is called

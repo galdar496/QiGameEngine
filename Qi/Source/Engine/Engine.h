@@ -17,8 +17,13 @@
 #include "../Core/Utility/Logger.h"
 #include "EngineConfig.h"
 
+#include <vector>
+
 namespace Qi
 {
+
+// Forward declarations.
+class SystemBase;
 
 class Engine
 {
@@ -49,6 +54,13 @@ class Engine
         ///
         void shutdown();
     
+        ///
+        /// Add a system to the manager. Any system added this way will be managed by the
+        /// Engine, including the System's memory.
+        /// @param system Already initialized system to add to the engine.
+        ///
+        void addSystem(SystemBase *system);
+    
     private:
     
         // Purposely not implemented.
@@ -64,6 +76,9 @@ class Engine
         void handleLogMessages(const char *message, Logger::Channel channel);
     
         bool m_initiailzed; ///< If true, the engine has been properly initialized.
+    
+        // TODO: change this from a vector to a custom container once it's ready.
+        std::vector<SystemBase *> m_systems; ///< All systems managed by the engine.
 };
 
 } // namespace Qi

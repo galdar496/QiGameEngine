@@ -46,6 +46,14 @@ void QiApp::execute()
     bool ok = m_app->init();
     if (ok)
     {
+        // Add any custom systems to the engine.
+        std::vector<Qi::SystemBase *> custom_systems;
+        m_app->addCustomSystems(custom_systems);
+        for (size_t ii = 0; ii < custom_systems.size(); ++ii)
+        {
+            m_engine->addSystem(custom_systems[ii]);
+        }
+        
         bool run = true;
         while (run)
         {

@@ -13,12 +13,16 @@
 /// for all systems that must be obeyed.
 ///
 
+#include <string>
+
 namespace Qi
 {
 
 class SystemBase
 {
     public:
+    
+        virtual ~SystemBase() {}
     
         ///
         /// Initialize the system for use.
@@ -38,6 +42,12 @@ class SystemBase
         /// @param dt Time in seconds since the last call to update() was made.
         ///
         virtual void update(const float dt) = 0;
+    
+        ///
+        /// Get the name of the system. This is mostly used for logging purposes.
+        /// @return Name given to this system.
+        ///
+        virtual std::string getName() const = 0;
 };
 
 } // namespace Qi

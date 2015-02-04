@@ -20,7 +20,7 @@
 namespace Qi
 {
     class Engine;
-}
+} // namespace Qi
 
 class QiApp
 {

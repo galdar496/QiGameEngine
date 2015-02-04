@@ -15,6 +15,8 @@ class QiExample : public QiAppImpl
         virtual void configure(Qi::EngineConfig &config) {}
         
         virtual bool init() { return true; }
+    
+        virtual void addCustomSystems(std::vector<Qi::SystemBase *> systems) {}
         
         virtual void deinit() {}
     

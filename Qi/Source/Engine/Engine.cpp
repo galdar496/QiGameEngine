@@ -7,6 +7,7 @@
 //
 
 #include "Engine.h"
+#include "Systems/SystemBase.h"
 #include "../Defines.h"
 #include <iostream>
 #include <assert.h>
@@ -21,6 +22,7 @@ Engine::Engine() :
 
 Engine::~Engine()
 {
+
 }
 
 bool Engine::init(const EngineConfig &config)
@@ -60,6 +62,24 @@ void Engine::shutdown()
     m_initiailzed = false;
     
     Qi_LogInfo("-Shutting down the engine-");
+    
+    // De-initialize all systems and delete the memory for them.
+    for (size_t ii = 0; ii < m_systems.size(); ++ii)
+    {
+        Qi_LogInfo("Shutting down system %s", m_systems[ii]->getName().c_str());
+        m_systems[ii]->deinit();
+        delete m_systems[ii];
+        m_systems[ii] = NULL;
+    }
+}
+
+void Engine::addSystem(SystemBase *system)
+{
+    assert(m_initiailzed);
+    
+    Qi_LogInfo("Adding system %s to the engine", system->getName().c_str());
+    
+    m_systems.push_back(system);
 }
 
 void Engine::handleLogMessages(const char *message, Logger::Channel channel)
