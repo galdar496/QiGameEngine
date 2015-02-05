@@ -25,14 +25,14 @@ namespace Qi
 
 // Convenience defines for logging.
 #if DEBUG
-    #define Qi_LogInfo(message, args...) Qi::Logger::getInstance().log(Qi::Logger::kInfo, __LINE__, __FILE__, message, ##args);
-    #define Qi_LogDebug(message, args...) Qi::Logger::getInstance().log(Qi::Logger::kDebug, __LINE__, __FILE__, message, ##args);
+    #define Qi_LogInfo(message, args...) Qi::Logger::getInstance().logMessage(Qi::Logger::kInfo, __LINE__, __FILE__, message, ##args);
+    #define Qi_LogDebug(message, args...) Qi::Logger::getInstance().logMessage(Qi::Logger::kDebug, __LINE__, __FILE__, message, ##args);
 #else
     #define Qi_LogInfo(message, args...)
     #define Qi_LogDebug(message, args...)
 #endif
-#define Qi_LogWarning(message, args...) Qi::Logger::getInstance().log(Qi::Logger::kWarning, __LINE__, __FILE__, message, ##args);
-#define Qi_LogError(message, args...) Qi::Logger::getInstance().log(Qi::Logger::kError, __LINE__, __FILE__, message, ##args);
+#define Qi_LogWarning(message, args...) Qi::Logger::getInstance().logMessage(Qi::Logger::kWarning, __LINE__, __FILE__, message, ##args);
+#define Qi_LogError(message, args...) Qi::Logger::getInstance().logMessage(Qi::Logger::kError, __LINE__, __FILE__, message, ##args);
 
 class Logger
 {
@@ -86,7 +86,7 @@ class Logger
         /// @param filename Filename which generated the message (for debugging).
         /// @param message Message text to log.
         ///
-        void log(Channel channel, int line, const char *filename, const char *message, ...);
+        void logMessage(Channel channel, int line, const char *filename, const char *message, ...);
     
     
         /// Event handler to register for when you want to receive message events.
