@@ -12,7 +12,10 @@ class QiExample : public QiAppImpl
 {
     public:
     
-        virtual void configure(Qi::EngineConfig &config) {}
+        virtual void configure(Qi::EngineConfig &config)
+        {
+            config.flushLogFile = true;
+        }
         
         virtual bool init() { return true; }
     

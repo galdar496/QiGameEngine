@@ -29,7 +29,14 @@ namespace Qi
 {
 
 Logger::Logger() :
-    m_initialized(false)
+    m_initialized(false),
+    m_forceFlush(false),
+    m_color_table {std::string(COLOR_HEADER) + std::string(DIM) + std::string(WHITE), // kInfo
+                   std::string(COLOR_HEADER) + std::string(WHITE),                    // kDebug
+                   std::string(COLOR_HEADER) + std::string(YELLOW),                   // kWarning
+                   std::string(COLOR_HEADER) + std::string(RED),                      // kError
+                   std::string(COLOR_HEADER) + std::string(WHITE)                     // kCustom
+                  }
 {
 }
 
@@ -44,7 +51,7 @@ Logger &Logger::getInstance()
     return instance;
 }
 
-bool Logger::initialize()
+bool Logger::initialize(bool flushLogFile)
 {
     // Default to all channels on.
     m_channel_filter = ~0;
@@ -59,6 +66,8 @@ bool Logger::initialize()
         m_output << std::setfill(' ');
         m_initialized = true;
     }
+    
+    m_forceFlush = flushLogFile;
     
     return m_initialized;
 }
@@ -75,7 +84,7 @@ void Logger::enableChannel(Channel channel, bool enable)
     m_channel_filter &= enable ? filter : ~filter;
 }
 
-void Logger::log(Channel channel, int line, const char *filename, const char *message, ...)
+void Logger::logMessage(Channel channel, int line, const char *filename, const char *message, ...)
 {
     assert(m_initialized && "Logger attempted to be used without being initialized");
     
@@ -87,33 +96,12 @@ void Logger::log(Channel channel, int line, const char *filename, const char *me
     
     // Write the message to the file before invoking any message handlers. First color the
     // output for the file.
-    std::string color = COLOR_HEADER;
-    switch (channel)
-    {
-        case kInfo:
-            color += DIM;
-            color += WHITE;
-            break;
-            
-        case kDebug:
-            color += WHITE;
-            break;
-        
-        case kWarning:
-            color += YELLOW;
-            break;
-        
-        case kError:
-            color += RED;
-            break;
-            
-        default:
-            assert(0 && "Invalid channel specified");
-            break;
-    }
-    
     m_mutex.lock();
-    m_output << color << filename << "(" << line << "): " << final_message << RESET << std::endl;
+    m_output << m_color_table[channel] << filename << "(" << line << "): " << final_message << RESET << "\n";
+    if (m_forceFlush)
+    {
+        m_output.flush();
+    }
     m_mutex.unlock();
     
     // Notify the handlers if we pass the channel filter test. Otherwise this message

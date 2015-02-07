@@ -28,7 +28,7 @@ Engine::~Engine()
 bool Engine::init(const EngineConfig &config)
 {
     // Initialize the logging system first as all systems will use it.
-    if (!Logger::getInstance().initialize())
+    if (!Logger::getInstance().initialize(config.flushLogFile))
     {
         throw std::runtime_error("FATAL: Cannot initialize logging system");
     }

@@ -9,6 +9,7 @@
 #pragma once
 
 #include <fstream>
+#include <string>
 #include <vector>
 #include <mutex>
 #include "../../ThirdParty/FastDelegate.h"
@@ -60,9 +61,10 @@ class Logger
     
         ///
         /// Initialize the logging system for use.
+        /// @param flushLogFile If true, flush the log file after each write.
         /// @return Success of initialization.
         ///
-        bool initialize();
+        bool initialize(bool flushLogFile);
     
         ///
         /// Deinitialize the logging system. The logger cannot be used after
@@ -116,10 +118,13 @@ class Logger
         MessageHandlers m_message_handlers; ///< All registered message handlers ordered by channel.
     
         bool m_initialized;            ///< If true, the logger has been initialized.
+        bool m_forceFlush;             ///< If true, flush the log file after each write.
         std::ofstream m_output;        ///< Log file all messages are written to.
         unsigned int m_channel_filter; ///< Filter for each channel. Every bit corresponds to a different channel. 1 is on, 0 is off.
     
         std::mutex m_mutex; ///< Mutex used for locking while writing to the output file.
+    
+        std::string m_color_table[kNumChannels]; ///< Color table to use for color coding per-channel output to the log file.
 };
 
 } // namespace Qi
