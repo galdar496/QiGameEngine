@@ -7,6 +7,7 @@
 //
 
 #include "Engine.h"
+#include "../Core/Memory/MemoryAllocator.h"
 #include "Systems/SystemBase.h"
 #include "../Defines.h"
 #include <iostream>
@@ -28,7 +29,7 @@ Engine::~Engine()
 bool Engine::init(const EngineConfig &config)
 {
     // Initialize the logging system first as all systems will use it.
-    if (!Logger::getInstance().initialize(config.flushLogFile))
+    if (!Logger::getInstance().init(config.flushLogFile))
     {
         throw std::runtime_error("FATAL: Cannot initialize logging system");
     }
@@ -41,6 +42,12 @@ bool Engine::init(const EngineConfig &config)
         Logger::getInstance().registerForMessages(handler, Logger::kWarning);
         Logger::getInstance().registerForMessages(handler, Logger::kError);
     #endif
+    
+    // Initialize the memory allocation system after the logger but before everything else.
+    if (!MemoryAllocator::getInstance().init())
+    {
+        return false;
+    }
     
     Qi_LogInfo("-Initializing engine-");
     
@@ -69,8 +76,12 @@ void Engine::shutdown()
         Qi_LogInfo("Shutting down system %s", m_systems[ii]->getName().c_str());
         m_systems[ii]->deinit();
         delete m_systems[ii];
-        m_systems[ii] = NULL;
+        m_systems[ii] = nullptr;
     }
+    
+    // Shutdown singleton objects. Be sure to always shutdown the logger last.
+    MemoryAllocator::getInstance().deinit();
+    Logger::getInstance().deinit();
 }
 
 void Engine::addSystem(SystemBase *system)

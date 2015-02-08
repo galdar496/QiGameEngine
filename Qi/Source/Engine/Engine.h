@@ -64,8 +64,8 @@ class Engine
     private:
     
         // Purposely not implemented.
-        Engine(const Engine &other);
-        Engine &operator=(const Engine &other);
+        Engine(const Engine &other) = delete;
+        Engine &operator=(const Engine &other) = delete;
     
         ///
         /// Default message handler for message logging. This function prints the incoming

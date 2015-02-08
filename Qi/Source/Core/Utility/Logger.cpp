@@ -51,7 +51,7 @@ Logger &Logger::getInstance()
     return instance;
 }
 
-bool Logger::initialize(bool flushLogFile)
+bool Logger::init(bool flushLogFile)
 {
     // Default to all channels on.
     m_channel_filter = ~0;
@@ -72,8 +72,9 @@ bool Logger::initialize(bool flushLogFile)
     return m_initialized;
 }
 
-void Logger::deinitialize()
+void Logger::deinit()
 {
+    m_output.flush();
     m_output.close();
     m_initialized = false;
 }

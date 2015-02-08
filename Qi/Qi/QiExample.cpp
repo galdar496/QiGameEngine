@@ -23,7 +23,7 @@ class QiExample : public QiAppImpl
         
         virtual void deinit() {}
     
-        virtual bool run() { return true; }
+        virtual bool run() { return false; }
 };
 
 QI_IMPLEMENT_APP(QiExample);

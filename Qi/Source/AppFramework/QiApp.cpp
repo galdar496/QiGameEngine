@@ -11,7 +11,7 @@
 #include <assert.h>
 
 QiApp::QiApp(QiAppImpl *app) :
-    m_engine(NULL),
+    m_engine(nullptr),
     m_app(app)
 {
 }
@@ -19,10 +19,10 @@ QiApp::QiApp(QiAppImpl *app) :
 QiApp::~QiApp()
 {
     delete m_app;
-    m_app = NULL;
+    m_app = nullptr;
     
     delete m_engine;
-    m_engine = NULL;
+    m_engine = nullptr;
 }
 
 bool QiApp::init()
@@ -41,7 +41,7 @@ void QiApp::deinit()
 
 void QiApp::execute()
 {
-    assert(m_app != NULL);
+    assert(m_app != nullptr);
     
     bool ok = m_app->init();
     if (ok)

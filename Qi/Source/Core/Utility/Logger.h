@@ -64,13 +64,13 @@ class Logger
         /// @param flushLogFile If true, flush the log file after each write.
         /// @return Success of initialization.
         ///
-        bool initialize(bool flushLogFile);
+        bool init(bool flushLogFile);
     
         ///
         /// Deinitialize the logging system. The logger cannot be used after
         /// a call to this function without first calling 'initialize()'.
         ///
-        void deinitialize();
+        void deinit();
     
         ///
         /// Enable/disable a logging channel.
@@ -109,8 +109,8 @@ class Logger
         ~Logger();
     
         // Purposely unimplemented.
-        Logger(const Logger &other);
-        Logger &operator=(const Logger &other);
+        Logger(const Logger &other) = delete;
+        Logger &operator=(const Logger &other) = delete;
     
         // One vector per channel.
         typedef std::vector<const MessageEvent> PerChannelHandlers;
