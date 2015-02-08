@@ -12,6 +12,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C393DCB41A8721BF00DAC0A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C393DCB01A8721BE00DAC0A2 /* QiTest.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C393DCA61A8721BE00DAC0A2;
+			remoteInfo = QiTest;
+		};
 		C3D7EC621A61DC5700FC46B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */;
@@ -41,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C393DCB01A8721BE00DAC0A2 /* QiTest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QiTest.xcodeproj; path = QiTest/QiTest.xcodeproj; sourceTree = "<group>"; };
 		C3D7EBBA1A61D39800FC46B6 /* Qi */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Qi; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Qi Game Engine.xcodeproj"; sourceTree = "<group>"; };
 		C3D7ECA71A7CD57A00FC46B6 /* QiExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QiExample.cpp; sourceTree = "<group>"; };
@@ -58,9 +66,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C393DCB11A8721BE00DAC0A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C393DCB51A8721BF00DAC0A2 /* QiTest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C3D7EBB11A61D39800FC46B6 = {
 			isa = PBXGroup;
 			children = (
+				C393DCB01A8721BE00DAC0A2 /* QiTest.xcodeproj */,
 				C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */,
 				C3D7EBBC1A61D39800FC46B6 /* QiExample */,
 				C3D7EBBB1A61D39800FC46B6 /* Products */,
@@ -142,6 +159,10 @@
 					ProductGroup = C3D7EC5F1A61DC5700FC46B6 /* Products */;
 					ProjectRef = C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */;
 				},
+				{
+					ProductGroup = C393DCB11A8721BE00DAC0A2 /* Products */;
+					ProjectRef = C393DCB01A8721BE00DAC0A2 /* QiTest.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -151,6 +172,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C393DCB51A8721BF00DAC0A2 /* QiTest */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = QiTest;
+			remoteRef = C393DCB41A8721BF00DAC0A2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C3D7EC631A61DC5700FC46B6 /* libQi Game Engine.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;

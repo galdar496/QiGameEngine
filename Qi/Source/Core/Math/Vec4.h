@@ -45,6 +45,18 @@ class __attribute__ ((aligned(16))) Vec4
         }
     
         ///
+        /// 3-component initialization. The final component
+        /// is initialized to 1.
+        ///
+        Vec4(float _x, float _y, float _z)
+        {
+            x = _x;
+            y = _y;
+            z = _z;
+            w = 1.0f;
+        }
+    
+        ///
         /// Zero the vector.
         ///
         inline void zero()
