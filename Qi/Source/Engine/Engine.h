@@ -14,8 +14,12 @@
 /// and entry-point for scene updating and rendering.
 ///
 
-#include "../Core/Utility/Logger.h"
 #include "EngineConfig.h"
+#include "../Defines.h"
+
+#ifdef QI_DEBUG
+    #include "../Core/Utility/Logger.h"
+#endif
 
 #include <vector>
 
@@ -43,8 +47,9 @@ class Engine
         ///
         /// Step the game scene forward one frame. This updates all systems/game objects
         /// as well as starts rendering.
+        /// @param dt Delta time. Elapsed time from the previous call to "step()".
         ///
-        void step();
+        void step(const float dt);
     
         ///
         /// Shutdown the engine. All systems will be shutdown
@@ -67,6 +72,7 @@ class Engine
         Engine(const Engine &other) = delete;
         Engine &operator=(const Engine &other) = delete;
     
+    #ifdef QI_DEBUG
         ///
         /// Default message handler for message logging. This function prints the incoming
         /// message to the console and is only used in debug.
@@ -74,6 +80,7 @@ class Engine
         /// @param channel The channel that generated this message.
         ///
         void handleLogMessages(const char *message, Logger::Channel channel);
+    #endif
     
         bool m_initiailzed; ///< If true, the engine has been properly initialized.
     

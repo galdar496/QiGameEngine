@@ -10,6 +10,7 @@
 
 #include <cstdlib>
 #include <assert.h>
+#include "../../Defines.h"
 
 namespace Qi
 {
@@ -43,7 +44,7 @@ void MemoryAllocator::free(T *address)
         std::free(address);
         
 #ifdef QI_DEBUG
-        Record::iterator iter = m_records.find((void *)address);
+        auto iter = m_records.find((void *)address);
         assert(iter != m_records.end());
         m_records.erase(iter);
 #endif

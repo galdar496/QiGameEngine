@@ -33,6 +33,7 @@ MemoryAllocator &MemoryAllocator::getInstance()
     
 bool MemoryAllocator::init()
 {
+    assert(!m_initialized);
     m_initialized = true;
     return m_initialized;
 }
@@ -45,12 +46,11 @@ void MemoryAllocator::deinit()
     if (!m_records.empty())
     {
         Qi_LogWarning("Memory leaks detected:");
-        Record::const_iterator iter = m_records.begin();
-        for (; iter != m_records.end(); ++iter)
+        for (auto iter = m_records.begin(); iter != m_records.end(); ++iter)
         {
             Qi_LogWarning("\tLeak: %s(%d) - %u bytes", iter->second.filename.c_str(),
-                                                   iter->second.line_number,
-                                                   iter->second.num_bytes);
+                                                       iter->second.line_number,
+                                                       iter->second.num_bytes);
         }
     }
 

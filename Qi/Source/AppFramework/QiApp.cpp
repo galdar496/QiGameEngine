@@ -8,6 +8,7 @@
 
 #include "QiApp.h"
 #include "../Engine/Engine.h"
+#include "../Core/Utility/Timer.h"
 #include <assert.h>
 
 QiApp::QiApp(QiAppImpl *app) :
@@ -43,6 +44,9 @@ void QiApp::execute()
 {
     assert(m_app != nullptr);
     
+    // Create the timer to use for between-frame dt.
+    Qi::Timer timer;
+    
     bool ok = m_app->init();
     if (ok)
     {
@@ -55,13 +59,16 @@ void QiApp::execute()
         }
         
         bool run = true;
+        timer.start();
         while (run)
         {
+            float dt = timer.dt();
+            
             // Step the engine forward first.
-            m_engine->step();
+            m_engine->step(dt);
             
             // Now step the app forward.
-            run = m_app->run();
+            run = m_app->run(dt);
         }
         
         m_app->deinit();

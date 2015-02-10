@@ -53,6 +53,8 @@ Logger &Logger::getInstance()
 
 bool Logger::init(bool flushLogFile)
 {
+    assert(!m_initialized);
+    
     // Default to all channels on.
     m_channel_filter = ~0;
     

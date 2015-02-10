@@ -9,7 +9,6 @@
 #include "Engine.h"
 #include "../Core/Memory/MemoryAllocator.h"
 #include "Systems/SystemBase.h"
-#include "../Defines.h"
 #include <iostream>
 #include <assert.h>
 
@@ -28,13 +27,15 @@ Engine::~Engine()
 
 bool Engine::init(const EngineConfig &config)
 {
+    assert(!m_initiailzed);
+    
     // Initialize the logging system first as all systems will use it.
     if (!Logger::getInstance().init(config.flushLogFile))
     {
         throw std::runtime_error("FATAL: Cannot initialize logging system");
     }
     
-    #if DEBUG
+    #ifdef QI_DEBUG
         // Register this class as the default message handler.
         Logger::MessageEvent handler(this, &Engine::handleLogMessages);
         Logger::getInstance().registerForMessages(handler, Logger::kInfo);
@@ -58,9 +59,11 @@ bool Engine::init(const EngineConfig &config)
     return m_initiailzed;
 }
 
-void Engine::step()
+void Engine::step(const float dt)
 {
     assert(m_initiailzed);
+    
+    Qi_LogInfo("Engine stepping frame forward %f seconds", dt);
 }
 
 void Engine::shutdown()
@@ -93,10 +96,12 @@ void Engine::addSystem(SystemBase *system)
     m_systems.push_back(system);
 }
 
+#ifdef QI_DEBUG
 void Engine::handleLogMessages(const char *message, Logger::Channel channel)
 {
     std::cout << message << std::endl;
 }
+#endif
 
 } // namespace Qi
 

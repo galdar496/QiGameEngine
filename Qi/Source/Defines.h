@@ -6,9 +6,13 @@
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
+#pragma once
+
 ///
 /// Defines to use for the project. All defition are platform independent.
 ///
+
+#include <stdint.h>
 
 #ifdef DEBUG
     #define QI_DEBUG
@@ -16,5 +20,4 @@
     #define QI_RELEASE
 #endif
 
-typedef unsigned int  uint32;
-typedef unsigned char byte;
+typedef uint32_t uint32;

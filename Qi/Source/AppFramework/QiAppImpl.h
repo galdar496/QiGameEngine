@@ -27,6 +27,9 @@ class QiAppImpl
 {
     public:
     
+        QiAppImpl() {}
+        virtual ~QiAppImpl() {}
+    
         ///
         /// Setup a configuration object for engine config.
         /// This function is called before the engine is initialized.
@@ -58,8 +61,9 @@ class QiAppImpl
         ///
         /// Run the application. This function is called after the engine
         /// has updated all systems and started rendering.
+        /// @param dt Delta time since the last call to "run()".
         /// @return If false, the engine will be shutdown and the application
         /// terminated.
         ///
-        virtual bool run() { return true; }
+        virtual bool run(const float dt) { return true; }
 };
