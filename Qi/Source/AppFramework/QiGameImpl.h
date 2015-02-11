@@ -1,5 +1,5 @@
 //
-//  QiAppImpl.h
+//  QiGameImpl.h
 //  Qi Game Engine
 //
 //  Created by Cody White on 1/31/15.
@@ -11,7 +11,7 @@
 ///
 /// Base class to provide an application framework for creating
 /// games with the Qi Game Engine. Inherit from this class
-/// and override its members to easily drive the engine.
+/// and override its members to easily drive a engine.
 ///
 
 #include "../Engine/EngineConfig.h"
@@ -23,12 +23,12 @@ namespace Qi
     class SystemBase;
 } // namespace Qi
 
-class QiAppImpl
+class QiGameImpl
 {
     public:
     
-        QiAppImpl() {}
-        virtual ~QiAppImpl() {}
+        QiGameImpl() {}
+        virtual ~QiGameImpl() {}
     
         ///
         /// Setup a configuration object for engine config.
@@ -37,7 +37,7 @@ class QiAppImpl
         virtual void configure(Qi::EngineConfig &config) {}
     
         ///
-        /// Initialize the application. This function is called
+        /// Initialize the game. This function is called
         /// after the engine is initialized.
         /// @return Initialization success.
         ///
@@ -53,17 +53,17 @@ class QiAppImpl
         virtual void addCustomSystems(std::vector<Qi::SystemBase *> systems) {}
     
         ///
-        /// Deinitialize the application. This function is called
+        /// Deinitialize the game. This function is called
         /// before the engine is deinitialized.
         ///
         virtual void deinit() {}
     
         ///
-        /// Run the application. This function is called after the engine
+        /// Step the game. This function is called after the engine
         /// has updated all systems and started rendering.
-        /// @param dt Delta time since the last call to "run()".
-        /// @return If false, the engine will be shutdown and the application
+        /// @param dt Delta time since the last call to "step()".
+        /// @return If false, the engine will be shutdown and the game
         /// terminated.
         ///
-        virtual bool run(const float dt) { return true; }
+        virtual bool step(const float dt) { return true; }
 };

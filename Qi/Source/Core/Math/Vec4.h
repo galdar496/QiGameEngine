@@ -17,6 +17,7 @@ namespace Qi
 /// Stores the information for a 4 component vector. When possible,
 /// the vector will use SSE instructions. Requires SSE 4.1.
 ///
+
 class __attribute__ ((aligned(16))) Vec4
 {
     public:
@@ -31,6 +32,16 @@ class __attribute__ ((aligned(16))) Vec4
         Vec4(const Vec4 &other)
         {
             mm_value = other.mm_value;
+        }
+    
+        Vec4 &operator=(const Vec4 &other)
+        {
+            if (this != &other)
+            {
+                mm_value = other.mm_value;
+            }
+            
+            return *this;
         }
     
         ///

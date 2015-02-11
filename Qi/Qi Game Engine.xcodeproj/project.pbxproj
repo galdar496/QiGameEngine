@@ -26,9 +26,9 @@
 		C3D7EC951A7CC90700FC46B6 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC931A7CC90700FC46B6 /* Engine.h */; };
 		C3D7EC971A7CC93000FC46B6 /* SystemBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC961A7CC93000FC46B6 /* SystemBase.h */; };
 		C3D7EC991A7CC98B00FC46B6 /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC981A7CC98B00FC46B6 /* Defines.h */; };
-		C3D7ECA21A7CD18600FC46B6 /* QiApp.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA01A7CD18600FC46B6 /* QiApp.h */; };
-		C3D7ECA51A7CD1E100FC46B6 /* QiAppImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA31A7CD1E100FC46B6 /* QiAppImpl.h */; };
-		C3D7ECAA1A7CD89000FC46B6 /* QiApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA91A7CD89000FC46B6 /* QiApp.cpp */; };
+		C3D7ECA21A7CD18600FC46B6 /* QiGame.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA01A7CD18600FC46B6 /* QiGame.h */; };
+		C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA31A7CD1E100FC46B6 /* QiGameImpl.h */; };
+		C3D7ECAA1A7CD89000FC46B6 /* QiGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,9 +53,9 @@
 		C3D7EC931A7CC90700FC46B6 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Engine.h; path = Source/Engine/Engine.h; sourceTree = "<group>"; };
 		C3D7EC961A7CC93000FC46B6 /* SystemBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemBase.h; path = Source/Engine/Systems/SystemBase.h; sourceTree = "<group>"; };
 		C3D7EC981A7CC98B00FC46B6 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Source/Defines.h; sourceTree = "<group>"; };
-		C3D7ECA01A7CD18600FC46B6 /* QiApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QiApp.h; path = Source/AppFramework/QiApp.h; sourceTree = "<group>"; };
-		C3D7ECA31A7CD1E100FC46B6 /* QiAppImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QiAppImpl.h; path = Source/AppFramework/QiAppImpl.h; sourceTree = "<group>"; };
-		C3D7ECA91A7CD89000FC46B6 /* QiApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QiApp.cpp; path = Source/AppFramework/QiApp.cpp; sourceTree = "<group>"; };
+		C3D7ECA01A7CD18600FC46B6 /* QiGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QiGame.h; path = Source/AppFramework/QiGame.h; sourceTree = "<group>"; };
+		C3D7ECA31A7CD1E100FC46B6 /* QiGameImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QiGameImpl.h; path = Source/AppFramework/QiGameImpl.h; sourceTree = "<group>"; };
+		C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QiGame.cpp; path = Source/AppFramework/QiGame.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,9 +155,9 @@
 		C3D7EC9A1A7CCE6100FC46B6 /* AppFramework */ = {
 			isa = PBXGroup;
 			children = (
-				C3D7ECA31A7CD1E100FC46B6 /* QiAppImpl.h */,
-				C3D7ECA01A7CD18600FC46B6 /* QiApp.h */,
-				C3D7ECA91A7CD89000FC46B6 /* QiApp.cpp */,
+				C3D7ECA31A7CD1E100FC46B6 /* QiGameImpl.h */,
+				C3D7ECA01A7CD18600FC46B6 /* QiGame.h */,
+				C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */,
 			);
 			name = AppFramework;
 			sourceTree = "<group>";
@@ -175,11 +175,11 @@
 				C3D7EC971A7CC93000FC46B6 /* SystemBase.h in Headers */,
 				C3D7EC8F1A74C46D00FC46B6 /* FastDelegate.h in Headers */,
 				C3D7EC8B1A6657B000FC46B6 /* tinyxml2.h in Headers */,
-				C3D7ECA21A7CD18600FC46B6 /* QiApp.h in Headers */,
+				C3D7ECA21A7CD18600FC46B6 /* QiGame.h in Headers */,
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix.h in Headers */,
 				C3D7EC721A61FDCD00FC46B6 /* Constants.h in Headers */,
 				C3D7EC821A62649100FC46B6 /* Timer.h in Headers */,
-				C3D7ECA51A7CD1E100FC46B6 /* QiAppImpl.h in Headers */,
+				C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */,
 				C3D7EC861A62D3C000FC46B6 /* Logger.h in Headers */,
 				C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */,
 				C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */,
@@ -245,7 +245,7 @@
 			files = (
 				C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */,
 				C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */,
-				C3D7ECAA1A7CD89000FC46B6 /* QiApp.cpp in Sources */,
+				C3D7ECAA1A7CD89000FC46B6 /* QiGame.cpp in Sources */,
 				C3D7EC941A7CC90700FC46B6 /* Engine.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix.cpp in Sources */,
 				C3D7EC851A62D3C000FC46B6 /* Logger.cpp in Sources */,

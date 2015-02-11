@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
-#include "../Source/AppFramework/QiApp.h"
+#include "../Source/AppFramework/QiGame.h"
 
-class QiExample : public QiAppImpl
+class QiExample : public QiGameImpl
 {
     public:
     
@@ -23,7 +23,7 @@ class QiExample : public QiAppImpl
         
         virtual void deinit() {}
     
-        virtual bool run(const float dt) { return false; }
+        virtual bool step(const float dt) { return false; }
 };
 
-QI_IMPLEMENT_APP(QiExample);
+QI_IMPLEMENT_GAME(QiExample);

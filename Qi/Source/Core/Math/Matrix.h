@@ -16,6 +16,7 @@ namespace Qi
 ///
 /// 4x4 matrix that is stored in row-major order.
 ///
+
 class __attribute__ ((aligned(16))) Matrix
 {
     public:
