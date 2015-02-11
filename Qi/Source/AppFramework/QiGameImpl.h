@@ -34,7 +34,7 @@ class QiGameImpl
         /// Setup a configuration object for engine config.
         /// This function is called before the engine is initialized.
         ///
-        virtual void configure(Qi::EngineConfig &config) {}
+        virtual void configure(Qi::EngineConfig &config) const {}
     
         ///
         /// Initialize the game. This function is called
@@ -50,7 +50,7 @@ class QiGameImpl
         /// including its memory.
         /// @param systems A list of systems to populate. Default is empty.
         ///
-        virtual void addCustomSystems(std::vector<Qi::SystemBase *> systems) {}
+        virtual void addCustomSystems(std::vector<Qi::SystemBase *> systems) const {}
     
         ///
         /// Deinitialize the game. This function is called

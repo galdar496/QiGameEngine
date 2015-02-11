@@ -142,6 +142,16 @@ class __attribute__ ((aligned(16))) Vec4
         }
     
         ///
+        /// 3-component dot product.
+        /// @paramm other Vector to perform dot product with.
+        /// @return Scalar value denoting the dot product.
+        ///
+        inline float dot3(const Vec4 &other) const
+        {
+            return _mm_cvtss_f32(_mm_dp_ps(mm_value, other.mm_value, SIMDMask::ThreeChannels_StoreLow));
+        }
+    
+        ///
         /// Cross product. Note that the cross product is only defined in 3 dimensions, therefore
         /// the fourth component of each vector is ignored.
         /// @param other Vector to cross with.
@@ -186,6 +196,15 @@ class __attribute__ ((aligned(16))) Vec4
         }
     
         ///
+        /// Get the length of the first 3 components of the vector.
+        ///
+        inline float length3() const
+        {
+            __m128 length_squared = _mm_dp_ps(mm_value, mm_value, SIMDMask::ThreeChannels_StoreLow);
+            return _mm_cvtss_f32(_mm_sqrt_ps(length_squared));
+        }
+    
+        ///
         /// Get the inverse length of the vector.
         ///
         inline float lengthInverse() const
@@ -216,8 +235,9 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         enum SIMDMask
         {
-            AllChannels_StoreLow = 0xF1, ///< Use all 4 channels of the simd value during the calculation. Store the result in the lowest register of the result value.
-            AllChannels_StoreAll = 0xFF, ///< Use all 4 channels of the simd value during the calculation. Store the result in all registers for the result value.
+            AllChannels_StoreLow   = 0xF1, ///< Use all 4 channels of the simd value during the calculation. Store the result in the lowest register of the result value.
+            AllChannels_StoreAll   = 0xFF, ///< Use all 4 channels of the simd value during the calculation. Store the result in all registers for the result value.
+            ThreeChannels_StoreLow = 0x71, ///< Use lower 3 channels of the simd values during the calcuation. Store the result in the lowest register of the result value.
         };
 };
 

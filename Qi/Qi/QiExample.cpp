@@ -12,14 +12,14 @@ class QiExample : public QiGameImpl
 {
     public:
     
-        virtual void configure(Qi::EngineConfig &config)
+        virtual void configure(Qi::EngineConfig &config) const
         {
             config.flushLogFile = true;
         }
         
         virtual bool init() { return true; }
     
-        virtual void addCustomSystems(std::vector<Qi::SystemBase *> systems) {}
+        virtual void addCustomSystems(std::vector<Qi::SystemBase *> systems) const {}
         
         virtual void deinit() {}
     

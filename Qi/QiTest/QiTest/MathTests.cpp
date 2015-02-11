@@ -10,6 +10,7 @@
 
 #include "../../Source/Core/Math/Vec4.h"
 #include "../../Source/Core/Math/Matrix.h"
+#include "../../Source/Core/Math/Quaternion.h"
 
 using namespace Qi;
 
