@@ -30,7 +30,7 @@ class Quaternion
             m_quat = axis;
             m_quat.w = angle;
         }
-        ~Quaternion();
+        ~Quaternion() {}
     
         // Copy operations.
         Quaternion(const Quaternion &other)
@@ -73,7 +73,7 @@ class Quaternion
 
         ///
         /// Create a quaternion from 3 Euler angles. Angles are specified
-        /// in radians.
+        /// in radians. Uses ZYX rotation order.
         /// @param x Rotation about the x axis (pitch).
         /// @param y Rotation about the y axis (yaw).
         /// @param z Rotation about the z axis (roll).
@@ -88,10 +88,10 @@ class Quaternion
             float sin_y = sinf(0.5f * y);
             float sin_z = sinf(0.5f * z);
             
-            m_quat.x = (sin_z * cos_y * cos_x) - (cos_z * sin_y * sin_x);
-            m_quat.y = (cos_z * sin_y * cos_x) + (sin_z * cos_y * sin_x);
-            m_quat.z = (cos_z * cos_y * sin_x) - (sin_z * sin_y * cos_x);
-            m_quat.w = (cos_z * cos_y * cos_x) + (sin_z * sin_y * sin_x);
+            m_quat.w = (cos_x * cos_y * cos_z) - (sin_x * sin_y * sin_z);
+            m_quat.x = (sin_x * cos_y * cos_z) + (cos_x * sin_y * sin_z);
+            m_quat.y = (cos_x * sin_y * cos_z) - (sin_x * cos_y * sin_z);
+            m_quat.z = (cos_x * cos_y * sin_z) + (sin_x * sin_y * cos_z);
         }
 
         ///
@@ -192,7 +192,13 @@ class Quaternion
         }
     
     
-        Vec4 m_quat; ///< Internal quaternion object. x,y,z represents and axis and w a rotation.
+    
+        ///< Internal quaternion object. x,y,z represents and axis and w a rotation.
+        union
+        {
+            struct {float x, y, z, w; }; ///< Simple access to simd quaternion.
+            Vec4 m_quat;                 ///< SIMD quaternion.
+        };
 
 };
 

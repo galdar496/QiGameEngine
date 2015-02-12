@@ -236,6 +236,50 @@ TEST(MatrixTests, Transform)
     EXPECT_EQ(150, v.w);
 }
 
+TEST(QuaternionTests, CreateFromAxisAngle)
+{
+    Quaternion q;
+    q.createFromAxisAngle(Vec4(1.0f, 0.0f, 0.0f), 2.15f);
+    
+    EXPECT_NEAR(0.8795901504337889f, q.x, 0.01f);
+    EXPECT_NEAR(0.0f, q.y, 0.01f);
+    EXPECT_NEAR(0.0f, q.z, 0.01f);
+    EXPECT_NEAR(0.4757322432417888f, q.w, 0.01f);
+}
+
+TEST(QuaternionTests, CreateFromEuler)
+{
+    Quaternion q;
+    q.createFromEuler(2.15, 0, 0.0f);
+    
+    EXPECT_NEAR(0.8795901504337889f, q.x, 0.01f);
+    EXPECT_NEAR(0.0f, q.y, 0.01f);
+    EXPECT_NEAR(0.0f, q.z, 0.01f);
+    EXPECT_NEAR(0.4757322432417888f, q.w, 0.01f);
+}
+
+TEST(QuaternionTests, ToMatrix)
+{
+    Quaternion q;
+    q.createFromAxisAngle(Vec4(1.0f, 0.0f, 0.0f), 2.15f);
+    
+    Matrix m;
+    q.toMatrix(m);
+    m.transpose(); // Change to column-major for easier verification.
+    
+    EXPECT_NEAR(1.0f, m(0, 0), 0.01f);
+    EXPECT_NEAR(0.0f, m(1, 0), 0.01f);
+    EXPECT_NEAR(0.0f, m(2, 0), 0.01f);
+    
+    EXPECT_NEAR(0.0f,  m(0, 1), 0.01f);
+    EXPECT_NEAR(-0.547357665480271f, m(1, 1), 0.01f);
+    EXPECT_NEAR(0.8368987907984977, m(2, 1), 0.01f);
+    
+    EXPECT_NEAR(0.0f,  m(0, 2), 0.01f);
+    EXPECT_NEAR(-0.8368987907984977f, m(1, 2), 0.01f);
+    EXPECT_NEAR(-0.547357665480271f, m(2, 2), 0.01f);
+}
+
 
 
 
