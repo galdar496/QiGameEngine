@@ -82,7 +82,7 @@ class __attribute__ ((aligned(16))) Matrix
         union
         {
             float m[16];      ///< Array access to the matrix.
-            Vec4 m_matrix[4]; ///< Internal matrix object.
+            Vec4 m_rows[4];   ///< Rows of the matrix.
         };
 };
 
