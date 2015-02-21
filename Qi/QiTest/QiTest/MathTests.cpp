@@ -265,7 +265,6 @@ TEST(QuaternionTests, ToMatrix)
     
     Matrix m;
     q.toMatrix(m);
-    m.transpose(); // Change to column-major for easier verification.
     
     EXPECT_NEAR(1.0f, m(0, 0), 0.01f);
     EXPECT_NEAR(0.0f, m(1, 0), 0.01f);

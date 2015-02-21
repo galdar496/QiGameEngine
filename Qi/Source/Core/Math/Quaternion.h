@@ -147,29 +147,29 @@ class Quaternion
         }
     
         ///
-        /// Convert this quaternion into a matrix.
+        /// Convert this quaternion into a row-major matrix.
         /// @param m Matrix to populate with the quaternion.
         ///
         inline void toMatrix(Matrix &m) const
         {
             m(0, 0) = 1.0f - 2.0f * (m_quat.y * m_quat.y + m_quat.z * m_quat.z);
-            m(1, 0) = 2.0f * (m_quat.x * m_quat.y - m_quat.z * m_quat.w);
-            m(2, 0) = 2.0f * (m_quat.x * m_quat.z + m_quat.y * m_quat.w);
-            m(3, 0) = 0.0f;
-            
-            m(0, 1) = 2.0f * (m_quat.x * m_quat.y + m_quat.z * m_quat.w);
-            m(1, 1) = 1.0f - 2.0f * (m_quat.x * m_quat.x + m_quat.z * m_quat.z);
-            m(2, 1) = 2.0f * (m_quat.z * m_quat.y - m_quat.x * m_quat.w);
-            m(3, 1) = 0.0f;
-            
-            m(0, 2) = 2.0f * (m_quat.x * m_quat.z - m_quat.y * m_quat.w);
-            m(1, 2) = 2.0f * (m_quat.y * m_quat.z + m_quat.x * m_quat.w);
-            m(2, 2) = 1.0f - 2.0f * (m_quat.x * m_quat.x + m_quat.y * m_quat.y);
-            m(3, 2) = 0.0f;
-            
+            m(0, 1) = 2.0f * (m_quat.x * m_quat.y - m_quat.z * m_quat.w);
+            m(0, 2) = 2.0f * (m_quat.x * m_quat.z + m_quat.y * m_quat.w);
             m(0, 3) = 0.0f;
+            
+            m(1, 0) = 2.0f * (m_quat.x * m_quat.y + m_quat.z * m_quat.w);
+            m(1, 1) = 1.0f - 2.0f * (m_quat.x * m_quat.x + m_quat.z * m_quat.z);
+            m(1, 2) = 2.0f * (m_quat.z * m_quat.y - m_quat.x * m_quat.w);
             m(1, 3) = 0.0f;
+            
+            m(2, 0) = 2.0f * (m_quat.x * m_quat.z - m_quat.y * m_quat.w);
+            m(2, 1) = 2.0f * (m_quat.y * m_quat.z + m_quat.x * m_quat.w);
+            m(2, 2) = 1.0f - 2.0f * (m_quat.x * m_quat.x + m_quat.y * m_quat.y);
             m(2, 3) = 0.0f;
+            
+            m(3, 0) = 0.0f;
+            m(3, 1) = 0.0f;
+            m(3, 2) = 0.0f;
             m(3, 3) = 1.0f;
         }
     
