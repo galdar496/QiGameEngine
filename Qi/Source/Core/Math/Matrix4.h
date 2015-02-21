@@ -77,6 +77,18 @@ class __attribute__ ((aligned(16))) Matrix4
         float &operator()(int row, int col);
     
         ///
+        /// Get a version of the matrix as row major.
+        /// @param row_major Copy of the internal matrix ordered row-major.
+        ///
+        void getRowMajor(Matrix4 &row_major) const;
+    
+        ///
+        /// Get a version of the matrix as colum major.
+        /// @return column_major Copy of the internal matrix ordered column-major.
+        ///
+        void getColumnMajor(Matrix4 &column_major) const;
+    
+        ///
         /// Definition of the matrix.
         ///
         union

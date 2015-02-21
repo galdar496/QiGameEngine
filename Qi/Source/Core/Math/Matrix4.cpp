@@ -114,5 +114,29 @@ float &Matrix4::operator()(int row, int col)
 {
     return m_rows[row].v[col];
 }
+
+void Matrix4::getRowMajor(Matrix4 &row_major) const
+{
+    // Internal matrix is already in row-major, just copy
+    // the rows directly.
+    
+    row_major.m_rows[0] = m_rows[0];
+    row_major.m_rows[1] = m_rows[1];
+    row_major.m_rows[2] = m_rows[2];
+    row_major.m_rows[3] = m_rows[3];
+}
+
+void Matrix4::getColumnMajor(Matrix4 &column_major) const
+{
+    // Internal matrix is in row-major, copy the matrix directly
+    // into 'column_major' and transpose it to get the final result.
+    
+    column_major.m_rows[0] = m_rows[0];
+    column_major.m_rows[1] = m_rows[1];
+    column_major.m_rows[2] = m_rows[2];
+    column_major.m_rows[3] = m_rows[3];
+    
+    column_major.transpose();
+}
     
 } // namespace Qi
