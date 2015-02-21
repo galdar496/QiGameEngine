@@ -9,7 +9,7 @@
 #pragma once
 
 #include "Vec4.h"
-#include "Matrix.h"
+#include "Matrix4.h"
 #include <math.h>
 
 ///
@@ -148,9 +148,9 @@ class Quaternion
     
         ///
         /// Convert this quaternion into a row-major matrix.
-        /// @param m Matrix to populate with the quaternion.
+        /// @param m Matrix4 to populate with the quaternion.
         ///
-        inline void toMatrix(Matrix &m) const
+        inline void toMatrix(Matrix4 &m) const
         {
             m(0, 0) = 1.0f - 2.0f * (m_quat.y * m_quat.y + m_quat.z * m_quat.z);
             m(0, 1) = 2.0f * (m_quat.x * m_quat.y - m_quat.z * m_quat.w);

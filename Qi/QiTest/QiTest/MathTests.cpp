@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 #include "../../Source/Core/Math/Vec4.h"
-#include "../../Source/Core/Math/Matrix.h"
+#include "../../Source/Core/Math/Matrix4.h"
 #include "../../Source/Core/Math/Quaternion.h"
 
 using namespace Qi;
@@ -100,7 +100,7 @@ TEST(VectorTests, Normalize)
 
 TEST(MatrixTests, CreateIdentity)
 {
-    Matrix m;
+    Matrix4 m;
     
     EXPECT_EQ(1, m(0, 0));
     EXPECT_EQ(0, m(1, 0));
@@ -125,10 +125,10 @@ TEST(MatrixTests, CreateIdentity)
 
 TEST(MatrixTests, Transpose)
 {
-    Matrix m(1,   2,  3,  4,
-             5,   6,  7,  8,
-             9,  10, 11, 12,
-             13, 14, 15, 16);
+    Matrix4 m(1,   2,  3,  4,
+              5,   6,  7,  8,
+              9,  10, 11, 12,
+              13, 14, 15, 16);
     
     m.transpose();
     EXPECT_EQ(1, m(0, 0));
@@ -154,15 +154,15 @@ TEST(MatrixTests, Transpose)
 
 TEST(MatrixTests, PreMultiply)
 {
-    Matrix m1(1,   2,  3,  4,
-              5,   6,  7,  8,
-              9,  10, 11, 12,
-              13, 14, 15, 16);
+    Matrix4 m1(1,   2,  3,  4,
+               5,   6,  7,  8,
+               9,  10, 11, 12,
+               13, 14, 15, 16);
     
-    Matrix m2(11,   12,  13,  14,
-              15,   16,  17,  18,
-              19,  110, 111, 112,
-              113, 114, 115, 116);
+    Matrix4 m2(11,   12,  13,  14,
+               15,   16,  17,  18,
+               19,  110, 111, 112,
+               113, 114, 115, 116);
     
     m1.preMultiply(m2);
     EXPECT_EQ(370,  m1(0, 0));
@@ -188,15 +188,15 @@ TEST(MatrixTests, PreMultiply)
 
 TEST(MatrixTests, PostMultiply)
 {
-    Matrix m1(1,   2,  3,  4,
-              5,   6,  7,  8,
-              9,  10, 11, 12,
-              13, 14, 15, 16);
+    Matrix4 m1(1,   2,  3,  4,
+               5,   6,  7,  8,
+               9,  10, 11, 12,
+               13, 14, 15, 16);
     
-    Matrix m2(11,   12,  13,  14,
-              15,   16,  17,  18,
-              19,  110, 111, 112,
-              113, 114, 115, 116);
+    Matrix4 m2(11,   12,  13,  14,
+               15,   16,  17,  18,
+               19,  110, 111, 112,
+               113, 114, 115, 116);
     
     m1.postMultiply(m2);
     EXPECT_EQ(550,  m1(0, 0));
@@ -222,10 +222,10 @@ TEST(MatrixTests, PostMultiply)
 
 TEST(MatrixTests, Transform)
 {
-    Matrix m(1,   2,  3,  4,
-             5,   6,  7,  8,
-             9,  10, 11, 12,
-             13, 14, 15, 16);
+    Matrix4 m(1,   2,  3,  4,
+              5,   6,  7,  8,
+              9,  10, 11, 12,
+              13, 14, 15, 16);
     
     Vec4 v(1, 2, 3, 4);
     
@@ -263,7 +263,7 @@ TEST(QuaternionTests, ToMatrix)
     Quaternion q;
     q.createFromAxisAngle(Vec4(1.0f, 0.0f, 0.0f), 2.15f);
     
-    Matrix m;
+    Matrix4 m;
     q.toMatrix(m);
     
     EXPECT_NEAR(1.0f, m(0, 0), 0.01f);

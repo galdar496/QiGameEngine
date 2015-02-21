@@ -6,13 +6,13 @@
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
-#include "Matrix.h"
+#include "Matrix4.h"
 #include <smmintrin.h>
 
 namespace Qi
 {
 
-Matrix::Matrix()
+Matrix4::Matrix4()
 {
     m_rows[0].zero();
     m_rows[1].zero();
@@ -25,11 +25,11 @@ Matrix::Matrix()
     m_rows[3].w = 1.0f;
 }
 
-Matrix::~Matrix()
+Matrix4::~Matrix4()
 {
 }
 
-Matrix::Matrix(const Matrix &other)
+Matrix4::Matrix4(const Matrix4 &other)
 {
     m_rows[0] = other.m_rows[0];
     m_rows[1] = other.m_rows[1];
@@ -37,10 +37,10 @@ Matrix::Matrix(const Matrix &other)
     m_rows[3] = other.m_rows[3];
 }
 
-Matrix::Matrix(float x0, float y0, float z0, float w0,
-               float x1, float y1, float z1, float w1,
-               float x2, float y2, float z2, float w2,
-               float x3, float y3, float z3, float w3)
+Matrix4::Matrix4(float x0, float y0, float z0, float w0,
+                float x1, float y1, float z1, float w1,
+                float x2, float y2, float z2, float w2,
+                float x3, float y3, float z3, float w3)
 {
     m_rows[0].x = x0; m_rows[0].y = y0; m_rows[0].z = z0; m_rows[0].w = w0;
     m_rows[1].x = x1; m_rows[1].y = y1; m_rows[1].z = z1; m_rows[1].w = w1;
@@ -48,7 +48,7 @@ Matrix::Matrix(float x0, float y0, float z0, float w0,
     m_rows[3].x = x3; m_rows[3].y = y3; m_rows[3].z = z3; m_rows[3].w = w3;
 }
 
-Matrix::Matrix(const Vec4 &row1, const Vec4 &row2, const Vec4 &row3, const Vec4 &row4)
+Matrix4::Matrix4(const Vec4 &row1, const Vec4 &row2, const Vec4 &row3, const Vec4 &row4)
 {
     m_rows[0] = row1;
     m_rows[1] = row2;
@@ -56,7 +56,7 @@ Matrix::Matrix(const Vec4 &row1, const Vec4 &row2, const Vec4 &row3, const Vec4 
     m_rows[3] = row4;
 }
 
-Vec4 Matrix::transform(const Vec4 &v) const
+Vec4 Matrix4::transform(const Vec4 &v) const
 {
     Vec4 result;
     result.x = m_rows[0].dot(v);
@@ -67,7 +67,7 @@ Vec4 Matrix::transform(const Vec4 &v) const
     return result;
 }
 
-void Matrix::transpose()
+void Matrix4::transpose()
 {
     _MM_TRANSPOSE4_PS(m_rows[0].mm_value,
                       m_rows[1].mm_value,
@@ -75,10 +75,10 @@ void Matrix::transpose()
                       m_rows[3].mm_value);
 }
 
-void Matrix::preMultiply(const Matrix &other)
+void Matrix4::preMultiply(const Matrix4 &other)
 {
     // First transpose this matrix so we can do easy SIMD multiplication.
-    Matrix t(*this);
+    Matrix4 t(*this);
     t.transpose();
     
     for (int ii = 0; ii < 4; ++ii)
@@ -90,9 +90,9 @@ void Matrix::preMultiply(const Matrix &other)
     }
 }
 
-void Matrix::postMultiply(const Matrix &other)
+void Matrix4::postMultiply(const Matrix4 &other)
 {
-    Matrix t(other);
+    Matrix4 t(other);
     t.transpose();
     
     for (int ii = 0; ii < 4; ++ii)
@@ -105,12 +105,12 @@ void Matrix::postMultiply(const Matrix &other)
     }
 }
 
-float Matrix::operator()(int row, int col) const
+float Matrix4::operator()(int row, int col) const
 {
     return m_rows[row].v[col];
 }
 
-float &Matrix::operator()(int row, int col)
+float &Matrix4::operator()(int row, int col)
 {
     return m_rows[row].v[col];
 }

@@ -17,31 +17,31 @@ namespace Qi
 /// 4x4 matrix that is stored in row-major order.
 ///
 
-class __attribute__ ((aligned(16))) Matrix
+class __attribute__ ((aligned(16))) Matrix4
 {
     public:
     
         ///
         /// Initializes the matrix to the identity matrix.
         ///
-        Matrix();
+        Matrix4();
     
-        ~Matrix();
-        Matrix(const Matrix &other);
+        ~Matrix4();
+        Matrix4(const Matrix4 &other);
     
         ///
         /// Component-initialized constructor. Note that
         /// the matrix is row-major.
         ///
-        Matrix(float x0, float y0, float z0, float w0,
-               float x1, float y1, float z1, float w1,
-               float x2, float y2, float z2, float w2,
-               float x3, float y3, float z3, float w3);
+        Matrix4(float x0, float y0, float z0, float w0,
+                float x1, float y1, float z1, float w1,
+                float x2, float y2, float z2, float w2,
+                float x3, float y3, float z3, float w3);
     
         ///
         /// Initialize the matrix with vectors.
         ///
-        Matrix(const Vec4 &row1, const Vec4 &row2, const Vec4 &row3, const Vec4 &row4);
+        Matrix4(const Vec4 &row1, const Vec4 &row2, const Vec4 &row3, const Vec4 &row4);
     
         ///
         /// Transform a vector by this matrix.
@@ -58,12 +58,12 @@ class __attribute__ ((aligned(16))) Matrix
         ///
         /// Premultiply this matrix.
         ///
-        void preMultiply(const Matrix &other);
+        void preMultiply(const Matrix4 &other);
     
         ///
         /// Post multiply this matrix.
         ///
-        void postMultiply(const Matrix &other);
+        void postMultiply(const Matrix4 &other);
     
         ///
         /// Access the matrix by row and column.
