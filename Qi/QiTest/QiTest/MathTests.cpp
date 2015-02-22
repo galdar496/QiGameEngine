@@ -70,13 +70,13 @@ TEST(VectorTests, DotProduct)
 
 TEST(VectorTests, Cross)
 {
-    Vec4 v1(1, 2, 3);
-    Vec4 v2(4, 5, 6);
+    Vec4 v1(0.2f, 0.01f, 1.0f);
+    Vec4 v2(4.0f, 0.12f, 3.4f);
     
     Vec4 cross = v1.cross(v2);
-    EXPECT_EQ(-3, cross.x);
-    EXPECT_EQ(6, cross.y);
-    EXPECT_EQ(-3, cross.z);
+    EXPECT_NEAR(-0.086f, cross.x, 0.01f);
+    EXPECT_NEAR(3.32f, cross.y, 0.01f);
+    EXPECT_NEAR(-0.016f, cross.z, 0.01f);
 }
 
 TEST(VectorTests, Normalize)
@@ -291,6 +291,32 @@ TEST(QuaternionTests, Slerp)
     EXPECT_NEAR(0.3997466112926573f, s.m_quat.y, 0.01f);
     EXPECT_NEAR(0.0000000000000000f, s.m_quat.z, 0.01f);
     EXPECT_NEAR(0.6448346514643902f, s.m_quat.w, 0.01f);
+}
+
+TEST(QuaternionTests, Multiply)
+{
+    Quaternion q1(Vec4(3.0f, 2.0f, 0.4f), 1.0f);
+    Quaternion q2(Vec4(1.0f, 12.0f, 0.34f), 0.2f);
+    
+    Quaternion q3 = q1 * q2;
+    EXPECT_NEAR(-2.5200000000000005f, q3.m_quat.x, 0.01f);
+    EXPECT_NEAR(11.780000000000001f, q3.m_quat.y, 0.01f);
+    EXPECT_NEAR(34.42f, q3.m_quat.z, 0.01f);
+    EXPECT_NEAR(-26.936f, q3.m_quat.w, 0.01f);
+}
+
+TEST(QuaternionTests, RotateVector)
+{
+    Quaternion q(Vec4(1.0, 0.0, 0.0), 0.2f);
+    q.normalize();
+    
+    Vec4 v(0.25f, 0.35f, -0.45f);
+    Vec4 rotated = q.rotate(v);
+    
+    EXPECT_NEAR(0.25f, rotated.x, 0.01f);
+    EXPECT_NEAR(-0.15000003576278687f, rotated.y, 0.01f);
+    EXPECT_NEAR(0.54999995231628418f, rotated.z, 0.01f);
+    EXPECT_NEAR(1.0f, rotated.w, 0.01f);
 }
 
 

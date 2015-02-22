@@ -120,10 +120,7 @@ class Quaternion
         ///
         inline Quaternion getConjugate() const
         {
-            Quaternion q(*this);
-            q.m_quat.w *= -1.0f;
-            
-            return q;
+            return Quaternion(Vec4(m_quat.x, m_quat.y, m_quat.z) * -1.0f, m_quat.w);
         }
 
         ///
@@ -136,14 +133,16 @@ class Quaternion
         }
     
         ///
-        /// Rotate a vector about this quaternion.
+        /// Rotate a vector about this quaternion. This quaternion
+        /// is considered to be already unit length (normalized).
         ///
         inline Vec4 rotate(const Vec4 &v)
         {
-            Quaternion q(v, 0.0f);
-            q.normalize();
-
-            return (*this * q * getConjugate()).m_quat;
+            // This is different from the canonical q * p * conjugate(q) for
+            // speed reasons.
+            // See https://molecularmusings.wordpress.com/2013/05/24/a-faster-quaternion-vector-multiplication/
+            Vec4 t = m_quat.cross(v) * 2.0f;
+            return v + (t * m_quat.w) + m_quat.cross(t);
         }
     
         ///
