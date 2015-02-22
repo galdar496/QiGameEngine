@@ -173,6 +173,57 @@ class Quaternion
             m(3, 3) = 1.0f;
         }
     
+        ///
+        /// Perform SLERP (Spherical-linear interpolation) between two quaternions. The
+        /// resulting interpolated quaternion will overwrite this instance.
+        /// NOTE: The resulting quaternion is _not_ normalized.
+        /// @param start Quaternion which represents an interpolation of 0.0 (start)
+        /// @param end Quaternion which represents an interpolation of 1.0 (end)
+        /// @param percent Percentage between 'start' and 'end' to interpolate. Value should
+        ///        be between 0.0 and 1.0.
+        ///
+        inline void slerp(const Quaternion &start, const Quaternion &end, float percent)
+        {
+            Vec4 tmp;
+            float omega, cos_omega, sin_omega, scale0, scale1;
+            
+            cos_omega = start.m_quat.dot(end.m_quat);
+            
+            // Check the signs
+            if (cos_omega < 0.0)
+            {
+                cos_omega = -cos_omega;
+                tmp = end.m_quat * -1.0f;
+            }
+            else
+            {
+                // Set normally.
+                tmp = end.m_quat;
+            }
+            
+            // Calculate the coefficients for the SLERP formula.
+            if ((1.0f - cos_omega) > FLT_EPSILON)
+            {
+                // This is the standard case, so apply SLERP.
+                omega = acosf(cos_omega);
+                sin_omega = sinf(omega);
+                scale0 = sinf((1.0f - percent) * omega) / sin_omega;
+                scale1 = sinf(percent * omega) / sin_omega;
+            }
+            else
+            {
+                // The two quaternions are very close, which means that a normal
+                // linear interpolation (LERP) will work just fine and avoid a possible
+                // division of 0.
+                scale0 = 1.0f - percent;
+                scale1 = percent;
+            }
+            
+            // Calculate the resultant quaternion.
+            tmp *= scale1;
+            m_quat = (start.m_quat * scale0) + tmp;
+        }
+    
         /////// Operator Overloads ////////////////////////////////////
     
         ///
@@ -190,8 +241,6 @@ class Quaternion
             
             return q;
         }
-    
-    
     
         ///< Internal quaternion object. x,y,z represents and axis and w a rotation.
         union

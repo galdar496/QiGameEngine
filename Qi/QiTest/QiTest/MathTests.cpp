@@ -279,6 +279,20 @@ TEST(QuaternionTests, ToMatrix)
     EXPECT_NEAR(-0.547357665480271f, m(2, 2), 0.01f);
 }
 
+TEST(QuaternionTests, Slerp)
+{
+    Quaternion q1(Vec4(1.0, 0.0, 0.0), 0.2f);
+    Quaternion q2(Vec4(0.0, 1.0, 0.0), 1.2f);
+    
+    Quaternion s;
+    s.slerp(q1, q2, 0.3f);
+    
+    EXPECT_NEAR(0.8256935895660071f, s.m_quat.x, 0.01f);
+    EXPECT_NEAR(0.3997466112926573f, s.m_quat.y, 0.01f);
+    EXPECT_NEAR(0.0000000000000000f, s.m_quat.z, 0.01f);
+    EXPECT_NEAR(0.6448346514643902f, s.m_quat.w, 0.01f);
+}
+
 
 
 
