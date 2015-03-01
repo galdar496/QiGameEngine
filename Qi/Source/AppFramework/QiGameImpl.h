@@ -15,7 +15,7 @@
 ///
 
 #include "../Engine/EngineConfig.h"
-#include <vector>
+#include "../Core/Containers/Array.h"
 
 // Forward declarations.
 namespace Qi
@@ -50,7 +50,7 @@ class QiGameImpl
         /// including its memory.
         /// @param systems A list of systems to populate. Default is empty.
         ///
-        virtual void addCustomSystems(std::vector<Qi::SystemBase *> systems) const {}
+        virtual void addCustomSystems(Qi::Array<Qi::SystemBase *> &systems) const {}
     
         ///
         /// Deinitialize the game. This function is called

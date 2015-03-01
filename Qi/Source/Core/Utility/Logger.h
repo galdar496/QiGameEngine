@@ -112,7 +112,8 @@ class Logger
         Logger(const Logger &other) = delete;
         Logger &operator=(const Logger &other) = delete;
     
-        // One vector per channel.
+        // One vector per channel. Note that vectors are in use here instead of Qi::Array
+        // to avoid a circular dependency between the logger and the memory manager.
         typedef std::vector<const MessageEvent> PerChannelHandlers;
         typedef std::vector<PerChannelHandlers> MessageHandlers;
         MessageHandlers m_message_handlers; ///< All registered message handlers ordered by channel.

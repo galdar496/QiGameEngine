@@ -61,7 +61,8 @@ bool Array<T>::pushBack(const T &value)
         reallocate();
     }
     
-    m_elements[m_back] = value;
+    void *buffer = (void *)&m_elements[m_back];
+    new (buffer) T(value);
     ++m_count;
     ++m_back;
     
@@ -96,11 +97,14 @@ uint32 Array<T>::getAllocateSize() const
 template<class T>
 void Array<T>::clear()
 {
-    m_count = 0;
-    m_back = 0;
-    m_allocated_size = 0;
-    Qi_FreeMemory(m_elements);
-    m_elements = nullptr;
+    if (m_allocated_size)
+    {
+        m_count = 0;
+        m_back = 0;
+        m_allocated_size = 0;
+        Qi_FreeMemory(m_elements);
+        m_elements = nullptr;
+    }
 }
 
 template<class T>
@@ -119,7 +123,7 @@ void Array<T>::reallocate()
     
     // Copy the old data from the previous array into the new one and free
     // the old one.
-    memcpy(tmp_array, m_elements, m_allocated_size * sizeof(T));
+    memcpy((void *)tmp_array, (void *)m_elements, m_allocated_size * sizeof(T));
     Qi_FreeMemory(m_elements);
     m_elements = tmp_array;
     m_allocated_size = new_size;

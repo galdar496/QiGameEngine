@@ -79,12 +79,12 @@ void Engine::shutdown()
     Qi_LogInfo("-Shutting down the engine-");
     
     // De-initialize all systems and delete the memory for them.
-    for (size_t ii = 0; ii < m_systems.size(); ++ii)
+    for (uint32 ii = 0; ii < m_systems.getSize(); ++ii)
     {
-        Qi_LogInfo("Shutting down system %s", m_systems[ii]->getName().c_str());
-        m_systems[ii]->deinit();
-        delete m_systems[ii];
-        m_systems[ii] = nullptr;
+        Qi_LogInfo("Shutting down system %s", m_systems(ii)->getName().c_str());
+        m_systems(ii)->deinit();
+        delete m_systems(ii);
+        m_systems(ii) = nullptr;
     }
     
     // Shutdown singleton objects. Be sure to always shutdown the logger last.
@@ -98,7 +98,7 @@ void Engine::addSystem(SystemBase *system)
     
     Qi_LogInfo("Adding system %s to the engine", system->getName().c_str());
     
-    m_systems.push_back(system);
+    m_systems.pushBack(system);
 }
 
 #ifdef QI_DEBUG

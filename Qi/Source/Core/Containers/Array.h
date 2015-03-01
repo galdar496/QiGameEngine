@@ -36,7 +36,7 @@ class Array
         ///
         /// Push a new value into the end of the array. If the current size of the array is too small
         /// then the size of the array will be doubled and all previous elements will be copied into
-        /// the new array.
+        /// the new array. NOTE: T's copy-constructor must be implemented.
         /// @return Insertion was successful.
         ///
         bool pushBack(const T &value);

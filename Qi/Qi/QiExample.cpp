@@ -19,7 +19,7 @@ class QiExample : public QiGameImpl
         
         virtual bool init() { return true; }
     
-        virtual void addCustomSystems(std::vector<Qi::SystemBase *> systems) const {}
+        virtual void addCustomSystems(Qi::Array<Qi::SystemBase *> &systems) const {}
         
         virtual void deinit() {}
     

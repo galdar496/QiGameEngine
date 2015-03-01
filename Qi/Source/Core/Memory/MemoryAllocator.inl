@@ -21,7 +21,8 @@ T *MemoryAllocator::allocate(unsigned long long num_bytes, const char *filename,
     assert(m_initialized);
     
     // For now, just use malloc until a more advanced system is ready.
-    T *memory = static_cast<T *>(std::malloc(num_bytes));
+    void *memory = (std::malloc(num_bytes));
+    T *result = new (memory) T; // placement new to run the constructor.
     
 #ifdef QI_DEBUG
     MemoryRecord record;
@@ -31,7 +32,7 @@ T *MemoryAllocator::allocate(unsigned long long num_bytes, const char *filename,
     m_records[(void *)memory] = record;
 #endif
     
-    return memory;
+    return result;
 }
 
 template<class T>
@@ -42,7 +43,7 @@ void MemoryAllocator::free(T *address)
     if (address != nullptr)
     {
         // For now, just use free() until a more advanced system is ready.
-        std::free(address);
+        std::free((void *)address);
         
 #ifdef QI_DEBUG
         auto iter = m_records.find((void *)address);

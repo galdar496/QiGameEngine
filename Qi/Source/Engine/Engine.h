@@ -21,7 +21,7 @@
     #include "../Core/Utility/Logger.h"
 #endif
 
-#include <vector>
+#include "../Core/Containers/Array.h"
 
 namespace Qi
 {
@@ -84,8 +84,7 @@ class Engine
     
         bool m_initiailzed; ///< If true, the engine has been properly initialized.
     
-        // TODO: change this from a vector to a custom container once it's ready.
-        std::vector<SystemBase *> m_systems; ///< All systems managed by the engine.
+        Array<SystemBase *> m_systems; ///< All systems managed by the engine.
 };
 
 } // namespace Qi

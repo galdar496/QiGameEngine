@@ -38,11 +38,11 @@ void QiGame::runGame(QiGameImpl *game)
     
     // Add any custom systems to the engine.
     {
-        std::vector<Qi::SystemBase *> custom_systems;
+        Qi::Array<Qi::SystemBase *> custom_systems;
         game->addCustomSystems(custom_systems);
-        for (size_t ii = 0; ii < custom_systems.size(); ++ii)
+        for (uint32 ii = 0; ii < custom_systems.getSize(); ++ii)
         {
-            engine.addSystem(custom_systems[ii]);
+            engine.addSystem(custom_systems(ii));
         }
     }
     
