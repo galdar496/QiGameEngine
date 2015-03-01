@@ -11,7 +11,6 @@
 		C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCBF1A8732C000DAC0A2 /* MemoryAllocator.cpp */; };
 		C393DCC21A8732C000DAC0A2 /* MemoryAllocator.h in Headers */ = {isa = PBXBuildFile; fileRef = C393DCC01A8732C000DAC0A2 /* MemoryAllocator.h */; };
 		C393DCC71A8B3A8400DAC0A2 /* Quaternion.h in Headers */ = {isa = PBXBuildFile; fileRef = C393DCC61A8B3A8400DAC0A2 /* Quaternion.h */; };
-		C393DCCB1AA38D0200DAC0A2 /* Array.inl in Sources */ = {isa = PBXBuildFile; fileRef = C393DCC91AA38D0200DAC0A2 /* Array.inl */; };
 		C393DCCC1AA38D0200DAC0A2 /* Array.h in Headers */ = {isa = PBXBuildFile; fileRef = C393DCCA1AA38D0200DAC0A2 /* Array.h */; };
 		C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC661A61DC8700FC46B6 /* Vec4.h */; };
 		C3D7EC6E1A61F8A000FC46B6 /* Matrix4.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC6D1A61F8A000FC46B6 /* Matrix4.h */; };
@@ -40,8 +39,8 @@
 		C393DCC01A8732C000DAC0A2 /* MemoryAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryAllocator.h; path = Source/Core/Memory/MemoryAllocator.h; sourceTree = "<group>"; };
 		C393DCC31A87423C00DAC0A2 /* MemoryAllocator.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MemoryAllocator.inl; path = Source/Core/Memory/MemoryAllocator.inl; sourceTree = "<group>"; };
 		C393DCC61A8B3A8400DAC0A2 /* Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Quaternion.h; path = Source/Core/Math/Quaternion.h; sourceTree = "<group>"; };
-		C393DCC91AA38D0200DAC0A2 /* Array.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Array.inl; path = Source/Core/Containers/Array.inl; sourceTree = "<group>"; };
 		C393DCCA1AA38D0200DAC0A2 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = Source/Core/Containers/Array.h; sourceTree = "<group>"; };
+		C393DCCF1AA3A3D100DAC0A2 /* Array.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Array.inl; path = Source/Core/Containers/Array.inl; sourceTree = "<group>"; };
 		C3D7EC4A1A61DC2E00FC46B6 /* libQi Game Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libQi Game Engine.a"; path = "/Users/Cody/qi-game-engine/Qi/build/Debug/libQi Game Engine.a"; sourceTree = "<absolute>"; };
 		C3D7EC661A61DC8700FC46B6 /* Vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vec4.h; path = Source/Core/Math/Vec4.h; sourceTree = "<group>"; };
 		C3D7EC6D1A61F8A000FC46B6 /* Matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix4.h; path = Source/Core/Math/Matrix4.h; sourceTree = "<group>"; };
@@ -88,7 +87,7 @@
 		C393DCC81AA38CE900DAC0A2 /* Containers */ = {
 			isa = PBXGroup;
 			children = (
-				C393DCC91AA38D0200DAC0A2 /* Array.inl */,
+				C393DCCF1AA3A3D100DAC0A2 /* Array.inl */,
 				C393DCCA1AA38D0200DAC0A2 /* Array.h */,
 			);
 			name = Containers;
@@ -263,7 +262,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */,
-				C393DCCB1AA38D0200DAC0A2 /* Array.inl in Sources */,
 				C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */,
 				C3D7ECAA1A7CD89000FC46B6 /* QiGame.cpp in Sources */,
 				C3D7EC941A7CC90700FC46B6 /* Engine.cpp in Sources */,
