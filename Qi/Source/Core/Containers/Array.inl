@@ -27,8 +27,16 @@ Array<T>::Array(const Array &other)
     m_back = other.m_back;
     m_allocated_size = other.m_allocated_size;
     
-    m_elements = Qi_AllocateMemoryArray(T, m_allocated_size);
-    std::memcpy(m_elements, other.m_elements, m_count * sizeof(T));
+    if (m_allocated_size)
+    {
+        m_elements = Qi_AllocateMemoryArray(T, m_allocated_size);
+        std::memcpy(m_elements, other.m_elements, m_count * sizeof(T));
+    }
+    else
+    {
+        m_elements = nullptr;
+    }
+    
 }
 
 template<class T>
