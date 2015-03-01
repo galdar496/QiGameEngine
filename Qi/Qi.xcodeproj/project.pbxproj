@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C358FF181AA3ACC600115E31 /* libQi Game Engine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C358FF131AA3A72A00115E31 /* libQi Game Engine.a */; };
 		C3D7ECA81A7CD74E00FC46B6 /* QiExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA71A7CD57A00FC46B6 /* QiExample.cpp */; };
 /* End PBXBuildFile section */
 
@@ -18,19 +19,19 @@
 			remoteGlobalIDString = C358FF101AA3A72A00115E31;
 			remoteInfo = "Qi Game Engine";
 		};
+		C358FF161AA3ACBB00115E31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C3D7EC491A61DC2E00FC46B6;
+			remoteInfo = "Qi Game Engine";
+		};
 		C393DCB41A8721BF00DAC0A2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C393DCB01A8721BE00DAC0A2 /* QiTest.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C393DCA61A8721BE00DAC0A2;
 			remoteInfo = QiTest;
-		};
-		C3D7EC681A61DCAA00FC46B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C3D7EC491A61DC2E00FC46B6;
-			remoteInfo = "Qi Game Engine";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C358FF181AA3ACC600115E31 /* libQi Game Engine.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +115,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				C3D7EC691A61DCAA00FC46B6 /* PBXTargetDependency */,
+				C358FF171AA3ACBB00115E31 /* PBXTargetDependency */,
 			);
 			name = Qi;
 			productName = Qi;
@@ -190,10 +192,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C3D7EC691A61DCAA00FC46B6 /* PBXTargetDependency */ = {
+		C358FF171AA3ACBB00115E31 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Qi Game Engine";
-			targetProxy = C3D7EC681A61DCAA00FC46B6 /* PBXContainerItemProxy */;
+			targetProxy = C358FF161AA3ACBB00115E31 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
