@@ -30,7 +30,7 @@ void QiGame::runGame(QiGameImpl *game)
         Qi::EngineConfig config;
         game->configure(config);
         
-        if (!engine.init(config) || !game->init())
+        if (!(engine.init(config) && game->init()))
         {
             return;
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */; };
 		C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */; };
 		C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCBF1A8732C000DAC0A2 /* MemoryAllocator.cpp */; };
 		C393DCC21A8732C000DAC0A2 /* MemoryAllocator.h in Headers */ = {isa = PBXBuildFile; fileRef = C393DCC01A8732C000DAC0A2 /* MemoryAllocator.h */; };
@@ -30,10 +31,10 @@
 		C3D7EC991A7CC98B00FC46B6 /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC981A7CC98B00FC46B6 /* Defines.h */; };
 		C3D7ECA21A7CD18600FC46B6 /* QiGame.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA01A7CD18600FC46B6 /* QiGame.h */; };
 		C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA31A7CD1E100FC46B6 /* QiGameImpl.h */; };
-		C3D7ECAA1A7CD89000FC46B6 /* QiGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C358FF101AA3A72A00115E31 /* libQi Game Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libQi Game Engine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EngineConfig.h; path = Source/Engine/EngineConfig.h; sourceTree = "<group>"; };
 		C393DCBF1A8732C000DAC0A2 /* MemoryAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MemoryAllocator.cpp; path = Source/Core/Memory/MemoryAllocator.cpp; sourceTree = "<group>"; };
 		C393DCC01A8732C000DAC0A2 /* MemoryAllocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryAllocator.h; path = Source/Core/Memory/MemoryAllocator.h; sourceTree = "<group>"; };
@@ -41,7 +42,6 @@
 		C393DCC61A8B3A8400DAC0A2 /* Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Quaternion.h; path = Source/Core/Math/Quaternion.h; sourceTree = "<group>"; };
 		C393DCCA1AA38D0200DAC0A2 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = Source/Core/Containers/Array.h; sourceTree = "<group>"; };
 		C393DCCF1AA3A3D100DAC0A2 /* Array.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Array.inl; path = Source/Core/Containers/Array.inl; sourceTree = "<group>"; };
-		C3D7EC4A1A61DC2E00FC46B6 /* libQi Game Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libQi Game Engine.a"; path = "/Users/Cody/qi-game-engine/Qi/build/Debug/libQi Game Engine.a"; sourceTree = "<absolute>"; };
 		C3D7EC661A61DC8700FC46B6 /* Vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vec4.h; path = Source/Core/Math/Vec4.h; sourceTree = "<group>"; };
 		C3D7EC6D1A61F8A000FC46B6 /* Matrix4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Matrix4.h; path = Source/Core/Math/Matrix4.h; sourceTree = "<group>"; };
 		C3D7EC6F1A61FA9600FC46B6 /* Matrix4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Matrix4.cpp; path = Source/Core/Math/Matrix4.cpp; sourceTree = "<group>"; };
@@ -101,6 +101,7 @@
 				C3D7EC901A7CC8EA00FC46B6 /* Engine */,
 				C3D7EC641A61DC6600FC46B6 /* Core */,
 				C3D7EC871A66578C00FC46B6 /* ThirdParty */,
+				C358FF101AA3A72A00115E31 /* libQi Game Engine.a */,
 			);
 			sourceTree = "<group>";
 		};
@@ -222,7 +223,7 @@
 			);
 			name = "Qi Game Engine";
 			productName = "Qi Game Engine";
-			productReference = C3D7EC4A1A61DC2E00FC46B6 /* libQi Game Engine.a */;
+			productReference = C358FF101AA3A72A00115E31 /* libQi Game Engine.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -261,9 +262,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */,
 				C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */,
 				C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */,
-				C3D7ECAA1A7CD89000FC46B6 /* QiGame.cpp in Sources */,
 				C3D7EC941A7CC90700FC46B6 /* Engine.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix4.cpp in Sources */,
 				C3D7EC851A62D3C000FC46B6 /* Logger.cpp in Sources */,

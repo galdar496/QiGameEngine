@@ -7,6 +7,7 @@
 //
 
 #include "Engine.h"
+#include "../Core/Utility/Logger.h"
 #include "../Core/Memory/MemoryAllocator.h"
 #include "Systems/SystemBase.h"
 #include <iostream>
