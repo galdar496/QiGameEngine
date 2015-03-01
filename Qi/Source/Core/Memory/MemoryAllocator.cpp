@@ -56,6 +56,8 @@ void MemoryAllocator::deinit()
 
     m_records.clear();
 #endif
+
+    m_initialized = false;
 }
     
 } // namespace Qi
