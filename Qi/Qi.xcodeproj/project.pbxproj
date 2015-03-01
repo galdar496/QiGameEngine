@@ -7,24 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C3D7EC6A1A61DCAF00FC46B6 /* libQi Game Engine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D7EC631A61DC5700FC46B6 /* libQi Game Engine.a */; };
 		C3D7ECA81A7CD74E00FC46B6 /* QiExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA71A7CD57A00FC46B6 /* QiExample.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C358FF121AA3A72A00115E31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C358FF101AA3A72A00115E31;
+			remoteInfo = "Qi Game Engine";
+		};
 		C393DCB41A8721BF00DAC0A2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C393DCB01A8721BE00DAC0A2 /* QiTest.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C393DCA61A8721BE00DAC0A2;
 			remoteInfo = QiTest;
-		};
-		C3D7EC621A61DC5700FC46B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C3D7EC4A1A61DC2E00FC46B6;
-			remoteInfo = "Qi Game Engine";
 		};
 		C3D7EC681A61DCAA00FC46B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -48,8 +47,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C358FF111AA3A72A00115E31 /* Qi */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Qi; sourceTree = BUILT_PRODUCTS_DIR; };
 		C393DCB01A8721BE00DAC0A2 /* QiTest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QiTest.xcodeproj; path = QiTest/QiTest.xcodeproj; sourceTree = "<group>"; };
-		C3D7EBBA1A61D39800FC46B6 /* Qi */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = Qi; path = "/Users/Cody/qi-game-engine/Qi/build/Debug/Qi"; sourceTree = "<absolute>"; };
 		C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "Qi Game Engine.xcodeproj"; sourceTree = "<group>"; };
 		C3D7ECA71A7CD57A00FC46B6 /* QiExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QiExample.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,7 +58,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3D7EC6A1A61DCAF00FC46B6 /* libQi Game Engine.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +78,7 @@
 				C393DCB01A8721BE00DAC0A2 /* QiTest.xcodeproj */,
 				C3D7EC5E1A61DC5700FC46B6 /* Qi Game Engine.xcodeproj */,
 				C3D7EBBC1A61D39800FC46B6 /* QiExample */,
+				C358FF111AA3A72A00115E31 /* Qi */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,7 +94,7 @@
 		C3D7EC5F1A61DC5700FC46B6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C3D7EC631A61DC5700FC46B6 /* libQi Game Engine.a */,
+				C358FF131AA3A72A00115E31 /* libQi Game Engine.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,7 +117,7 @@
 			);
 			name = Qi;
 			productName = Qi;
-			productReference = C3D7EBBA1A61D39800FC46B6 /* Qi */;
+			productReference = C358FF111AA3A72A00115E31 /* Qi */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -163,18 +162,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C358FF131AA3A72A00115E31 /* libQi Game Engine.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libQi Game Engine.a";
+			remoteRef = C358FF121AA3A72A00115E31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C393DCB51A8721BF00DAC0A2 /* QiTest */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = QiTest;
 			remoteRef = C393DCB41A8721BF00DAC0A2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C3D7EC631A61DC5700FC46B6 /* libQi Game Engine.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libQi Game Engine.a";
-			remoteRef = C3D7EC621A61DC5700FC46B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

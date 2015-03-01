@@ -64,6 +64,10 @@ void Engine::step(const float dt)
     assert(m_initiailzed);
     
     Qi_LogInfo("Engine stepping frame forward %f seconds", dt);
+    
+    // Add system updates to the job queue here.
+    // After the job queue is finished processing, kick of the renderer to process the
+    // render job queue.
 }
 
 void Engine::shutdown()
