@@ -9,7 +9,7 @@
 #pragma once
 
 ///
-/// Application driver for all Qi game. Invoke the macro QI_IMPLEMENT_GAME
+/// Application driver for all Qi games. Invoke the macro QI_IMPLEMENT_GAME
 /// to define a main function which will properly initialize
 /// the engine and invoke your custom QiGameImpl.
 ///
