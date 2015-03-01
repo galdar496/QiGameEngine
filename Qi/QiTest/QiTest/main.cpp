@@ -7,9 +7,19 @@
 //
 
 #include <gtest/gtest.h>
+#include "../../Source/Core/Memory/MemoryAllocator.h"
 
 int main(int argc, const char * argv[])
 {
     ::testing::InitGoogleTest(&argc, (char **)argv);
-    return RUN_ALL_TESTS();
+    
+    // Make sure that the memory allocator has been initialized for
+    // any tests that might use it.
+    bool ready = Qi::MemoryAllocator::getInstance().init();
+    assert(ready);
+    
+    int result = RUN_ALL_TESTS();
+    
+    Qi::MemoryAllocator::getInstance().deinit();
+    return result;
 }

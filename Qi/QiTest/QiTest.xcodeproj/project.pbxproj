@@ -11,6 +11,7 @@
 		C393DCBA1A87224200DAC0A2 /* MathTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCB91A87224200DAC0A2 /* MathTests.cpp */; };
 		C393DCBC1A87225600DAC0A2 /* libQi Game Engine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C393DCBB1A87225600DAC0A2 /* libQi Game Engine.a */; };
 		C393DCBD1A87283600DAC0A2 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C393DCB61A8721F100DAC0A2 /* gtest.framework */; };
+		C393DCCE1AA3915800DAC0A2 /* ContainerTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCCD1AA3915800DAC0A2 /* ContainerTests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,7 @@
 		C393DCB81A8721F100DAC0A2 /* QiTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = QiTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C393DCB91A87224200DAC0A2 /* MathTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MathTests.cpp; sourceTree = "<group>"; };
 		C393DCBB1A87225600DAC0A2 /* libQi Game Engine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libQi Game Engine.a"; path = "../build/Debug/libQi Game Engine.a"; sourceTree = "<group>"; };
+		C393DCCD1AA3915800DAC0A2 /* ContainerTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContainerTests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			children = (
 				C393DCA91A8721BE00DAC0A2 /* main.cpp */,
 				C393DCB91A87224200DAC0A2 /* MathTests.cpp */,
+				C393DCCD1AA3915800DAC0A2 /* ContainerTests.cpp */,
 			);
 			path = QiTest;
 			sourceTree = "<group>";
@@ -123,6 +126,7 @@
 			files = (
 				C393DCAA1A8721BE00DAC0A2 /* main.cpp in Sources */,
 				C393DCBA1A87224200DAC0A2 /* MathTests.cpp in Sources */,
+				C393DCCE1AA3915800DAC0A2 /* ContainerTests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
