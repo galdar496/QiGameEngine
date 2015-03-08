@@ -29,6 +29,12 @@ class QiGame
         /// @param game Allocated derivation of QiGameImpl to control a game.
         ///
         void RunGame(QiGameImpl *game);
+    
+    private:
+    
+        // Object is not copyable.
+        QiGame(const QiGame &other) = delete;
+        QiGame & operator=(const QiGame &other) = delete;
 };
 
 #define QI_IMPLEMENT_GAME(GameImpl)    \
