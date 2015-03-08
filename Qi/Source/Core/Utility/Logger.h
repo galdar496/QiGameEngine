@@ -26,14 +26,14 @@ namespace Qi
 
 // Convenience defines for logging.
 #if DEBUG
-    #define Qi_LogInfo(message, args...) Qi::Logger::getInstance().logMessage(Qi::Logger::kInfo, __LINE__, __FILE__, message, ##args);
-    #define Qi_LogDebug(message, args...) Qi::Logger::getInstance().logMessage(Qi::Logger::kDebug, __LINE__, __FILE__, message, ##args);
+    #define Qi_LogInfo(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::Logger::kInfo, __LINE__, __FILE__, message, ##args);
+    #define Qi_LogDebug(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::Logger::kDebug, __LINE__, __FILE__, message, ##args);
 #else
     #define Qi_LogInfo(message, args...)
     #define Qi_LogDebug(message, args...)
 #endif
-#define Qi_LogWarning(message, args...) Qi::Logger::getInstance().logMessage(Qi::Logger::kWarning, __LINE__, __FILE__, message, ##args);
-#define Qi_LogError(message, args...) Qi::Logger::getInstance().logMessage(Qi::Logger::kError, __LINE__, __FILE__, message, ##args);
+#define Qi_LogWarning(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::Logger::kWarning, __LINE__, __FILE__, message, ##args);
+#define Qi_LogError(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::Logger::kError, __LINE__, __FILE__, message, ##args);
 
 class Logger
 {
@@ -57,27 +57,27 @@ class Logger
         /// Instance accessor to get to the singleton object.
         /// @return Static instance of Logger.
         ///
-        static Logger &getInstance();
+        static Logger &GetInstance();
     
         ///
         /// Initialize the logging system for use.
         /// @param flushLogFile If true, flush the log file after each write.
         /// @return Success of initialization.
         ///
-        bool init(bool flushLogFile);
+        bool Init(bool flushLogFile);
     
         ///
         /// Deinitialize the logging system. The logger cannot be used after
         /// a call to this function without first calling 'initialize()'.
         ///
-        void deinit();
+        void Deinit();
     
         ///
         /// Enable/disable a logging channel.
         /// @param channel Channel to enable/disable.
         /// @param enable Whether or not to enable the specified channel.
         ///
-        void enableChannel(Channel channel, bool enable);
+        void EnableChannel(Channel channel, bool enable);
     
         ///
         /// Log a message. A message is automatically written to the log file. Additionally,
@@ -88,7 +88,7 @@ class Logger
         /// @param filename Filename which generated the message (for debugging).
         /// @param message Message text to log.
         ///
-        void logMessage(Channel channel, int line, const char *filename, const char *message, ...);
+        void LogMessage(Channel channel, int line, const char *filename, const char *message, ...);
     
     
         /// Event handler to register for when you want to receive message events.
@@ -101,7 +101,7 @@ class Logger
         /// @param channel Channel to register for. Any messages going to this channel will invoke
         ///                the specified handler.
         ///
-        void registerForMessages(const MessageEvent &handler, Channel channel);
+        void RegisterForMessages(const MessageEvent &handler, Channel channel);
     
     private:
     
@@ -116,16 +116,16 @@ class Logger
         // to avoid a circular dependency between the logger and the memory manager.
         typedef std::vector<const MessageEvent> PerChannelHandlers;
         typedef std::vector<PerChannelHandlers> MessageHandlers;
-        MessageHandlers m_message_handlers; ///< All registered message handlers ordered by channel.
+        MessageHandlers m_messageHandlers; ///< All registered message handlers ordered by channel.
     
         bool m_initialized;            ///< If true, the logger has been initialized.
         bool m_forceFlush;             ///< If true, flush the log file after each write.
         std::ofstream m_output;        ///< Log file all messages are written to.
-        unsigned int m_channel_filter; ///< Filter for each channel. Every bit corresponds to a different channel. 1 is on, 0 is off.
+        unsigned int m_channelFilter; ///< Filter for each channel. Every bit corresponds to a different channel. 1 is on, 0 is off.
     
         std::mutex m_mutex; ///< Mutex used for locking while writing to the output file.
     
-        std::string m_color_table[kNumChannels]; ///< Color table to use for color coding per-channel output to the log file.
+        std::string m_colorTable[kNumChannels]; ///< Color table to use for color coding per-channel output to the log file.
 };
 
 } // namespace Qi

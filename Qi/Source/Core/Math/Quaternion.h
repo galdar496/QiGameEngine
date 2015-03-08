@@ -24,7 +24,7 @@ class Quaternion
 
     public:
     
-        Quaternion() { setIdentity(); }
+        Quaternion() { SetIdentity(); }
         Quaternion(const Vec4 &axis, float angle)
         {
             m_quat = axis;
@@ -51,9 +51,9 @@ class Quaternion
         ///
         /// Set this quaternion to be an identity quaternion.
         ///
-        inline void setIdentity()
+        inline void SetIdentity()
         {
-            m_quat.zero();
+            m_quat.Zero();
             m_quat.w = 1.0f;
         }
 
@@ -62,13 +62,13 @@ class Quaternion
         /// @param vec 3D vector to rotate about.
         /// @param angle Angle to rotate about.
         ///
-        inline void createFromAxisAngle(const Vec4 &vec, float angle)
+        inline void CreateFromAxisAngle(const Vec4 &vec, float angle)
         {
-            float half_angle = angle * 0.5f;
-            float sin_angle  = sinf(half_angle);
+            float halfAngle = angle * 0.5f;
+            float sinAngle  = sinf(halfAngle);
             
-            m_quat = vec * sin_angle;
-            m_quat.w = cosf(half_angle);
+            m_quat = vec * sinAngle;
+            m_quat.w = cosf(halfAngle);
         }
 
         ///
@@ -78,30 +78,30 @@ class Quaternion
         /// @param y Rotation about the y axis (yaw).
         /// @param z Rotation about the z axis (roll).
         ///
-        inline void createFromEuler(float x, float y, float z)
+        inline void CreateFromEuler(float x, float y, float z)
         {
-            float cos_x = cosf(0.5f * x);
-            float cos_y = cosf(0.5f * y);
-            float cos_z = cosf(0.5f * z);
+            float cosX = cosf(0.5f * x);
+            float cosY = cosf(0.5f * y);
+            float cosZ = cosf(0.5f * z);
             
-            float sin_x = sinf(0.5f * x);
-            float sin_y = sinf(0.5f * y);
-            float sin_z = sinf(0.5f * z);
+            float sinX = sinf(0.5f * x);
+            float sinY = sinf(0.5f * y);
+            float sinZ = sinf(0.5f * z);
             
-            m_quat.w = (cos_x * cos_y * cos_z) - (sin_x * sin_y * sin_z);
-            m_quat.x = (sin_x * cos_y * cos_z) + (cos_x * sin_y * sin_z);
-            m_quat.y = (cos_x * sin_y * cos_z) - (sin_x * cos_y * sin_z);
-            m_quat.z = (cos_x * cos_y * sin_z) + (sin_x * sin_y * cos_z);
+            m_quat.w = (cosX * cosY * cosZ) - (sinX * sinY * sinZ);
+            m_quat.x = (sinX * cosY * cosZ) + (cosX * sinY * sinZ);
+            m_quat.y = (cosX * sinY * cosZ) - (sinX * cosY * sinZ);
+            m_quat.z = (cosX * cosY * sinZ) + (sinX * sinY * cosZ);
         }
 
         ///
         /// Invert this quaternion.
         ///
-        inline void invert()
+        inline void Invert()
         {
-            float inv_mag = 1.0f / getMagnitude();
-            Quaternion q = getConjugate();
-            q.m_quat *= inv_mag;
+            float invMag = 1.0f / GetMagnitude();
+            Quaternion q = GetConjugate();
+            q.m_quat *= invMag;
             
             m_quat = q.m_quat;
         }
@@ -109,16 +109,16 @@ class Quaternion
         ///
         /// Normalize the quaternion into a unit quaternion.
         ///
-        inline void normalize()
+        inline void Normalize()
         {
-            float inv_mag = 1.0f / getMagnitude();
-            m_quat *= inv_mag;
+            float invMag = 1.0f / GetMagnitude();
+            m_quat *= invMag;
         }
     
         ///
         /// Get a conjugate of the quaternion.
         ///
-        inline Quaternion getConjugate() const
+        inline Quaternion GetConjugate() const
         {
             return Quaternion(Vec4(m_quat.x, m_quat.y, m_quat.z) * -1.0f, m_quat.w);
         }
@@ -127,29 +127,29 @@ class Quaternion
         /// Get the magnitude of this quaternion.
         /// @return Magnitude, scalar value.
         ///
-        inline float getMagnitude() const
+        inline float GetMagnitude() const
         {
-            return m_quat.length();
+            return m_quat.Length();
         }
     
         ///
         /// Rotate a vector about this quaternion. This quaternion
         /// is considered to be already unit length (normalized).
         ///
-        inline Vec4 rotate(const Vec4 &v)
+        inline Vec4 Rotate(const Vec4 &v)
         {
             // This is different from the canonical q * p * conjugate(q) for
             // speed reasons.
             // See https://molecularmusings.wordpress.com/2013/05/24/a-faster-quaternion-vector-multiplication/
-            Vec4 t = m_quat.cross(v) * 2.0f;
-            return v + (t * m_quat.w) + m_quat.cross(t);
+            Vec4 t = m_quat.Cross(v) * 2.0f;
+            return v + (t * m_quat.w) + m_quat.Cross(t);
         }
     
         ///
         /// Convert this quaternion into a row-major matrix.
         /// @param m Matrix4 to populate with the quaternion.
         ///
-        inline void toMatrix(Matrix4 &m) const
+        inline void ToMatrix(Matrix4 &m) const
         {
             m(0, 0) = 1.0f - 2.0f * (m_quat.y * m_quat.y + m_quat.z * m_quat.z);
             m(0, 1) = 2.0f * (m_quat.x * m_quat.y - m_quat.z * m_quat.w);
@@ -181,17 +181,17 @@ class Quaternion
         /// @param percent Percentage between 'start' and 'end' to interpolate. Value should
         ///        be between 0.0 and 1.0.
         ///
-        inline void slerp(const Quaternion &start, const Quaternion &end, float percent)
+        inline void Slerp(const Quaternion &start, const Quaternion &end, float percent)
         {
             Vec4 tmp;
-            float omega, cos_omega, sin_omega, scale0, scale1;
+            float omega, cosOmega, sinOmega, scale0, scale1;
             
-            cos_omega = start.m_quat.dot(end.m_quat);
+            cosOmega = start.m_quat.Dot(end.m_quat);
             
             // Check the signs
-            if (cos_omega < 0.0)
+            if (cosOmega < 0.0)
             {
-                cos_omega = -cos_omega;
+                cosOmega = -cosOmega;
                 tmp = end.m_quat * -1.0f;
             }
             else
@@ -201,13 +201,13 @@ class Quaternion
             }
             
             // Calculate the coefficients for the SLERP formula.
-            if ((1.0f - cos_omega) > FLT_EPSILON)
+            if ((1.0f - cosOmega) > FLT_EPSILON)
             {
                 // This is the standard case, so apply SLERP.
-                omega = acosf(cos_omega);
-                sin_omega = sinf(omega);
-                scale0 = sinf((1.0f - percent) * omega) / sin_omega;
-                scale1 = sinf(percent * omega) / sin_omega;
+                omega = acosf(cosOmega);
+                sinOmega = sinf(omega);
+                scale0 = sinf((1.0f - percent) * omega) / sinOmega;
+                scale1 = sinf(percent * omega) / sinOmega;
             }
             else
             {
@@ -233,10 +233,10 @@ class Quaternion
             Quaternion q;
             
             // Set the axis.
-            q.m_quat = m_quat.cross(other.m_quat) + (other.m_quat * m_quat.w) + (m_quat * other.m_quat.w);
+            q.m_quat = m_quat.Cross(other.m_quat) + (other.m_quat * m_quat.w) + (m_quat * other.m_quat.w);
             
             // Set the angle.
-            q.m_quat.w = (m_quat.w * other.m_quat.w) - m_quat.dot3(other.m_quat);
+            q.m_quat.w = (m_quat.w * other.m_quat.w) - m_quat.Dot3(other.m_quat);
             
             return q;
         }

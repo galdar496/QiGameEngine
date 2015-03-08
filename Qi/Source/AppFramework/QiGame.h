@@ -28,7 +28,7 @@ class QiGame
         /// the game and engine, running the game, and all shutdown.
         /// @param game Allocated derivation of QiGameImpl to control a game.
         ///
-        void runGame(QiGameImpl *game);
+        void RunGame(QiGameImpl *game);
 };
 
 #define QI_IMPLEMENT_GAME(GameImpl)    \
@@ -36,7 +36,7 @@ class QiGame
     {                                       \
         QiGame game;                        \
         GameImpl *impl = new GameImpl;      \
-        game.runGame(impl);                 \
+        game.RunGame(impl);                 \
         delete impl;                        \
         return 0;                           \
     }

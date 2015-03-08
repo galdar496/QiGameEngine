@@ -42,14 +42,14 @@ class Engine
         /// @param config Configuration object which is used to setup the engine.
         /// @return Initialization success.
         ///
-        bool init(const EngineConfig &config);
+        bool Init(const EngineConfig &config);
     
         ///
         /// Step the game scene forward one frame. This updates all systems/game objects
         /// as well as starts rendering.
         /// @param dt Delta time. Elapsed time from the previous call to "step()".
         ///
-        void step(const float dt);
+        void Step(const float dt);
     
         ///
         /// Shutdown the engine. All systems will be shutdown
@@ -57,14 +57,14 @@ class Engine
         /// all memory will have been deallocated and the engine will return to a
         /// pre-initialized state.
         ///
-        void shutdown();
+        void Shutdown();
     
         ///
         /// Add a system to the manager. Any system added this way will be managed by the
         /// Engine, including the System's memory.
         /// @param system Already initialized system to add to the engine.
         ///
-        void addSystem(SystemBase *system);
+        void AddSystem(SystemBase *system);
     
     private:
     
@@ -79,7 +79,7 @@ class Engine
         /// @param message Message to print
         /// @param channel The channel that generated this message.
         ///
-        void handleLogMessages(const char *message, Logger::Channel channel);
+        void HandleLogMessages(const char *message, Logger::Channel channel);
     #endif
     
         bool m_initiailzed; ///< If true, the engine has been properly initialized.

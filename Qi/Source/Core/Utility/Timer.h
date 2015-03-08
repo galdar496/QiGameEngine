@@ -31,36 +31,36 @@ class Timer
         ///
         /// Start the timer.
         ///
-        inline void start()
+        inline void Start()
         {
-            m_start_time = Clock::now();
+            m_startTime = Clock::now();
         }
     
         ///
         /// Stop the timer.
         /// @return Time in seconds since the last call to start().
         ///
-        inline float stop()
+        inline float Stop()
         {
-            std::chrono::duration<float> duration = Clock::now() - m_start_time;
-            float delta_time = duration.count();
-            return delta_time;
+            std::chrono::duration<float> duration = Clock::now() - m_startTime;
+            float deltaTime = duration.count();
+            return deltaTime;
         }
 
         /// Get the change in time since the last call to either start() or dt(). This function
         /// will restart the timer before returning.
         /// @return Elapsed time in seconds.
         ///
-        inline float dt()
+        inline float Dt()
         {
-            float delta_time = stop();
-            start();
-            return delta_time;
+            float deltaTime = Stop();
+            Start();
+            return deltaTime;
         }
         
     private:
         
-        Clock::time_point m_start_time; ///< Time recorded with a call to start().
+        Clock::time_point m_startTime; ///< Time recorded with a call to start().
         
 };
     

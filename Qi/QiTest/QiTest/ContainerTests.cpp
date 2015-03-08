@@ -15,27 +15,27 @@ using namespace Qi;
 TEST(Array, ZeroSized)
 {
     Array<int> a;
-    EXPECT_EQ(0, a.getSize());
+    EXPECT_EQ(0, a.GetSize());
 }
 
 TEST(Array, OneElement)
 {
     Array<int> a;
-    a.pushBack(2);
+    a.PushBack(2);
     
-    EXPECT_EQ(1, a.getSize());
+    EXPECT_EQ(1, a.GetSize());
     EXPECT_EQ(2, a(0));
 }
 
 TEST(Array, MultipleElements)
 {
     Array<int> a;
-    a.pushBack(1);
-    a.pushBack(2);
-    a.pushBack(3);
-    a.pushBack(4);
+    a.PushBack(1);
+    a.PushBack(2);
+    a.PushBack(3);
+    a.PushBack(4);
     
-    EXPECT_EQ(4, a.getSize());
+    EXPECT_EQ(4, a.GetSize());
     EXPECT_EQ(1, a(0));
     EXPECT_EQ(2, a(1));
     EXPECT_EQ(3, a(2));
@@ -45,12 +45,12 @@ TEST(Array, MultipleElements)
 TEST(Array, Resize)
 {
     Array<int> a;
-    a.pushBack(1);
-    a.pushBack(2);
+    a.PushBack(1);
+    a.PushBack(2);
     
-    a.resize(2);
-    a.pushBack(3);
-    a.pushBack(4);
+    a.Resize(2);
+    a.PushBack(3);
+    a.PushBack(4);
     
     EXPECT_EQ(3, a(0));
     EXPECT_EQ(4, a(1));
@@ -59,28 +59,28 @@ TEST(Array, Resize)
 TEST(Array, Clear)
 {
     Array<int> a;
-    a.pushBack(1);
-    a.pushBack(2);
-    a.pushBack(3);
+    a.PushBack(1);
+    a.PushBack(2);
+    a.PushBack(3);
     
-    a.clear();
-    EXPECT_EQ(0, a.getSize());
+    a.Clear();
+    EXPECT_EQ(0, a.GetSize());
 }
 
 TEST(Array, Reallocate)
 {
     Array<int> a;
-    a.pushBack(0);
+    a.PushBack(0);
     
-    uint32 allocated_size = a.getAllocateSize();
+    uint32 allocated_size = a.GetAllocateSize();
     for (int ii = 1; ii < allocated_size; ++ii)
     {
-        a.pushBack(ii);
+        a.PushBack(ii);
     }
     
     // At this point, the array should be full. The next
     // allocation will cause an internal reallocation.
-    a.pushBack(100);
+    a.PushBack(100);
     
     // Check every value to make sure that it copied correctly.
     int ii = 0;
@@ -97,17 +97,17 @@ TEST(Array, CopyEntireArray)
     Array<int> a;
     for (int ii = 0; ii < 10; ++ii)
     {
-        a.pushBack(ii);
+        a.PushBack(ii);
     }
     
     Array<int> copy1(a);
-    for (int ii = 0; ii < a.getSize(); ++ii)
+    for (int ii = 0; ii < a.GetSize(); ++ii)
     {
         EXPECT_EQ(a(0), copy1(0));
     }
     
     Array<int> copy2 = a;
-    for (int ii = 0; ii < a.getSize(); ++ii)
+    for (int ii = 0; ii < a.GetSize(); ++ii)
     {
         EXPECT_EQ(a(0), copy2(0));
     }

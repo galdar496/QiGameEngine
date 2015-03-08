@@ -14,7 +14,7 @@ namespace Qi
 template<class T>
 Array<T>::Array() :
     m_elements(nullptr),
-    m_allocated_size(0),
+    m_allocatedSize(0),
     m_back(0),
     m_count(0)
 {
@@ -25,11 +25,11 @@ Array<T>::Array(const Array &other)
 {
     m_count = other.m_count;
     m_back = other.m_back;
-    m_allocated_size = other.m_allocated_size;
+    m_allocatedSize = other.m_allocatedSize;
     
-    if (m_allocated_size)
+    if (m_allocatedSize)
     {
-        m_elements = Qi_AllocateMemoryArray(T, m_allocated_size);
+        m_elements = Qi_AllocateMemoryArray(T, m_allocatedSize);
         std::memcpy(m_elements, other.m_elements, m_count * sizeof(T));
     }
     else
@@ -42,7 +42,7 @@ Array<T>::Array(const Array &other)
 template<class T>
 Array<T>::~Array()
 {
-    clear();
+    Clear();
 }
 
 template<class T>
@@ -52,9 +52,9 @@ Array<T> & Array<T>::operator=(const Array<T> &other)
     {
         m_count = other.m_count;
         m_back = other.m_back;
-        m_allocated_size = other.m_allocated_size;
+        m_allocatedSize = other.m_allocatedSize;
         
-        m_elements = Qi_AllocateMemoryArray(T, m_allocated_size);
+        m_elements = Qi_AllocateMemoryArray(T, m_allocatedSize);
         std::memcpy(m_elements, other.m_elements, m_count * sizeof(T));
     }
     
@@ -62,11 +62,11 @@ Array<T> & Array<T>::operator=(const Array<T> &other)
 }
 
 template<class T>
-bool Array<T>::pushBack(const T &value)
+bool Array<T>::PushBack(const T &value)
 {
-    if (m_count >= m_allocated_size)
+    if (m_count >= m_allocatedSize)
     {
-        reallocate();
+        Reallocate();
     }
     
     void *buffer = (void *)&m_elements[m_back];
@@ -78,38 +78,38 @@ bool Array<T>::pushBack(const T &value)
 }
 
 template<class T>
-void Array<T>::resize(uint32 num_elements)
+void Array<T>::Resize(uint32 num_elements)
 {
     if (m_count > 0)
     {
-        clear();
+        Clear();
     }
     
     m_elements = Qi_AllocateMemoryArray(T, num_elements);
     m_count = num_elements;
-    m_allocated_size = num_elements;
+    m_allocatedSize = num_elements;
 }
 
 template<class T>
-uint32 Array<T>::getSize() const
+uint32 Array<T>::GetSize() const
 {
     return m_count;
 }
 
 template<class T>
-uint32 Array<T>::getAllocateSize() const
+uint32 Array<T>::GetAllocateSize() const
 {
-    return m_allocated_size;
+    return m_allocatedSize;
 }
 
 template<class T>
-void Array<T>::clear()
+void Array<T>::Clear()
 {
-    if (m_allocated_size)
+    if (m_allocatedSize)
     {
         m_count = 0;
         m_back = 0;
-        m_allocated_size = 0;
+        m_allocatedSize = 0;
         Qi_FreeMemory(m_elements);
         m_elements = nullptr;
     }
@@ -123,18 +123,18 @@ T &Array<T>::operator()(int index) const
 }
 
 template<class T>
-void Array<T>::reallocate()
+void Array<T>::Reallocate()
 {
     // Create a new array which is double the size of the previous one.
-    uint32 new_size = (m_allocated_size != 0) ? m_allocated_size * 2 : m_DEFAULT_ARRAY_SIZE;
+    uint32 new_size = (m_allocatedSize != 0) ? m_allocatedSize * 2 : m_DEFAULT_ARRAY_SIZE;
     T *tmp_array = Qi_AllocateMemoryArray(T, new_size);
     
     // Copy the old data from the previous array into the new one and free
     // the old one.
-    memcpy((void *)tmp_array, (void *)m_elements, m_allocated_size * sizeof(T));
+    memcpy((void *)tmp_array, (void *)m_elements, m_allocatedSize * sizeof(T));
     Qi_FreeMemory(m_elements);
     m_elements = tmp_array;
-    m_allocated_size = new_size;
+    m_allocatedSize = new_size;
 }
 
 } // namespace Qi

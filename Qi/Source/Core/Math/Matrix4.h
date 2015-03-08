@@ -48,22 +48,22 @@ class __attribute__ ((aligned(16))) Matrix4
         /// @param v Vector to transform.
         /// @return The transformed vector.
         ///
-        Vec4 transform(const Vec4 &v) const;
+        Vec4 Transform(const Vec4 &v) const;
     
         ///
         /// Transpose the matrix.
         ///
-        void transpose();
+        void Transpose();
     
         ///
         /// Premultiply this matrix.
         ///
-        void preMultiply(const Matrix4 &other);
+        void PreMultiply(const Matrix4 &other);
     
         ///
         /// Post multiply this matrix.
         ///
-        void postMultiply(const Matrix4 &other);
+        void PostMultiply(const Matrix4 &other);
     
         ///
         /// Access the matrix by row and column.
@@ -78,15 +78,15 @@ class __attribute__ ((aligned(16))) Matrix4
     
         ///
         /// Get a version of the matrix as row major.
-        /// @param row_major Copy of the internal matrix ordered row-major.
+        /// @param rowMajor Copy of the internal matrix ordered row-major.
         ///
-        void getRowMajor(Matrix4 &row_major) const;
+        void GetRowMajor(Matrix4 &rowMajor) const;
     
         ///
         /// Get a version of the matrix as colum major.
-        /// @return column_major Copy of the internal matrix ordered column-major.
+        /// @return columnMajor Copy of the internal matrix ordered column-major.
         ///
-        void getColumnMajor(Matrix4 &column_major) const;
+        void GetColumnMajor(Matrix4 &column_Mjor) const;
     
         ///
         /// Definition of the matrix.

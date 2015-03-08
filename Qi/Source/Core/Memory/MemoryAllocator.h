@@ -19,9 +19,9 @@
 #include <string>
 #include <unordered_map>
 
-#define Qi_AllocateMemory(type) Qi::MemoryAllocator::getInstance().allocate<type>(sizeof(type), __FILE__, __LINE__)
-#define Qi_AllocateMemoryArray(type, count) Qi::MemoryAllocator::getInstance().allocate<type>(sizeof(type) * count, __FILE__, __LINE__)
-#define Qi_FreeMemory(address) Qi::MemoryAllocator::getInstance().free(address)
+#define Qi_AllocateMemory(type) Qi::MemoryAllocator::GetInstance().Allocate<type>(sizeof(type), __FILE__, __LINE__)
+#define Qi_AllocateMemoryArray(type, count) Qi::MemoryAllocator::GetInstance().Allocate<type>(sizeof(type) * count, __FILE__, __LINE__)
+#define Qi_FreeMemory(address) Qi::MemoryAllocator::GetInstance().Free(address)
 
 namespace Qi
 {
@@ -34,29 +34,29 @@ class MemoryAllocator
         /// Instance accessor to get to the singleton object.
         /// @return Static instance of MemoryAllocator.
         ///
-        static MemoryAllocator &getInstance();
+        static MemoryAllocator &GetInstance();
     
         ///
         /// Initialize the memory allocator for use.
         /// @return Initialization success.
         ///
-        bool init();
+        bool Init();
     
         ///
         /// Deinitialize the memory allocator. Any still-allocated
         /// memory will be reported.
         ///
-        void deinit();
+        void Deinit();
     
         ///
         /// Allocate a user-defined amount of memory.
-        /// @param num_bytes Number of bytes to allocate.
+        /// @param numBytes Number of bytes to allocate.
         /// @param filename Filename that this allocation came from.
-        /// @param line_number Line number where this allocation took place.
+        /// @param lineNumber Line number where this allocation took place.
         /// @return Pointer to an allocated buffer.
         ///
         template<class T>
-        T *allocate(unsigned long long num_bytes, const char *filename = nullptr, int line_number = 0);
+        T *Allocate(unsigned long long numBytes, const char *filename = nullptr, int lineNumber = 0);
     
         ///
         /// Frees an allocated buffer.
@@ -64,7 +64,7 @@ class MemoryAllocator
         ///        null, this function will not do anything.
         ///
         template<class T>
-        void free(T *address);
+        void Free(T *address);
     
     private:
     
@@ -82,9 +82,9 @@ class MemoryAllocator
         ///
         struct MemoryRecord
         {
-            unsigned long long num_bytes; ///< Number of bytes allocated.
+            unsigned long long numBytes; ///< Number of bytes allocated.
             
-            int line_number;      ///< Line number this allocation came from.
+            int lineNumber;      ///< Line number this allocation came from.
             std::string filename; ///< Filename that allocated this memory.
         };
     

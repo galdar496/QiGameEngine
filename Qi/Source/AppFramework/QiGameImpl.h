@@ -34,14 +34,14 @@ class QiGameImpl
         /// Setup a configuration object for engine config.
         /// This function is called before the engine is initialized.
         ///
-        virtual void configure(Qi::EngineConfig &config) const {}
+        virtual void Configure(Qi::EngineConfig &config) const {}
     
         ///
         /// Initialize the game. This function is called
         /// after the engine is initialized.
         /// @return Initialization success.
         ///
-        virtual bool init() { return true; }
+        virtual bool Init() { return true; }
     
         ///
         /// Add any custom systems to the engine. The system must conform
@@ -50,13 +50,13 @@ class QiGameImpl
         /// including its memory.
         /// @param systems A list of systems to populate. Default is empty.
         ///
-        virtual void addCustomSystems(Qi::Array<Qi::SystemBase *> &systems) const {}
+        virtual void AddCustomSystems(Qi::Array<Qi::SystemBase *> &systems) const {}
     
         ///
         /// Deinitialize the game. This function is called
         /// before the engine is deinitialized.
         ///
-        virtual void deinit() {}
+        virtual void Deinit() {}
     
         ///
         /// Step the game. This function is called after the engine
@@ -65,5 +65,5 @@ class QiGameImpl
         /// @return If false, the engine will be shutdown and the game
         /// terminated.
         ///
-        virtual bool step(const float dt) { return true; }
+        virtual bool Step(const float dt) { return true; }
 };

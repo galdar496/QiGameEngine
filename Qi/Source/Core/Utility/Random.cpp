@@ -20,16 +20,16 @@ Random::~Random()
 {
 }
 
-int Random::getRand(int min, int max)
+int Random::GetRand(int min, int max)
 {
     assert(min < max && "min is greater than max");
-    return m_distribution(m_random_engine, Distribution::param_type(min, max));
+    return m_distribution(m_randomEngine, Distribution::param_type(min, max));
 }
 
-float Random::getRand(float min, float max)
+float Random::GetRand(float min, float max)
 {
     assert(min < max && "min is greater than max");
-    int random = getRand(0, RAND_MAX);
+    int random = GetRand(0, RAND_MAX);
     float tmp = static_cast<float>(static_cast<float>(random) / RAND_MAX);
     float diff = max - min;
     return min + (tmp * diff);

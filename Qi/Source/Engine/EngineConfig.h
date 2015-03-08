@@ -24,13 +24,13 @@ struct EngineConfig
     /// Initialize the default configuration.
     ///
     EngineConfig() :
-        screen_width(800),
-        screen_height(800),
+        screenWidth(800),
+        screenHeight(800),
         flushLogFile(false)
     {}
     
-    uint32 screen_width;  ///< Width of the screen in pixels.
-    uint32 screen_height; ///< Height of the screen in pixels.
+    uint32 screenWidth;  ///< Width of the screen in pixels.
+    uint32 screenHeight; ///< Height of the screen in pixels.
     
     bool flushLogFile; ///< If true, the logfile is flushed after each write.
 };

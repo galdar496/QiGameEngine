@@ -14,10 +14,10 @@ namespace Qi
 
 Matrix4::Matrix4()
 {
-    m_rows[0].zero();
-    m_rows[1].zero();
-    m_rows[2].zero();
-    m_rows[3].zero();
+    m_rows[0].Zero();
+    m_rows[1].Zero();
+    m_rows[2].Zero();
+    m_rows[3].Zero();
     
     m_rows[0].x = 1.0f;
     m_rows[1].y = 1.0f;
@@ -38,9 +38,9 @@ Matrix4::Matrix4(const Matrix4 &other)
 }
 
 Matrix4::Matrix4(float x0, float y0, float z0, float w0,
-                float x1, float y1, float z1, float w1,
-                float x2, float y2, float z2, float w2,
-                float x3, float y3, float z3, float w3)
+                 float x1, float y1, float z1, float w1,
+                 float x2, float y2, float z2, float w2,
+                 float x3, float y3, float z3, float w3)
 {
     m_rows[0].x = x0; m_rows[0].y = y0; m_rows[0].z = z0; m_rows[0].w = w0;
     m_rows[1].x = x1; m_rows[1].y = y1; m_rows[1].z = z1; m_rows[1].w = w1;
@@ -56,51 +56,51 @@ Matrix4::Matrix4(const Vec4 &row1, const Vec4 &row2, const Vec4 &row3, const Vec
     m_rows[3] = row4;
 }
 
-Vec4 Matrix4::transform(const Vec4 &v) const
+Vec4 Matrix4::Transform(const Vec4 &v) const
 {
     Vec4 result;
-    result.x = m_rows[0].dot(v);
-    result.y = m_rows[1].dot(v);
-    result.z = m_rows[2].dot(v);
-    result.w = m_rows[3].dot(v);
+    result.x = m_rows[0].Dot(v);
+    result.y = m_rows[1].Dot(v);
+    result.z = m_rows[2].Dot(v);
+    result.w = m_rows[3].Dot(v);
     
     return result;
 }
 
-void Matrix4::transpose()
+void Matrix4::Transpose()
 {
-    _MM_TRANSPOSE4_PS(m_rows[0].mm_value,
-                      m_rows[1].mm_value,
-                      m_rows[2].mm_value,
-                      m_rows[3].mm_value);
+    _MM_TRANSPOSE4_PS(m_rows[0].m_sseValue,
+                      m_rows[1].m_sseValue,
+                      m_rows[2].m_sseValue,
+                      m_rows[3].m_sseValue);
 }
 
-void Matrix4::preMultiply(const Matrix4 &other)
+void Matrix4::PreMultiply(const Matrix4 &other)
 {
     // First transpose this matrix so we can do easy SIMD multiplication.
     Matrix4 t(*this);
-    t.transpose();
+    t.Transpose();
     
     for (int ii = 0; ii < 4; ++ii)
     {
         for (int jj = 0; jj < 4; ++jj)
         {
-            m_rows[ii].v[jj] = other.m_rows[ii].dot(t.m_rows[jj]);
+            m_rows[ii].v[jj] = other.m_rows[ii].Dot(t.m_rows[jj]);
         }
     }
 }
 
-void Matrix4::postMultiply(const Matrix4 &other)
+void Matrix4::PostMultiply(const Matrix4 &other)
 {
     Matrix4 t(other);
-    t.transpose();
+    t.Transpose();
     
     for (int ii = 0; ii < 4; ++ii)
     {
         Vec4 tmp(m_rows[ii]);
         for (int jj = 0; jj < 4; ++jj)
         {
-            m_rows[ii].v[jj] = tmp.dot(t.m_rows[jj]);
+            m_rows[ii].v[jj] = tmp.Dot(t.m_rows[jj]);
         }
     }
 }
@@ -115,28 +115,28 @@ float &Matrix4::operator()(int row, int col)
     return m_rows[row].v[col];
 }
 
-void Matrix4::getRowMajor(Matrix4 &row_major) const
+void Matrix4::GetRowMajor(Matrix4 &rowMajor) const
 {
     // Internal matrix is already in row-major, just copy
     // the rows directly.
     
-    row_major.m_rows[0] = m_rows[0];
-    row_major.m_rows[1] = m_rows[1];
-    row_major.m_rows[2] = m_rows[2];
-    row_major.m_rows[3] = m_rows[3];
+    rowMajor.m_rows[0] = m_rows[0];
+    rowMajor.m_rows[1] = m_rows[1];
+    rowMajor.m_rows[2] = m_rows[2];
+    rowMajor.m_rows[3] = m_rows[3];
 }
 
-void Matrix4::getColumnMajor(Matrix4 &column_major) const
+void Matrix4::GetColumnMajor(Matrix4 &columnMajor) const
 {
     // Internal matrix is in row-major, copy the matrix directly
     // into 'column_major' and transpose it to get the final result.
     
-    column_major.m_rows[0] = m_rows[0];
-    column_major.m_rows[1] = m_rows[1];
-    column_major.m_rows[2] = m_rows[2];
-    column_major.m_rows[3] = m_rows[3];
+    columnMajor.m_rows[0] = m_rows[0];
+    columnMajor.m_rows[1] = m_rows[1];
+    columnMajor.m_rows[2] = m_rows[2];
+    columnMajor.m_rows[3] = m_rows[3];
     
-    column_major.transpose();
+    columnMajor.Transpose();
 }
     
 } // namespace Qi

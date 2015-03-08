@@ -16,13 +16,13 @@ int main(int argc, const char * argv[])
     
     // Make sure that the logger and memory allocator has been initialized for
     // any tests that might use it.
-    bool ready = Qi::MemoryAllocator::getInstance().init();
-    ready &= Qi::Logger::getInstance().init(true);
+    bool ready = Qi::MemoryAllocator::GetInstance().Init();
+    ready &= Qi::Logger::GetInstance().Init(true);
     assert(ready);
     
     int result = RUN_ALL_TESTS();
     
-    Qi::MemoryAllocator::getInstance().deinit();
-    Qi::Logger::getInstance().deinit();
+    Qi::MemoryAllocator::GetInstance().Deinit();
+    Qi::Logger::GetInstance().Deinit();
     return result;
 }

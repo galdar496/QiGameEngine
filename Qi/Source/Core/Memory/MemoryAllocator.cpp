@@ -25,20 +25,20 @@ MemoryAllocator::~MemoryAllocator()
 {
 }
 
-MemoryAllocator &MemoryAllocator::getInstance()
+MemoryAllocator &MemoryAllocator::GetInstance()
 {
     static MemoryAllocator allocator;
     return allocator;
 }
     
-bool MemoryAllocator::init()
+bool MemoryAllocator::Init()
 {
     assert(!m_initialized);
     m_initialized = true;
     return m_initialized;
 }
     
-void MemoryAllocator::deinit()
+void MemoryAllocator::Deinit()
 {
     assert(m_initialized);
     
@@ -49,8 +49,8 @@ void MemoryAllocator::deinit()
         for (auto iter = m_records.begin(); iter != m_records.end(); ++iter)
         {
             Qi_LogWarning("\tLeak: %s(%d) - %u bytes", iter->second.filename.c_str(),
-                                                       iter->second.line_number,
-                                                       iter->second.num_bytes);
+                                                       iter->second.lineNumber,
+                                                       iter->second.numBytes);
         }
     }
 

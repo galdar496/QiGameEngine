@@ -29,21 +29,21 @@ class Random
         /// @min Min value, must be less than 'max'.
         /// @max Max value, must be greater than 'min'.
         ///
-        int getRand(int min, int max);
+        int GetRand(int min, int max);
     
         ///
         /// Generate a random floating-point value.
         /// @min Min value, must be less than 'max'.
         /// @max Max value, must be greater than 'min'.
         ///
-        float getRand(float min, float max);
+        float GetRand(float min, float max);
     
     private:
     
         // Using a normal distribution.
         using Distribution = std::uniform_int_distribution<int>;
         Distribution m_distribution;
-        std::default_random_engine m_random_engine; ///< Random number generation engine.
+        std::default_random_engine m_randomEngine; ///< Random number generation engine.
 };
 
 } // namespace Qi

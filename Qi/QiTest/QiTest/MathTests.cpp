@@ -65,7 +65,7 @@ TEST(VectorTests, DotProduct)
     Vec4 v1(1, 2, 3, 4);
     Vec4 v2(5, 6, 7, 8);
     
-    EXPECT_EQ(70, v1.dot(v2));
+    EXPECT_EQ(70, v1.Dot(v2));
 }
 
 TEST(VectorTests, Cross)
@@ -73,7 +73,7 @@ TEST(VectorTests, Cross)
     Vec4 v1(0.2f, 0.01f, 1.0f);
     Vec4 v2(4.0f, 0.12f, 3.4f);
     
-    Vec4 cross = v1.cross(v2);
+    Vec4 cross = v1.Cross(v2);
     EXPECT_NEAR(-0.086f, cross.x, 0.01f);
     EXPECT_NEAR(3.32f, cross.y, 0.01f);
     EXPECT_NEAR(-0.016f, cross.z, 0.01f);
@@ -82,20 +82,20 @@ TEST(VectorTests, Cross)
 TEST(VectorTests, Normalize)
 {
     Vec4 v(1, 2, 3, 4);
-    v.normalize();
+    v.Normalize();
     EXPECT_NEAR(0.182556152343f, v.x, 0.001f);
     EXPECT_NEAR(0.365112304687f, v.y, 0.001f);
     EXPECT_NEAR(0.547668457031f, v.z, 0.001f);
     EXPECT_NEAR(0.730224609375f, v.w, 0.001f);
-    EXPECT_NEAR(1.0f, v.length(), 0.001f);
+    EXPECT_NEAR(1.0f, v.Length(), 0.001f);
     
     v = Vec4(1, 2, 3, 4);
-    v.normalizeAccurate();
+    v.NormalizeAccurate();
     EXPECT_NEAR(0.182556152343f, v.x, 0.001f);
     EXPECT_NEAR(0.365112304687f, v.y, 0.001f);
     EXPECT_NEAR(0.547668457031f, v.z, 0.001f);
     EXPECT_NEAR(0.730224609375f, v.w, 0.001f);
-    EXPECT_NEAR(1.0f, v.length(), 0.001f);
+    EXPECT_NEAR(1.0f, v.Length(), 0.001f);
 }
 
 TEST(MatrixTests, CreateIdentity)
@@ -130,7 +130,7 @@ TEST(MatrixTests, Transpose)
               9,  10, 11, 12,
               13, 14, 15, 16);
     
-    m.transpose();
+    m.Transpose();
     EXPECT_EQ(1, m(0, 0));
     EXPECT_EQ(2, m(1, 0));
     EXPECT_EQ(3, m(2, 0));
@@ -164,7 +164,7 @@ TEST(MatrixTests, PreMultiply)
                19,  110, 111, 112,
                113, 114, 115, 116);
     
-    m1.preMultiply(m2);
+    m1.PreMultiply(m2);
     EXPECT_EQ(370,  m1(0, 0));
     EXPECT_EQ(482,  m1(1, 0));
     EXPECT_EQ(3024, m1(2, 0));
@@ -198,7 +198,7 @@ TEST(MatrixTests, PostMultiply)
                19,  110, 111, 112,
                113, 114, 115, 116);
     
-    m1.postMultiply(m2);
+    m1.PostMultiply(m2);
     EXPECT_EQ(550,  m1(0, 0));
     EXPECT_EQ(1182, m1(1, 0));
     EXPECT_EQ(1814, m1(2, 0));
@@ -229,7 +229,7 @@ TEST(MatrixTests, Transform)
     
     Vec4 v(1, 2, 3, 4);
     
-    v = m.transform(v);
+    v = m.Transform(v);
     EXPECT_EQ(30,  v.x);
     EXPECT_EQ(70,  v.y);
     EXPECT_EQ(110, v.z);
@@ -239,7 +239,7 @@ TEST(MatrixTests, Transform)
 TEST(QuaternionTests, CreateFromAxisAngle)
 {
     Quaternion q;
-    q.createFromAxisAngle(Vec4(1.0f, 0.0f, 0.0f), 2.15f);
+    q.CreateFromAxisAngle(Vec4(1.0f, 0.0f, 0.0f), 2.15f);
     
     EXPECT_NEAR(0.8795901504337889f, q.x, 0.01f);
     EXPECT_NEAR(0.0f, q.y, 0.01f);
@@ -250,7 +250,7 @@ TEST(QuaternionTests, CreateFromAxisAngle)
 TEST(QuaternionTests, CreateFromEuler)
 {
     Quaternion q;
-    q.createFromEuler(2.15, 0, 0.0f);
+    q.CreateFromEuler(2.15, 0, 0.0f);
     
     EXPECT_NEAR(0.8795901504337889f, q.x, 0.01f);
     EXPECT_NEAR(0.0f, q.y, 0.01f);
@@ -261,10 +261,10 @@ TEST(QuaternionTests, CreateFromEuler)
 TEST(QuaternionTests, ToMatrix)
 {
     Quaternion q;
-    q.createFromAxisAngle(Vec4(1.0f, 0.0f, 0.0f), 2.15f);
+    q.CreateFromAxisAngle(Vec4(1.0f, 0.0f, 0.0f), 2.15f);
     
     Matrix4 m;
-    q.toMatrix(m);
+    q.ToMatrix(m);
     
     EXPECT_NEAR(1.0f, m(0, 0), 0.01f);
     EXPECT_NEAR(0.0f, m(1, 0), 0.01f);
@@ -285,7 +285,7 @@ TEST(QuaternionTests, Slerp)
     Quaternion q2(Vec4(0.0, 1.0, 0.0), 1.2f);
     
     Quaternion s;
-    s.slerp(q1, q2, 0.3f);
+    s.Slerp(q1, q2, 0.3f);
     
     EXPECT_NEAR(0.8256935895660071f, s.m_quat.x, 0.01f);
     EXPECT_NEAR(0.3997466112926573f, s.m_quat.y, 0.01f);
@@ -308,10 +308,10 @@ TEST(QuaternionTests, Multiply)
 TEST(QuaternionTests, RotateVector)
 {
     Quaternion q(Vec4(1.0, 0.0, 0.0), 0.2f);
-    q.normalize();
+    q.Normalize();
     
     Vec4 v(0.25f, 0.35f, -0.45f);
-    Vec4 rotated = q.rotate(v);
+    Vec4 rotated = q.Rotate(v);
     
     EXPECT_NEAR(0.25f, rotated.x, 0.01f);
     EXPECT_NEAR(-0.15000003576278687f, rotated.y, 0.01f);

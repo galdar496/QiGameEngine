@@ -19,7 +19,7 @@ QiGame::~QiGame()
 {
 }
 
-void QiGame::runGame(QiGameImpl *game)
+void QiGame::RunGame(QiGameImpl *game)
 {
     assert(game != nullptr);
     
@@ -28,9 +28,9 @@ void QiGame::runGame(QiGameImpl *game)
     // Configure and initialize the engine and game.
     {
         Qi::EngineConfig config;
-        game->configure(config);
+        game->Configure(config);
         
-        if (!(engine.init(config) && game->init()))
+        if (!(engine.Init(config) && game->Init()))
         {
             return;
         }
@@ -38,11 +38,11 @@ void QiGame::runGame(QiGameImpl *game)
     
     // Add any custom systems to the engine.
     {
-        Qi::Array<Qi::SystemBase *> custom_systems;
-        game->addCustomSystems(custom_systems);
-        for (uint32 ii = 0; ii < custom_systems.getSize(); ++ii)
+        Qi::Array<Qi::SystemBase *> customSystems;
+        game->AddCustomSystems(customSystems);
+        for (uint32 ii = 0; ii < customSystems.GetSize(); ++ii)
         {
-            engine.addSystem(custom_systems(ii));
+            engine.AddSystem(customSystems(ii));
         }
     }
     
@@ -50,19 +50,19 @@ void QiGame::runGame(QiGameImpl *game)
     Qi::Timer timer;
     
     bool run = true;
-    timer.start();
+    timer.Start();
     while (run)
     {
-        float dt = timer.dt();
+        float dt = timer.Dt();
         
         // Step the engine forward first.
-        engine.step(dt);
+        engine.Step(dt);
         
         // Now step the game forward.
-        run = game->step(dt);
+        run = game->Step(dt);
     }
     
     // Game is over, deinitialize the game and shut the engine down.
-    game->deinit();
-    engine.shutdown();
+    game->Deinit();
+    engine.Shutdown();
 }

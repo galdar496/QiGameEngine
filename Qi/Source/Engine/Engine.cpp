@@ -26,41 +26,41 @@ Engine::~Engine()
 
 }
 
-bool Engine::init(const EngineConfig &config)
+bool Engine::Init(const EngineConfig &config)
 {
     assert(!m_initiailzed);
     
     // Initialize the logging system first as all systems will use it.
-    if (!Logger::getInstance().init(config.flushLogFile))
+    if (!Logger::GetInstance().Init(config.flushLogFile))
     {
         throw std::runtime_error("FATAL: Cannot initialize logging system");
     }
     
     #ifdef QI_DEBUG
         // Register this class as the default message handler.
-        Logger::MessageEvent handler(this, &Engine::handleLogMessages);
-        Logger::getInstance().registerForMessages(handler, Logger::kInfo);
-        Logger::getInstance().registerForMessages(handler, Logger::kDebug);
-        Logger::getInstance().registerForMessages(handler, Logger::kWarning);
-        Logger::getInstance().registerForMessages(handler, Logger::kError);
+        Logger::MessageEvent handler(this, &Engine::HandleLogMessages);
+        Logger::GetInstance().RegisterForMessages(handler, Logger::kInfo);
+        Logger::GetInstance().RegisterForMessages(handler, Logger::kDebug);
+        Logger::GetInstance().RegisterForMessages(handler, Logger::kWarning);
+        Logger::GetInstance().RegisterForMessages(handler, Logger::kError);
     #endif
     
     // Initialize the memory allocation system after the logger but before everything else.
-    if (!MemoryAllocator::getInstance().init())
+    if (!MemoryAllocator::GetInstance().Init())
     {
         return false;
     }
     
     Qi_LogInfo("-Initializing engine-");
     
-    Qi_LogInfo("EngingConfig -- screen (%u x %u)", config.screen_width, config.screen_height);
+    Qi_LogInfo("EngingConfig -- screen (%u x %u)", config.screenWidth, config.screenHeight);
     
     Qi_LogInfo("-Engine successfully initialized-");
     m_initiailzed = true;
     return m_initiailzed;
 }
 
-void Engine::step(const float dt)
+void Engine::Step(const float dt)
 {
     assert(m_initiailzed);
     
@@ -71,7 +71,7 @@ void Engine::step(const float dt)
     // render job queue.
 }
 
-void Engine::shutdown()
+void Engine::Shutdown()
 {
     assert(m_initiailzed);
     m_initiailzed = false;
@@ -79,30 +79,30 @@ void Engine::shutdown()
     Qi_LogInfo("-Shutting down the engine-");
     
     // De-initialize all systems and delete the memory for them.
-    for (uint32 ii = 0; ii < m_systems.getSize(); ++ii)
+    for (uint32 ii = 0; ii < m_systems.GetSize(); ++ii)
     {
-        Qi_LogInfo("Shutting down system %s", m_systems(ii)->getName().c_str());
-        m_systems(ii)->deinit();
+        Qi_LogInfo("Shutting down system %s", m_systems(ii)->GetName().c_str());
+        m_systems(ii)->Deinit();
         delete m_systems(ii);
         m_systems(ii) = nullptr;
     }
     
     // Shutdown singleton objects. Be sure to always shutdown the logger last.
-    MemoryAllocator::getInstance().deinit();
-    Logger::getInstance().deinit();
+    MemoryAllocator::GetInstance().Deinit();
+    Logger::GetInstance().Deinit();
 }
 
-void Engine::addSystem(SystemBase *system)
+void Engine::AddSystem(SystemBase *system)
 {
     assert(m_initiailzed);
     
-    Qi_LogInfo("Adding system %s to the engine", system->getName().c_str());
+    Qi_LogInfo("Adding system %s to the engine", system->GetName().c_str());
     
-    m_systems.pushBack(system);
+    m_systems.PushBack(system);
 }
 
 #ifdef QI_DEBUG
-void Engine::handleLogMessages(const char *message, Logger::Channel channel)
+void Engine::HandleLogMessages(const char *message, Logger::Channel channel)
 {
     std::cout << message << std::endl;
 }

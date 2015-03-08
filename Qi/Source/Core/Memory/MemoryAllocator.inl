@@ -16,19 +16,19 @@ namespace Qi
 {
 
 template<class T>
-T *MemoryAllocator::allocate(unsigned long long num_bytes, const char *filename, int line_number)
+T *MemoryAllocator::Allocate(unsigned long long numBytes, const char *filename, int lineNumber)
 {
     assert(m_initialized);
     
     // For now, just use malloc until a more advanced system is ready.
-    void *memory = (std::malloc(num_bytes));
+    void *memory = (std::malloc(numBytes));
     T *result = new (memory) T; // placement new to run the constructor.
     
 #ifdef QI_DEBUG
     MemoryRecord record;
-    record.num_bytes = num_bytes;
+    record.numBytes = numBytes;
     record.filename = std::string(filename);
-    record.line_number = line_number;
+    record.lineNumber = lineNumber;
     m_records[(void *)memory] = record;
 #endif
     
@@ -36,7 +36,7 @@ T *MemoryAllocator::allocate(unsigned long long num_bytes, const char *filename,
 }
 
 template<class T>
-void MemoryAllocator::free(T *address)
+void MemoryAllocator::Free(T *address)
 {
     assert(m_initialized);
     
