@@ -26,15 +26,15 @@ class Random
     
         ///
         /// Generate a random integer value.
-        /// @min Min value, must be less than 'max'.
-        /// @max Max value, must be greater than 'min'.
+        /// @param min Min value, must be less than 'max'.
+        /// @param max Max value, must be greater than 'min'.
         ///
         int GetRand(int min, int max);
     
         ///
         /// Generate a random floating-point value.
-        /// @min Min value, must be less than 'max'.
-        /// @max Max value, must be greater than 'min'.
+        /// @param min Min value, must be less than 'max'.
+        /// @param max Max value, must be greater than 'min'.
         ///
         float GetRand(float min, float max);
     
