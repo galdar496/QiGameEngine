@@ -40,7 +40,7 @@ class Engine
         /// Initialize the engine for use. All subsystems will be initialized
         /// during this call. After returning, the engine is ready for use.
         /// @param config Configuration object which is used to setup the engine.
-        /// @return Initialization success.
+        /// @returns Initialization success.
         ///
         bool Init(const EngineConfig &config);
     
