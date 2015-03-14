@@ -10,29 +10,31 @@
 		C393DCAA1A8721BE00DAC0A2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCA91A8721BE00DAC0A2 /* main.cpp */; };
 		C393DCBA1A87224200DAC0A2 /* MathTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCB91A87224200DAC0A2 /* MathTests.cpp */; };
 		C393DCBC1A87225600DAC0A2 /* libQi Game Engine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C393DCBB1A87225600DAC0A2 /* libQi Game Engine.a */; };
-		C393DCBD1A87283600DAC0A2 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C393DCB61A8721F100DAC0A2 /* gtest.framework */; };
 		C393DCCE1AA3915800DAC0A2 /* ContainerTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCCD1AA3915800DAC0A2 /* ContainerTests.cpp */; };
+		C3E2A7B71AB3CE06002F0EB9 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E2A7B61AB3CE06002F0EB9 /* gtest.framework */; };
+		C3E2A7B81AB3FFD4002F0EB9 /* gtest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3E2A7B61AB3CE06002F0EB9 /* gtest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C393DCA41A8721BE00DAC0A2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				C3E2A7B81AB3FFD4002F0EB9 /* gtest.framework in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C393DCA91A8721BE00DAC0A2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		C393DCB61A8721F100DAC0A2 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = ../ThirdPartyLibs/gtest.framework; sourceTree = "<group>"; };
 		C393DCB81A8721F100DAC0A2 /* QiTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = QiTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C393DCB91A87224200DAC0A2 /* MathTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MathTests.cpp; sourceTree = "<group>"; };
 		C393DCBB1A87225600DAC0A2 /* libQi Game Engine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libQi Game Engine.a"; path = "../build/Debug/libQi Game Engine.a"; sourceTree = "<group>"; };
 		C393DCCD1AA3915800DAC0A2 /* ContainerTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContainerTests.cpp; sourceTree = "<group>"; };
+		C3E2A7B61AB3CE06002F0EB9 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = ../ThirdPartyLibs/gtest.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,7 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C393DCBD1A87283600DAC0A2 /* gtest.framework in Frameworks */,
+				C3E2A7B71AB3CE06002F0EB9 /* gtest.framework in Frameworks */,
 				C393DCBC1A87225600DAC0A2 /* libQi Game Engine.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -51,8 +53,8 @@
 		C393DC9D1A8721BE00DAC0A2 = {
 			isa = PBXGroup;
 			children = (
+				C3E2A7B61AB3CE06002F0EB9 /* gtest.framework */,
 				C393DCBB1A87225600DAC0A2 /* libQi Game Engine.a */,
-				C393DCB61A8721F100DAC0A2 /* gtest.framework */,
 				C393DCA81A8721BE00DAC0A2 /* QiTest */,
 				C393DCB81A8721F100DAC0A2 /* QiTest */,
 			);
@@ -210,11 +212,14 @@
 		C393DCAE1A8721BE00DAC0A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_X86_VECTOR_INSTRUCTIONS = sse4.2;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Cody/qi-game-engine/Qi/ThirdPartyLibs",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Cody/qi-game-engine/Qi/build/Debug",
@@ -226,11 +231,14 @@
 		C393DCAF1A8721BE00DAC0A2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_X86_VECTOR_INSTRUCTIONS = sse4.2;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Cody/qi-game-engine/Qi/ThirdPartyLibs",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Cody/qi-game-engine/Qi/build/Debug",
@@ -258,6 +266,7 @@
 				C393DCAF1A8721BE00DAC0A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
