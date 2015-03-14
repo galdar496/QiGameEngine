@@ -121,7 +121,7 @@ class Logger
         bool m_initialized;            ///< If true, the logger has been initialized.
         bool m_forceFlush;             ///< If true, flush the log file after each write.
         std::ofstream m_output;        ///< Log file all messages are written to.
-        unsigned int m_channelFilter; ///< Filter for each channel. Every bit corresponds to a different channel. 1 is on, 0 is off.
+        unsigned int m_channelFilter;  ///< Filter for each channel. Every bit corresponds to a different channel. 1 is on, 0 is off.
     
         std::mutex m_mutex; ///< Mutex used for locking while writing to the output file.
     
