@@ -217,12 +217,12 @@
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Cody/qi-game-engine/Qi/ThirdPartyLibs",
+					/Users/Cody/QiGameEngine/Qi/ThirdPartyLibs,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Cody/qi-game-engine/Qi/build/Debug",
+					/Users/Cody/QiGameEngine/Qi/build/Debug,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -236,12 +236,12 @@
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Cody/qi-game-engine/Qi/ThirdPartyLibs",
+					/Users/Cody/QiGameEngine/Qi/ThirdPartyLibs,
 				);
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Cody/qi-game-engine/Qi/build/Debug",
+					/Users/Cody/QiGameEngine/Qi/build/Debug,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
