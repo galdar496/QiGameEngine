@@ -1,5 +1,5 @@
 //
-//  Array.cpp
+//  Array.inl
 //  Qi Game Engine
 //
 //  Created by Cody White on 3/1/15.

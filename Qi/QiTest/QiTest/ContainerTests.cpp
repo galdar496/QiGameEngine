@@ -9,6 +9,8 @@
 #include <gtest/gtest.h>
 
 #include "../../Source/Core/Containers/Array.h"
+#include "../../Source/Core/Containers/LocklessQueue.h"
+#include <thread>
 
 using namespace Qi;
 
@@ -113,3 +115,97 @@ TEST(Array, CopyEntireArray)
     }
 }
 
+TEST(LocklessQueue, ZeroSized)
+{
+    LocklessQueue<int, 2> q;
+    EXPECT_EQ(0, q.GetSize());
+}
+
+TEST(LocklessQueue, SingleThreadPushPop)
+{
+    LocklessQueue<int, 4> q;
+    for (int ii = 0; ii < 4; ++ii)
+    {
+        q.Push(ii);
+    }
+    
+    EXPECT_EQ(false, q.Push(1));
+    EXPECT_EQ(4, q.GetSize());
+    
+    int v;
+    for (int ii = 0; ii < 4; ++ii)
+    {
+        q.Pop(v);
+        EXPECT_EQ(ii, v);
+    }
+    
+    EXPECT_EQ(false, q.Pop(v));
+}
+
+TEST(LocklessQueue, Clear)
+{
+    LocklessQueue<int, 4> q;
+    for (int ii = 0; ii < 4; ++ii)
+    {
+        q.Push(ii);
+    }
+    
+    EXPECT_EQ(4, q.GetSize());
+    
+    q.Clear();
+    EXPECT_EQ(0, q.GetSize());
+}
+
+LocklessQueue<int, 32> threadTestQueue;
+void ThreadedAddData(int index)
+{
+    for (int ii = index; ii < index + 16; ++ii)
+    {
+        threadTestQueue.Push(ii);
+    }
+}
+
+void ThreadedRemoveData(int count)
+{
+    int v;
+    for (int ii = 0; ii < count; ++ii)
+    {
+        while (!threadTestQueue.Pop(v)) {}
+    }
+}
+
+TEST(LocklessQueue, ThreadedPush)
+{
+    threadTestQueue.Clear();
+    std::thread t1(ThreadedAddData, 0);
+    std::thread t2(ThreadedAddData, 16);
+    t1.join();
+    t2.join();
+    
+    // Since there are 32 values, we can use a 32bit unsigned int to make sure that
+    // every value got properly added. After popping all elements off of the queue,
+    // the mask should be 0.
+    unsigned int mask = ~0;
+    for (int ii = 0; ii < 32; ++ii)
+    {
+        int v;
+        threadTestQueue.Pop(v);
+        mask &= ~(1 << v);
+    }
+    
+    EXPECT_EQ(0, mask);
+}
+
+TEST(LocklessQueue, ThreadedPushPop)
+{
+    threadTestQueue.Clear();
+    std::thread t1(ThreadedAddData, 0);
+    std::thread t2(ThreadedAddData, 16);
+    std::thread t3(ThreadedRemoveData, 32);
+    
+    t1.join();
+    t2.join();
+    t3.join();
+    
+    EXPECT_EQ(0, threadTestQueue.GetSize());
+}

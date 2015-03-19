@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C31BE4E01ABA8F60003F11D6 /* LocklessQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = C31BE4DE1ABA8F60003F11D6 /* LocklessQueue.h */; };
+		C31BE4E41ABAA38B003F11D6 /* MathUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C31BE4E31ABAA38B003F11D6 /* MathUtilities.h */; };
 		C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */; };
 		C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */; };
 		C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCBF1A8732C000DAC0A2 /* MemoryAllocator.cpp */; };
@@ -34,6 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C31BE4DE1ABA8F60003F11D6 /* LocklessQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocklessQueue.h; path = Source/Core/Containers/LocklessQueue.h; sourceTree = "<group>"; };
+		C31BE4E31ABAA38B003F11D6 /* MathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MathUtilities.h; path = Source/Core/Utility/MathUtilities.h; sourceTree = "<group>"; };
+		C31BE4E51ABAA3C9003F11D6 /* LocklessQueue.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = LocklessQueue.inl; path = Source/Core/Containers/LocklessQueue.inl; sourceTree = "<group>"; };
 		C358FF101AA3A72A00115E31 /* libQi Game Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libQi Game Engine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EngineConfig.h; path = Source/Engine/EngineConfig.h; sourceTree = "<group>"; };
 		C393DCBF1A8732C000DAC0A2 /* MemoryAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MemoryAllocator.cpp; path = Source/Core/Memory/MemoryAllocator.cpp; sourceTree = "<group>"; };
@@ -89,6 +94,8 @@
 			children = (
 				C393DCCF1AA3A3D100DAC0A2 /* Array.inl */,
 				C393DCCA1AA38D0200DAC0A2 /* Array.h */,
+				C31BE4E51ABAA3C9003F11D6 /* LocklessQueue.inl */,
+				C31BE4DE1ABA8F60003F11D6 /* LocklessQueue.h */,
 			);
 			name = Containers;
 			sourceTree = "<group>";
@@ -131,6 +138,7 @@
 		C3D7EC731A622ECA00FC46B6 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				C31BE4E31ABAA38B003F11D6 /* MathUtilities.h */,
 				C3D7EC741A622EEC00FC46B6 /* Random.cpp */,
 				C3D7EC751A622EEC00FC46B6 /* Random.h */,
 				C3D7EC811A62649100FC46B6 /* Timer.h */,
@@ -186,8 +194,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C31BE4E01ABA8F60003F11D6 /* LocklessQueue.h in Headers */,
 				C3D7EC951A7CC90700FC46B6 /* Engine.h in Headers */,
 				C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */,
+				C31BE4E41ABAA38B003F11D6 /* MathUtilities.h in Headers */,
 				C3D7EC991A7CC98B00FC46B6 /* Defines.h in Headers */,
 				C3D7EC971A7CC93000FC46B6 /* SystemBase.h in Headers */,
 				C3D7EC8F1A74C46D00FC46B6 /* FastDelegate.h in Headers */,
