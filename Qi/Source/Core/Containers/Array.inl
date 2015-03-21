@@ -7,6 +7,7 @@
 //
 
 #include "../Memory/MemoryAllocator.h"
+#include <algorithm>
 
 namespace Qi
 {
@@ -100,6 +101,25 @@ template<class T>
 uint32 Array<T>::GetAllocateSize() const
 {
     return m_allocatedSize;
+}
+
+template<class T>
+void Array<T>::Sort(SortOrder order)
+{
+    switch (order)
+    {
+        case SortOrder::kAscending:
+            std::sort(&m_elements[0], &m_elements[m_back], std::less<T>());
+            break;
+            
+        case SortOrder::kDescending:
+            std::sort(&m_elements[0], &m_elements[m_back], std::greater<T>());
+            break;
+        
+        default:
+            assert(0 && "Unsupported sort ordering");
+            break;
+    }
 }
 
 template<class T>

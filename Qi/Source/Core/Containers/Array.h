@@ -61,6 +61,22 @@ class Array
         inline uint32 GetAllocateSize() const;
     
         ///
+        /// Definition of possible sort orderings for Array.
+        ///
+        enum class SortOrder
+        {
+            kAscending,  ///< Sort the data in ascending order (smallest to largest).
+            kDescending  ///< Sort the data in descending order (largest to smallest).
+        };
+    
+        ///
+        /// Sort the array. The sort will be in either ascending or decending order.
+        ///
+        /// @param order
+        ///
+        inline void Sort(SortOrder order);
+    
+        ///
         /// Clear all elements from the array. This also deallocates the underlying memory
         /// for the Array object.
         ///

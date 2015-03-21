@@ -115,6 +115,40 @@ TEST(Array, CopyEntireArray)
     }
 }
 
+TEST(Array, SortAscending)
+{
+    Array<int> a;
+    a.PushBack(1);
+    a.PushBack(10);
+    a.PushBack(8);
+    a.PushBack(3);
+    a.PushBack(7);
+    
+    a.Sort(Qi::Array<int>::SortOrder::kAscending);
+    EXPECT_EQ(1,  a(0));
+    EXPECT_EQ(3,  a(1));
+    EXPECT_EQ(7,  a(2));
+    EXPECT_EQ(8,  a(3));
+    EXPECT_EQ(10, a(4));
+}
+
+TEST(Array, SortDescending)
+{
+    Array<int> a;
+    a.PushBack(1);
+    a.PushBack(10);
+    a.PushBack(8);
+    a.PushBack(3);
+    a.PushBack(7);
+    
+    a.Sort(Qi::Array<int>::SortOrder::kDescending);
+    EXPECT_EQ(10, a(0));
+    EXPECT_EQ(8,  a(1));
+    EXPECT_EQ(7,  a(2));
+    EXPECT_EQ(3,  a(3));
+    EXPECT_EQ(1,  a(4));
+}
+
 TEST(LocklessQueue, ZeroSized)
 {
     LocklessQueue<int> q;
