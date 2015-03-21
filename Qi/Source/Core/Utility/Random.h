@@ -26,6 +26,7 @@ class Random
     
         ///
         /// Generate a random integer value.
+        ///
         /// @param min Min value, must be less than 'max'.
         /// @param max Max value, must be greater than 'min'.
         ///
@@ -33,6 +34,7 @@ class Random
     
         ///
         /// Generate a random floating-point value.
+        ///
         /// @param min Min value, must be less than 'max'.
         /// @param max Max value, must be greater than 'min'.
         ///

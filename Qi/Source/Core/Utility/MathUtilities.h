@@ -17,6 +17,7 @@ namespace  Qi
 
 ///
 /// Determine if the passed-in value is a power of two.
+///
 /// @param x Value to check to be power of two.
 /// @return If true, this value is a power of two.
 ///

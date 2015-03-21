@@ -45,6 +45,7 @@ class __attribute__ ((aligned(16))) Matrix4
     
         ///
         /// Transform a vector by this matrix.
+        ///
         /// @param v Vector to transform.
         /// @return The transformed vector.
         ///
@@ -72,18 +73,21 @@ class __attribute__ ((aligned(16))) Matrix4
     
         ///
         /// Access the matrix by row and column.
+        ///
         /// @return Reference to the specified location.
         ///
         float &operator()(int row, int col);
     
         ///
         /// Get a version of the matrix as row major.
+        ///
         /// @param rowMajor Copy of the internal matrix ordered row-major.
         ///
         void GetRowMajor(Matrix4 &rowMajor) const;
     
         ///
         /// Get a version of the matrix as colum major.
+        ///
         /// @return columnMajor Copy of the internal matrix ordered column-major.
         ///
         void GetColumnMajor(Matrix4 &column_Mjor) const;

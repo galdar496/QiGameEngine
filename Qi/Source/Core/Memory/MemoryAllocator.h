@@ -32,12 +32,14 @@ class MemoryAllocator
     
         ///
         /// Instance accessor to get to the singleton object.
+        ///
         /// @return Static instance of MemoryAllocator.
         ///
         static MemoryAllocator &GetInstance();
     
         ///
         /// Initialize the memory allocator for use.
+        ///
         /// @return Initialization success.
         ///
         bool Init();
@@ -50,6 +52,7 @@ class MemoryAllocator
     
         ///
         /// Allocate a user-defined amount of memory.
+        ///
         /// @param numBytes Number of bytes to allocate.
         /// @param filename Filename that this allocation came from.
         /// @param lineNumber Line number where this allocation took place.
@@ -60,6 +63,7 @@ class MemoryAllocator
     
         ///
         /// Frees an allocated buffer.
+        ///
         /// @param address Address of the buffer to free. If
         ///        null, this function will not do anything.
         ///

@@ -55,12 +55,14 @@ class Logger
     
         ///
         /// Instance accessor to get to the singleton object.
+        ///
         /// @return Static instance of Logger.
         ///
         static Logger &GetInstance();
     
         ///
         /// Initialize the logging system for use.
+        ///
         /// @param flushLogFile If true, flush the log file after each write.
         /// @return Success of initialization.
         ///
@@ -74,6 +76,7 @@ class Logger
     
         ///
         /// Enable/disable a logging channel.
+        ///
         /// @param channel Channel to enable/disable.
         /// @param enable Whether or not to enable the specified channel.
         ///
@@ -83,6 +86,7 @@ class Logger
         /// Log a message. A message is automatically written to the log file. Additionally,
         /// any registered message handlers will get invoked should this specific channel be
         /// active.
+        ///
         /// @param channel Channel to log the message to.
         /// @param line Line number where the message occured (for debugging).
         /// @param filename Filename which generated the message (for debugging).
@@ -91,12 +95,15 @@ class Logger
         void LogMessage(Channel channel, int line, const char *filename, const char *message, ...);
     
     
+        ///
         /// Event handler to register for when you want to receive message events.
         /// First argument is the message, the second is the channel ID.
+        ///
         typedef FastDelegate <void (const char *, Channel)> MessageEvent;
     
         ///
         /// Register for a message event for a particular channel.
+        ///
         /// @param handler A message handler of type 'MessageEvent'
         /// @param channel Channel to register for. Any messages going to this channel will invoke
         ///                the specified handler.

@@ -38,6 +38,7 @@ class Timer
     
         ///
         /// Stop the timer.
+        ///
         /// @return Time in seconds since the last call to start().
         ///
         inline float Stop()
@@ -49,6 +50,7 @@ class Timer
 
         /// Get the change in time since the last call to either start() or dt(). This function
         /// will restart the timer before returning.
+        ///
         /// @return Elapsed time in seconds.
         ///
         inline float Dt()

@@ -59,6 +59,7 @@ class Quaternion
 
         ///
         /// Create a rotation quaternion based on an angle and axis.
+        ///
         /// @param vec 3D vector to rotate about.
         /// @param angle Angle to rotate about.
         ///
@@ -74,6 +75,7 @@ class Quaternion
         ///
         /// Create a quaternion from 3 Euler angles. Angles are specified
         /// in radians. Uses ZYX rotation order.
+        ///
         /// @param x Rotation about the x axis (pitch).
         /// @param y Rotation about the y axis (yaw).
         /// @param z Rotation about the z axis (roll).
@@ -125,6 +127,7 @@ class Quaternion
 
         ///
         /// Get the magnitude of this quaternion.
+        ///
         /// @return Magnitude, scalar value.
         ///
         inline float GetMagnitude() const
@@ -147,6 +150,7 @@ class Quaternion
     
         ///
         /// Convert this quaternion into a row-major matrix.
+        ///
         /// @param m Matrix4 to populate with the quaternion.
         ///
         inline void ToMatrix(Matrix4 &m) const
@@ -176,6 +180,7 @@ class Quaternion
         /// Perform SLERP (Spherical-linear interpolation) between two quaternions. The
         /// resulting interpolated quaternion will overwrite this instance.
         /// NOTE: The resulting quaternion is _not_ normalized.
+        ///
         /// @param start Quaternion which represents an interpolation of 0.0 (start)
         /// @param end Quaternion which represents an interpolation of 1.0 (end)
         /// @param percent Percentage between 'start' and 'end' to interpolate. Value should

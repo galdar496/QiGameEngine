@@ -79,6 +79,7 @@ class __attribute__ ((aligned(16))) Vec4
     
         ///
         /// Operator+
+        ///
         /// @param other Vector to add.
         ///
         inline Vec4 operator+(const Vec4 &other) const
@@ -88,6 +89,7 @@ class __attribute__ ((aligned(16))) Vec4
     
         ///
         /// Operator-
+        ///
         /// @param other Vector to subtract.
         ///
         inline Vec4 operator-(const Vec4 &other) const
@@ -97,6 +99,7 @@ class __attribute__ ((aligned(16))) Vec4
     
         ///
         /// Operator*
+        ///
         /// @param scalar Scalar value to multiply the vector by.
         ///
         inline Vec4 operator*(float scalar) const
@@ -106,6 +109,7 @@ class __attribute__ ((aligned(16))) Vec4
     
         ///
         /// Operator/
+        ///
         /// @param scalar Scalar value to divide the vector by.
         ///
         inline Vec4 operator/(float scalar) const
@@ -115,6 +119,7 @@ class __attribute__ ((aligned(16))) Vec4
     
         ///
         /// Operator*=
+        ///
         /// @param scalar Scalar value to multiply the vector by.
         ///
         inline void operator*=(float scalar)
@@ -124,6 +129,7 @@ class __attribute__ ((aligned(16))) Vec4
     
         ///
         /// Operator/=
+        ///
         /// @param scalar Scalar value to divide the vector by.
         ///
         inline void operator/=(float scalar)
@@ -133,6 +139,7 @@ class __attribute__ ((aligned(16))) Vec4
     
         ///
         /// Dot product.
+        ///
         /// @paramm other Vector to perform dot product with.
         /// @return Scalar value denoting the dot product.
         ///
@@ -143,6 +150,7 @@ class __attribute__ ((aligned(16))) Vec4
     
         ///
         /// 3-component dot product.
+        ///
         /// @paramm other Vector to perform dot product with.
         /// @return Scalar value denoting the dot product.
         ///
@@ -154,6 +162,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         /// Cross product. Note that the cross product is only defined in 3 dimensions, therefore
         /// the fourth component of each vector is ignored.
+        ///
         /// @param other Vector to cross with.
         /// @return Perpendicular vector.
         ///

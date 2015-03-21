@@ -39,6 +39,7 @@ class Engine
         ///
         /// Initialize the engine for use. All subsystems will be initialized
         /// during this call. After returning, the engine is ready for use.
+        ///
         /// @param config Configuration object which is used to setup the engine.
         /// @returns Initialization success.
         ///
@@ -47,6 +48,7 @@ class Engine
         ///
         /// Step the game scene forward one frame. This updates all systems/game objects
         /// as well as starts rendering.
+        ///
         /// @param dt Delta time. Elapsed time from the previous call to "step()".
         ///
         void Step(const float dt);
@@ -62,6 +64,7 @@ class Engine
         ///
         /// Add a system to the manager. Any system added this way will be managed by the
         /// Engine, including the System's memory.
+        ///
         /// @param system Already initialized system to add to the engine.
         ///
         void AddSystem(SystemBase *system);
@@ -76,6 +79,7 @@ class Engine
         ///
         /// Default message handler for message logging. This function prints the incoming
         /// message to the console and is only used in debug.
+        ///
         /// @param message Message to print
         /// @param channel The channel that generated this message.
         ///
