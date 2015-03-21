@@ -12,18 +12,18 @@ class QiExample : public QiGameImpl
 {
     public:
     
-        virtual void Configure(Qi::EngineConfig &config) const
+        virtual void Configure(Qi::EngineConfig &config) const override
         {
             config.flushLogFile = true;
         }
         
-        virtual bool Init() { return true; }
+        virtual bool Init() override { return true; }
 
-        virtual void AddCustomSystems(Qi::Array<Qi::SystemBase *> &systems) const {}
+        virtual void AddCustomSystems(Qi::Array<Qi::SystemBase *> &systems) const override {}
         
-        virtual void Deinit() {}
+        virtual void Deinit() override {}
     
-        virtual bool Step(const float dt) { return false; }
+        virtual bool Step(const float dt) override { return false; }
 };
 
 QI_IMPLEMENT_GAME(QiExample);
