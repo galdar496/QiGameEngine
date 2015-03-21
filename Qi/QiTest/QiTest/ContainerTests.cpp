@@ -117,13 +117,15 @@ TEST(Array, CopyEntireArray)
 
 TEST(LocklessQueue, ZeroSized)
 {
-    LocklessQueue<int, 2> q;
+    LocklessQueue<int> q;
+    q.Init(1);
     EXPECT_EQ(0, q.GetSize());
 }
 
 TEST(LocklessQueue, SingleThreadPushPop)
 {
-    LocklessQueue<int, 4> q;
+    LocklessQueue<int> q;
+    q.Init(4);
     for (int ii = 0; ii < 4; ++ii)
     {
         q.Push(ii);
@@ -144,7 +146,8 @@ TEST(LocklessQueue, SingleThreadPushPop)
 
 TEST(LocklessQueue, Clear)
 {
-    LocklessQueue<int, 4> q;
+    LocklessQueue<int> q;
+    q.Init(4);
     for (int ii = 0; ii < 4; ++ii)
     {
         q.Push(ii);
@@ -156,29 +159,30 @@ TEST(LocklessQueue, Clear)
     EXPECT_EQ(0, q.GetSize());
 }
 
-LocklessQueue<int, 32> threadTestQueue;
-void ThreadedAddData(int index)
+void ThreadedAddData(int index, LocklessQueue<int> &q)
 {
     for (int ii = index; ii < index + 16; ++ii)
     {
-        threadTestQueue.Push(ii);
+        q.Push(ii);
     }
 }
 
-void ThreadedRemoveData(int count)
+void ThreadedRemoveData(int count, LocklessQueue<int> &q)
 {
     int v;
     for (int ii = 0; ii < count; ++ii)
     {
-        while (!threadTestQueue.Pop(v)) {}
+        while (!q.Pop(v)) {}
     }
 }
 
 TEST(LocklessQueue, ThreadedPush)
 {
-    threadTestQueue.Clear();
-    std::thread t1(ThreadedAddData, 0);
-    std::thread t2(ThreadedAddData, 16);
+    LocklessQueue<int> q;
+    q.Init(32);
+    
+    std::thread t1(ThreadedAddData, 0, std::ref(q));
+    std::thread t2(ThreadedAddData, 16, std::ref(q));
     t1.join();
     t2.join();
     
@@ -189,7 +193,7 @@ TEST(LocklessQueue, ThreadedPush)
     for (int ii = 0; ii < 32; ++ii)
     {
         int v;
-        threadTestQueue.Pop(v);
+        q.Pop(v);
         mask &= ~(1 << v);
     }
     
@@ -198,14 +202,16 @@ TEST(LocklessQueue, ThreadedPush)
 
 TEST(LocklessQueue, ThreadedPushPop)
 {
-    threadTestQueue.Clear();
-    std::thread t1(ThreadedAddData, 0);
-    std::thread t2(ThreadedAddData, 16);
-    std::thread t3(ThreadedRemoveData, 32);
+    LocklessQueue<int> q;
+    q.Init(32);
+    
+    std::thread t1(ThreadedAddData, 0, std::ref(q));
+    std::thread t2(ThreadedAddData, 16, std::ref(q));
+    std::thread t3(ThreadedRemoveData, 32, std::ref(q));
     
     t1.join();
     t2.join();
     t3.join();
     
-    EXPECT_EQ(0, threadTestQueue.GetSize());
+    EXPECT_EQ(0, q.GetSize());
 }

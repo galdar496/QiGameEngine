@@ -8,27 +8,46 @@
 
 #include <thread>
 #include <assert.h>
-#include "../Utility/MathUtilities.h"
 
 namespace Qi
 {
 
-template<class T, uint32 QUEUE_SIZE>
-LocklessQueue<T, QUEUE_SIZE>::LocklessQueue() :
+template<class T>
+LocklessQueue<T>::LocklessQueue() :
     m_writeIndex(0),
     m_readIndex(0),
-    m_maxReadIndex(0)
+    m_maxReadIndex(0),
+    m_allocatedSize(0)
 {
 }
 
-template<class T, uint32 QUEUE_SIZE>
-LocklessQueue<T, QUEUE_SIZE>::~LocklessQueue()
+template<class T>
+LocklessQueue<T>::~LocklessQueue()
 {
+    Clear();
+    m_allocatedSize = 0;
 }
 
-template<class T, uint32 QUEUE_SIZE>
-inline uint32 LocklessQueue<T, QUEUE_SIZE>::GetSize() const
+template<class T>
+inline void LocklessQueue<T>::Init(uint32 size)
 {
+    assert(m_allocatedSize == 0);
+    
+    m_queue.Resize(size);
+    m_allocatedSize = size;
+}
+
+template<class T>
+inline uint32 LocklessQueue<T>::GetAllocatedSize() const
+{
+    return m_allocatedSize;
+}
+
+template<class T>
+inline uint32 LocklessQueue<T>::GetSize() const
+{
+    assert(m_allocatedSize > 0);
+    
     uint32 currentWriteIndex = m_writeIndex;
     uint32 currentReadIndex  = m_readIndex;
     
@@ -40,18 +59,20 @@ inline uint32 LocklessQueue<T, QUEUE_SIZE>::GetSize() const
     // Queue has wrapped around to the beginning.
     else
     {
-        return (QUEUE_SIZE + currentWriteIndex - currentReadIndex);
+        return (m_allocatedSize + currentWriteIndex - currentReadIndex);
     }
 }
 
-template<class T, uint32 QUEUE_SIZE>
-bool LocklessQueue<T, QUEUE_SIZE>::Push(const T& element)
+template<class T>
+bool LocklessQueue<T>::Push(const T& element)
 {
+    assert(m_allocatedSize > 0);
+    
     uint32 currentWriteIndex;
     
     do
     {
-        if (GetSize() == QUEUE_SIZE)
+        if (GetSize() == m_allocatedSize)
         {
             // The queue is full.
             return false;
@@ -62,7 +83,7 @@ bool LocklessQueue<T, QUEUE_SIZE>::Push(const T& element)
     } while (!std::atomic_compare_exchange_weak(&m_writeIndex, &currentWriteIndex, currentWriteIndex + 1));
     
     // We know now that this index is reserved for us. Use it to save the data.
-    m_queue[CountToIndex(currentWriteIndex)] = element;
+    m_queue(CountToIndex(currentWriteIndex)) = element;
     
     // Update the maximum read index after saving the data.
     while (!std::atomic_compare_exchange_weak(&m_maxReadIndex, &currentWriteIndex, currentWriteIndex + 1))
@@ -74,14 +95,16 @@ bool LocklessQueue<T, QUEUE_SIZE>::Push(const T& element)
     return true;
 }
 
-template<class T, uint32 QUEUE_SIZE>
-bool LocklessQueue<T, QUEUE_SIZE>::Pop(T& element)
+template<class T>
+bool LocklessQueue<T>::Pop(T& element)
 {
+    assert(m_allocatedSize > 0);
+    
     uint32 currentReadIndex;
     
     do
     {
-        currentReadIndex    = m_readIndex;
+        currentReadIndex = m_readIndex;
         
         if (GetSize() == 0)
         {
@@ -90,7 +113,7 @@ bool LocklessQueue<T, QUEUE_SIZE>::Pop(T& element)
         }
         
         // Retrieve the data from the queue
-        element = m_queue[CountToIndex(currentReadIndex)];
+        element = m_queue(CountToIndex(currentReadIndex));
         
         // Try to perfrom now the compare-and-exchange operation on the read index. If we succeed
         // element already contains what m_readIndex pointed to before we
@@ -112,18 +135,20 @@ bool LocklessQueue<T, QUEUE_SIZE>::Pop(T& element)
     return false;
 }
 
-template<class T, uint32 QUEUE_SIZE>
-inline void LocklessQueue<T, QUEUE_SIZE>::Clear()
+template<class T>
+inline void LocklessQueue<T>::Clear()
 {
+    assert(m_allocatedSize > 0);
+    
     m_readIndex    = 0;
     m_writeIndex   = 0;
     m_maxReadIndex = 0;
 }
 
-template<class T, uint32 QUEUE_SIZE>
-inline uint32 LocklessQueue<T, QUEUE_SIZE>::CountToIndex(uint32 index)
+template<class T>
+inline uint32 LocklessQueue<T>::CountToIndex(uint32 index)
 {
-    return (index % QUEUE_SIZE);
+    return (index % m_allocatedSize);
 }
 
 } // namespace Qi

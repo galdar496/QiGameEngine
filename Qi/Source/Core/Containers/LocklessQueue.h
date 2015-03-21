@@ -18,12 +18,13 @@
 ///
 
 #include "../../Defines.h"
+#include "Array.h"
 #include <atomic>
 
 namespace Qi
 {
 
-template<class T, uint32 QUEUE_SIZE>
+template<class T>
 class LocklessQueue
 {
     public:
@@ -35,13 +36,34 @@ class LocklessQueue
         ~LocklessQueue();
     
         ///
+        /// Initialize the queue to a certain size. The queue
+        /// will make only this one allocation and will never
+        /// grow in size.
+        ///
+        /// @param size Size to make the queue (in terms of T elements).
+        ///
+        inline void Init(uint32 size);
+    
+        ///
+        /// Get the allocated size of the queue. This is different
+        /// from GetSize() in that it returns the size of the internally
+        /// allocated queue, not the current number of elements in
+        /// the queue.
+        ///
+        /// @return Allocated size of the internal queue in terms of T elements.
+        ///
+        inline uint32 GetAllocatedSize() const;
+    
+        ///
         /// Get the current element count in the queue.
+        ///
         /// @return Number of elements in the queue.
         ///
         inline uint32 GetSize() const;
     
         ///
         /// Push an element onto the end of the queue.
+        ///
         /// @param element Element to push onto the queue. Note that the element
         ///                is not a pointer.
         /// @return Success. If false, the queue is full.
@@ -50,6 +72,7 @@ class LocklessQueue
     
         ///
         /// Pop an element off of the front of the queue.
+        ///
         /// @param element A copy of the top element on the queue.
         /// @return Success. If false, the queue is empty.
         ///
@@ -80,7 +103,7 @@ class LocklessQueue
         /// Internal queue object. Note that this queue is circular and will wrap
         /// around as objects are added/popped off.
         ///
-        T m_queue[QUEUE_SIZE];
+        Array<T> m_queue;
         std::atomic<uint32> m_writeIndex;   ///< The index in 'm_queue' where the next element will be inserted.
         std::atomic<uint32> m_readIndex;    ///< The index in 'm_queue' where the next element will be read.
     
@@ -90,6 +113,8 @@ class LocklessQueue
         /// have been reserved but the data is still not in the queue.
         ///
         std::atomic<uint32> m_maxReadIndex;
+    
+        uint32 m_allocatedSize; ///< Size of the entire queue (not the number of elements in the queue).
 };
 
 } // namespace Qi
