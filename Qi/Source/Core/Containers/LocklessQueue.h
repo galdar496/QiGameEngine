@@ -15,7 +15,6 @@
 /// up it's use, and avoids the ABA problem. However, the queue is a fixed size and cannot
 /// be resized after being instantiated.
 /// This code is an adaptaion of http://www.codeproject.com/Articles/153898/Yet-another-implementation-of-a-lock-free-circular
-/// NOTE: Queue MUST be a power-of-two size.
 ///
 
 #include "../../Defines.h"
@@ -24,7 +23,7 @@
 namespace Qi
 {
 
-template<class T, uint32 QUEUE_SIZE /* Must be power of two */>
+template<class T, uint32 QUEUE_SIZE>
 class LocklessQueue
 {
     public:

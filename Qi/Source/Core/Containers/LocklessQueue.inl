@@ -19,8 +19,6 @@ LocklessQueue<T, QUEUE_SIZE>::LocklessQueue() :
     m_readIndex(0),
     m_maxReadIndex(0)
 {
-    // Make sure that this queue is actually power-of-two.
-    assert(IsPowerOf2(QUEUE_SIZE));
 }
 
 template<class T, uint32 QUEUE_SIZE>
@@ -125,9 +123,7 @@ inline void LocklessQueue<T, QUEUE_SIZE>::Clear()
 template<class T, uint32 QUEUE_SIZE>
 inline uint32 LocklessQueue<T, QUEUE_SIZE>::CountToIndex(uint32 index)
 {
-    // Because QUEUE_SIZE must be power of two, we can use & instead
-    // of % for a modulus.
-    return (index & (QUEUE_SIZE - 1));
+    return (index % QUEUE_SIZE);
 }
 
 } // namespace Qi
