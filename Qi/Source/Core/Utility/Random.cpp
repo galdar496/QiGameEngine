@@ -7,7 +7,7 @@
 //
 
 #include "Random.h"
-#include <assert.h>
+#include "../../Defines.h"
 
 namespace Qi
 {
@@ -22,13 +22,13 @@ Random::~Random()
 
 int Random::GetRand(int min, int max)
 {
-    assert(min < max && "min is greater than max");
+    QI_ASSERT(min < max && "min is greater than max");
     return m_distribution(m_randomEngine, Distribution::param_type(min, max));
 }
 
 float Random::GetRand(float min, float max)
 {
-    assert(min < max && "min is greater than max");
+    QI_ASSERT(min < max && "min is greater than max");
     int random = GetRand(0, RAND_MAX);
     float tmp = static_cast<float>(static_cast<float>(random) / RAND_MAX);
     float diff = max - min;

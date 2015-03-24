@@ -7,7 +7,6 @@
 //
 
 #include <thread>
-#include <assert.h>
 
 namespace Qi
 {
@@ -31,7 +30,7 @@ LocklessQueue<T>::~LocklessQueue()
 template<class T>
 inline void LocklessQueue<T>::Init(uint32 size)
 {
-    assert(m_allocatedSize == 0);
+    QI_ASSERT(m_allocatedSize == 0);
     
     m_queue.Resize(size);
     m_allocatedSize = size;
@@ -46,7 +45,7 @@ inline uint32 LocklessQueue<T>::GetAllocatedSize() const
 template<class T>
 inline uint32 LocklessQueue<T>::GetSize() const
 {
-    assert(m_allocatedSize > 0);
+    QI_ASSERT(m_allocatedSize > 0);
     
     uint32 currentWriteIndex = m_writeIndex;
     uint32 currentReadIndex  = m_readIndex;
@@ -66,7 +65,7 @@ inline uint32 LocklessQueue<T>::GetSize() const
 template<class T>
 bool LocklessQueue<T>::Push(const T& element)
 {
-    assert(m_allocatedSize > 0);
+    QI_ASSERT(m_allocatedSize > 0);
     
     uint32 currentWriteIndex;
     
@@ -98,7 +97,7 @@ bool LocklessQueue<T>::Push(const T& element)
 template<class T>
 bool LocklessQueue<T>::Pop(T& element)
 {
-    assert(m_allocatedSize > 0);
+    QI_ASSERT(m_allocatedSize > 0);
     
     uint32 currentReadIndex;
     
@@ -131,14 +130,14 @@ bool LocklessQueue<T>::Pop(T& element)
     } while(1); // Keep looping and try to read again.
     
     // Something went wrong. It shouldn't be possible to reach here.
-    assert(0 && "LockelssQueue::Pop() shouldn't ever get here");
+    QI_ASSERT(0 && "LockelssQueue::Pop() shouldn't ever get here");
     return false;
 }
 
 template<class T>
 inline void LocklessQueue<T>::Clear()
 {
-    assert(m_allocatedSize > 0);
+    QI_ASSERT(m_allocatedSize > 0);
     
     m_readIndex    = 0;
     m_writeIndex   = 0;

@@ -13,11 +13,14 @@
 ///
 
 #include <stdint.h>
+#include <assert.h>
 
 #ifdef DEBUG
     #define QI_DEBUG
+    #define QI_ASSERT(x) assert(x)
 #else
     #define QI_RELEASE
+    #define QI_ASSERT(x)
 #endif
 
 typedef uint32_t uint32;

@@ -117,7 +117,7 @@ void Array<T>::Sort(SortOrder order)
             break;
         
         default:
-            assert(0 && "Unsupported sort ordering");
+            QI_ASSERT(0 && "Unsupported sort ordering");
             break;
     }
 }
@@ -138,7 +138,7 @@ void Array<T>::Clear()
 template<class T>
 T &Array<T>::operator()(int index) const
 {
-    assert(index < m_count);
+    QI_ASSERT(index < m_count);
     return m_elements[index];
 }
 

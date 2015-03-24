@@ -18,7 +18,7 @@ int main(int argc, const char * argv[])
     // any tests that might use it.
     bool ready = Qi::MemoryAllocator::GetInstance().Init();
     ready &= Qi::Logger::GetInstance().Init(true);
-    assert(ready);
+    QI_ASSERT(ready);
     
     int result = RUN_ALL_TESTS();
     

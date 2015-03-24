@@ -11,7 +11,6 @@
 #include "../Core/Memory/MemoryAllocator.h"
 #include "Systems/SystemBase.h"
 #include <iostream>
-#include <assert.h>
 
 namespace Qi
 {
@@ -28,7 +27,7 @@ Engine::~Engine()
 
 bool Engine::Init(const EngineConfig &config)
 {
-    assert(!m_initiailzed);
+    QI_ASSERT(!m_initiailzed);
     
     // Initialize the logging system first as all systems will use it.
     if (!Logger::GetInstance().Init(config.flushLogFile))
@@ -62,7 +61,7 @@ bool Engine::Init(const EngineConfig &config)
 
 void Engine::Step(const float dt)
 {
-    assert(m_initiailzed);
+    QI_ASSERT(m_initiailzed);
     
     Qi_LogInfo("Engine stepping frame forward %f seconds", dt);
     
@@ -73,7 +72,7 @@ void Engine::Step(const float dt)
 
 void Engine::Shutdown()
 {
-    assert(m_initiailzed);
+    QI_ASSERT(m_initiailzed);
     m_initiailzed = false;
     
     Qi_LogInfo("-Shutting down the engine-");
@@ -94,7 +93,7 @@ void Engine::Shutdown()
 
 void Engine::AddSystem(SystemBase *system)
 {
-    assert(m_initiailzed);
+    QI_ASSERT(m_initiailzed);
     
     Qi_LogInfo("Adding system %s to the engine", system->GetName().c_str());
     

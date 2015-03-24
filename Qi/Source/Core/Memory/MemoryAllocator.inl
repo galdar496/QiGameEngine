@@ -9,7 +9,6 @@
 #pragma once
 
 #include <cstdlib>
-#include <assert.h>
 #include "../../Defines.h"
 
 namespace Qi
@@ -18,7 +17,7 @@ namespace Qi
 template<class T>
 T *MemoryAllocator::Allocate(unsigned long long numBytes, const char *filename, int lineNumber)
 {
-    assert(m_initialized);
+    QI_ASSERT(m_initialized);
     
     // For now, just use malloc until a more advanced system is ready.
     void *memory = (std::malloc(numBytes));
@@ -38,7 +37,7 @@ T *MemoryAllocator::Allocate(unsigned long long numBytes, const char *filename, 
 template<class T>
 void MemoryAllocator::Free(T *address)
 {
-    assert(m_initialized);
+    QI_ASSERT(m_initialized);
     
     if (address != nullptr)
     {
@@ -47,7 +46,7 @@ void MemoryAllocator::Free(T *address)
         
 #ifdef QI_DEBUG
         auto iter = m_records.find((void *)address);
-        assert(iter != m_records.end());
+        QI_ASSERT(iter != m_records.end());
         m_records.erase(iter);
 #endif
 

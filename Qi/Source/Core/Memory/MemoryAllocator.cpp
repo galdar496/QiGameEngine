@@ -9,7 +9,6 @@
 #include "MemoryAllocator.h"
 #include "../Utility/Logger.h"
 #include "../../Defines.h"
-#include <assert.h>
 
 namespace Qi
 {
@@ -33,14 +32,14 @@ MemoryAllocator &MemoryAllocator::GetInstance()
     
 bool MemoryAllocator::Init()
 {
-    assert(!m_initialized);
+    QI_ASSERT(!m_initialized);
     m_initialized = true;
     return m_initialized;
 }
     
 void MemoryAllocator::Deinit()
 {
-    assert(m_initialized);
+    QI_ASSERT(m_initialized);
     
 #ifdef QI_DEBUG
     if (!m_records.empty())

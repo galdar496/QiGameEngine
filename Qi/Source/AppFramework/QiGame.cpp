@@ -9,7 +9,6 @@
 #include "QiGame.h"
 #include "../Engine/Engine.h"
 #include "../Core/Utility/Timer.h"
-#include <assert.h>
 
 QiGame::QiGame()
 {
@@ -21,7 +20,7 @@ QiGame::~QiGame()
 
 void QiGame::RunGame(QiGameImpl *game)
 {
-    assert(game != nullptr);
+    QI_ASSERT(game != nullptr);
     
     Qi::Engine engine;
     

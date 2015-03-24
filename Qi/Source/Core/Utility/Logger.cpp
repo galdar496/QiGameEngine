@@ -10,7 +10,7 @@
 //
 
 #include "Logger.h"
-#include <assert.h>
+#include "../../Defines.h"
 #include <stdarg.h>
 #include <iomanip>
 
@@ -53,7 +53,7 @@ Logger &Logger::GetInstance()
 
 bool Logger::Init(bool flushLogFile)
 {
-    assert(!m_initialized);
+    QI_ASSERT(!m_initialized);
     
     // Default to all channels on.
     m_channelFilter = ~0;
@@ -89,7 +89,7 @@ void Logger::EnableChannel(Channel channel, bool enable)
 
 void Logger::LogMessage(Channel channel, int line, const char *filename, const char *message, ...)
 {
-    assert(m_initialized && "Logger attempted to be used without being initialized");
+    QI_ASSERT(m_initialized && "Logger attempted to be used without being initialized");
     
     va_list args;
     va_start( args, message );
