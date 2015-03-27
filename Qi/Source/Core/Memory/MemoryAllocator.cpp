@@ -7,7 +7,7 @@
 //
 
 #include "MemoryAllocator.h"
-#include "../Utility/Logger.h"
+#include "../Utility/Logger/Logger.h"
 #include "../../Defines.h"
 
 namespace Qi

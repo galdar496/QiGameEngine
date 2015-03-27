@@ -22,8 +22,6 @@
 		C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC741A622EEC00FC46B6 /* Random.cpp */; };
 		C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC751A622EEC00FC46B6 /* Random.h */; };
 		C3D7EC821A62649100FC46B6 /* Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC811A62649100FC46B6 /* Timer.h */; };
-		C3D7EC851A62D3C000FC46B6 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC831A62D3C000FC46B6 /* Logger.cpp */; };
-		C3D7EC861A62D3C000FC46B6 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC841A62D3C000FC46B6 /* Logger.h */; };
 		C3D7EC8A1A6657B000FC46B6 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7EC881A6657B000FC46B6 /* tinyxml2.cpp */; };
 		C3D7EC8B1A6657B000FC46B6 /* tinyxml2.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC891A6657B000FC46B6 /* tinyxml2.h */; };
 		C3D7EC8F1A74C46D00FC46B6 /* FastDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC8E1A74C46D00FC46B6 /* FastDelegate.h */; };
@@ -33,6 +31,11 @@
 		C3D7EC991A7CC98B00FC46B6 /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7EC981A7CC98B00FC46B6 /* Defines.h */; };
 		C3D7ECA21A7CD18600FC46B6 /* QiGame.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA01A7CD18600FC46B6 /* QiGame.h */; };
 		C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA31A7CD1E100FC46B6 /* QiGameImpl.h */; };
+		C3F50F8B1AC4E75E00AE7472 /* LogFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F891AC4E75E00AE7472 /* LogFileWriter.h */; };
+		C3F50F8D1AC4E79B00AE7472 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F8C1AC4E79B00AE7472 /* Logger.h */; };
+		C3F50F8F1AC4E7E500AE7472 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50F8E1AC4E7E500AE7472 /* Logger.cpp */; };
+		C3F50F931AC515D900AE7472 /* HTMLLogFileWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50F911AC515D900AE7472 /* HTMLLogFileWriter.cpp */; };
+		C3F50F941AC515D900AE7472 /* HTMLLogFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F921AC515D900AE7472 /* HTMLLogFileWriter.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,8 +57,6 @@
 		C3D7EC741A622EEC00FC46B6 /* Random.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Random.cpp; path = Source/Core/Utility/Random.cpp; sourceTree = "<group>"; };
 		C3D7EC751A622EEC00FC46B6 /* Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Random.h; path = Source/Core/Utility/Random.h; sourceTree = "<group>"; };
 		C3D7EC811A62649100FC46B6 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Timer.h; path = Source/Core/Utility/Timer.h; sourceTree = "<group>"; };
-		C3D7EC831A62D3C000FC46B6 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Logger.cpp; path = Source/Core/Utility/Logger.cpp; sourceTree = "<group>"; };
-		C3D7EC841A62D3C000FC46B6 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logger.h; path = Source/Core/Utility/Logger.h; sourceTree = "<group>"; };
 		C3D7EC881A6657B000FC46B6 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml2.cpp; path = Source/ThirdParty/tinyxml2.cpp; sourceTree = "<group>"; };
 		C3D7EC891A6657B000FC46B6 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml2.h; path = Source/ThirdParty/tinyxml2.h; sourceTree = "<group>"; };
 		C3D7EC8E1A74C46D00FC46B6 /* FastDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FastDelegate.h; path = Source/ThirdParty/FastDelegate.h; sourceTree = "<group>"; };
@@ -66,6 +67,12 @@
 		C3D7ECA01A7CD18600FC46B6 /* QiGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QiGame.h; path = Source/AppFramework/QiGame.h; sourceTree = "<group>"; };
 		C3D7ECA31A7CD1E100FC46B6 /* QiGameImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QiGameImpl.h; path = Source/AppFramework/QiGameImpl.h; sourceTree = "<group>"; };
 		C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QiGame.cpp; path = Source/AppFramework/QiGame.cpp; sourceTree = "<group>"; };
+		C3F50F891AC4E75E00AE7472 /* LogFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogFileWriter.h; path = Source/Core/Utility/Logger/LogFileWriter.h; sourceTree = "<group>"; };
+		C3F50F8C1AC4E79B00AE7472 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logger.h; path = Source/Core/Utility/Logger/Logger.h; sourceTree = "<group>"; };
+		C3F50F8E1AC4E7E500AE7472 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Logger.cpp; path = Source/Core/Utility/Logger/Logger.cpp; sourceTree = "<group>"; };
+		C3F50F901AC4E8EA00AE7472 /* LogChannels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LogChannels.h; path = Source/Core/Utility/Logger/LogChannels.h; sourceTree = "<group>"; };
+		C3F50F911AC515D900AE7472 /* HTMLLogFileWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HTMLLogFileWriter.cpp; path = Source/Core/Utility/Logger/HTMLLogFileWriter.cpp; sourceTree = "<group>"; };
+		C3F50F921AC515D900AE7472 /* HTMLLogFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLLogFileWriter.h; path = Source/Core/Utility/Logger/HTMLLogFileWriter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,12 +145,11 @@
 		C3D7EC731A622ECA00FC46B6 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				C3F50F871AC4E73700AE7472 /* Logger */,
 				C31BE4E31ABAA38B003F11D6 /* MathUtilities.h */,
 				C3D7EC741A622EEC00FC46B6 /* Random.cpp */,
 				C3D7EC751A622EEC00FC46B6 /* Random.h */,
 				C3D7EC811A62649100FC46B6 /* Timer.h */,
-				C3D7EC831A62D3C000FC46B6 /* Logger.cpp */,
-				C3D7EC841A62D3C000FC46B6 /* Logger.h */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -187,6 +193,19 @@
 			name = AppFramework;
 			sourceTree = "<group>";
 		};
+		C3F50F871AC4E73700AE7472 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				C3F50F8E1AC4E7E500AE7472 /* Logger.cpp */,
+				C3F50F8C1AC4E79B00AE7472 /* Logger.h */,
+				C3F50F891AC4E75E00AE7472 /* LogFileWriter.h */,
+				C3F50F901AC4E8EA00AE7472 /* LogChannels.h */,
+				C3F50F911AC515D900AE7472 /* HTMLLogFileWriter.cpp */,
+				C3F50F921AC515D900AE7472 /* HTMLLogFileWriter.h */,
+			);
+			name = Logger;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -204,12 +223,14 @@
 				C3D7EC8B1A6657B000FC46B6 /* tinyxml2.h in Headers */,
 				C3D7ECA21A7CD18600FC46B6 /* QiGame.h in Headers */,
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix4.h in Headers */,
+				C3F50F941AC515D900AE7472 /* HTMLLogFileWriter.h in Headers */,
 				C393DCCC1AA38D0200DAC0A2 /* Array.h in Headers */,
+				C3F50F8B1AC4E75E00AE7472 /* LogFileWriter.h in Headers */,
 				C393DCC71A8B3A8400DAC0A2 /* Quaternion.h in Headers */,
 				C3D7EC721A61FDCD00FC46B6 /* Constants.h in Headers */,
+				C3F50F8D1AC4E79B00AE7472 /* Logger.h in Headers */,
 				C3D7EC821A62649100FC46B6 /* Timer.h in Headers */,
 				C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */,
-				C3D7EC861A62D3C000FC46B6 /* Logger.h in Headers */,
 				C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */,
 				C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */,
 				C393DCC21A8732C000DAC0A2 /* MemoryAllocator.h in Headers */,
@@ -274,10 +295,11 @@
 			files = (
 				C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */,
 				C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */,
+				C3F50F931AC515D900AE7472 /* HTMLLogFileWriter.cpp in Sources */,
 				C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */,
+				C3F50F8F1AC4E7E500AE7472 /* Logger.cpp in Sources */,
 				C3D7EC941A7CC90700FC46B6 /* Engine.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix4.cpp in Sources */,
-				C3D7EC851A62D3C000FC46B6 /* Logger.cpp in Sources */,
 				C3D7EC8A1A6657B000FC46B6 /* tinyxml2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

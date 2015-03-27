@@ -7,7 +7,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "../../Source/Core/Utility/Logger.h"
+#include "../../Source/Core/Utility/Logger/Logger.h"
 #include "../../Source/Core/Memory/MemoryAllocator.h"
 
 int main(int argc, const char * argv[])
@@ -17,7 +17,7 @@ int main(int argc, const char * argv[])
     // Make sure that the logger and memory allocator has been initialized for
     // any tests that might use it.
     bool ready = Qi::MemoryAllocator::GetInstance().Init();
-    ready &= Qi::Logger::GetInstance().Init(true);
+    ready &= Qi::Logger::GetInstance().Init(Qi::Logger::LogFileType::kHTML, true);
     QI_ASSERT(ready);
     
     int result = RUN_ALL_TESTS();

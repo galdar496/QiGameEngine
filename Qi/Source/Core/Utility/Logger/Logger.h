@@ -8,11 +8,10 @@
 
 #pragma once
 
-#include <fstream>
 #include <string>
 #include <vector>
-#include <mutex>
-#include "../../ThirdParty/FastDelegate.h"
+#include "../../../ThirdParty/FastDelegate.h"
+#include "LogChannels.h"
 
 namespace Qi
 {
@@ -26,32 +25,21 @@ namespace Qi
 
 // Convenience defines for logging.
 #if DEBUG
-    #define Qi_LogInfo(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::Logger::kInfo, __LINE__, __FILE__, message, ##args);
-    #define Qi_LogDebug(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::Logger::kDebug, __LINE__, __FILE__, message, ##args);
+    #define Qi_LogInfo(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kInfo, __LINE__, __FILE__, message, ##args);
+    #define Qi_LogDebug(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kDebug, __LINE__, __FILE__, message, ##args);
 #else
     #define Qi_LogInfo(message, args...)
     #define Qi_LogDebug(message, args...)
 #endif
-#define Qi_LogWarning(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::Logger::kWarning, __LINE__, __FILE__, message, ##args);
-#define Qi_LogError(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::Logger::kError, __LINE__, __FILE__, message, ##args);
+#define Qi_LogWarning(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kWarning, __LINE__, __FILE__, message, ##args);
+#define Qi_LogError(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kError, __LINE__, __FILE__, message, ##args);
+
+// Forward declarations.
+class LogFileWriter;
 
 class Logger
 {
     public:
-    
-        ///
-        /// Channels for logging messages to. For custom channels, start
-        /// at 'kCustom' and add any necessary channels there.
-        ///
-        enum Channel
-        {
-            kInfo,        ///< Informational messages
-            kDebug,       ///< Debug messages
-            kWarning,     ///< Warnings that will not directly cause problems
-            kError,       ///< Serious errors that will prevent the system from running correctly
-            kCustom,      ///< Other messages
-            kNumChannels, ///< Always keep this last for count reasons.
-        };
     
         ///
         /// Instance accessor to get to the singleton object.
@@ -61,16 +49,27 @@ class Logger
         static Logger &GetInstance();
     
         ///
+        /// File types the logger supports creating. Pass the type you want
+        /// to write to 'Init'.
+        ///
+        enum LogFileType
+        {
+            kHTML, ///< Create an HTML log file.
+        };
+    
+        ///
         /// Initialize the logging system for use.
         ///
+        /// @param fileType Type of file to create for the log file. See 'enum LogFileType' for
+        ///                 the available options.
         /// @param flushLogFile If true, flush the log file after each write.
         /// @return Success of initialization.
         ///
-        bool Init(bool flushLogFile);
+        bool Init(LogFileType fileType, bool flushLogFile);
     
         ///
         /// Deinitialize the logging system. The logger cannot be used after
-        /// a call to this function without first calling 'initialize()'.
+        /// a call to this function without first calling 'Init()'.
         ///
         void Deinit();
     
@@ -80,7 +79,7 @@ class Logger
         /// @param channel Channel to enable/disable.
         /// @param enable Whether or not to enable the specified channel.
         ///
-        void EnableChannel(Channel channel, bool enable);
+        void EnableChannel(LogChannel channel, bool enable);
     
         ///
         /// Log a message. A message is automatically written to the log file. Additionally,
@@ -92,14 +91,14 @@ class Logger
         /// @param filename Filename which generated the message (for debugging).
         /// @param message Message text to log.
         ///
-        void LogMessage(Channel channel, int line, const char *filename, const char *message, ...);
+        void LogMessage(LogChannel channel, int line, const char *filename, const char *message, ...);
     
     
         ///
         /// Event handler to register for when you want to receive message events.
         /// First argument is the message, the second is the channel ID.
         ///
-        typedef FastDelegate <void (const char *, Channel)> MessageEvent;
+        typedef FastDelegate <void (const char *, LogChannel)> MessageEvent;
     
         ///
         /// Register for a message event for a particular channel.
@@ -108,7 +107,7 @@ class Logger
         /// @param channel Channel to register for. Any messages going to this channel will invoke
         ///                the specified handler.
         ///
-        void RegisterForMessages(const MessageEvent &handler, Channel channel);
+        void RegisterForMessages(const MessageEvent &handler, LogChannel channel);
     
     private:
     
@@ -126,13 +125,9 @@ class Logger
         MessageHandlers m_messageHandlers; ///< All registered message handlers ordered by channel.
     
         bool m_initialized;            ///< If true, the logger has been initialized.
-        bool m_forceFlush;             ///< If true, flush the log file after each write.
-        std::ofstream m_output;        ///< Log file all messages are written to.
         unsigned int m_channelFilter;  ///< Filter for each channel. Every bit corresponds to a different channel. 1 is on, 0 is off.
     
-        std::mutex m_mutex; ///< Mutex used for locking while writing to the output file.
-    
-        std::string m_colorTable[kNumChannels]; ///< Color table to use for color coding per-channel output to the log file.
+        LogFileWriter *m_fileWriter; ///< Handles all writing of log messages to a file.
 };
 
 } // namespace Qi

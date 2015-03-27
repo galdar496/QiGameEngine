@@ -18,7 +18,7 @@
 #include "../Defines.h"
 
 #ifdef QI_DEBUG
-    #include "../Core/Utility/Logger.h"
+    #include "../Core/Utility/Logger/Logger.h"
 #endif
 
 #include "../Core/Containers/Array.h"
@@ -83,7 +83,7 @@ class Engine
         /// @param message Message to print
         /// @param channel The channel that generated this message.
         ///
-        void HandleLogMessages(const char *message, Logger::Channel channel);
+        void HandleLogMessages(const char *message, LogChannel channel);
     #endif
     
         bool m_initiailzed; ///< If true, the engine has been properly initialized.

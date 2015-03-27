@@ -7,7 +7,7 @@
 //
 
 #include "Engine.h"
-#include "../Core/Utility/Logger.h"
+#include "../Core/Utility/Logger/Logger.h"
 #include "../Core/Memory/MemoryAllocator.h"
 #include "Systems/SystemBase.h"
 #include <iostream>
@@ -30,7 +30,7 @@ bool Engine::Init(const EngineConfig &config)
     QI_ASSERT(!m_initiailzed);
     
     // Initialize the logging system first as all systems will use it.
-    if (!Logger::GetInstance().Init(config.flushLogFile))
+    if (!Logger::GetInstance().Init(Logger::LogFileType::kHTML, config.flushLogFile))
     {
         throw std::runtime_error("FATAL: Cannot initialize logging system");
     }
@@ -38,10 +38,10 @@ bool Engine::Init(const EngineConfig &config)
     #ifdef QI_DEBUG
         // Register this class as the default message handler.
         Logger::MessageEvent handler(this, &Engine::HandleLogMessages);
-        Logger::GetInstance().RegisterForMessages(handler, Logger::kInfo);
-        Logger::GetInstance().RegisterForMessages(handler, Logger::kDebug);
-        Logger::GetInstance().RegisterForMessages(handler, Logger::kWarning);
-        Logger::GetInstance().RegisterForMessages(handler, Logger::kError);
+        Logger::GetInstance().RegisterForMessages(handler, LogChannel::kInfo);
+        Logger::GetInstance().RegisterForMessages(handler, LogChannel::kDebug);
+        Logger::GetInstance().RegisterForMessages(handler, LogChannel::kWarning);
+        Logger::GetInstance().RegisterForMessages(handler, LogChannel::kError);
     #endif
     
     // Initialize the memory allocation system after the logger but before everything else.
@@ -101,7 +101,7 @@ void Engine::AddSystem(SystemBase *system)
 }
 
 #ifdef QI_DEBUG
-void Engine::HandleLogMessages(const char *message, Logger::Channel channel)
+void Engine::HandleLogMessages(const char *message, LogChannel channel)
 {
     std::cout << message << std::endl;
 }
