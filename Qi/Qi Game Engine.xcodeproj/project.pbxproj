@@ -39,7 +39,6 @@
 		C3F50F821AC1250500AE7472 /* QualifierRemover.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F801AC1250500AE7472 /* QualifierRemover.h */; };
 		C3F50F831AC1250500AE7472 /* Reflection.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F811AC1250500AE7472 /* Reflection.h */; };
 		C3F50F861AC131D000AE7472 /* ReflectionData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50F851AC131D000AE7472 /* ReflectionData.cpp */; };
-/* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C31BE4DE1ABA8F60003F11D6 /* LocklessQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocklessQueue.h; path = Source/Core/Containers/LocklessQueue.h; sourceTree = "<group>"; };
