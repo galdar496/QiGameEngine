@@ -19,6 +19,17 @@ DEFINE_META_POD(double)
 DEFINE_META_POD(char)
 DEFINE_META_POD(char *)
 
+class Lame
+{
+    public:
+    
+        QI_DECLARE_REFLECTION(Lame);
+    
+    private:
+    
+        int x;
+};
+
 
 class Test
 {
@@ -30,6 +41,7 @@ class Test
         int variable1;
         int variable2;
         char *variable3;
+        Lame l;
 };
 
 QI_REFLECT_DATA_MEMBERS(Test)
@@ -37,6 +49,7 @@ QI_REFLECT_DATA_MEMBERS(Test)
     QI_REFLECT_MEMBER(variable1);
     QI_REFLECT_MEMBER(variable2);
     QI_REFLECT_MEMBER(variable3);
+    QI_REFLECT_MEMBER(l);
 }
 
 class QiExample : public QiGameImpl
@@ -55,8 +68,9 @@ class QiExample : public QiGameImpl
         virtual void Deinit() override {}
     
         virtual bool Step(const float dt) override
-        {
-            Qi_Reflected5.GetInstance().PrintMembers();
+        {   
+            const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Test");
+            data->PrintMembers();
             
             return false;
         }

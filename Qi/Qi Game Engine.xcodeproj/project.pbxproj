@@ -39,6 +39,14 @@
 		C3F50F821AC1250500AE7472 /* QualifierRemover.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F801AC1250500AE7472 /* QualifierRemover.h */; };
 		C3F50F831AC1250500AE7472 /* Reflection.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F811AC1250500AE7472 /* Reflection.h */; };
 		C3F50F861AC131D000AE7472 /* ReflectionData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50F851AC131D000AE7472 /* ReflectionData.cpp */; };
+		C3F50F9C1ACA59A500AE7472 /* QualifierRemover.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F981ACA59A500AE7472 /* QualifierRemover.h */; };
+		C3F50F9D1ACA59A500AE7472 /* Reflection.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F991ACA59A500AE7472 /* Reflection.h */; };
+		C3F50F9E1ACA59A500AE7472 /* ReflectionData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50F9A1ACA59A500AE7472 /* ReflectionData.cpp */; };
+		C3F50F9F1ACA59A500AE7472 /* ReflectionData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F9B1ACA59A500AE7472 /* ReflectionData.h */; };
+		C3F50FA21ACA5D7000AE7472 /* ReflectionDataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50FA01ACA5D7000AE7472 /* ReflectionDataManager.cpp */; };
+		C3F50FA31ACA5D7000AE7472 /* ReflectionDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FA11ACA5D7000AE7472 /* ReflectionDataManager.h */; };
+/* End PBXBuildFile section */
+>>>>>>> Add the ReflectionDataManager to allow for querying of reflected types.
 
 /* Begin PBXFileReference section */
 		C31BE4DE1ABA8F60003F11D6 /* LocklessQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocklessQueue.h; path = Source/Core/Containers/LocklessQueue.h; sourceTree = "<group>"; };
@@ -81,6 +89,13 @@
 		C3F50F811AC1250500AE7472 /* Reflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reflection.h; path = Source/Core/Reflection/Reflection.h; sourceTree = "<group>"; };
 		C3F50F841AC12D0500AE7472 /* ReflectionData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReflectionData.h; path = Source/Core/Reflection/ReflectionData.h; sourceTree = "<group>"; };
 		C3F50F851AC131D000AE7472 /* ReflectionData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionData.cpp; path = Source/Core/Reflection/ReflectionData.cpp; sourceTree = "<group>"; };
+		C3F50F981ACA59A500AE7472 /* QualifierRemover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QualifierRemover.h; path = Source/Core/Reflection/QualifierRemover.h; sourceTree = "<group>"; };
+		C3F50F991ACA59A500AE7472 /* Reflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reflection.h; path = Source/Core/Reflection/Reflection.h; sourceTree = "<group>"; };
+		C3F50F9A1ACA59A500AE7472 /* ReflectionData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionData.cpp; path = Source/Core/Reflection/ReflectionData.cpp; sourceTree = "<group>"; };
+		C3F50F9B1ACA59A500AE7472 /* ReflectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionData.h; path = Source/Core/Reflection/ReflectionData.h; sourceTree = "<group>"; };
+		C3F50FA01ACA5D7000AE7472 /* ReflectionDataManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionDataManager.cpp; path = Source/Core/Reflection/ReflectionDataManager.cpp; sourceTree = "<group>"; };
+		C3F50FA11ACA5D7000AE7472 /* ReflectionDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionDataManager.h; path = Source/Core/Reflection/ReflectionDataManager.h; sourceTree = "<group>"; };
+		C3F50FA41ACA60EB00AE7472 /* StringUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = StringUtilities.h; path = Source/Core/Utility/StringUtilities.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +147,7 @@
 				C3F50FAD1AD4C50800AE7472 /* BaseTypes.h */,
 				C3F50FAB1AD4C48400AE7472 /* Defines.h */,
 				C3F50F7F1AC124F500AE7472 /* Reflection */,
+				C3F50F971ACA598400AE7472 /* Reflection */,
 				C393DCC81AA38CE900DAC0A2 /* Containers */,
 				C393DCBE1A87329300DAC0A2 /* Memory */,
 				C3D7EC731A622ECA00FC46B6 /* Utility */,
@@ -161,6 +177,7 @@
 				C3D7EC741A622EEC00FC46B6 /* Random.cpp */,
 				C3D7EC751A622EEC00FC46B6 /* Random.h */,
 				C3D7EC811A62649100FC46B6 /* Timer.h */,
+				C3F50FA41ACA60EB00AE7472 /* StringUtilities.h */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -215,13 +232,17 @@
 				C3F50F921AC515D900AE7472 /* HTMLLogFileWriter.h */,
 			);
 			name = Logger;
-		C3F50F7F1AC124F500AE7472 /* Reflection */ = {
+			sourceTree = "<group>";
+		};
+		C3F50F971ACA598400AE7472 /* Reflection */ = {
 			isa = PBXGroup;
 			children = (
-				C3F50F801AC1250500AE7472 /* QualifierRemover.h */,
-				C3F50F811AC1250500AE7472 /* Reflection.h */,
-				C3F50F841AC12D0500AE7472 /* ReflectionData.h */,
-				C3F50F851AC131D000AE7472 /* ReflectionData.cpp */,
+				C3F50F981ACA59A500AE7472 /* QualifierRemover.h */,
+				C3F50F991ACA59A500AE7472 /* Reflection.h */,
+				C3F50F9A1ACA59A500AE7472 /* ReflectionData.cpp */,
+				C3F50F9B1ACA59A500AE7472 /* ReflectionData.h */,
+				C3F50FA01ACA5D7000AE7472 /* ReflectionDataManager.cpp */,
+				C3F50FA11ACA5D7000AE7472 /* ReflectionDataManager.h */,
 			);
 			name = Reflection;
 			sourceTree = "<group>";
@@ -235,14 +256,16 @@
 			files = (
 				C31BE4E01ABA8F60003F11D6 /* LocklessQueue.h in Headers */,
 				C3D7EC951A7CC90700FC46B6 /* Engine.h in Headers */,
-				C3F50F831AC1250500AE7472 /* Reflection.h in Headers */,
+				C3F50F9D1ACA59A500AE7472 /* Reflection.h in Headers */,
 				C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */,
 				C31BE4E41ABAA38B003F11D6 /* MathUtilities.h in Headers */,
 				C3D7EC971A7CC93000FC46B6 /* SystemBase.h in Headers */,
 				C3D7EC8F1A74C46D00FC46B6 /* FastDelegate.h in Headers */,
 				C3D7EC8B1A6657B000FC46B6 /* tinyxml2.h in Headers */,
+				C3F50FA31ACA5D7000AE7472 /* ReflectionDataManager.h in Headers */,
 				C3D7ECA21A7CD18600FC46B6 /* QiGame.h in Headers */,
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix4.h in Headers */,
+				C3F50F9F1ACA59A500AE7472 /* ReflectionData.h in Headers */,
 				C3F50F941AC515D900AE7472 /* HTMLLogFileWriter.h in Headers */,
 				C393DCCC1AA38D0200DAC0A2 /* Array.h in Headers */,
 				C3F50F8B1AC4E75E00AE7472 /* LogFileWriter.h in Headers */,
@@ -254,7 +277,7 @@
 				C3F50FAC1AD4C48400AE7472 /* Defines.h in Headers */,
 				C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */,
 				C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */,
-				C3F50F821AC1250500AE7472 /* QualifierRemover.h in Headers */,
+				C3F50F9C1ACA59A500AE7472 /* QualifierRemover.h in Headers */,
 				C393DCC21A8732C000DAC0A2 /* MemoryAllocator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,7 +338,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3F50F861AC131D000AE7472 /* ReflectionData.cpp in Sources */,
 				C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */,
 				C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */,
 				C3F50F931AC515D900AE7472 /* HTMLLogFileWriter.cpp in Sources */,
@@ -323,6 +345,8 @@
 				C3F50F8F1AC4E7E500AE7472 /* Logger.cpp in Sources */,
 				C3D7EC941A7CC90700FC46B6 /* Engine.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix4.cpp in Sources */,
+				C3F50F9E1ACA59A500AE7472 /* ReflectionData.cpp in Sources */,
+				C3F50FA21ACA5D7000AE7472 /* ReflectionDataManager.cpp in Sources */,
 				C3D7EC8A1A6657B000FC46B6 /* tinyxml2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

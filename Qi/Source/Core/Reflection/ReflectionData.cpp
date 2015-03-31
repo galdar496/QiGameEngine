@@ -51,6 +51,11 @@ ReflectedMember *& ReflectedMember::GetNextMember()
     return m_nextMember;
 }
 
+bool ReflectedMember::HasMembers() const
+{
+    return (m_nextMember != nullptr);
+}
+
 // ReflectedMember implementation end --------------------------------------------------------
 
 // ReflectionData implementation begin -------------------------------------------------------
@@ -113,7 +118,7 @@ void ReflectionData::PrintMembers() const
     std::cout << "Members for type " << m_name << std::endl;
     while (member)
     {
-        std::cout << "\t" << member->GetData()->GetName() << " " << member->GetName() << std::endl;
+        std::cout << "\t" << member->GetData()->GetName() << " " << member->GetName() << ":" << member->GetOffset() << std::endl;
         member = member->GetNextMember();
     }
 }

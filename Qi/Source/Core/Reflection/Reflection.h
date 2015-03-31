@@ -51,15 +51,14 @@
 /// Reflect a specific member of a class. This must be called within
 /// the scope of the macro QI_REFLECT_DATA_MEMBERS.
 ///
-#define META(object) Qi::ReflectionDataCreator<Qi::QualifierRemover<decltype(object)>::type>::GetInstance()
 #define QI_REFLECT_MEMBER(memberName) \
-    AddMember(#memberName, (size_t)(&(NullCast()->memberName)), &(META(NullCast()->memberName)));
+    AddMember(#memberName, (size_t)(&(NullCast()->memberName)), &(Qi::ReflectionDataCreator<Qi::QualifierRemover<decltype(NullCast()->memberName)>::type>::GetInstance()));
 
 ///
 /// Generate a unique name. Make use of QI_UNIQUE_NAME, the other macros
 /// should not be directly called. Pass in a class name and get the same
 /// name back with a unique number afterwards, e.g. Foo -> Foo1
 ///
-#define QI_APPEND_TOKENS(counter) Qi_Reflected##counter
+#define QI_APPEND_TOKENS(counter) __Qi_Reflected##counter
 #define QI_UNIQUE_NAME_INTERNAL(counter) QI_APPEND_TOKENS(counter)
 #define QI_UNIQUE_NAME( ) QI_UNIQUE_NAME_INTERNAL(__COUNTER__)

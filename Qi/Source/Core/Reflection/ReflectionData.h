@@ -9,6 +9,7 @@
 #pragma once
 
 #include <string>
+#include "ReflectionDataManager.h"
 
 ///
 /// Classes which contain reflected data members and
@@ -140,6 +141,13 @@ class ReflectedMember
         ReflectedMember *const& GetNextMember() const;
         ReflectedMember *& GetNextMember();
     
+        ///
+        /// Check to see if this type has any member variables under it (is a class).
+        ///
+        /// @return If true, this type has members.
+        ///
+        bool HasMembers() const;
+    
     private:
     
         const std::string     m_name;       ///< Name of this variable.
@@ -181,8 +189,11 @@ class ReflectionDataCreator
         ///
         static void Init(const std::string &name, size_t size)
         {
-            GetInstance().Init(name, size);
+            ReflectionData &data = GetInstance();
+            data.Init(name, size);
+            
             RegisterReflectedData();
+            ReflectionDataManager::GetInstance().AddReflectedData(&data);
         }
     
         ///
