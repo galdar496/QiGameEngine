@@ -7,8 +7,8 @@
 //
 
 #include "ReflectionDataManager.h"
-#include "ReflectionData.h"
 #include "../Utility/StringUtilities.h"
+#include "ReflectionPrimitiveTypes.h"
 
 namespace Qi
 {

@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
-#include "ReflectionData.h"
 #include <iostream>
+#include "ReflectionData.h"
+#include "ReflectedVariable.h"
 
 namespace Qi
 {
@@ -63,7 +64,9 @@ bool ReflectedMember::HasMembers() const
 ReflectionData::ReflectionData(const std::string name, size_t size) :
     m_name(name),
     m_size(size),
-    m_members(nullptr)
+    m_members(nullptr),
+    m_lastMember(nullptr),
+    m_serializeFunction(nullptr)
 {
 }
     
@@ -121,6 +124,52 @@ void ReflectionData::PrintMembers() const
         std::cout << "\t" << member->GetData()->GetName() << " " << member->GetName() << ":" << member->GetOffset() << std::endl;
         member = member->GetNextMember();
     }
+}
+
+void Pad(std::ostream &stream, int pad)
+{
+    for (uint32 ii = 0; ii < pad; ++ii)
+    {
+        stream << "\t";
+    }
+}
+
+#define PTR_ADD(PTR, OFFSET) \
+((void *)(((char *)(PTR)) + (OFFSET)))
+
+void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &stream, uint32 padding) const
+{
+    // If this type has a valid serialization function then it knows how to serialize itself, let it.
+    Pad(stream, padding);
+    if (m_serializeFunction)
+    {
+        stream << ": ";
+        m_serializeFunction(variable, stream);
+        return;
+    }
+    
+    // For each member of this type, ask it to serialize itself.
+    const ReflectedMember *member = m_members;
+    stream << m_name << std::endl;
+    Pad(stream, padding);
+    stream << "[" << std::endl;
+    ++padding;
+    while (member)
+    {
+        void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+        ReflectedVariable memberVariable(member->GetData(), offsetData);
+        member->GetData()->Serialize(&memberVariable, stream, padding);
+               
+        member = member->GetNextMember();
+    }
+    --padding;
+    Pad(stream, padding);
+    stream << "]" << std::endl;
+}
+
+void ReflectionData::SetSerializeFunction(SerializeFunction function)
+{
+    m_serializeFunction = function;
 }
     
 // ReflectionData implementation end ---------------------------------------------------------

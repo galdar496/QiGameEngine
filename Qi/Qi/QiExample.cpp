@@ -8,22 +8,14 @@
 
 #include "../Source/AppFramework/QiGame.h"
 #include "../Source/Core/Reflection/Reflection.h"
-
-#define DEFINE_META_POD( T ) \
-    Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type> QI_UNIQUE_NAME( )(#T, sizeof(T)); \
-    template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type>::RegisterReflectedData() {}
-
-DEFINE_META_POD(int)
-DEFINE_META_POD(float)
-DEFINE_META_POD(double)
-DEFINE_META_POD(char)
-DEFINE_META_POD(char *)
+#include "../Source/Core/Reflection/ReflectedVariable.h"
+#include <iostream>
 
 class Lame
 {
     public:
     
-        QI_DECLARE_REFLECTION(Lame);
+        QI_DECLARE_REFLECTION_CLASS(Lame);
     
     private:
     
@@ -35,12 +27,18 @@ class Test
 {
     public:
     
-    QI_DECLARE_REFLECTION(Test);
+    QI_DECLARE_REFLECTION_CLASS(Test);
+    
+    Test() :
+        variable1(1),
+        variable2(2),
+        variable3('a')
+        {}
     
     private:
         int variable1;
         int variable2;
-        char *variable3;
+        char variable3;
         Lame l;
 };
 
@@ -50,6 +48,11 @@ QI_REFLECT_DATA_MEMBERS(Test)
     QI_REFLECT_MEMBER(variable2);
     QI_REFLECT_MEMBER(variable3);
     QI_REFLECT_MEMBER(l);
+}
+
+QI_REFLECT_DATA_MEMBERS(Lame)
+{
+    QI_REFLECT_MEMBER(x);
 }
 
 class QiExample : public QiGameImpl
@@ -71,6 +74,10 @@ class QiExample : public QiGameImpl
         {   
             const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Test");
             data->PrintMembers();
+            
+            Test t;
+            Qi::ReflectedVariable v(t);
+            v.Serialize(std::cout);
             
             return false;
         }

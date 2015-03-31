@@ -45,6 +45,8 @@
 		C3F50F9F1ACA59A500AE7472 /* ReflectionData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F9B1ACA59A500AE7472 /* ReflectionData.h */; };
 		C3F50FA21ACA5D7000AE7472 /* ReflectionDataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50FA01ACA5D7000AE7472 /* ReflectionDataManager.cpp */; };
 		C3F50FA31ACA5D7000AE7472 /* ReflectionDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FA11ACA5D7000AE7472 /* ReflectionDataManager.h */; };
+		C3F50FA71ACA677C00AE7472 /* ReflectedVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50FA51ACA677C00AE7472 /* ReflectedVariable.cpp */; };
+		C3F50FA81ACA677C00AE7472 /* ReflectedVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FA61ACA677C00AE7472 /* ReflectedVariable.h */; };
 /* End PBXBuildFile section */
 >>>>>>> Add the ReflectionDataManager to allow for querying of reflected types.
 
@@ -96,6 +98,10 @@
 		C3F50FA01ACA5D7000AE7472 /* ReflectionDataManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionDataManager.cpp; path = Source/Core/Reflection/ReflectionDataManager.cpp; sourceTree = "<group>"; };
 		C3F50FA11ACA5D7000AE7472 /* ReflectionDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionDataManager.h; path = Source/Core/Reflection/ReflectionDataManager.h; sourceTree = "<group>"; };
 		C3F50FA41ACA60EB00AE7472 /* StringUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = StringUtilities.h; path = Source/Core/Utility/StringUtilities.h; sourceTree = "<group>"; };
+		C3F50FA51ACA677C00AE7472 /* ReflectedVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectedVariable.cpp; path = Source/Core/Reflection/ReflectedVariable.cpp; sourceTree = "<group>"; };
+		C3F50FA61ACA677C00AE7472 /* ReflectedVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectedVariable.h; path = Source/Core/Reflection/ReflectedVariable.h; sourceTree = "<group>"; };
+		C3F50FA91ACA6DA200AE7472 /* ReflectedVariable.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = ReflectedVariable.inl; path = Source/Core/Reflection/ReflectedVariable.inl; sourceTree = "<group>"; };
+		C3F50FAA1ACA7E0300AE7472 /* ReflectionPrimitiveTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReflectionPrimitiveTypes.h; path = Source/Core/Reflection/ReflectionPrimitiveTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +249,10 @@
 				C3F50F9B1ACA59A500AE7472 /* ReflectionData.h */,
 				C3F50FA01ACA5D7000AE7472 /* ReflectionDataManager.cpp */,
 				C3F50FA11ACA5D7000AE7472 /* ReflectionDataManager.h */,
+				C3F50FA51ACA677C00AE7472 /* ReflectedVariable.cpp */,
+				C3F50FA61ACA677C00AE7472 /* ReflectedVariable.h */,
+				C3F50FA91ACA6DA200AE7472 /* ReflectedVariable.inl */,
+				C3F50FAA1ACA7E0300AE7472 /* ReflectionPrimitiveTypes.h */,
 			);
 			name = Reflection;
 			sourceTree = "<group>";
@@ -264,6 +274,7 @@
 				C3D7EC8B1A6657B000FC46B6 /* tinyxml2.h in Headers */,
 				C3F50FA31ACA5D7000AE7472 /* ReflectionDataManager.h in Headers */,
 				C3D7ECA21A7CD18600FC46B6 /* QiGame.h in Headers */,
+				C3F50FA81ACA677C00AE7472 /* ReflectedVariable.h in Headers */,
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix4.h in Headers */,
 				C3F50F9F1ACA59A500AE7472 /* ReflectionData.h in Headers */,
 				C3F50F941AC515D900AE7472 /* HTMLLogFileWriter.h in Headers */,
@@ -347,6 +358,7 @@
 				C3D7EC701A61FA9600FC46B6 /* Matrix4.cpp in Sources */,
 				C3F50F9E1ACA59A500AE7472 /* ReflectionData.cpp in Sources */,
 				C3F50FA21ACA5D7000AE7472 /* ReflectionDataManager.cpp in Sources */,
+				C3F50FA71ACA677C00AE7472 /* ReflectedVariable.cpp in Sources */,
 				C3D7EC8A1A6657B000FC46B6 /* tinyxml2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,8 +8,9 @@
 
 #pragma once
 
-#include <string>
 #include "ReflectionDataManager.h"
+#include <ostream>
+#include <string>
 
 ///
 /// Classes which contain reflected data members and
@@ -21,77 +22,98 @@ namespace Qi
 
 // Foward declarations.
 class ReflectedMember;
+class ReflectedVariable;
 
 class ReflectionData
 {
-public:
+    public:
+        
+        ///
+        /// Default constructor.
+        ///
+        /// @param name Name of this type.
+        /// @param size Size of this type (in bytes).
+        ///
+        ReflectionData(const std::string name = "", size_t size = 0);
+        
+        ~ReflectionData();
+        
+        ///
+        /// Initialize this object for use.
+        ///
+        /// @param name Name of this type.
+        /// @param size Size of this type (in bytes).
+        ///
+        void Init(const std::string &name, size_t size);
+        
+        ///
+        /// Get the name of this type.
+        ///
+        /// @return Name of the type.
+        ///
+        const std::string &GetName() const;
+        
+        ///
+        /// Get the size of this type (in bytes).
+        ///
+        /// @return Size of this type (in bytes).
+        ///
+        size_t GetSize() const;
+        
+        ///
+        /// Add a member to this type.
+        ///
+        /// @param member New member info to add to this type.
+        ///
+        void AddMember(const ReflectedMember *member);
+        
+        ///
+        /// Determine if this type has members (a class/struct) or
+        /// doesn't (a POD type).
+        ///
+        /// @return If true, this type has members.
+        ///
+        bool HasDataMembers() const;
+        
+        ///
+        /// Get access to the members of this type. If members exist
+        /// the first one is returned.
+        ///
+        /// @return First member if members exist, null otherwise.
+        ///
+        const ReflectedMember *GetMembers() const;
+        
+        ///
+        /// Print the members of a class to the debug console.
+        ///
+        void PrintMembers() const;
+        
+        ///
+        /// Serialize the reflected variable to the stream.
+        ///
+        /// @param variable Reflected variable to serialize.
+        /// @param stream Output stream to serialize to.
+        ///
+        void Serialize(const ReflectedVariable *variable, std::ostream &stream, uint32 padding = 0) const;
+        
+        typedef void (*SerializeFunction)(const ReflectedVariable *, std::ostream &stream);
     
-    ///
-    /// Default constructor.
-    ///
-    /// @param name Name of this type.
-    /// @param size Size of this type (in bytes).
-    ///
-    ReflectionData(const std::string name = "", size_t size = 0);
-    
-    ~ReflectionData();
-    
-    ///
-    /// Initialize this object for use.
-    ///
-    /// @param name Name of this type.
-    /// @param size Size of this type (in bytes).
-    ///
-    void Init(const std::string &name, size_t size);
-    
-    ///
-    /// Get the name of this type.
-    ///
-    /// @return Name of the type.
-    ///
-    const std::string &GetName() const;
-    
-    ///
-    /// Get the size of this type (in bytes).
-    ///
-    /// @return Size of this type (in bytes).
-    ///
-    size_t GetSize() const;
-    
-    ///
-    /// Add a member to this type.
-    ///
-    /// @param member New member info to add to this type.
-    ///
-    void AddMember(const ReflectedMember *member);
-    
-    ///
-    /// Determine if this type has members (a class/struct) or
-    /// doesn't (a POD type).
-    ///
-    /// @return If true, this type has members.
-    ///
-    bool HasDataMembers() const;
-    
-    ///
-    /// Get access to the members of this type. If members exist
-    /// the first one is returned.
-    ///
-    /// @return First member if members exist, null otherwise.
-    ///
-    const ReflectedMember *GetMembers() const;
-    
-    ///
-    /// Print the members of a class to the debug console.
-    ///
-    void PrintMembers() const;
-    
-private:
-    
-    ReflectedMember *m_members;    ///< Members contained in this type.
-    ReflectedMember *m_lastMember; ///< The end of the members list.
-    std::string      m_name;       ///< Name of this type.
-    size_t           m_size;       ///< Size of this type in bytes.
+        ///
+        /// Set the serialization function. Some types (such as the primitive types defined in ReflectionPrimitiveTypes.h) know
+        /// how to serialize themselves. This provides a function callback to use for serialization of known types.
+        ///
+        /// @param function Function to use for serialization of this type.
+        ///
+        void SetSerializeFunction(SerializeFunction function = nullptr);
+        
+    private:
+        
+        ReflectedMember *m_members;    ///< Members contained in this type.
+        ReflectedMember *m_lastMember; ///< The end of the members list.
+        std::string      m_name;       ///< Name of this type.
+        size_t           m_size;       ///< Size of this type in bytes.
+        
+        SerializeFunction m_serializeFunction; ///< Serialization function to use if this type is a primitive type defined in ReflectionPrimitiveTypes.h
 };
 
 class ReflectedMember

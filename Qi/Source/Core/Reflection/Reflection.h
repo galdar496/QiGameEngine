@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include <iostream>
 #include "ReflectionData.h"
 #include "QualifierRemover.h"
 
@@ -21,7 +20,7 @@
 /// Declare functions necessary to reflect class 'classType'. This must be placed
 /// in the 'public' section of a class otherwise Qi will fail to compile.
 ///
-#define QI_DECLARE_REFLECTION(classType) \
+#define QI_DECLARE_REFLECTION_CLASS(classType) \
     static void AddMember(const std::string &name, size_t offset, const Qi::ReflectionData *data); \
     static Qi::QualifierRemover<classType>::type *NullCast(); \
     static void RegisterReflectedData();
@@ -38,7 +37,7 @@
 /// }
 ///
 /// This can ONLY be called on a class that has been declared with reflection data
-/// with QI_DECLARE_REFLECTION().
+/// with QI_DECLARE_REFLECTION_CLASS().
 ///
 #define QI_REFLECT_DATA_MEMBERS(classType) \
     Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type> QI_UNIQUE_NAME( )(#classType, sizeof(classType));\
