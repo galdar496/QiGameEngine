@@ -26,14 +26,14 @@ namespace Qi
 
 // Convenience defines for logging.
 #if DEBUG
-    #define Qi_LogInfo(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kInfo, __LINE__, __FILE__, message, ##args);
-    #define Qi_LogDebug(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kDebug, __LINE__, __FILE__, message, ##args);
+    #define Qi_LogInfo(message, ...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kInfo, __LINE__, __FILE__, message, ##__VA_ARGS__);
+    #define Qi_LogDebug(message, ...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kDebug, __LINE__, __FILE__, message, ##__VA_ARGS__);
 #else
-    #define Qi_LogInfo(message, args...)
-    #define Qi_LogDebug(message, args...)
+    #define Qi_LogInfo(message, ...)
+    #define Qi_LogDebug(message, ...)
 #endif
-#define Qi_LogWarning(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kWarning, __LINE__, __FILE__, message, ##args);
-#define Qi_LogError(message, args...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kError, __LINE__, __FILE__, message, ##args);
+#define Qi_LogWarning(message, ...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kWarning, __LINE__, __FILE__, message, ##__VA_ARGS__);
+#define Qi_LogError(message, ...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kError, __LINE__, __FILE__, message, ##__VA_ARGS__);
 
 // Forward declarations.
 class LogFileWriter;
