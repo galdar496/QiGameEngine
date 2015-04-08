@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include "SSEUtils.h"
+#include "../Defines.h"
 #include "Vec4.h"
 
 namespace Qi
@@ -17,7 +19,7 @@ namespace Qi
 /// 4x4 matrix that is stored in row-major order.
 ///
 
-class __attribute__ ((aligned(16))) Matrix4
+class QI_ALIGN(QI_SSE_ALIGNMENT) Matrix4
 {
     public:
     
@@ -97,8 +99,9 @@ class __attribute__ ((aligned(16))) Matrix4
         ///
         union
         {
-            float m[16];      ///< Array access to the matrix.
-            Vec4 m_rows[4];   ///< Rows of the matrix.
+            float m[16];          ///< Array access to the matrix.
+            float m_matrix[4][4]; ///< Row/colum access to the matrix.
+            SSEType m_rows[4];    ///< Rows of the matrix.
         };
 };
 

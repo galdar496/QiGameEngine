@@ -74,6 +74,7 @@
 		C3F50F921AC515D900AE7472 /* HTMLLogFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLLogFileWriter.h; path = Source/Core/Utility/Logger/HTMLLogFileWriter.h; sourceTree = "<group>"; };
 		C3F50FAB1AD4C48400AE7472 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Source/Core/Defines.h; sourceTree = "<group>"; };
 		C3F50FAD1AD4C50800AE7472 /* BaseTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BaseTypes.h; path = Source/Core/BaseTypes.h; sourceTree = "<group>"; };
+		C3F50FAE1AD4FD3C00AE7472 /* SSEUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SSEUtils.h; path = Source/Core/Math/SSEUtils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +141,7 @@
 				C3D7EC6F1A61FA9600FC46B6 /* Matrix4.cpp */,
 				C3D7EC711A61FDCD00FC46B6 /* Constants.h */,
 				C393DCC61A8B3A8400DAC0A2 /* Quaternion.h */,
+				C3F50FAE1AD4FD3C00AE7472 /* SSEUtils.h */,
 			);
 			name = Math;
 			sourceTree = "<group>";

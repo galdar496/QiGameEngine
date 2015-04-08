@@ -8,7 +8,9 @@
 
 #pragma once
 
-#include <smmintrin.h>
+#include "SSEUtils.h"
+#include "../Defines.h"
+#include <cmath>
 
 namespace Qi
 {
@@ -18,7 +20,7 @@ namespace Qi
 /// the vector will use SSE instructions. Requires SSE 4.1.
 ///
 
-class __attribute__ ((aligned(16))) Vec4
+class QI_ALIGN(QI_SSE_ALIGNMENT) Vec4
 {
     public:
     
@@ -33,6 +35,11 @@ class __attribute__ ((aligned(16))) Vec4
         {
             m_sseValue = other.m_sseValue;
         }
+    
+        ///
+        /// Construction from a SIMD type.
+        ///
+        Vec4(SSEType value) : m_sseValue(value) {}
     
         Vec4 &operator=(const Vec4 &other)
         {
@@ -72,7 +79,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline void Zero()
         {
-            m_sseValue = _mm_setzero_ps();
+            m_sseValue = SSEZero();
         }
     
         // Math Operations //////////////////////////////////////
@@ -84,7 +91,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline Vec4 operator+(const Vec4 &other) const
         {
-            return _mm_add_ps(m_sseValue, other.m_sseValue);
+            return SSEAdd(m_sseValue, other.m_sseValue);
         }
     
         ///
@@ -94,7 +101,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline Vec4 operator-(const Vec4 &other) const
         {
-            return _mm_sub_ps(m_sseValue, other.m_sseValue);
+            return SSESubtract(m_sseValue, other.m_sseValue);
         }
     
         ///
@@ -104,7 +111,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline Vec4 operator*(float scalar) const
         {
-            return _mm_mul_ps(m_sseValue, _mm_set1_ps(scalar));
+            return SSEMultiply(m_sseValue, scalar);
         }
     
         ///
@@ -114,7 +121,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline Vec4 operator/(float scalar) const
         {
-            return _mm_div_ps(m_sseValue, _mm_set1_ps(scalar));
+            return SSEDivide(m_sseValue, scalar);
         }
     
         ///
@@ -124,7 +131,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline void operator*=(float scalar)
         {
-            m_sseValue = _mm_mul_ps(m_sseValue, _mm_set1_ps(scalar));
+            m_sseValue = SSEMultiply(m_sseValue, scalar);
         }
     
         ///
@@ -134,7 +141,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline void operator/=(float scalar)
         {
-            m_sseValue = _mm_div_ps(m_sseValue, _mm_set1_ps(scalar));
+            m_sseValue = SSEMultiply(m_sseValue, scalar);
         }
     
         ///
@@ -145,7 +152,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline float Dot(const Vec4 &other) const
         {
-            return _mm_cvtss_f32(_mm_dp_ps(m_sseValue, other.m_sseValue, SIMDMask::AllChannels_StoreLow));
+            return SSEDot4(m_sseValue, other.m_sseValue);
         }
     
         ///
@@ -156,7 +163,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline float Dot3(const Vec4 &other) const
         {
-            return _mm_cvtss_f32(_mm_dp_ps(m_sseValue, other.m_sseValue, SIMDMask::ThreeChannels_StoreLow));
+            return SSEDot3(m_sseValue, other.m_sseValue);
         }
     
         ///
@@ -168,10 +175,7 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline Vec4 Cross(const Vec4 &other) const
         {
-            return _mm_sub_ps(
-                _mm_mul_ps(_mm_shuffle_ps(m_sseValue, m_sseValue, _MM_SHUFFLE(3, 0, 2, 1)), _mm_shuffle_ps(other.m_sseValue, other.m_sseValue, _MM_SHUFFLE(3, 1, 0, 2))),
-                _mm_mul_ps(_mm_shuffle_ps(m_sseValue, m_sseValue, _MM_SHUFFLE(3, 1, 0, 2)), _mm_shuffle_ps(other.m_sseValue, other.m_sseValue, _MM_SHUFFLE(3, 0, 2, 1)))
-                             );
+            return SSECross(m_sseValue, other.m_sseValue);
         }
     
         ///
@@ -181,18 +185,8 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline void Normalize()
         {
-            __m128 inverse = _mm_rsqrt_ps(_mm_dp_ps(m_sseValue, m_sseValue, SIMDMask::AllChannels_StoreAll));
-            m_sseValue = _mm_mul_ps(m_sseValue, inverse);
-        }
-    
-        ///
-        /// Normalize the vector accurately. This differs from standard "Normalize" in that it will produce a mathematically correct
-        /// normal but at a much higher cost.
-        ///
-        inline void NormalizeAccurate()
-        {
-            __m128 sqrt = _mm_sqrt_ps(_mm_dp_ps(m_sseValue, m_sseValue, SIMDMask::AllChannels_StoreAll));
-            m_sseValue = _mm_div_ps(m_sseValue, sqrt);
+            float dot = SSEDot4(m_sseValue, m_sseValue);
+            m_sseValue = SSEDivide(m_sseValue, sqrtf(dot));
         }
     
         ///
@@ -200,8 +194,8 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline float Length() const
         {
-            __m128 lengthSquared = _mm_dp_ps(m_sseValue, m_sseValue, SIMDMask::AllChannels_StoreLow);
-            return _mm_cvtss_f32(_mm_sqrt_ps(lengthSquared));
+            float dot = SSEDot4(m_sseValue, m_sseValue);
+            return sqrtf(dot);
         }
     
         ///
@@ -209,8 +203,8 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline float Length3() const
         {
-            __m128 lengthSquared = _mm_dp_ps(m_sseValue, m_sseValue, SIMDMask::ThreeChannels_StoreLow);
-            return _mm_cvtss_f32(_mm_sqrt_ps(lengthSquared));
+            float dot = SSEDot3(m_sseValue, m_sseValue);
+            return sqrtf(dot);
         }
     
         ///
@@ -218,10 +212,27 @@ class __attribute__ ((aligned(16))) Vec4
         ///
         inline float LengthInverse() const
         {
-            __m128 invLengthSquared = _mm_dp_ps(m_sseValue, m_sseValue, SIMDMask::AllChannels_StoreLow);
-            return _mm_cvtss_f32(_mm_rsqrt_ps(invLengthSquared));
+            float dot = SSEDot4(m_sseValue, m_sseValue);
+            return (1.0f / sqrtf(dot));
         }
-        
+    
+        ///
+        /// Get the squared length of the vector.
+        ///
+        inline float LengthSquared() const
+        {
+            return SSEDot4(m_sseValue, m_sseValue);
+        }
+    
+    
+        ///
+        /// Get the squared length of the vector.
+        ///
+        inline float LengthSquared3() const
+        {
+            return SSEDot3(m_sseValue, m_sseValue);
+        }
+    
         ///
         /// Definition of the vector.
         ///
@@ -229,24 +240,7 @@ class __attribute__ ((aligned(16))) Vec4
         {
             struct {float x, y, z, w; }; ///< Simple access to simd vector.
             float v[4];                  ///< Array access.
-            __m128 m_sseValue;           ///< SIMD version of the vector.
-        };
-    
-    private:
-    
-        ///
-        /// Construction from a SIMD type.
-        ///
-        Vec4(__m128 value) : m_sseValue(value) {}
-    
-        ///
-        /// Mask values to use in all simd operations.
-        ///
-        enum SIMDMask
-        {
-            AllChannels_StoreLow   = 0xF1, ///< Use all 4 channels of the simd value during the calculation. Store the result in the lowest register of the result value.
-            AllChannels_StoreAll   = 0xFF, ///< Use all 4 channels of the simd value during the calculation. Store the result in all registers for the result value.
-            ThreeChannels_StoreLow = 0x71, ///< Use lower 3 channels of the simd values during the calcuation. Store the result in the lowest register of the result value.
+            SSEType m_sseValue;          ///< SIMD version of the vector.
         };
 };
 

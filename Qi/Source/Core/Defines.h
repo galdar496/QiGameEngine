@@ -22,3 +22,13 @@
     #define QI_ASSERT(x)
 #endif
 
+#if defined(_MSC_VER)
+    #define QI_WINDOWS
+#endif
+
+#if defined(QI_WINDOWS)
+    #define QI_ALIGN(x) __declspec(align(x))
+#else
+    #define QI_ALIGN(x) __attribute__ ((aligned(x)))
+#endif
+
