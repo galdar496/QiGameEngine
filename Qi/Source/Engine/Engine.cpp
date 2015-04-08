@@ -60,7 +60,7 @@ Result Engine::Init(const EngineConfig &config)
     Qi_LogInfo("-Engine successfully initialized-");
     m_initiailzed = true;
     result.code = ReturnCode::kSuccess;
-    return result;
+    return result; 
 }
 
 void Engine::Step(const float dt)
