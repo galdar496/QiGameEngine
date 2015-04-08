@@ -87,7 +87,7 @@ class Array
         inline void Clear();
     
         /// Operator overloads ///////////////////////
-        inline T &operator()(int index) const;
+        inline T &operator[](int index) const;
     
     private:
     

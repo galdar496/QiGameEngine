@@ -82,7 +82,7 @@ bool LocklessQueue<T>::Push(const T& element)
     } while (!std::atomic_compare_exchange_weak(&m_writeIndex, &currentWriteIndex, currentWriteIndex + 1));
     
     // We know now that this index is reserved for us. Use it to save the data.
-    m_queue(CountToIndex(currentWriteIndex)) = element;
+    m_queue[CountToIndex(currentWriteIndex)] = element;
     
     // Update the maximum read index after saving the data.
     while (!std::atomic_compare_exchange_weak(&m_maxReadIndex, &currentWriteIndex, currentWriteIndex + 1))
@@ -112,7 +112,7 @@ bool LocklessQueue<T>::Pop(T& element)
         }
         
         // Retrieve the data from the queue
-        element = m_queue(CountToIndex(currentReadIndex));
+        element = m_queue[CountToIndex(currentReadIndex)];
         
         // Try to perfrom now the compare-and-exchange operation on the read index. If we succeed
         // element already contains what m_readIndex pointed to before we

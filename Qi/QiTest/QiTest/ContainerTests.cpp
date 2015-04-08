@@ -26,7 +26,7 @@ TEST(Array, OneElement)
     a.PushBack(2);
     
     EXPECT_EQ(1, a.GetSize());
-    EXPECT_EQ(2, a(0));
+    EXPECT_EQ(2, a[0]);
 }
 
 TEST(Array, MultipleElements)
@@ -38,10 +38,10 @@ TEST(Array, MultipleElements)
     a.PushBack(4);
     
     EXPECT_EQ(4, a.GetSize());
-    EXPECT_EQ(1, a(0));
-    EXPECT_EQ(2, a(1));
-    EXPECT_EQ(3, a(2));
-    EXPECT_EQ(4, a(3));
+    EXPECT_EQ(1, a[0]);
+    EXPECT_EQ(2, a[1]);
+    EXPECT_EQ(3, a[2]);
+    EXPECT_EQ(4, a[3]);
 }
 
 TEST(Array, Resize)
@@ -54,8 +54,8 @@ TEST(Array, Resize)
     a.PushBack(3);
     a.PushBack(4);
     
-    EXPECT_EQ(3, a(0));
-    EXPECT_EQ(4, a(1));
+    EXPECT_EQ(3, a[0]);
+    EXPECT_EQ(4, a[1]);
 }
 
 TEST(Array, Clear)
@@ -88,10 +88,10 @@ TEST(Array, Reallocate)
     int ii = 0;
     for (; ii < allocated_size; ++ii)
     {
-        EXPECT_EQ(ii, a(ii));
+        EXPECT_EQ(ii, a[ii]);
     }
     
-    EXPECT_EQ(100, a(ii));
+    EXPECT_EQ(100, a[ii]);
 }
 
 TEST(Array, CopyEntireArray)
@@ -105,13 +105,13 @@ TEST(Array, CopyEntireArray)
     Array<int> copy1(a);
     for (int ii = 0; ii < a.GetSize(); ++ii)
     {
-        EXPECT_EQ(a(0), copy1(0));
+        EXPECT_EQ(a[0], copy1[0]);
     }
     
     Array<int> copy2 = a;
     for (int ii = 0; ii < a.GetSize(); ++ii)
     {
-        EXPECT_EQ(a(0), copy2(0));
+        EXPECT_EQ(a[0], copy2[0]);
     }
 }
 
@@ -125,11 +125,11 @@ TEST(Array, SortAscending)
     a.PushBack(7);
     
     a.Sort(Qi::Array<int>::SortOrder::kAscending);
-    EXPECT_EQ(1,  a(0));
-    EXPECT_EQ(3,  a(1));
-    EXPECT_EQ(7,  a(2));
-    EXPECT_EQ(8,  a(3));
-    EXPECT_EQ(10, a(4));
+    EXPECT_EQ(1,  a[0]);
+    EXPECT_EQ(3,  a[1]);
+    EXPECT_EQ(7,  a[2]);
+    EXPECT_EQ(8,  a[3]);
+    EXPECT_EQ(10, a[4]);
 }
 
 TEST(Array, SortDescending)
@@ -142,11 +142,11 @@ TEST(Array, SortDescending)
     a.PushBack(7);
     
     a.Sort(Qi::Array<int>::SortOrder::kDescending);
-    EXPECT_EQ(10, a(0));
-    EXPECT_EQ(8,  a(1));
-    EXPECT_EQ(7,  a(2));
-    EXPECT_EQ(3,  a(3));
-    EXPECT_EQ(1,  a(4));
+    EXPECT_EQ(10, a[0]);
+    EXPECT_EQ(8,  a[1]);
+    EXPECT_EQ(7,  a[2]);
+    EXPECT_EQ(3,  a[3]);
+    EXPECT_EQ(1,  a[4]);
 }
 
 TEST(LocklessQueue, ZeroSized)

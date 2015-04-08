@@ -41,7 +41,7 @@ void QiGame::RunGame(QiGameImpl *game)
         game->AddCustomSystems(customSystems);
         for (uint32 ii = 0; ii < customSystems.GetSize(); ++ii)
         {
-            engine.AddSystem(customSystems(ii));
+            engine.AddSystem(customSystems[ii]);
         }
     }
     

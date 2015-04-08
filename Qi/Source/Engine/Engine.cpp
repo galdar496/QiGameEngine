@@ -80,10 +80,10 @@ void Engine::Shutdown()
     // De-initialize all systems and delete the memory for them.
     for (uint32 ii = 0; ii < m_systems.GetSize(); ++ii)
     {
-        Qi_LogInfo("Shutting down system %s", m_systems(ii)->GetName().c_str());
-        m_systems(ii)->Deinit();
-        delete m_systems(ii);
-        m_systems(ii) = nullptr;
+        Qi_LogInfo("Shutting down system %s", m_systems[ii]->GetName().c_str());
+        m_systems[ii]->Deinit();
+        delete m_systems[ii];
+        m_systems[ii] = nullptr;
     }
     
     // Shutdown singleton objects. Be sure to always shutdown the logger last.
