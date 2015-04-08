@@ -13,6 +13,7 @@
 /// for all systems that must be obeyed.
 ///
 
+#include "../Core/BaseTypes.h"
 #include <string>
 
 namespace Qi
@@ -28,7 +29,7 @@ class SystemBase
         /// Initialize the system for use.
         /// @return If the system was properly initialized or not.
         ///
-        virtual bool Init() = 0;
+        virtual Result Init() = 0;
         
         ///
         /// Deinitialize the system. At this point, nothing should be allocated
