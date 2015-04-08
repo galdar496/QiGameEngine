@@ -16,8 +16,8 @@ int main(int argc, const char * argv[])
     
     // Make sure that the logger and memory allocator has been initialized for
     // any tests that might use it.
-    bool ready = Qi::MemoryAllocator::GetInstance().Init();
-    ready &= Qi::Logger::GetInstance().Init(Qi::Logger::LogFileType::kHTML, true);
+    bool ready = Qi::MemoryAllocator::GetInstance().Init().IsValid();
+    ready &= Qi::Logger::GetInstance().Init(Qi::Logger::LogFileType::kHTML, true).IsValid();
     QI_ASSERT(ready);
     
     int result = RUN_ALL_TESTS();

@@ -22,7 +22,6 @@ namespace Qi
 {
     class SystemBase;
 } // namespace Qi
-
 class QiGameImpl
 {
     public:

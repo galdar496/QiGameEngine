@@ -63,11 +63,15 @@ Array<T> & Array<T>::operator=(const Array<T> &other)
 }
 
 template<class T>
-bool Array<T>::PushBack(const T &value)
+Result Array<T>::PushBack(const T &value)
 {
     if (m_count >= m_allocatedSize)
     {
-        Reallocate();
+        Result result = Reallocate();
+        if (!result.IsValid())
+        {
+            return result;
+        }
     }
     
     void *buffer = (void *)&m_elements[m_back];
@@ -75,7 +79,7 @@ bool Array<T>::PushBack(const T &value)
     ++m_count;
     ++m_back;
     
-    return true;
+    return Result(ReturnCode::kSuccess);
 }
 
 template<class T>
@@ -143,11 +147,16 @@ T &Array<T>::operator[](int index) const
 }
 
 template<class T>
-void Array<T>::Reallocate()
+Result Array<T>::Reallocate()
 {
     // Create a new array which is double the size of the previous one.
     uint32 new_size = (m_allocatedSize != 0) ? m_allocatedSize * 2 : m_DEFAULT_ARRAY_SIZE;
     T *tmp_array = Qi_AllocateMemoryArray(T, new_size);
+    if (!tmp_array)
+    {
+        // The allocation failed, we're probably out of memory.
+        return Result(ReturnCode::kOutOfMemory);
+    }
     
     // Copy the old data from the previous array into the new one and free
     // the old one.
@@ -155,6 +164,8 @@ void Array<T>::Reallocate()
     Qi_FreeMemory(m_elements);
     m_elements = tmp_array;
     m_allocatedSize = new_size;
+    
+    return Result(ReturnCode::kSuccess);
 }
 
 } // namespace Qi

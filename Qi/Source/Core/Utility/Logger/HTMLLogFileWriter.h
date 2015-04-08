@@ -27,9 +27,9 @@ class HTMLLogFileWriter : public LogFileWriter
         virtual ~HTMLLogFileWriter();
     
         /// LogFilterWriter overrides ---------------
-        virtual bool OpenFile(const std::string &filename, unsigned int flags) override;
-        virtual bool CloseFile() override;
-        virtual bool WriteOutput(LogChannel channel, std::string &message) override;
+        virtual Result OpenFile(const std::string &filename, unsigned int flags) override;
+        virtual Result CloseFile() override;
+        virtual Result WriteOutput(LogChannel channel, std::string &message) override;
     
     private:
     

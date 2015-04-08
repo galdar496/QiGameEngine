@@ -9,7 +9,7 @@
 #pragma once
 
 #include <cstdlib>
-#include "../../Defines.h"
+#include "../Defines.h"
 
 namespace Qi
 {

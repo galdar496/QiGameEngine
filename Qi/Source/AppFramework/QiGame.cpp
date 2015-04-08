@@ -29,7 +29,7 @@ void QiGame::RunGame(QiGameImpl *game)
         Qi::EngineConfig config;
         game->Configure(config);
         
-        if (!(engine.Init(config) && game->Init()))
+        if (!(engine.Init(config).IsValid() && game->Init()))
         {
             return;
         }
@@ -39,7 +39,7 @@ void QiGame::RunGame(QiGameImpl *game)
     {
         Qi::Array<Qi::SystemBase *> customSystems;
         game->AddCustomSystems(customSystems);
-        for (uint32 ii = 0; ii < customSystems.GetSize(); ++ii)
+        for (Qi::uint32 ii = 0; ii < customSystems.GetSize(); ++ii)
         {
             engine.AddSystem(customSystems[ii]);
         }

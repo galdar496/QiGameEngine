@@ -15,6 +15,7 @@
 
 #include <string>
 #include "LogChannels.h"
+#include "../../BaseTypes.h"
 
 namespace Qi
 {
@@ -41,7 +42,7 @@ class LogFileWriter
         /// @param flags File opening/operation options. See 'enum FileFlags'.
         /// @return If true, the file was successfully opened and ready for use.
         ///
-        virtual bool OpenFile(const std::string &filename, unsigned int flags) = 0;
+        virtual Result OpenFile(const std::string &filename, unsigned int flags) = 0;
     
         ///
         /// Close an open file log file. Performs any pending flush operations
@@ -49,7 +50,7 @@ class LogFileWriter
         ///
         /// @return If true, the file was successfully closed.
         ///
-        virtual bool CloseFile() = 0;
+        virtual Result CloseFile() = 0;
     
         ///
         /// Write a chunk of text to the output file. The text will be formatted
@@ -60,7 +61,7 @@ class LogFileWriter
         /// @param message Message to write to the log file.
         /// @return If true, the message was succesfully written to the logfile.
         ///
-        virtual bool WriteOutput(LogChannel channel, std::string &message) = 0;
+        virtual Result WriteOutput(LogChannel channel, std::string &message) = 0;
 };
 
 } // namespace Qi

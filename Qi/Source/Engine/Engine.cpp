@@ -25,12 +25,12 @@ Engine::~Engine()
 
 }
 
-bool Engine::Init(const EngineConfig &config)
+Result Engine::Init(const EngineConfig &config)
 {
     QI_ASSERT(!m_initiailzed);
     
     // Initialize the logging system first as all systems will use it.
-    if (!Logger::GetInstance().Init(Logger::LogFileType::kHTML, config.flushLogFile))
+    if (!Logger::GetInstance().Init(Logger::LogFileType::kHTML, config.flushLogFile).IsValid())
     {
         throw std::runtime_error("FATAL: Cannot initialize logging system");
     }
@@ -44,10 +44,13 @@ bool Engine::Init(const EngineConfig &config)
         Logger::GetInstance().RegisterForMessages(handler, LogChannel::kError);
     #endif
     
+    Result result;
+    
     // Initialize the memory allocation system after the logger but before everything else.
-    if (!MemoryAllocator::GetInstance().Init())
+    result = MemoryAllocator::GetInstance().Init();
+    if (!result.IsValid())
     {
-        return false;
+        return result;
     }
     
     Qi_LogInfo("-Initializing engine-");
@@ -56,7 +59,8 @@ bool Engine::Init(const EngineConfig &config)
     
     Qi_LogInfo("-Engine successfully initialized-");
     m_initiailzed = true;
-    return m_initiailzed;
+    result.code = ReturnCode::kSuccess;
+    return result;
 }
 
 void Engine::Step(const float dt)

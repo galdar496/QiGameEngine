@@ -15,7 +15,8 @@
 /// doubled and all previous elements are copied.
 ///
 
-#include "../../Defines.h"
+#include "../Defines.h"
+#include "../BaseTypes.h"
 
 namespace Qi
 {
@@ -40,7 +41,7 @@ class Array
         ///
         /// @return Insertion was successful.
         ///
-        inline bool PushBack(const T &value);
+        inline Result PushBack(const T &value);
     
         ///
         /// Resize the Array. If there are already elements in this array they will be lost.
@@ -95,7 +96,9 @@ class Array
         /// Reallocate the array to a new size and copy over all elements in the previous array.
         /// The previous allocation size is doubled to accomodate any new elements.
         ///
-        void Reallocate();
+        /// @return Status of reallocating (can run out of memory).
+        ///
+        Result Reallocate();
     
         T      *m_elements;      ///< Underlying array. Allocated on the first call to pushBack.
         uint32 m_back;           ///< Index into the array representing the next element to push into.

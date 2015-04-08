@@ -7,7 +7,7 @@
 //
 
 #include "HTMLLogFileWriter.h"
-#include "../../../Defines.h"
+#include "../../Defines.h"
 
 namespace Qi
 {
@@ -25,7 +25,7 @@ HTMLLogFileWriter::~HTMLLogFileWriter()
     }
 }
 
-bool HTMLLogFileWriter::OpenFile(const std::string &filename, unsigned int flags)
+Result HTMLLogFileWriter::OpenFile(const std::string &filename, unsigned int flags)
 {
     QI_ASSERT(!m_stream.is_open());
     
@@ -33,7 +33,7 @@ bool HTMLLogFileWriter::OpenFile(const std::string &filename, unsigned int flags
     m_stream.open(filename + ".html");
     if (!m_stream)
     {
-        return false;
+        return Result();
     }
     
     // Check for different file flag features.
@@ -45,10 +45,10 @@ bool HTMLLogFileWriter::OpenFile(const std::string &filename, unsigned int flags
     // Write out the HTML header stuff to mark this file as containing HTML.
     m_stream << "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><title>Qi Game Engine Log</title></head></body>" << std::endl;
     
-    return true;
+    return Result(ReturnCode::kSuccess);
 }
 
-bool HTMLLogFileWriter::CloseFile()
+Result HTMLLogFileWriter::CloseFile()
 {
     QI_ASSERT(m_stream);
     
@@ -59,7 +59,7 @@ bool HTMLLogFileWriter::CloseFile()
     m_stream.close();
     m_forceFlush = false;
     
-    return true;
+    return Result(ReturnCode::kSuccess);
 }
 
 void ReplaceAll(std::string &message, const std::string& search, const std::string& replace)
@@ -72,7 +72,7 @@ void ReplaceAll(std::string &message, const std::string& search, const std::stri
     }
 }
 
-bool HTMLLogFileWriter::WriteOutput(LogChannel channel, std::string &message)
+Result HTMLLogFileWriter::WriteOutput(LogChannel channel, std::string &message)
 {
     char buffer[256];
     
@@ -107,7 +107,7 @@ bool HTMLLogFileWriter::WriteOutput(LogChannel channel, std::string &message)
     m_stream << buffer << std::endl;
     m_mutex.unlock();
     
-    return true;
+    return Result(ReturnCode::kSuccess);
 }
 
 } // namespace Qi

@@ -11,7 +11,7 @@
 
 #include "Logger.h"
 #include "HTMLLogFileWriter.h"
-#include "../../../Defines.h"
+#include "../../Defines.h"
 #include <stdarg.h>
 #include <iomanip>
 #include <sstream>
@@ -40,9 +40,11 @@ Logger &Logger::GetInstance()
     return instance;
 }
 
-bool Logger::Init(LogFileType fileType, bool flushLogFile)
+Result Logger::Init(LogFileType fileType, bool flushLogFile)
 {
     QI_ASSERT(!m_initialized);
+    
+    Result result;
     
     // Default to all channels on.
     m_channelFilter = ~0;
@@ -63,12 +65,15 @@ bool Logger::Init(LogFileType fileType, bool flushLogFile)
         
         default:
             QI_ASSERT(0 && "Unsupported logfile type");
+            result.code = ReturnCode::kUnknownFileType;
+            return result;
             break;
     }
 
-    m_initialized = m_fileWriter->OpenFile(LOGFILE_NAME, flushLogFile);
+    result = m_fileWriter->OpenFile(LOGFILE_NAME, flushLogFile);
+    m_initialized = result.IsValid();
     
-    return m_initialized;
+    return result;
 }
 
 void Logger::Deinit()

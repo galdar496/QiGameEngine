@@ -16,6 +16,7 @@
 /// as a singleton.
 ///
 
+#include "../BaseTypes.h"
 #include <string>
 #include <unordered_map>
 
@@ -42,7 +43,7 @@ class MemoryAllocator
         ///
         /// @return Initialization success.
         ///
-        bool Init();
+        Result Init();
     
         ///
         /// Deinitialize the memory allocator. Any still-allocated

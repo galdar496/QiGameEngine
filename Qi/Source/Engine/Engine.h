@@ -15,7 +15,8 @@
 ///
 
 #include "EngineConfig.h"
-#include "../Defines.h"
+#include "../Core/Defines.h"
+#include "../Core/BaseTypes.h"
 
 #ifdef QI_DEBUG
     #include "../Core/Utility/Logger/Logger.h"
@@ -43,7 +44,7 @@ class Engine
         /// @param config Configuration object which is used to setup the engine.
         /// @returns Initialization success.
         ///
-        bool Init(const EngineConfig &config);
+        Result Init(const EngineConfig &config);
     
         ///
         /// Step the game scene forward one frame. This updates all systems/game objects

@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include "../../../ThirdParty/FastDelegate.h"
+#include "../../BaseTypes.h"
 #include "LogChannels.h"
 
 namespace Qi
@@ -65,7 +66,7 @@ class Logger
         /// @param flushLogFile If true, flush the log file after each write.
         /// @return Success of initialization.
         ///
-        bool Init(LogFileType fileType, bool flushLogFile);
+        Result Init(LogFileType fileType, bool flushLogFile);
     
         ///
         /// Deinitialize the logging system. The logger cannot be used after

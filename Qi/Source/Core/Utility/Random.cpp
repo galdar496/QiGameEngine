@@ -7,7 +7,7 @@
 //
 
 #include "Random.h"
-#include "../../Defines.h"
+#include "../Defines.h"
 
 namespace Qi
 {

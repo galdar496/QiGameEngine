@@ -12,7 +12,6 @@
 /// Defines to use for the project. All defition are platform independent.
 ///
 
-#include <stdint.h>
 #include <assert.h>
 
 #ifdef DEBUG
@@ -23,4 +22,3 @@
     #define QI_ASSERT(x)
 #endif
 
-typedef uint32_t uint32;

@@ -13,7 +13,8 @@
 /// passed to the engine for configuration.
 ///
 
-#include "../Defines.h"
+#include "../Core/Defines.h"
+#include "../Core/BaseTypes.h"
 
 namespace Qi
 {

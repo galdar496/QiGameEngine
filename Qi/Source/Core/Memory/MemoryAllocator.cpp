@@ -8,7 +8,7 @@
 
 #include "MemoryAllocator.h"
 #include "../Utility/Logger/Logger.h"
-#include "../../Defines.h"
+#include "../Defines.h"
 
 namespace Qi
 {
@@ -30,11 +30,11 @@ MemoryAllocator &MemoryAllocator::GetInstance()
     return allocator;
 }
     
-bool MemoryAllocator::Init()
+Result MemoryAllocator::Init()
 {
     QI_ASSERT(!m_initialized);
     m_initialized = true;
-    return m_initialized;
+    return Result(ReturnCode::kSuccess);
 }
     
 void MemoryAllocator::Deinit()
