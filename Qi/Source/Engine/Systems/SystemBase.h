@@ -13,7 +13,7 @@
 /// for all systems that must be obeyed.
 ///
 
-#include "../Core/BaseTypes.h"
+#include "../../Core/BaseTypes.h"
 #include <string>
 
 namespace Qi
