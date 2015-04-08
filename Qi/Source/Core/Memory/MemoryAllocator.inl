@@ -15,7 +15,7 @@ namespace Qi
 {
 
 template<class T>
-T *MemoryAllocator::Allocate(unsigned long long numBytes, const char *filename, int lineNumber)
+T *MemoryAllocator::Allocate(size_t numBytes, const char *filename, int lineNumber)
 {
     QI_ASSERT(m_initialized);
     

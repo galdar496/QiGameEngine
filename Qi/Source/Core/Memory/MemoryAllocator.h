@@ -60,7 +60,7 @@ class MemoryAllocator
         /// @return Pointer to an allocated buffer.
         ///
         template<class T>
-        T *Allocate(unsigned long long numBytes, const char *filename = nullptr, int lineNumber = 0);
+        T *Allocate(size_t numBytes, const char *filename = nullptr, int lineNumber = 0);
     
         ///
         /// Frees an allocated buffer.

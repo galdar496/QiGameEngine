@@ -142,7 +142,7 @@ void Array<T>::Clear()
 template<class T>
 T &Array<T>::operator[](int index) const
 {
-    QI_ASSERT(index < m_count);
+	QI_ASSERT((uint32)index < m_count);
     return m_elements[index];
 }
 

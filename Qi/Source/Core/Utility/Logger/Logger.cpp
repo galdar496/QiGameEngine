@@ -16,6 +16,12 @@
 #include <iomanip>
 #include <sstream>
 
+// If we're in windows, map vsprintf_s to vsprintf for
+// cross-platformability.
+#ifdef QI_WINDOWS
+#define vsprintf vsprintf_s
+#endif
+
 #define LOGFILE_NAME "QiLogfile"
 
 namespace Qi

@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
-#include <gtest/gtest.h>
 #include "../../Source/Core/Utility/Logger/Logger.h"
 #include "../../Source/Core/Memory/MemoryAllocator.h"
+#include <gtest/gtest.h>
+#include <iostream>
 
 int main(int argc, const char * argv[])
 {
@@ -24,5 +25,11 @@ int main(int argc, const char * argv[])
     
     Qi::MemoryAllocator::GetInstance().Deinit();
     Qi::Logger::GetInstance().Deinit();
+
+#ifdef QI_WINDOWS
+	int x;
+	std::cin >> x; // pause when running from Visual Studio.
+#endif
+
     return result;
 }

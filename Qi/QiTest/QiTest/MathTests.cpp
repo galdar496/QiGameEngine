@@ -250,7 +250,7 @@ TEST(QuaternionTests, CreateFromAxisAngle)
 TEST(QuaternionTests, CreateFromEuler)
 {
     Quaternion q;
-    q.CreateFromEuler(2.15, 0, 0.0f);
+    q.CreateFromEuler(2.15f, 0.0f, 0.0f);
     
     EXPECT_NEAR(0.8795901504337889f, q.x, 0.01f);
     EXPECT_NEAR(0.0f, q.y, 0.01f);

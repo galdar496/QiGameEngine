@@ -9,6 +9,12 @@
 #include "HTMLLogFileWriter.h"
 #include "../../Defines.h"
 
+// If we're in windows, map _snprintf_s to snprintf for
+// cross-platformability.
+#ifdef QI_WINDOWS
+	#define snprintf _snprintf_s
+#endif
+
 namespace Qi
 {
 
@@ -84,19 +90,19 @@ Result HTMLLogFileWriter::WriteOutput(LogChannel channel, std::string &message)
     switch (channel)
     {
         case kInfo:
-            sprintf(buffer, "<br><font color=\"#778899\">INFO: %s</front>", message.c_str());
-            break;
+			snprintf(buffer, 256, "<br><font color=\"#778899\">INFO: %s</front>", message.c_str());
+			break;
             
         case kDebug:
-            sprintf(buffer, "<br><font color=\"#0000FF\">DEBUG: %s</front>", message.c_str());
+			snprintf(buffer, 256, "<br><font color=\"#0000FF\">DEBUG: %s</front>", message.c_str());
             break;
             
         case kWarning:
-            sprintf(buffer, "<br><font color=\"#FFD700\"><b>WARNING: %s</b></front>", message.c_str());
+            snprintf(buffer, 256, "<br><font color=\"#FFD700\"><b>WARNING: %s</b></front>", message.c_str());
             break;
             
         case kError:
-            sprintf(buffer, "<br><font color=\"#FF0000\"><b>ERROR: %s</b></front>", message.c_str());
+            snprintf(buffer, 256, "<br><font color=\"#FF0000\"><b>ERROR: %s</b></front>", message.c_str());
             break;
             
         default:

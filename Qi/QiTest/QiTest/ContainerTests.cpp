@@ -75,7 +75,7 @@ TEST(Array, Reallocate)
     a.PushBack(0);
     
     uint32 allocated_size = a.GetAllocateSize();
-    for (int ii = 1; ii < allocated_size; ++ii)
+    for (uint32 ii = 1; ii < allocated_size; ++ii)
     {
         a.PushBack(ii);
     }
@@ -85,7 +85,7 @@ TEST(Array, Reallocate)
     a.PushBack(100);
     
     // Check every value to make sure that it copied correctly.
-    int ii = 0;
+    uint32 ii = 0;
     for (; ii < allocated_size; ++ii)
     {
         EXPECT_EQ(ii, a[ii]);
@@ -103,13 +103,13 @@ TEST(Array, CopyEntireArray)
     }
     
     Array<int> copy1(a);
-    for (int ii = 0; ii < a.GetSize(); ++ii)
+    for (uint32 ii = 0; ii < a.GetSize(); ++ii)
     {
         EXPECT_EQ(a[0], copy1[0]);
     }
     
     Array<int> copy2 = a;
-    for (int ii = 0; ii < a.GetSize(); ++ii)
+    for (uint32 ii = 0; ii < a.GetSize(); ++ii)
     {
         EXPECT_EQ(a[0], copy2[0]);
     }

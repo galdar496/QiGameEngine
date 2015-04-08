@@ -12,6 +12,7 @@
 #include <vector>
 #include "../../../ThirdParty/FastDelegate.h"
 #include "../../BaseTypes.h"
+#include "../../Defines.h"
 #include "LogChannels.h"
 
 namespace Qi
@@ -25,7 +26,7 @@ namespace Qi
 ///
 
 // Convenience defines for logging.
-#if DEBUG
+#ifdef QI_DEBUG
     #define Qi_LogInfo(message, ...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kInfo, __LINE__, __FILE__, message, ##__VA_ARGS__);
     #define Qi_LogDebug(message, ...) Qi::Logger::GetInstance().LogMessage(Qi::LogChannel::kDebug, __LINE__, __FILE__, message, ##__VA_ARGS__);
 #else

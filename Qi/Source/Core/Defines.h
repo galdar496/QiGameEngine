@@ -14,7 +14,7 @@
 
 #include <assert.h>
 
-#ifdef DEBUG
+#if defined(DEBUG) || defined(_DEBUG)
     #define QI_DEBUG
     #define QI_ASSERT(x) assert(x)
 #else

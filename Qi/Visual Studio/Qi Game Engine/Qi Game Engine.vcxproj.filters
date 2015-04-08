@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="AppFramework">
+      <UniqueIdentifier>{7725a1f5-e967-4cdf-84fe-98f0390adee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{99475fed-d467-493f-94ca-244531de1de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Containers">
+      <UniqueIdentifier>{3e3ca182-54fa-448d-bb6b-02b58642be5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math">
+      <UniqueIdentifier>{11c9fc17-d51e-44eb-8ac8-409fec98e86e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Memory">
+      <UniqueIdentifier>{b83da6d1-508a-44ac-a5ff-00bb51fc009a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Utility">
+      <UniqueIdentifier>{adafe487-1f71-4d5e-bfa2-21651df577c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Utility\Logger">
+      <UniqueIdentifier>{df0557a2-24f1-4adc-8ad3-fe9804eb5b55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{51d94e95-cd74-4e7f-a2d3-37efffd81e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Systems">
+      <UniqueIdentifier>{0f3940e6-4be4-415b-8f85-fc2fdc81a197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{1464d656-37c5-4fc2-a180-3d5431baba2d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp">
+      <Filter>AppFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Math\Matrix4.cpp">
+      <Filter>Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Memory\MemoryAllocator.cpp">
+      <Filter>Core\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Utility\Random.cpp">
+      <Filter>Core\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Utility\Logger\HTMLLogFileWriter.cpp">
+      <Filter>Core\Utility\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Utility\Logger\Logger.cpp">
+      <Filter>Core\Utility\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Engine\Engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ThirdParty\tinyxml2.cpp">
+      <Filter>ThirdParty</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\AppFramework\QiGame.h">
+      <Filter>AppFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AppFramework\QiGameImpl.h">
+      <Filter>AppFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\BaseTypes.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Defines.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Containers\Array.h">
+      <Filter>Core\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Containers\LocklessQueue.h">
+      <Filter>Core\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Math\Constants.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Math\Matrix4.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Math\Quaternion.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Math\SSEUtils.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Math\Vec4.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Memory\MemoryAllocator.h">
+      <Filter>Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Utility\MathUtilities.h">
+      <Filter>Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Utility\Random.h">
+      <Filter>Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Utility\Timer.h">
+      <Filter>Core\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Utility\Logger\HTMLLogFileWriter.h">
+      <Filter>Core\Utility\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Utility\Logger\LogChannels.h">
+      <Filter>Core\Utility\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Utility\Logger\LogFileWriter.h">
+      <Filter>Core\Utility\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Utility\Logger\Logger.h">
+      <Filter>Core\Utility\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\EngineConfig.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\Systems\SystemBase.h">
+      <Filter>Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ThirdParty\FastDelegate.h">
+      <Filter>ThirdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ThirdParty\tinyxml2.h">
+      <Filter>ThirdParty</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Source\Core\Containers\Array.inl">
+      <Filter>Core\Containers</Filter>
+    </None>
+    <None Include="..\..\Source\Core\Containers\LocklessQueue.inl">
+      <Filter>Core\Containers</Filter>
+    </None>
+    <None Include="..\..\Source\Core\Memory\MemoryAllocator.inl">
+      <Filter>Core\Memory</Filter>
+    </None>
+  </ItemGroup>
+</Project>
