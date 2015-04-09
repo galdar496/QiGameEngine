@@ -12,7 +12,8 @@
 /// Hold all defitions of reflected types for later retrieval.
 ///
 
-#include "../../Defines.h"
+#include "../Defines.h"
+#include "../BaseTypes.h"
 #include <unordered_map>
 #include <string>
 

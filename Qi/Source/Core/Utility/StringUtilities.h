@@ -12,7 +12,8 @@
 /// Simplle string utility functions which can be used across the engine.
 ///
 
-#include "../../Defines.h"
+#include "../Defines.h"
+#include "../BaseTypes.h"
 #include <string>
 
 namespace Qi
