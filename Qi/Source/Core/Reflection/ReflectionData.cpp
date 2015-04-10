@@ -140,10 +140,8 @@ void Pad(std::ostream &stream, uint32 pad)
 void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &stream, uint32 padding) const
 {
     // If this type has a valid serialization function then it knows how to serialize itself, let it.
-    Pad(stream, padding);
     if (m_serializeFunction)
     {
-        stream << variable->GetReflectionData()->GetName() << " : ";
         m_serializeFunction(variable, stream);
         return;
     }
@@ -151,13 +149,15 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
     // For each member of this type, ask it to serialize itself.
     const ReflectedMember *member = m_members;
     stream << m_name << std::endl;
-    Pad(stream, padding);
+	Pad(stream, padding);
     stream << "[" << std::endl;
     ++padding;
     while (member)
     {
         void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
         ReflectedVariable memberVariable(member->GetData(), offsetData);
+		Pad(stream, padding);
+		stream << member->GetName() << " ";
         member->GetData()->Serialize(&memberVariable, stream, padding);
                
         member = member->GetNextMember();
