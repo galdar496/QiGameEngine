@@ -36,6 +36,15 @@
 		C3F50F931AC515D900AE7472 /* HTMLLogFileWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50F911AC515D900AE7472 /* HTMLLogFileWriter.cpp */; };
 		C3F50F941AC515D900AE7472 /* HTMLLogFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F921AC515D900AE7472 /* HTMLLogFileWriter.h */; };
 		C3F50FAC1AD4C48400AE7472 /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FAB1AD4C48400AE7472 /* Defines.h */; };
+		C3F50FBC1AD61D5E00AE7472 /* QualifierRemover.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FB21AD61D5E00AE7472 /* QualifierRemover.h */; };
+		C3F50FBD1AD61D5E00AE7472 /* ReflectedVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50FB31AD61D5E00AE7472 /* ReflectedVariable.cpp */; };
+		C3F50FBE1AD61D5E00AE7472 /* ReflectedVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FB41AD61D5E00AE7472 /* ReflectedVariable.h */; };
+		C3F50FBF1AD61D5E00AE7472 /* Reflection.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FB61AD61D5E00AE7472 /* Reflection.h */; };
+		C3F50FC01AD61D5E00AE7472 /* ReflectionData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50FB71AD61D5E00AE7472 /* ReflectionData.cpp */; };
+		C3F50FC11AD61D5E00AE7472 /* ReflectionData.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FB81AD61D5E00AE7472 /* ReflectionData.h */; };
+		C3F50FC21AD61D5E00AE7472 /* ReflectionDataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50FB91AD61D5E00AE7472 /* ReflectionDataManager.cpp */; };
+		C3F50FC31AD61D5E00AE7472 /* ReflectionDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FBA1AD61D5E00AE7472 /* ReflectionDataManager.h */; };
+		C3F50FC41AD61D5E00AE7472 /* ReflectionPrimitiveTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50FBB1AD61D5E00AE7472 /* ReflectionPrimitiveTypes.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +84,16 @@
 		C3F50FAB1AD4C48400AE7472 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Source/Core/Defines.h; sourceTree = "<group>"; };
 		C3F50FAD1AD4C50800AE7472 /* BaseTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BaseTypes.h; path = Source/Core/BaseTypes.h; sourceTree = "<group>"; };
 		C3F50FAE1AD4FD3C00AE7472 /* SSEUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SSEUtils.h; path = Source/Core/Math/SSEUtils.h; sourceTree = "<group>"; };
+		C3F50FB21AD61D5E00AE7472 /* QualifierRemover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QualifierRemover.h; path = Source/Core/Reflection/QualifierRemover.h; sourceTree = "<group>"; };
+		C3F50FB31AD61D5E00AE7472 /* ReflectedVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectedVariable.cpp; path = Source/Core/Reflection/ReflectedVariable.cpp; sourceTree = "<group>"; };
+		C3F50FB41AD61D5E00AE7472 /* ReflectedVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectedVariable.h; path = Source/Core/Reflection/ReflectedVariable.h; sourceTree = "<group>"; };
+		C3F50FB51AD61D5E00AE7472 /* ReflectedVariable.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ReflectedVariable.inl; path = Source/Core/Reflection/ReflectedVariable.inl; sourceTree = "<group>"; };
+		C3F50FB61AD61D5E00AE7472 /* Reflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reflection.h; path = Source/Core/Reflection/Reflection.h; sourceTree = "<group>"; };
+		C3F50FB71AD61D5E00AE7472 /* ReflectionData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionData.cpp; path = Source/Core/Reflection/ReflectionData.cpp; sourceTree = "<group>"; };
+		C3F50FB81AD61D5E00AE7472 /* ReflectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionData.h; path = Source/Core/Reflection/ReflectionData.h; sourceTree = "<group>"; };
+		C3F50FB91AD61D5E00AE7472 /* ReflectionDataManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionDataManager.cpp; path = Source/Core/Reflection/ReflectionDataManager.cpp; sourceTree = "<group>"; };
+		C3F50FBA1AD61D5E00AE7472 /* ReflectionDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionDataManager.h; path = Source/Core/Reflection/ReflectionDataManager.h; sourceTree = "<group>"; };
+		C3F50FBB1AD61D5E00AE7472 /* ReflectionPrimitiveTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionPrimitiveTypes.h; path = Source/Core/Reflection/ReflectionPrimitiveTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +142,7 @@
 		C3D7EC641A61DC6600FC46B6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C3F50FB11AD61D3900AE7472 /* Reflection */,
 				C3F50FAD1AD4C50800AE7472 /* BaseTypes.h */,
 				C3F50FAB1AD4C48400AE7472 /* Defines.h */,
 				C393DCC81AA38CE900DAC0A2 /* Containers */,
@@ -210,6 +230,23 @@
 			name = Logger;
 			sourceTree = "<group>";
 		};
+		C3F50FB11AD61D3900AE7472 /* Reflection */ = {
+			isa = PBXGroup;
+			children = (
+				C3F50FB21AD61D5E00AE7472 /* QualifierRemover.h */,
+				C3F50FB31AD61D5E00AE7472 /* ReflectedVariable.cpp */,
+				C3F50FB41AD61D5E00AE7472 /* ReflectedVariable.h */,
+				C3F50FB51AD61D5E00AE7472 /* ReflectedVariable.inl */,
+				C3F50FB61AD61D5E00AE7472 /* Reflection.h */,
+				C3F50FB71AD61D5E00AE7472 /* ReflectionData.cpp */,
+				C3F50FB81AD61D5E00AE7472 /* ReflectionData.h */,
+				C3F50FB91AD61D5E00AE7472 /* ReflectionDataManager.cpp */,
+				C3F50FBA1AD61D5E00AE7472 /* ReflectionDataManager.h */,
+				C3F50FBB1AD61D5E00AE7472 /* ReflectionPrimitiveTypes.h */,
+			);
+			name = Reflection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -218,15 +255,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C31BE4E01ABA8F60003F11D6 /* LocklessQueue.h in Headers */,
+				C3F50FC31AD61D5E00AE7472 /* ReflectionDataManager.h in Headers */,
 				C3D7EC951A7CC90700FC46B6 /* Engine.h in Headers */,
 				C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */,
 				C31BE4E41ABAA38B003F11D6 /* MathUtilities.h in Headers */,
 				C3D7EC971A7CC93000FC46B6 /* SystemBase.h in Headers */,
+				C3F50FBF1AD61D5E00AE7472 /* Reflection.h in Headers */,
 				C3D7EC8F1A74C46D00FC46B6 /* FastDelegate.h in Headers */,
 				C3D7EC8B1A6657B000FC46B6 /* tinyxml2.h in Headers */,
 				C3D7ECA21A7CD18600FC46B6 /* QiGame.h in Headers */,
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix4.h in Headers */,
 				C3F50F941AC515D900AE7472 /* HTMLLogFileWriter.h in Headers */,
+				C3F50FC41AD61D5E00AE7472 /* ReflectionPrimitiveTypes.h in Headers */,
 				C393DCCC1AA38D0200DAC0A2 /* Array.h in Headers */,
 				C3F50F8B1AC4E75E00AE7472 /* LogFileWriter.h in Headers */,
 				C393DCC71A8B3A8400DAC0A2 /* Quaternion.h in Headers */,
@@ -234,9 +274,12 @@
 				C3F50F8D1AC4E79B00AE7472 /* Logger.h in Headers */,
 				C3D7EC821A62649100FC46B6 /* Timer.h in Headers */,
 				C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */,
+				C3F50FC11AD61D5E00AE7472 /* ReflectionData.h in Headers */,
 				C3F50FAC1AD4C48400AE7472 /* Defines.h in Headers */,
 				C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */,
 				C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */,
+				C3F50FBE1AD61D5E00AE7472 /* ReflectedVariable.h in Headers */,
+				C3F50FBC1AD61D5E00AE7472 /* QualifierRemover.h in Headers */,
 				C393DCC21A8732C000DAC0A2 /* MemoryAllocator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,13 +340,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3F50FC21AD61D5E00AE7472 /* ReflectionDataManager.cpp in Sources */,
 				C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */,
 				C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */,
 				C3F50F931AC515D900AE7472 /* HTMLLogFileWriter.cpp in Sources */,
+				C3F50FBD1AD61D5E00AE7472 /* ReflectedVariable.cpp in Sources */,
 				C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */,
 				C3F50F8F1AC4E7E500AE7472 /* Logger.cpp in Sources */,
 				C3D7EC941A7CC90700FC46B6 /* Engine.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix4.cpp in Sources */,
+				C3F50FC01AD61D5E00AE7472 /* ReflectionData.cpp in Sources */,
 				C3D7EC8A1A6657B000FC46B6 /* tinyxml2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

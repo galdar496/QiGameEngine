@@ -7,6 +7,53 @@
 //
 
 #include "../Source/AppFramework/QiGame.h"
+#include "../Source/Core/Reflection/Reflection.h"
+#include "../Source/Core/Reflection/ReflectedVariable.h"
+#include <iostream>
+
+class Lame
+{
+    public:
+    
+        QI_DECLARE_REFLECTION_CLASS(Lame);
+    
+    private:
+    
+        int x;
+};
+
+
+class Test
+{
+    public:
+    
+    QI_DECLARE_REFLECTION_CLASS(Test);
+    
+    Test() :
+        variable1(1),
+        variable2(2),
+        variable3('a')
+        {}
+    
+    private:
+        int variable1;
+        int variable2;
+        char variable3;
+        Lame l;
+};
+
+QI_REFLECT_DATA_MEMBERS(Test)
+{
+    QI_REFLECT_MEMBER(variable1);
+    QI_REFLECT_MEMBER(variable2);
+    QI_REFLECT_MEMBER(variable3);
+    QI_REFLECT_MEMBER(l);
+}
+
+QI_REFLECT_DATA_MEMBERS(Lame)
+{
+    QI_REFLECT_MEMBER(x);
+}
 
 class QiExample : public QiGameImpl
 {
@@ -23,7 +70,17 @@ class QiExample : public QiGameImpl
         
         virtual void Deinit() override {}
     
-        virtual bool Step(const float dt) override { return false; }
+        virtual bool Step(const float dt) override
+        {   
+            const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Test");
+            data->PrintMembers();
+            
+            Test t;
+            Qi::ReflectedVariable v(t);
+            v.Serialize(std::cout);
+            
+            return false;
+        }
 };
 
 QI_IMPLEMENT_GAME(QiExample);
