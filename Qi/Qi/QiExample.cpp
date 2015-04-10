@@ -16,7 +16,8 @@ class Lame
     public:
     
         QI_DECLARE_REFLECTION_CLASS(Lame);
-    
+ 
+		Lame() : x(15) {}
     private:
     
         int x;
@@ -79,6 +80,8 @@ class QiExample : public QiGameImpl
             Qi::ReflectedVariable v(t);
             v.Serialize(std::cout);
             
+			int x;
+			std::cin >> x;
             return false;
         }
 };

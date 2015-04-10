@@ -143,7 +143,7 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
     Pad(stream, padding);
     if (m_serializeFunction)
     {
-        stream << ": ";
+        stream << variable->GetReflectionData()->GetName() << " : ";
         m_serializeFunction(variable, stream);
         return;
     }
