@@ -10,6 +10,7 @@
 #include "../Source/Core/Reflection/Reflection.h"
 #include "../Source/Core/Reflection/ReflectedVariable.h"
 #include <iostream>
+#include <sstream>
 
 class Lame
 {
@@ -36,7 +37,7 @@ class Test
         variable3('a')
         {}
     
-    private:
+   // private:
         int variable1;
         int variable2;
         char variable3;
@@ -77,9 +78,16 @@ class QiExample : public QiGameImpl
             data->PrintMembers();
             
             Test t;
+			t.variable1 = 100;
+			t.variable3 = 'c';
             Qi::ReflectedVariable v(t);
-            v.Serialize(std::cout);
+			std::stringstream stream;
+            v.Serialize(stream);
             
+			Test t2;
+			Qi::ReflectedVariable v2(t2);
+			v2.Deserialize(stream);
+
 			int x;
 			std::cin >> x;
             return false;

@@ -74,6 +74,15 @@ class ReflectionData
         /// @return If true, this type has members.
         ///
         bool HasDataMembers() const;
+
+
+		///
+		/// Find a specific member by name for this object. 
+		///
+		/// @param name Name of the member.
+		/// @return A pointer to the found member, nullptr if not found.
+		/// 
+		const ReflectedMember *GetMember(const std::string &name) const;
         
         ///
         /// Get access to the members of this type. If members exist
@@ -95,8 +104,17 @@ class ReflectionData
         /// @param stream Output stream to serialize to.
         ///
         void Serialize(const ReflectedVariable *variable, std::ostream &stream, uint32 padding = 0) const;
+
+		///
+		/// Deserialize the reflected variable from the stream.
+		///
+		/// @param variable Reflected variable to deserialize.
+		/// @param stream Input stream to serialize from.
+		///
+		void Deserialize(ReflectedVariable *variable, std::istream &stream) const;
         
-        typedef void (*SerializeFunction)(const ReflectedVariable *, std::ostream &stream);
+        typedef void (*SerializeFunction)(const ReflectedVariable *variable, std::ostream &stream);
+		typedef void (*DeserializeFunction)(ReflectedVariable *variable, std::istream &stream);
     
         ///
         /// Set the serialization function. Some types (such as the primitive types defined in ReflectionPrimitiveTypes.h) know
@@ -105,6 +123,14 @@ class ReflectionData
         /// @param function Function to use for serialization of this type.
         ///
         void SetSerializeFunction(SerializeFunction function = nullptr);
+
+		///
+		/// Set the deserialization function. Some types (such as the primitive types defined in ReflectionPrimitiveTypes.h) know
+		/// how to deserialize themselves. This provides a function callback to use for deserialization of known types.
+		///
+		/// @param function Function to use for deserialization of this type.
+		///
+		void SetDeserializeFunction(DeserializeFunction function = nullptr);
         
     private:
         
@@ -113,7 +139,8 @@ class ReflectionData
         std::string      m_name;       ///< Name of this type.
         size_t           m_size;       ///< Size of this type in bytes.
         
-        SerializeFunction m_serializeFunction; ///< Serialization function to use if this type is a primitive type defined in ReflectionPrimitiveTypes.h
+        SerializeFunction   m_serializeFunction;   ///< Serialization function to use if this type is a primitive type defined in ReflectionPrimitiveTypes.h
+		DeserializeFunction m_deserializeFunction; ///< Deserialization function to use if this type is a primitive type defined in ReflectionPrimitiveTypes.h
 };
 
 class ReflectedMember

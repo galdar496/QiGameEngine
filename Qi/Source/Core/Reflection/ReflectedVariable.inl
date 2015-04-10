@@ -17,16 +17,21 @@ namespace Qi
 
 template <typename T>
 ReflectedVariable::ReflectedVariable(const T &value) :
-    m_instanceData(&value)
+    m_instanceData((void *)(&value))
 {
     m_reflectionData = &(Qi::ReflectionDataCreator<typename Qi::QualifierRemover<T>::type>::GetInstance());
 }
-
 
 template <typename T>
 const T &ReflectedVariable::GetValue() const
 {
     return *reinterpret_cast<const T *>(m_instanceData);
+}
+
+template <typename T>
+T &ReflectedVariable::GetValue()
+{
+	return *reinterpret_cast<T *>(m_instanceData);
 }
 
 } // namespace Qi

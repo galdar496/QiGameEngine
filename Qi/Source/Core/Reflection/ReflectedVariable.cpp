@@ -30,7 +30,7 @@ ReflectedVariable::~ReflectedVariable()
     m_instanceData   = nullptr;
 }
 
-ReflectedVariable::ReflectedVariable(const ReflectionData *reflectionData, const void *instanceData) :
+ReflectedVariable::ReflectedVariable(const ReflectionData *reflectionData, void *instanceData) :
     m_reflectionData(reflectionData),
     m_instanceData(instanceData)
 {
@@ -49,6 +49,11 @@ const void *ReflectedVariable::GetInstanceData() const
 void ReflectedVariable::Serialize(std::ostream &stream) const
 {
     m_reflectionData->Serialize(this, stream);
+}
+
+void ReflectedVariable::Deserialize(std::istream &stream)
+{
+	m_reflectionData->Deserialize(this, stream);
 }
 
 } // namespace Qi

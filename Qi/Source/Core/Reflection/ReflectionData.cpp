@@ -109,6 +109,22 @@ bool ReflectionData::HasDataMembers() const
     return (m_members != nullptr);
 }
 
+const ReflectedMember *ReflectionData::GetMember(const std::string &name) const
+{
+	const ReflectedMember *member = m_members;
+	while (member)
+	{
+		if (member->GetName() == name)
+		{
+			return member;
+		}
+
+		member = member->GetNextMember();
+	}
+
+	return nullptr;
+}
+
 const ReflectedMember *ReflectionData::GetMembers() const
 {
     return m_members;
@@ -167,9 +183,46 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
     stream << "]" << std::endl;
 }
 
+void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stream) const
+{
+	// If this type has a valid deserialization function then it knows how to deserialize itself, let it.
+	if (m_deserializeFunction)
+	{
+		m_deserializeFunction(variable, stream);
+		return;
+	}
+
+	// For each member read from this object, ask it to deserialize itself if we have a definition for it.
+
+	// Read the incoming '[' first.
+	std::string streamInput;
+	stream >> streamInput; // Read the class type first.
+	QI_ASSERT(streamInput == variable->GetReflectionData()->GetName());
+	stream >> streamInput;
+	QI_ASSERT(streamInput == "[");
+
+	while (streamInput != "]")
+	{
+		// Read in the type.
+		stream >> streamInput;
+		const ReflectedMember *member = GetMember(streamInput);
+		if (member)
+		{
+			void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+			ReflectedVariable memberVariable(member->GetData(), offsetData);
+			member->GetData()->Deserialize(&memberVariable, stream);
+		}
+	}
+}
+
 void ReflectionData::SetSerializeFunction(SerializeFunction function)
 {
     m_serializeFunction = function;
+}
+
+void ReflectionData::SetDeserializeFunction(DeserializeFunction function)
+{
+	m_deserializeFunction = function;
 }
     
 // ReflectionData implementation end ---------------------------------------------------------

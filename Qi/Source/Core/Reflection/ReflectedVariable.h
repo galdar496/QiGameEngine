@@ -42,7 +42,7 @@ class ReflectedVariable
         /// @param reflectedData Pointer to the reflected data for the type of instance data passed in.
         /// @param instanceData Data for an actual instance of one of the reflected types.
         ///
-        ReflectedVariable(const ReflectionData *reflectionData, const void *instanceData);
+        ReflectedVariable(const ReflectionData *reflectionData, void *instanceData);
     
         ///
         /// Get the reflected data contained within this reflected variable.
@@ -63,6 +63,8 @@ class ReflectedVariable
         ///
         template<typename T>
         const T &GetValue() const;
+		template<typename T>
+		T &GetValue();
     
         ///
         /// Serialize this variable to the specified stream.
@@ -70,11 +72,18 @@ class ReflectedVariable
         /// @param stream Output stream to write the serialized data to.
         ///
         void Serialize(std::ostream &stream) const;
+
+		///
+		/// Deserialize this variable to the specified stream.
+		///
+		/// @param stream Input stream to read the serialized data from.
+		///
+		void Deserialize(std::istream &stream);
     
     private:
     
         const ReflectionData *m_reflectionData; ///< Reflection data for this type.
-        const void           *m_instanceData;   ///< Data for actual instance of the reflected type.
+        void				 *m_instanceData;   ///< Data for actual instance of the reflected type.
 };
 
 
