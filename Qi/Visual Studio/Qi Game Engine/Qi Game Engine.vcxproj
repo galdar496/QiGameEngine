@@ -126,6 +126,9 @@
     <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp" />
     <ClCompile Include="..\..\Source\Core\Math\Matrix4.cpp" />
     <ClCompile Include="..\..\Source\Core\Memory\MemoryAllocator.cpp" />
+    <ClCompile Include="..\..\Source\Core\Reflection\ReflectedVariable.cpp" />
+    <ClCompile Include="..\..\Source\Core\Reflection\ReflectionData.cpp" />
+    <ClCompile Include="..\..\Source\Core\Reflection\ReflectionDataManager.cpp" />
     <ClCompile Include="..\..\Source\Core\Utility\Logger\HTMLLogFileWriter.cpp" />
     <ClCompile Include="..\..\Source\Core\Utility\Logger\Logger.cpp" />
     <ClCompile Include="..\..\Source\Core\Utility\Random.cpp" />
@@ -145,6 +148,12 @@
     <ClInclude Include="..\..\Source\Core\Math\SSEUtils.h" />
     <ClInclude Include="..\..\Source\Core\Math\Vec4.h" />
     <ClInclude Include="..\..\Source\Core\Memory\MemoryAllocator.h" />
+    <ClInclude Include="..\..\Source\Core\Reflection\QualifierRemover.h" />
+    <ClInclude Include="..\..\Source\Core\Reflection\ReflectedVariable.h" />
+    <ClInclude Include="..\..\Source\Core\Reflection\Reflection.h" />
+    <ClInclude Include="..\..\Source\Core\Reflection\ReflectionData.h" />
+    <ClInclude Include="..\..\Source\Core\Reflection\ReflectionDataManager.h" />
+    <ClInclude Include="..\..\Source\Core\Reflection\ReflectionPrimitiveTypes.h" />
     <ClInclude Include="..\..\Source\Core\Utility\Logger\HTMLLogFileWriter.h" />
     <ClInclude Include="..\..\Source\Core\Utility\Logger\LogChannels.h" />
     <ClInclude Include="..\..\Source\Core\Utility\Logger\LogFileWriter.h" />
@@ -162,6 +171,7 @@
     <None Include="..\..\Source\Core\Containers\Array.inl" />
     <None Include="..\..\Source\Core\Containers\LocklessQueue.inl" />
     <None Include="..\..\Source\Core\Memory\MemoryAllocator.inl" />
+    <None Include="..\..\Source\Core\Reflection\ReflectedVariable.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

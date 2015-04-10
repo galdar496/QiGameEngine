@@ -31,6 +31,9 @@
     <Filter Include="ThirdParty">
       <UniqueIdentifier>{1464d656-37c5-4fc2-a180-3d5431baba2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Reflection">
+      <UniqueIdentifier>{7f9cf564-b058-4515-ac2d-f57274087255}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp">
@@ -56,6 +59,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\ThirdParty\tinyxml2.cpp">
       <Filter>ThirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Reflection\ReflectedVariable.cpp">
+      <Filter>Core\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Reflection\ReflectionData.cpp">
+      <Filter>Core\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Reflection\ReflectionDataManager.cpp">
+      <Filter>Core\Reflection</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +143,24 @@
     <ClInclude Include="..\..\Source\ThirdParty\tinyxml2.h">
       <Filter>ThirdParty</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Reflection\QualifierRemover.h">
+      <Filter>Core\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Reflection\ReflectedVariable.h">
+      <Filter>Core\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Reflection\Reflection.h">
+      <Filter>Core\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Reflection\ReflectionData.h">
+      <Filter>Core\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Reflection\ReflectionDataManager.h">
+      <Filter>Core\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Reflection\ReflectionPrimitiveTypes.h">
+      <Filter>Core\Reflection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Core\Containers\Array.inl">
@@ -141,6 +171,9 @@
     </None>
     <None Include="..\..\Source\Core\Memory\MemoryAllocator.inl">
       <Filter>Core\Memory</Filter>
+    </None>
+    <None Include="..\..\Source\Core\Reflection\ReflectedVariable.inl">
+      <Filter>Core\Reflection</Filter>
     </None>
   </ItemGroup>
 </Project>

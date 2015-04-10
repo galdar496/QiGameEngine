@@ -126,7 +126,7 @@ void ReflectionData::PrintMembers() const
     }
 }
 
-void Pad(std::ostream &stream, int pad)
+void Pad(std::ostream &stream, uint32 pad)
 {
     for (uint32 ii = 0; ii < pad; ++ii)
     {
