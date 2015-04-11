@@ -145,16 +145,11 @@ class QI_ALIGN(QI_SSE_ALIGNMENT) Quaternion
             // This is different from the canonical q * p * conjugate(q) for
             // speed reasons.
             // See https://molecularmusings.wordpress.com/2013/05/24/a-faster-quaternion-vector-multiplication/
-//            Vec4 t(SSEMultiply(SSECross(m_quat, v.m_sseValue), 2.0f));
-//            return v + (t * w) + Vec4(SSECross(m_quat, t.m_sseValue));
             
             SSEType t = SSEMultiply(SSECross(m_quat, v.m_sseValue), 2.0f);
             SSEType result = SSEAdd(v.m_sseValue, SSEMultiply(t, w));
             result = SSEAdd(result, SSECross(m_quat, t));
             return Vec4(result);
-            
-//            Vec4 t = m_quat.Cross(v) * 2.0f;
-//            return v + (t * m_quat.w) + m_quat.Cross(t);
         }
     
         ///
