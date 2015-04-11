@@ -14,6 +14,8 @@
 
 #include "Reflection.h"
 #include "ReflectedVariable.h"
+#include <ostream>
+#include <istream>
 
 ///
 /// Macro to declare the reflection data for POD types. All reflected POD types are declared in this file.

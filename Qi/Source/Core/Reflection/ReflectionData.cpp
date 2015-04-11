@@ -205,6 +205,7 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 	{
 		// Read in the type.
 		stream >> streamInput;
+        QI_ASSERT(stream);
 		const ReflectedMember *member = GetMember(streamInput);
 		if (member)
 		{

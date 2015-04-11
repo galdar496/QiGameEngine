@@ -88,8 +88,10 @@ class QiExample : public QiGameImpl
 			Qi::ReflectedVariable v2(t2);
 			v2.Deserialize(stream);
 
-			int x;
-			std::cin >> x;
+            #ifdef QI_WINDOWS
+                int x;
+                std::cin >> x;
+            #endif
             return false;
         }
 };
