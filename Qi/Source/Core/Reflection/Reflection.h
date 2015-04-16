@@ -21,7 +21,7 @@
 /// in the 'public' section of a class otherwise Qi will fail to compile.
 ///
 #define QI_DECLARE_REFLECTION_CLASS(classType) \
-    static void AddMember(const std::string &name, size_t offset, const Qi::ReflectionData *data); \
+    static void AddMember(const std::string &name, size_t offset, size_t size, const Qi::ReflectionData *data); \
     static Qi::QualifierRemover<classType>::type *NullCast(); \
     static void RegisterReflectedData();
 
@@ -42,7 +42,7 @@
 #define QI_REFLECT_DATA_MEMBERS(classType) \
     Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type> QI_UNIQUE_NAME( )(#classType, sizeof(classType));\
     Qi::QualifierRemover<classType>::type *classType::NullCast() { return (Qi::QualifierRemover<classType>::type *)(nullptr); }\
-    void classType::AddMember(const std::string &name, size_t offset, const Qi::ReflectionData *data) { return Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::AddMember(name, offset, data); }\
+    void classType::AddMember(const std::string &name, size_t offset, size_t size, const Qi::ReflectionData *data) { return Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::AddMember(name, offset, size, data); }\
     template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::RegisterReflectedData() { classType::RegisterReflectedData(); }\
     void classType::RegisterReflectedData()
 
@@ -51,7 +51,7 @@
 /// the scope of the macro QI_REFLECT_DATA_MEMBERS.
 ///
 #define QI_REFLECT_MEMBER(memberName) \
-    AddMember(#memberName, (size_t)(&(NullCast()->memberName)), &(Qi::ReflectionDataCreator<Qi::QualifierRemover<decltype(NullCast()->memberName)>::type>::GetInstance()));
+    AddMember(#memberName, (size_t)(&(NullCast()->memberName)), sizeof(NullCast()->memberName), &(Qi::ReflectionDataCreator<Qi::QualifierRemover<std::remove_all_extents<decltype(NullCast()->memberName)>::type >::type>::GetInstance()));
 
 ///
 /// Generate a unique name. Make use of QI_UNIQUE_NAME, the other macros

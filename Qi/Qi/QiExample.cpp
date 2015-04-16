@@ -31,17 +31,23 @@ class Test
     
     QI_DECLARE_REFLECTION_CLASS(Test);
     
-    Test() :
-        variable1(1),
-        variable2(2),
-        variable3('a')
-        {}
+	Test() :
+		variable1(1),
+		variable2(2),
+		variable3('a') //{}
+         {
+			 array[0] = 'a';
+			 array[1] = 'b';
+			 array[2] = 'c';
+		 }
     
    // private:
         int variable1;
         int variable2;
         char variable3;
         Lame l;
+
+		char array[3];
 };
 
 QI_REFLECT_DATA_MEMBERS(Test)
@@ -50,6 +56,7 @@ QI_REFLECT_DATA_MEMBERS(Test)
     QI_REFLECT_MEMBER(variable2);
     QI_REFLECT_MEMBER(variable3);
     QI_REFLECT_MEMBER(l);
+	QI_REFLECT_MEMBER(array);
 }
 
 QI_REFLECT_DATA_MEMBERS(Lame)
@@ -74,19 +81,22 @@ class QiExample : public QiGameImpl
     
         virtual bool Step(const float dt) override
         {   
-            const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Test");
-            data->PrintMembers();
+//             const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Test");
+//             data->PrintMembers();
             
             Test t;
 			t.variable1 = 100;
-			t.variable3 = 'c';
+ 			t.variable3 = 'c';
+			t.array[0] = 'x';
+			t.array[1] = 'y';
+			t.array[2] = 'z';
             Qi::ReflectedVariable v(t);
-			std::stringstream stream;
-            v.Serialize(stream);
+			//std::stringstream stream;
+			v.Serialize(std::cout);
             
-			Test t2;
-			Qi::ReflectedVariable v2(t2);
-			v2.Deserialize(stream);
+// 			Test t2;
+// 			Qi::ReflectedVariable v2(t2);
+// 			v2.Deserialize(stream);
 
             #ifdef QI_WINDOWS
                 int x;

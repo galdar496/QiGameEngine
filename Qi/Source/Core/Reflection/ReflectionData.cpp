@@ -15,9 +15,10 @@ namespace Qi
 
 // ReflectedMember implementation begin ------------------------------------------------------
 
-ReflectedMember::ReflectedMember(const std::string &name, size_t offset, const ReflectionData *reflectionData) :
+ReflectedMember::ReflectedMember(const std::string &name, size_t offset, size_t size, const ReflectionData *reflectionData) :
     m_name(name),
     m_offset(offset),
+	m_size(size),
     m_data(reflectionData),
     m_nextMember(nullptr)
 {
@@ -42,6 +43,11 @@ const ReflectionData *ReflectedMember::GetData() const
     return m_data;
 }
 
+size_t ReflectedMember::GetSize() const
+{
+	return m_size;
+}
+
 ReflectedMember *const& ReflectedMember::GetNextMember() const
 {
     return m_nextMember;
@@ -55,6 +61,14 @@ ReflectedMember *& ReflectedMember::GetNextMember()
 bool ReflectedMember::HasMembers() const
 {
     return (m_nextMember != nullptr);
+}
+
+bool ReflectedMember::IsArray() const
+{
+	// If this is an array, m_size will contain the size of of the entire array
+	// whereas the reflection data will contain the size of just one element of
+	// the array.
+	return (m_size > m_data->GetSize());
 }
 
 // ReflectedMember implementation end --------------------------------------------------------
@@ -76,6 +90,7 @@ ReflectionData::~ReflectionData()
     
 void ReflectionData::Init(const std::string &name, size_t size)
 {
+	QI_ASSERT(size > 0 && "Invalid size specified as a reflected type");
     m_name = name;
     m_size = size;
 }
@@ -170,14 +185,40 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
     ++padding;
     while (member)
     {
-        void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
-        ReflectedVariable memberVariable(member->GetData(), offsetData);
 		Pad(stream, padding);
-		stream << member->GetName() << " ";
-        member->GetData()->Serialize(&memberVariable, stream, padding);
-               
+
+		// If this type is an array, we have to serialize each element of the array before moving on 
+		// to the next member variable.
+		if (member->IsArray())
+		{
+			stream << member->GetName() << std::endl;
+			++padding;
+			const ReflectionData *data = member->GetData();
+			size_t baseTypeSize = data->GetSize();
+			QI_ASSERT(baseTypeSize > 0 && "Attempted to serialize unknown type");
+			size_t arrayLength = member->GetSize() / baseTypeSize;
+			for (size_t ii = 0; ii < member->GetSize(); ii += baseTypeSize)
+			{
+				Pad(stream, padding);
+
+				// Get the next element to serialize.
+				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset() + ii);
+				ReflectedVariable arrayElement(data, offsetData);
+				data->Serialize(&arrayElement, stream, padding);
+			}
+			--padding;
+		}
+		else // non-array type.
+		{
+			stream << member->GetName() << " ";
+			void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+			ReflectedVariable memberVariable(member->GetData(), offsetData);
+			member->GetData()->Serialize(&memberVariable, stream, padding);
+		}
+        
         member = member->GetNextMember();
     }
+
     --padding;
     Pad(stream, padding);
     stream << "]" << std::endl;
@@ -209,9 +250,26 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 		const ReflectedMember *member = GetMember(streamInput);
 		if (member)
 		{
-			void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
-			ReflectedVariable memberVariable(member->GetData(), offsetData);
-			member->GetData()->Deserialize(&memberVariable, stream);
+			// If this member is an array type, read in each element of the array individually.
+			if (member->IsArray())
+			{
+				const ReflectionData *data = member->GetData();
+				size_t baseTypeSize = data->GetSize();
+				size_t arrayLength = member->GetSize() / baseTypeSize;
+				for (size_t ii = 0; ii < member->GetSize(); ii += baseTypeSize)
+				{
+					// Get the next element to serialize.
+					void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset() + ii);
+					ReflectedVariable arrayElement(data, offsetData);
+					data->Deserialize(&arrayElement, stream);
+				}
+			}
+			else // non-array type.
+			{
+				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+				ReflectedVariable memberVariable(member->GetData(), offsetData);
+				member->GetData()->Deserialize(&memberVariable, stream);
+			}
 		}
 	}
 }

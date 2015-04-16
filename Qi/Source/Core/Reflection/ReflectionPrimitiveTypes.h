@@ -18,15 +18,22 @@
 #include <istream>
 
 ///
-/// Macro to declare the reflection data for POD types. All reflected POD types are declared in this file.
+/// Macro to declare the reflection data for primitive (POD) types. All reflected primitive types are declared in this file.
 ///
-#define QI_DECLARE_REFLECTION_POD(T) \
+#define QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(T) \
     Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type> QI_UNIQUE_NAME( )(#T, sizeof(T)); \
     template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type>::RegisterReflectedData() \
     { \
         Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type>::GetInstance().SetSerializeFunction(SerializePrimitiveValue<Qi::QualifierRemover<T>::type>); \
 		Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type>::GetInstance().SetDeserializeFunction(DeserializePrimitiveVale<Qi::QualifierRemover<T>::type>); \
     }
+#define QI_DECLARE_REFLECTION_PRIMITIVE_TYPE_ARRAY(T, length) \
+    Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type> QI_UNIQUE_NAME( )(#T, sizeof(T)); \
+    template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type>::RegisterReflectedData() \
+			    { \
+        Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type>::GetInstance().SetSerializeFunction(SerializePrimitiveValue<Qi::QualifierRemover<T>::type>); \
+		Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type>::GetInstance().SetDeserializeFunction(DeserializePrimitiveVale<Qi::QualifierRemover<T>::type>); \
+			    }
 
 namespace Qi
 {
@@ -34,7 +41,7 @@ namespace Qi
 template<class T>
 void SerializePrimitiveValue(const ReflectedVariable *variable, std::ostream &stream)
 {
-    stream << variable->GetValue<T>() << std::endl;
+	stream << variable->GetValue<T>() << std::endl;
 }
 
 template<class T>
@@ -44,23 +51,23 @@ void DeserializePrimitiveVale(ReflectedVariable *variable, std::istream &stream)
 }
 
 // Declare all supported POD reflected types.
-QI_DECLARE_REFLECTION_POD(int);
-//QI_DECLARE_REFLECTION_POD(int *);
-QI_DECLARE_REFLECTION_POD(float);
-//QI_DECLARE_REFLECTION_POD(float *);
-QI_DECLARE_REFLECTION_POD(double);
-//QI_DECLARE_REFLECTION_POD(double *);
-QI_DECLARE_REFLECTION_POD(char);
-//QI_DECLARE_REFLECTION_POD(char *);
-QI_DECLARE_REFLECTION_POD(uint32);
-//QI_DECLARE_REFLECTION_POD(uint32 *);
-QI_DECLARE_REFLECTION_POD(size_t);
-//QI_DECLARE_REFLECTION_POD(size_t *);
-QI_DECLARE_REFLECTION_POD(long);
-//QI_DECLARE_REFLECTION_POD(long *);
-QI_DECLARE_REFLECTION_POD(long long);
-//QI_DECLARE_REFLECTION_POD(long long *);
-QI_DECLARE_REFLECTION_POD(std::string);
-//QI_DECLARE_REFLECTION_POD(std::string *);
+QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(int);
+//QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(int *);
+QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(float);
+//QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(float *);
+QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(double);
+//QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(double *);
+QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(char);
+//QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(char *);
+QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(uint32);
+//QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(uint32 *);
+QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(size_t);
+//QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(size_t *);
+QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(long);
+//QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(long *);
+QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(long long);
+//QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(long long *);
+QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(std::string);
+//QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(std::string *);
 
 } // namespace Qi

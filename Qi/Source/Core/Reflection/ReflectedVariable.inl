@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Reflection.h"
+#include <iostream>
 
 #define QI_GET_REFLECTED_TYPE(type) &(Qi::ReflectionDataCreator<typename Qi::QualifierRemover<type>::type>::GetInstance())
 

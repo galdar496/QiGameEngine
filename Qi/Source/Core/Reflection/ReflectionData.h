@@ -132,7 +132,7 @@ class ReflectionData
 		///
 		void SetDeserializeFunction(DeserializeFunction function = nullptr);
         
-    private:
+   // private:
         
         ReflectedMember *m_members;    ///< Members contained in this type.
         ReflectedMember *m_lastMember; ///< The end of the members list.
@@ -152,10 +152,11 @@ class ReflectedMember
         ///
         /// @param name Name of the variable.
         /// @param offset Offset (in bytes) from the beginning of the class data.
+		/// @param size Size of this member (in bytes).
         /// @param reflectionData Reflected data for this member variable. Could be a POD type
         ///                       or another class/struct.
         ///
-        explicit ReflectedMember(const std::string &name, size_t offset, const ReflectionData *reflectionData);
+        explicit ReflectedMember(const std::string &name, size_t offset, size_t size, const ReflectionData *reflectionData);
     
         ~ReflectedMember();
     
@@ -180,6 +181,15 @@ class ReflectedMember
         /// @return Reflection data for this variable.
         ///
         const ReflectionData *GetData() const;
+
+		///
+		/// Get the size of this member variable (in bytes). If this member
+		/// variable is an array, the size will be the size of the entire
+		/// array.
+		///
+		/// @return Size of this member variable (in bytes).
+		///
+		size_t GetSize() const;
     
         ///
         /// Get the next member variable for the class.
@@ -196,11 +206,20 @@ class ReflectedMember
         /// @return If true, this type has members.
         ///
         bool HasMembers() const;
+
+		///
+		/// Check to see if this member variable represents an array. If so, each element of the array will be
+		/// serialized independently.
+		///
+		/// @return If true, this member variable is an array type.
+		///
+		bool IsArray() const;
     
     private:
     
         const std::string     m_name;       ///< Name of this variable.
         size_t                m_offset;     ///< Offset (in bytes) from the start of the class for this variable.
+		size_t                m_size;       ///< Size of this variable (in bytes).
         const ReflectionData *m_data;       ///< Reflected data for this variable.
         ReflectedMember      *m_nextMember; ///< Pointer to the next member variable for the reflected class.
 };
@@ -250,11 +269,12 @@ class ReflectionDataCreator
         ///
         /// @param name Name of the member.
         /// @param offset Offset of the member from the beginning of the class (in bytes).
+		/// @param size Size of this memebr (in bytes).
         /// @param data Reflected data for this member.
         ///
-        static void AddMember(const std::string &name, size_t offset, const ReflectionData *data)
+        static void AddMember(const std::string &name, size_t offset, size_t size, const ReflectionData *data)
         {
-            GetInstance().AddMember(new ReflectedMember(name, offset, data));
+            GetInstance().AddMember(new ReflectedMember(name, offset, size, data));
         }
     
         ///

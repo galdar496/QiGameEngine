@@ -10,46 +10,20 @@
 
 ///
 /// Remove any qualifiers from a type. For example, take
-/// an int * and return an int. Similar with const float ->
+/// a const int & and return an int. Similar with const float ->
 /// float.
 ///
 
 namespace Qi
 {
-    // Define a series of structs that can strip out all C++ qualifiers
-    // and get down to just the type.
+    // Strip all qualifiers and get down to just the base type.
 
     template<class T>
     struct QualifierRemover
     {
-        typedef T type;
+		typedef typename std::decay<T>::type type;
     };
-    
-    template<class T>
-    struct QualifierRemover<const T>
-    {
-        typedef typename QualifierRemover<T>::type type;
-    };
-    
-    template<class T>
-    struct QualifierRemover<const T &>
-    {
-        typedef typename QualifierRemover<T>::type type;
-    };
-    
-    template<class T>
-    struct QualifierRemover<T &&>
-    {
-        typedef typename QualifierRemover<T>::type type;
-    };
-    
-    // Preserve pointer types.
-    template<class T>
-    struct QualifierRemover<const T *>
-    {
-        typedef typename QualifierRemover<T *>::type type;
-    };
-    
+
 } // namespace Qi
 
 
