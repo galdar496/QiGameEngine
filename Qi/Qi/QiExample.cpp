@@ -16,7 +16,7 @@ class Lame
 {
     public:
     
-        QI_DECLARE_REFLECTION_CLASS(Lame);
+		QI_DECLARE_REFLECTED_CLASS(Lame);
  
 		Lame() : x(15) {}
     private:
@@ -29,7 +29,7 @@ class Test
 {
     public:
     
-    QI_DECLARE_REFLECTION_CLASS(Test);
+		QI_DECLARE_REFLECTED_CLASS(Test);
     
 	Test() :
 		variable1(1),
@@ -50,7 +50,7 @@ class Test
 		char array[3];
 };
 
-QI_REFLECT_DATA_MEMBERS(Test)
+QI_REFLECT_CLASS(Test)
 {
     QI_REFLECT_MEMBER(variable1);
     QI_REFLECT_MEMBER(variable2);
@@ -59,10 +59,43 @@ QI_REFLECT_DATA_MEMBERS(Test)
 	QI_REFLECT_MEMBER(array);
 }
 
-QI_REFLECT_DATA_MEMBERS(Lame)
+QI_REFLECT_CLASS(Lame)
 {
     QI_REFLECT_MEMBER(x);
 }
+
+class Base
+{
+	public:
+
+		QI_DECLARE_REFLECTED_CLASS(Base);
+
+		Base() : base1(true) {}
+
+		bool base1;
+};
+
+class Derived : public Base
+{
+	public:
+
+		QI_DECLARE_REFLECTED_CLASS(Derived);
+
+		Derived() : derived1(true) {}
+
+		bool derived1;
+};
+
+QI_REFLECT_CLASS(Base)
+{
+	QI_REFLECT_MEMBER(base1);
+}
+
+QI_REFLECT_DERIVED_CLASS(Derived, Base)
+{
+	QI_REFLECT_MEMBER(derived1);
+}
+
 
 class QiExample : public QiGameImpl
 {
@@ -81,8 +114,19 @@ class QiExample : public QiGameImpl
     
         virtual bool Step(const float dt) override
         {   
-//             const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Test");
+//             const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Derived");
 //             data->PrintMembers();
+
+// 			Derived d;
+// 			d.base1 = false;
+// 			d.derived1 = false;
+// 			Qi::ReflectedVariable v(d);
+// 			std::stringstream stream;
+// 			v.Serialize(stream);
+// 
+// 			Derived d2;
+// 			Qi::ReflectedVariable v2(d2);
+// 			v2.Deserialize(stream);
             
             Test t;
 			t.variable1 = 100;
@@ -91,12 +135,12 @@ class QiExample : public QiGameImpl
 			t.array[1] = 'y';
 			t.array[2] = 'z';
             Qi::ReflectedVariable v(t);
-			//std::stringstream stream;
-			v.Serialize(std::cout);
+			std::stringstream stream;
+			v.Serialize(stream);
             
-// 			Test t2;
-// 			Qi::ReflectedVariable v2(t2);
-// 			v2.Deserialize(stream);
+			Test t2;
+			Qi::ReflectedVariable v2(t2);
+			v2.Deserialize(stream);
 
             #ifdef QI_WINDOWS
                 int x;

@@ -43,8 +43,9 @@ class ReflectionData
         ///
         /// @param name Name of this type.
         /// @param size Size of this type (in bytes).
+		/// @param parentTypeName Name of this type's parent (inherited types only).
         ///
-        void Init(const std::string &name, size_t size);
+        void Init(const std::string &name, size_t size, const std::string &parentTypeName);
         
         ///
         /// Get the name of this type.
@@ -132,12 +133,13 @@ class ReflectionData
 		///
 		void SetDeserializeFunction(DeserializeFunction function = nullptr);
         
-   // private:
+    private:
         
-        ReflectedMember *m_members;    ///< Members contained in this type.
-        ReflectedMember *m_lastMember; ///< The end of the members list.
-        std::string      m_name;       ///< Name of this type.
-        size_t           m_size;       ///< Size of this type in bytes.
+        ReflectedMember       *m_members;    ///< Members contained in this type.
+        ReflectedMember       *m_lastMember; ///< The end of the members list.
+        std::string            m_name;       ///< Name of this type.
+        size_t                 m_size;       ///< Size of this type in bytes.
+		const ReflectionData  *m_parent;     ///< Parent object to this type (only populated if this is an inherited type).
         
         SerializeFunction   m_serializeFunction;   ///< Serialization function to use if this type is a primitive type defined in ReflectionPrimitiveTypes.h
 		DeserializeFunction m_deserializeFunction; ///< Deserialization function to use if this type is a primitive type defined in ReflectionPrimitiveTypes.h
@@ -235,9 +237,9 @@ class ReflectionDataCreator
         /// @param name Name of the type.
         /// @param size Size of the type (in bytes).
         ///
-        ReflectionDataCreator(const std::string &name, size_t size)
+        ReflectionDataCreator(const std::string &name, size_t size, const std::string &parentTypeName)
         {
-            Init(name, size);
+            Init(name, size, parentTypeName);
         }
     
         ///
@@ -254,13 +256,14 @@ class ReflectionDataCreator
         ///
         /// @param name Name of the type.
         /// @param size Size of the type in bytes.
+		/// @param parentTypeName Name of this type's parent (inherited types only).
         ///
-        static void Init(const std::string &name, size_t size)
+        static void Init(const std::string &name, size_t size, const std::string &parentTypeName)
         {
             ReflectionData &data = GetInstance();
-            data.Init(name, size);
+            data.Init(name, size, parentTypeName);
             
-            RegisterReflectedData();
+			RegisterReflectionData();
             ReflectionDataManager::GetInstance().AddReflectedData(&data);
         }
     
@@ -289,7 +292,7 @@ class ReflectionDataCreator
         /// Automatically implemented via macros defined in Reflection.h per type.
         /// This function is used to populate the reflected member variables per-class.
         ///
-        static void RegisterReflectedData();
+		static void RegisterReflectionData();
 };
 
 } // namespace Qi

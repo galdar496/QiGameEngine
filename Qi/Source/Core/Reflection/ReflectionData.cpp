@@ -80,7 +80,8 @@ ReflectionData::ReflectionData(const std::string name, size_t size) :
     m_size(size),
     m_members(nullptr),
     m_lastMember(nullptr),
-    m_serializeFunction(nullptr)
+    m_serializeFunction(nullptr),
+	m_parent(nullptr)
 {
 }
     
@@ -88,11 +89,18 @@ ReflectionData::~ReflectionData()
 {
 }
     
-void ReflectionData::Init(const std::string &name, size_t size)
+void ReflectionData::Init(const std::string &name, size_t size, const std::string &parentTypeName)
 {
 	QI_ASSERT(size > 0 && "Invalid size specified as a reflected type");
     m_name = name;
     m_size = size;
+
+	if (!parentTypeName.empty())
+	{
+		// This object is specified to have a parent, ask the reflection manager for it.
+		m_parent = ReflectionDataManager::GetInstance().GetReflectionData(parentTypeName);
+		//QI_ASSERT(m_parent != nullptr); // for now. Figure out how to pass something that is invalid for the parent name
+	}
 }
     
 const std::string &ReflectionData::GetName() const
@@ -147,6 +155,12 @@ const ReflectedMember *ReflectionData::GetMembers() const
     
 void ReflectionData::PrintMembers() const
 {
+	// First, check to see if we have a parent type. If so, print its members first.
+	if (m_parent)
+	{
+		m_parent->PrintMembers();
+	}
+
     const ReflectedMember *member = m_members;
     
     std::cout << "Members for type " << m_name << std::endl;
@@ -170,6 +184,12 @@ void Pad(std::ostream &stream, uint32 pad)
 
 void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &stream, uint32 padding) const
 {
+	// If this object has a parent, serialize its data first.
+	if (m_parent)
+	{
+		m_parent->Serialize(variable, stream, padding);
+	}
+
     // If this type has a valid serialization function then it knows how to serialize itself, let it.
     if (m_serializeFunction)
     {
@@ -226,6 +246,12 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 
 void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stream) const
 {
+	// If this object has a parent, deserialize its data first.
+	if (m_parent)
+	{
+		m_parent->Deserialize(variable, stream);
+	}
+
 	// If this type has a valid deserialization function then it knows how to deserialize itself, let it.
 	if (m_deserializeFunction)
 	{
@@ -238,7 +264,7 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 	// Read the incoming '[' first.
 	std::string streamInput;
 	stream >> streamInput; // Read the class type first.
-	QI_ASSERT(streamInput == variable->GetReflectionData()->GetName());
+	QI_ASSERT(streamInput == m_name);
 	stream >> streamInput;
 	QI_ASSERT(streamInput == "[");
 

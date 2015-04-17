@@ -20,10 +20,10 @@
 /// Declare functions necessary to reflect class 'classType'. This must be placed
 /// in the 'public' section of a class otherwise Qi will fail to compile.
 ///
-#define QI_DECLARE_REFLECTION_CLASS(classType) \
+#define QI_DECLARE_REFLECTED_CLASS(classType) \
     static void AddMember(const std::string &name, size_t offset, size_t size, const Qi::ReflectionData *data); \
     static Qi::QualifierRemover<classType>::type *NullCast(); \
-    static void RegisterReflectedData();
+    static void RegisterReflectionData();
 
 ///
 /// Reflect the data members of class 'classType'. This macro acts like a function
@@ -37,14 +37,16 @@
 /// }
 ///
 /// This can ONLY be called on a class that has been declared with reflection data
-/// with QI_DECLARE_REFLECTION_CLASS().
+/// with QI_DECLARE_REFLECTED_CLASS().
 ///
-#define QI_REFLECT_DATA_MEMBERS(classType) \
-    Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type> QI_UNIQUE_NAME( )(#classType, sizeof(classType));\
+#define QI_REFLECT_CLASS(classType) QI_REFLECT_DERIVED_CLASS(classType, "")
+
+#define QI_REFLECT_DERIVED_CLASS(classType, parentType)\
+    Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type> QI_UNIQUE_NAME( )(#classType, sizeof(classType), #parentType);\
     Qi::QualifierRemover<classType>::type *classType::NullCast() { return (Qi::QualifierRemover<classType>::type *)(nullptr); }\
     void classType::AddMember(const std::string &name, size_t offset, size_t size, const Qi::ReflectionData *data) { return Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::AddMember(name, offset, size, data); }\
-    template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::RegisterReflectedData() { classType::RegisterReflectedData(); }\
-    void classType::RegisterReflectedData()
+    template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::RegisterReflectionData() { classType::RegisterReflectionData(); }\
+    void classType::RegisterReflectionData()
 
 ///
 /// Reflect a specific member of a class. This must be called within
@@ -55,8 +57,8 @@
 
 ///
 /// Generate a unique name. Make use of QI_UNIQUE_NAME, the other macros
-/// should not be directly called. Pass in a class name and get the same
-/// name back with a unique number afterwards, e.g. Foo -> Foo1
+/// should not be directly called. Generates a name such as 
+/// __Qi_Reflected1 etc.
 ///
 #define QI_APPEND_TOKENS(counter) __Qi_Reflected##counter
 #define QI_UNIQUE_NAME_INTERNAL(counter) QI_APPEND_TOKENS(counter)
