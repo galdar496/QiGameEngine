@@ -26,9 +26,9 @@
     static void RegisterReflectionData();
 
 ///
-/// Reflect the data members of class 'classType'. This macro acts like a function
+/// Reflect the object data of class 'classType'. This macro acts like a function
 /// which should be called like this:
-/// QI_REFLECT_DATA_MEMBERS(SomeClassType)
+/// QI_REFLECT_CLASS(SomeClassType)
 /// {
 ///     QI_REFLECT_MEMBER(memberName1);
 ///     QI_REFLECT_MEMBER(memberName2);
@@ -39,18 +39,23 @@
 /// This can ONLY be called on a class that has been declared with reflection data
 /// with QI_DECLARE_REFLECTED_CLASS().
 ///
-#define QI_REFLECT_CLASS(classType) QI_REFLECT_DERIVED_CLASS(classType, "")
-
-#define QI_REFLECT_DERIVED_CLASS(classType, parentType)\
-    Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type> QI_UNIQUE_NAME( )(#classType, sizeof(classType), #parentType);\
-    Qi::QualifierRemover<classType>::type *classType::NullCast() { return (Qi::QualifierRemover<classType>::type *)(nullptr); }\
-    void classType::AddMember(const std::string &name, size_t offset, size_t size, const Qi::ReflectionData *data) { return Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::AddMember(name, offset, size, data); }\
-    template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::RegisterReflectionData() { classType::RegisterReflectionData(); }\
+#define QI_REFLECT_CLASS(classType) \
+    Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type> QI_UNIQUE_NAME( )(#classType, sizeof(classType)); \
+    Qi::QualifierRemover<classType>::type *classType::NullCast() { return (Qi::QualifierRemover<classType>::type *)(nullptr); } \
+    void classType::AddMember(const std::string &name, size_t offset, size_t size, const Qi::ReflectionData *data) { return Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::AddMember(name, offset, size, data); } \
+    template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::RegisterReflectionData() { classType::RegisterReflectionData(); } \
     void classType::RegisterReflectionData()
 
 ///
+/// Declare a parent type for the type specified by classType. Must be called within the scope
+/// of the macro QI_REFLECT_CLASS.
+///
+#define QI_DECLARE_PARENT(classType, parentType) \
+	Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::DeclareParent(&Qi::ReflectionDataCreator<Qi::QualifierRemover<parentType>::type>::GetInstance());
+
+///
 /// Reflect a specific member of a class. This must be called within
-/// the scope of the macro QI_REFLECT_DATA_MEMBERS.
+/// the scope of the macro QI_REFLECT_CLASS.
 ///
 #define QI_REFLECT_MEMBER(memberName) \
     AddMember(#memberName, (size_t)(&(NullCast()->memberName)), sizeof(NullCast()->memberName), &(Qi::ReflectionDataCreator<Qi::QualifierRemover<std::remove_all_extents<decltype(NullCast()->memberName)>::type >::type>::GetInstance()));

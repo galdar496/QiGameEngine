@@ -89,18 +89,11 @@ ReflectionData::~ReflectionData()
 {
 }
     
-void ReflectionData::Init(const std::string &name, size_t size, const std::string &parentTypeName)
+void ReflectionData::Init(const std::string &name, size_t size)
 {
 	QI_ASSERT(size > 0 && "Invalid size specified as a reflected type");
     m_name = name;
     m_size = size;
-
-	if (!parentTypeName.empty())
-	{
-		// This object is specified to have a parent, ask the reflection manager for it.
-		m_parent = ReflectionDataManager::GetInstance().GetReflectionData(parentTypeName);
-		//QI_ASSERT(m_parent != nullptr); // for now. Figure out how to pass something that is invalid for the parent name
-	}
 }
     
 const std::string &ReflectionData::GetName() const
@@ -111,6 +104,11 @@ const std::string &ReflectionData::GetName() const
 size_t ReflectionData::GetSize() const
 {
     return m_size;
+}
+
+void ReflectionData::DeclareParent(const ReflectionData *parent)
+{
+	m_parent = parent;
 }
     
 void ReflectionData::AddMember(const ReflectedMember *member)

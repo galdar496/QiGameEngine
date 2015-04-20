@@ -43,9 +43,8 @@ class ReflectionData
         ///
         /// @param name Name of this type.
         /// @param size Size of this type (in bytes).
-		/// @param parentTypeName Name of this type's parent (inherited types only).
         ///
-        void Init(const std::string &name, size_t size, const std::string &parentTypeName);
+        void Init(const std::string &name, size_t size);
         
         ///
         /// Get the name of this type.
@@ -60,6 +59,13 @@ class ReflectionData
         /// @return Size of this type (in bytes).
         ///
         size_t GetSize() const;
+
+		///
+		/// Declare the parent type to this type (for inheritance).
+		///
+		/// @param parent Parent object to this type.
+		///
+		void DeclareParent(const ReflectionData *parent);
         
         ///
         /// Add a member to this type.
@@ -75,7 +81,6 @@ class ReflectionData
         /// @return If true, this type has members.
         ///
         bool HasDataMembers() const;
-
 
 		///
 		/// Find a specific member by name for this object. 
@@ -237,9 +242,9 @@ class ReflectionDataCreator
         /// @param name Name of the type.
         /// @param size Size of the type (in bytes).
         ///
-        ReflectionDataCreator(const std::string &name, size_t size, const std::string &parentTypeName)
+        ReflectionDataCreator(const std::string &name, size_t size)
         {
-            Init(name, size, parentTypeName);
+            Init(name, size);
         }
     
         ///
@@ -256,12 +261,11 @@ class ReflectionDataCreator
         ///
         /// @param name Name of the type.
         /// @param size Size of the type in bytes.
-		/// @param parentTypeName Name of this type's parent (inherited types only).
         ///
-        static void Init(const std::string &name, size_t size, const std::string &parentTypeName)
+        static void Init(const std::string &name, size_t size)
         {
             ReflectionData &data = GetInstance();
-            data.Init(name, size, parentTypeName);
+            data.Init(name, size);
             
 			RegisterReflectionData();
             ReflectionDataManager::GetInstance().AddReflectedData(&data);
@@ -279,6 +283,16 @@ class ReflectionDataCreator
         {
             GetInstance().AddMember(new ReflectedMember(name, offset, size, data));
         }
+
+		///
+		/// Declare the parent type to this type (for inheritance).
+		///
+		/// @param parent Parent object to this type.
+		///
+		static void DeclareParent(const ReflectionData *parent)
+		{
+			GetInstance().DeclareParent(parent);
+		}
     
         ///
         /// Perform a null cast which is specific to this type.

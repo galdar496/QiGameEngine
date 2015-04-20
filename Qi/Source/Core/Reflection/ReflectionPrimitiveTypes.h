@@ -21,7 +21,7 @@
 /// Macro to declare the reflection data for primitive (POD) types. All reflected primitive types are declared in this file.
 ///
 #define QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(T) \
-    Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type> QI_UNIQUE_NAME( )(#T, sizeof(T), std::string("")); \
+    Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type> QI_UNIQUE_NAME( )(#T, sizeof(T)); \
     template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type>::RegisterReflectionData() \
     { \
         Qi::ReflectionDataCreator<Qi::QualifierRemover<T>::type>::GetInstance().SetSerializeFunction(SerializePrimitiveValue<Qi::QualifierRemover<T>::type>); \
