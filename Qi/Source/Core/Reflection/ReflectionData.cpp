@@ -19,8 +19,7 @@ ReflectedMember::ReflectedMember(const std::string &name, size_t offset, size_t 
     m_name(name),
     m_offset(offset),
 	m_size(size),
-    m_data(reflectionData),
-    m_nextMember(nullptr)
+    m_data(reflectionData)
 {
 }
 
@@ -48,21 +47,6 @@ size_t ReflectedMember::GetSize() const
 	return m_size;
 }
 
-ReflectedMember *const& ReflectedMember::GetNextMember() const
-{
-    return m_nextMember;
-}
-
-ReflectedMember *& ReflectedMember::GetNextMember()
-{
-    return m_nextMember;
-}
-
-bool ReflectedMember::HasMembers() const
-{
-    return (m_nextMember != nullptr);
-}
-
 bool ReflectedMember::IsArray() const
 {
 	// If this is an array, m_size will contain the size of of the entire array
@@ -78,8 +62,6 @@ bool ReflectedMember::IsArray() const
 ReflectionData::ReflectionData(const std::string name, size_t size) :
     m_name(name),
     m_size(size),
-    m_members(nullptr),
-    m_lastMember(nullptr),
     m_serializeFunction(nullptr),
 	m_parent(nullptr)
 {
@@ -87,6 +69,10 @@ ReflectionData::ReflectionData(const std::string name, size_t size) :
     
 ReflectionData::~ReflectionData()
 {
+	for (auto iter = m_members.begin(); iter != m_members.end(); ++iter)
+	{
+		delete *iter;
+	}
 }
     
 void ReflectionData::Init(const std::string &name, size_t size)
@@ -113,40 +99,28 @@ void ReflectionData::DeclareParent(const ReflectionData *parent)
     
 void ReflectionData::AddMember(const ReflectedMember *member)
 {
-    if (m_members)
-    {
-        m_lastMember->GetNextMember() = const_cast<ReflectedMember *>(member);
-    }
-    else
-    {
-        m_members = const_cast<ReflectedMember *>(member);
-    }
-    
-    m_lastMember = const_cast<ReflectedMember *>(member);
+	m_members.push_back(const_cast<ReflectedMember *>(member));
 }
     
 bool ReflectionData::HasDataMembers() const
 {
-    return (m_members != nullptr);
+    return (!m_members.empty());
 }
 
 const ReflectedMember *ReflectionData::GetMember(const std::string &name) const
 {
-	const ReflectedMember *member = m_members;
-	while (member)
+	for (auto iter = m_members.begin(); iter != m_members.end(); ++iter)
 	{
-		if (member->GetName() == name)
+		if ((*iter)->GetName() == name)
 		{
-			return member;
+			return *iter;
 		}
-
-		member = member->GetNextMember();
 	}
 
 	return nullptr;
 }
 
-const ReflectedMember *ReflectionData::GetMembers() const
+const ReflectionData::Members &ReflectionData::GetMembers() const
 {
     return m_members;
 }
@@ -159,14 +133,12 @@ void ReflectionData::PrintMembers() const
 		m_parent->PrintMembers();
 	}
 
-    const ReflectedMember *member = m_members;
-    
     std::cout << "Members for type " << m_name << std::endl;
-    while (member)
-    {
-        std::cout << "\t" << member->GetData()->GetName() << " " << member->GetName() << ":" << member->GetOffset() << std::endl;
-        member = member->GetNextMember();
-    }
+	for (auto iter = m_members.begin(); iter != m_members.end(); ++iter)
+	{
+		const ReflectedMember *member = *iter;
+		std::cout << "\t" << member->GetData()->GetName() << " " << member->GetName() << ":" << member->GetOffset() << std::endl;
+	}
 }
 
 void Pad(std::ostream &stream, uint32 pad)
@@ -196,13 +168,14 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
     }
     
     // For each member of this type, ask it to serialize itself.
-    const ReflectedMember *member = m_members;
     stream << m_name << std::endl;
 	Pad(stream, padding);
     stream << "[" << std::endl;
     ++padding;
-    while (member)
+    //while (member)
+	for (auto iter = m_members.begin(); iter != m_members.end(); ++iter)
     {
+		const ReflectedMember *member = *iter;
 		Pad(stream, padding);
 
 		// If this type is an array, we have to serialize each element of the array before moving on 
@@ -233,8 +206,6 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 			ReflectedVariable memberVariable(member->GetData(), offsetData);
 			member->GetData()->Serialize(&memberVariable, stream, padding);
 		}
-        
-        member = member->GetNextMember();
     }
 
     --padding;

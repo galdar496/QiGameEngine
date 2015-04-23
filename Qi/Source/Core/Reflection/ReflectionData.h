@@ -11,6 +11,7 @@
 #include "ReflectionDataManager.h"
 #include <ostream>
 #include <string>
+#include <list>
 
 ///
 /// Classes which contain reflected data members and
@@ -90,13 +91,18 @@ class ReflectionData
 		/// 
 		const ReflectedMember *GetMember(const std::string &name) const;
         
+		///
+		/// Storage list for reflected members of this type.
+		///
+		typedef std::list<ReflectedMember *> Members;
+
         ///
         /// Get access to the members of this type. If members exist
         /// the first one is returned.
         ///
-        /// @return First member if members exist, null otherwise.
+        /// @return List of members. If the list is empty then there are no members.
         ///
-        const ReflectedMember *GetMembers() const;
+        const Members &GetMembers() const;
         
         ///
         /// Print the members of a class to the debug console.
@@ -140,8 +146,7 @@ class ReflectionData
         
     private:
         
-        ReflectedMember       *m_members;    ///< Members contained in this type.
-        ReflectedMember       *m_lastMember; ///< The end of the members list.
+		Members                m_members;    ///< Members contained in this type.
         std::string            m_name;       ///< Name of this type.
         size_t                 m_size;       ///< Size of this type in bytes.
 		const ReflectionData  *m_parent;     ///< Parent object to this type (only populated if this is an inherited type).
@@ -197,22 +202,6 @@ class ReflectedMember
 		/// @return Size of this member variable (in bytes).
 		///
 		size_t GetSize() const;
-    
-        ///
-        /// Get the next member variable for the class.
-        ///
-        /// @return Next member variable. If null, then there are no
-        ///         more member variables for this class.
-        ///
-        ReflectedMember *const& GetNextMember() const;
-        ReflectedMember *& GetNextMember();
-    
-        ///
-        /// Check to see if this type has any member variables under it (is a class).
-        ///
-        /// @return If true, this type has members.
-        ///
-        bool HasMembers() const;
 
 		///
 		/// Check to see if this member variable represents an array. If so, each element of the array will be
@@ -228,7 +217,6 @@ class ReflectedMember
         size_t                m_offset;     ///< Offset (in bytes) from the start of the class for this variable.
 		size_t                m_size;       ///< Size of this variable (in bytes).
         const ReflectionData *m_data;       ///< Reflected data for this variable.
-        ReflectedMember      *m_nextMember; ///< Pointer to the next member variable for the reflected class.
 };
 
 template<class T>

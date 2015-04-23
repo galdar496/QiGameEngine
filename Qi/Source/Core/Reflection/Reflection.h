@@ -26,7 +26,7 @@
     static void RegisterReflectionData();
 
 ///
-/// Reflect the object data of class 'classType'. This macro acts like a function
+/// Reflect the of class 'classType'. This macro acts like a function 
 /// which should be called like this:
 /// QI_REFLECT_CLASS(SomeClassType)
 /// {

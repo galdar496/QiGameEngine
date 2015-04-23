@@ -116,31 +116,31 @@ class QiExample : public QiGameImpl
         {   
 //             const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Derived");
 //             data->PrintMembers();
-
-			Derived d;
-			d.base1 = false;
-			d.derived1 = false;
-			Qi::ReflectedVariable v(d);
-			std::stringstream stream;
-			v.Serialize(std::cout);
+// 
+// 			Derived d;
+// 			d.base1 = false;
+// 			d.derived1 = false;
+// 			Qi::ReflectedVariable v(d);
+// 			std::stringstream stream;
+// 			v.Serialize(std::cout);
 
 // 			Derived d2;
 // 			Qi::ReflectedVariable v2(d2);
 // 			v2.Deserialize(stream);
             
-//             Test t;
-// 			t.variable1 = 100;
-//  			t.variable3 = 'c';
-// 			t.array[0] = 'x';
-// 			t.array[1] = 'y';
-// 			t.array[2] = 'z';
-//             Qi::ReflectedVariable v(t);
-// 			std::stringstream stream;
-// 			v.Serialize(stream);
-//             
-// 			Test t2;
-// 			Qi::ReflectedVariable v2(t2);
-// 			v2.Deserialize(stream);
+            Test t;
+			t.variable1 = 100;
+ 			t.variable3 = 'c';
+			t.array[0] = 'x';
+			t.array[1] = 'y';
+			t.array[2] = 'z';
+            Qi::ReflectedVariable v(t);
+			std::stringstream stream;
+			v.Serialize(stream);
+            
+			Test t2;
+			Qi::ReflectedVariable v2(t2);
+			v2.Deserialize(stream);
 
             #ifdef QI_WINDOWS
                 int x;
