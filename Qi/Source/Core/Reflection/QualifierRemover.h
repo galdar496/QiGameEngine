@@ -22,7 +22,22 @@ namespace Qi
     struct QualifierRemover
     {
 		typedef typename std::decay<T>::type type;
+		static const bool IsPointer = false;
     };
+
+	template<class T>
+    struct QualifierRemover<T *>
+    {
+        typedef typename QualifierRemover<T>::type type;
+		static const bool IsPointer = true;
+    };
+
+	template<class T>
+	struct QualifierRemover<const T *>
+	{
+		typedef typename QualifierRemover<T>::type type;
+		static const bool IsPointer = true;
+	};
 
 } // namespace Qi
 

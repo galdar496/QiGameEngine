@@ -57,6 +57,13 @@ class ReflectedVariable
         /// @return The instance data.
         ///
         const void *GetInstanceData() const;
+
+		///
+		/// Set the instance data for this variable.
+		///
+		/// @param data Instance data to use.
+		///
+		void SetInstanceData(const void *data);
     
         ///
         /// Get the instance data cast to a specific type.

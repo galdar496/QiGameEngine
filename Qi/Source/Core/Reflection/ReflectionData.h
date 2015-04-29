@@ -24,6 +24,7 @@ namespace Qi
 // Foward declarations.
 class ReflectedMember;
 class ReflectedVariable;
+class PointerTable;
 
 class ReflectionData
 {
@@ -114,19 +115,22 @@ class ReflectionData
         ///
         /// @param variable Reflected variable to serialize.
         /// @param stream Output stream to serialize to.
+		/// @param pointerTable Table to write to when coming across pointer types.
+		/// @param padding Padding to apply to the output (in terms of tabs).
         ///
-        void Serialize(const ReflectedVariable *variable, std::ostream &stream, uint32 padding = 0) const;
+        void Serialize(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable, uint32 padding = 0) const;
 
 		///
 		/// Deserialize the reflected variable from the stream.
 		///
 		/// @param variable Reflected variable to deserialize.
 		/// @param stream Input stream to serialize from.
+		/// @param pointerTable Table to read from when coming across pointer types.
 		///
-		void Deserialize(ReflectedVariable *variable, std::istream &stream) const;
+		void Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable) const;
         
-        typedef void (*SerializeFunction)(const ReflectedVariable *variable, std::ostream &stream);
-		typedef void (*DeserializeFunction)(ReflectedVariable *variable, std::istream &stream);
+		typedef void(*SerializeFunction)(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable);
+		typedef void(*DeserializeFunction)(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable);
     
         ///
         /// Set the serialization function. Some types (such as the primitive types defined in ReflectionPrimitiveTypes.h) know
@@ -164,11 +168,12 @@ class ReflectedMember
         ///
         /// @param name Name of the variable.
         /// @param offset Offset (in bytes) from the beginning of the class data.
-		/// @param size Size of this member (in bytes).
+		/// @param size Size of this member (in bytes). In the case of pointers, this size is the size of the base type of the pointer, not the pointer itself.
+		/// @param isPointer If true, this variable is a pointer.
         /// @param reflectionData Reflected data for this member variable. Could be a POD type
         ///                       or another class/struct.
         ///
-        explicit ReflectedMember(const std::string &name, size_t offset, size_t size, const ReflectionData *reflectionData);
+		explicit ReflectedMember(const std::string &name, size_t offset, size_t size, bool isPointer, const ReflectionData *reflectionData);
     
         ~ReflectedMember();
     
@@ -210,12 +215,21 @@ class ReflectedMember
 		/// @return If true, this member variable is an array type.
 		///
 		bool IsArray() const;
+
+		///
+		/// Check to see if this member variable represents pointer. If so, then serialization of this
+		/// variable will happen to a separate table.
+		///
+		/// @return If true, this member variable is a pointer type.
+		///
+		bool IsPointer() const;
     
     private:
     
         const std::string     m_name;       ///< Name of this variable.
         size_t                m_offset;     ///< Offset (in bytes) from the start of the class for this variable.
 		size_t                m_size;       ///< Size of this variable (in bytes).
+		bool                  m_isPointer;  ///< If true, this member variable is a pointer to an instance of some other type.
         const ReflectionData *m_data;       ///< Reflected data for this variable.
 };
 
@@ -264,12 +278,13 @@ class ReflectionDataCreator
         ///
         /// @param name Name of the member.
         /// @param offset Offset of the member from the beginning of the class (in bytes).
-		/// @param size Size of this memebr (in bytes).
+		/// @param size Size of this member (in bytes). In the case of pointers, this size is the size of the base type of the pointer, not the pointer itself.
+		/// @param isPointer If true, this member is a pointer to a different instance of some type.
         /// @param data Reflected data for this member.
         ///
-        static void AddMember(const std::string &name, size_t offset, size_t size, const ReflectionData *data)
+		static void AddMember(const std::string &name, size_t offset, size_t size, bool isPointer, const ReflectionData *data)
         {
-            GetInstance().AddMember(new ReflectedMember(name, offset, size, data));
+            GetInstance().AddMember(new ReflectedMember(name, offset, size, isPointer, data));
         }
 
 		///

@@ -39,6 +39,8 @@ class Test
 			 array[0] = 'a';
 			 array[1] = 'b';
 			 array[2] = 'c';
+			 pointer1 = new int[4];
+			 pointer2 = new int[4];
 		 }
     
    // private:
@@ -48,21 +50,25 @@ class Test
         Lame l;
 
 		char array[3];
+		int *pointer1;
+		int *pointer2;
 };
 
-QI_REFLECT_CLASS(Test)
-{
-    QI_REFLECT_MEMBER(variable1);
-    QI_REFLECT_MEMBER(variable2);
-    QI_REFLECT_MEMBER(variable3);
-    QI_REFLECT_MEMBER(l);
-	QI_REFLECT_MEMBER(array);
-}
-
-QI_REFLECT_CLASS(Lame)
-{
-    QI_REFLECT_MEMBER(x);
-}
+// QI_REFLECT_CLASS(Test)
+// {
+//     QI_REFLECT_MEMBER(variable1);
+//     QI_REFLECT_MEMBER(variable2);
+//     QI_REFLECT_MEMBER(variable3);
+//     QI_REFLECT_MEMBER(l);
+// 	QI_REFLECT_MEMBER(array);
+// 	QI_REFLECT_MEMBER(pointer1);
+// 	QI_REFLECT_MEMBER(pointer2);
+// }
+// 
+// QI_REFLECT_CLASS(Lame)
+// {
+//     QI_REFLECT_MEMBER(x);
+// }
 
 class Base
 {
@@ -86,15 +92,52 @@ class Derived : public Base
 		bool derived1;
 };
 
-QI_REFLECT_CLASS(Base)
+// QI_REFLECT_CLASS(Base)
+// {
+// 	QI_REFLECT_MEMBER(base1);
+// }
+// 
+// QI_REFLECT_CLASS(Derived)
+// {
+// 	QI_DECLARE_PARENT(Derived, Base);
+// 	QI_REFLECT_MEMBER(derived1);
+// }
+
+class PointerTest
 {
-	QI_REFLECT_MEMBER(base1);
+public:
+
+	QI_DECLARE_REFLECTED_CLASS(PointerTest);
+
+	PointerTest() :
+		x(10)
+		//y(1)
+	{
+
+	}
+
+	int x;
+	//int y;
+};
+
+class Gimli
+{
+public:
+
+	QI_DECLARE_REFLECTED_CLASS(Gimli);
+
+	PointerTest *p;
+};
+
+QI_REFLECT_CLASS(PointerTest)
+{
+	QI_REFLECT_MEMBER(x);
+	//QI_REFLECT_MEMBER(y);
 }
 
-QI_REFLECT_CLASS(Derived)
+QI_REFLECT_CLASS(Gimli)
 {
-	QI_DECLARE_PARENT(Derived, Base);
-	QI_REFLECT_MEMBER(derived1);
+	QI_REFLECT_MEMBER(p);
 }
 
 class QiExample : public QiGameImpl
@@ -114,7 +157,7 @@ class QiExample : public QiGameImpl
     
         virtual bool Step(const float dt) override
         {   
-//             const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Derived");
+//             const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Test");
 //             data->PrintMembers();
 // 
 // 			Derived d;
@@ -128,19 +171,32 @@ class QiExample : public QiGameImpl
 // 			Qi::ReflectedVariable v2(d2);
 // 			v2.Deserialize(stream);
             
-            Test t;
-			t.variable1 = 100;
- 			t.variable3 = 'c';
-			t.array[0] = 'x';
-			t.array[1] = 'y';
-			t.array[2] = 'z';
-            Qi::ReflectedVariable v(t);
-			std::stringstream stream;
-			v.Serialize(stream);
+//             Test t;
+// 			t.variable1 = 100;
+//  			t.variable3 = 'c';
+// 			t.array[0] = 'x';
+// 			t.array[1] = 'y';
+// 			t.array[2] = 'z';
+//             Qi::ReflectedVariable v(t);
+// 			std::stringstream stream;
+// 			v.Serialize(std::cout);
             
-			Test t2;
-			Qi::ReflectedVariable v2(t2);
-			v2.Deserialize(stream);
+// 			Test t2;
+// 			Qi::ReflectedVariable v2(t2);
+// 			v2.Deserialize(stream);
+
+			std::cout << std::endl;
+
+			Gimli test;
+			test.p = new PointerTest;
+			test.p->x = 11;
+			Qi::ReflectedVariable v(test);
+			std::stringstream stream;
+			v.Serialize(std::cout);
+
+// 			Gimli test2;
+// 			Qi::ReflectedVariable v2(test2);
+// 			v2.Deserialize(stream);
 
             #ifdef QI_WINDOWS
                 int x;

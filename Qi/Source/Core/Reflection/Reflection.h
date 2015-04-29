@@ -21,7 +21,7 @@
 /// in the 'public' section of a class otherwise Qi will fail to compile.
 ///
 #define QI_DECLARE_REFLECTED_CLASS(classType) \
-    static void AddMember(const std::string &name, size_t offset, size_t size, const Qi::ReflectionData *data); \
+    static void AddMember(const std::string &name, size_t offset, size_t size, bool isPointer, const Qi::ReflectionData *data); \
     static Qi::QualifierRemover<classType>::type *NullCast(); \
     static void RegisterReflectionData();
 
@@ -42,7 +42,7 @@
 #define QI_REFLECT_CLASS(classType) \
     Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type> QI_UNIQUE_NAME( )(#classType, sizeof(classType)); \
     Qi::QualifierRemover<classType>::type *classType::NullCast() { return (Qi::QualifierRemover<classType>::type *)(nullptr); } \
-    void classType::AddMember(const std::string &name, size_t offset, size_t size, const Qi::ReflectionData *data) { return Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::AddMember(name, offset, size, data); } \
+    void classType::AddMember(const std::string &name, size_t offset, size_t size, bool isPointer, const Qi::ReflectionData *data) { return Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::AddMember(name, offset, size, isPointer, data); } \
     template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::RegisterReflectionData() { classType::RegisterReflectionData(); } \
     void classType::RegisterReflectionData()
 
@@ -58,7 +58,10 @@
 /// the scope of the macro QI_REFLECT_CLASS.
 ///
 #define QI_REFLECT_MEMBER(memberName) \
-    AddMember(#memberName, (size_t)(&(NullCast()->memberName)), sizeof(NullCast()->memberName), &(Qi::ReflectionDataCreator<Qi::QualifierRemover<std::remove_all_extents<decltype(NullCast()->memberName)>::type >::type>::GetInstance()));
+    AddMember(#memberName, (size_t)(&(NullCast()->memberName)), \
+              sizeof(Qi::QualifierRemover<std::remove_all_extents<decltype(NullCast()->memberName)>::type >::type), \
+			  Qi::QualifierRemover<decltype(NullCast()->memberName)>::IsPointer, \
+             &(Qi::ReflectionDataCreator<Qi::QualifierRemover<std::remove_all_extents<decltype(NullCast()->memberName)>::type >::type>::GetInstance()));
 
 ///
 /// Generate a unique name. Make use of QI_UNIQUE_NAME, the other macros

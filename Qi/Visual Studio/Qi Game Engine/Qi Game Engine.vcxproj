@@ -126,6 +126,7 @@
     <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp" />
     <ClCompile Include="..\..\Source\Core\Math\Matrix4.cpp" />
     <ClCompile Include="..\..\Source\Core\Memory\MemoryAllocator.cpp" />
+    <ClCompile Include="..\..\Source\Core\Reflection\PointerTable.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\ReflectedVariable.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\ReflectionData.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\ReflectionDataManager.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="..\..\Source\Core\Math\SSEUtils.h" />
     <ClInclude Include="..\..\Source\Core\Math\Vec4.h" />
     <ClInclude Include="..\..\Source\Core\Memory\MemoryAllocator.h" />
+    <ClInclude Include="..\..\Source\Core\Reflection\PointerTable.h" />
     <ClInclude Include="..\..\Source\Core\Reflection\QualifierRemover.h" />
     <ClInclude Include="..\..\Source\Core\Reflection\ReflectedVariable.h" />
     <ClInclude Include="..\..\Source\Core\Reflection\Reflection.h" />

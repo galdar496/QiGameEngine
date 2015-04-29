@@ -69,6 +69,9 @@
     <ClCompile Include="..\..\Source\Core\Reflection\ReflectionDataManager.cpp">
       <Filter>Core\Reflection</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Reflection\PointerTable.cpp">
+      <Filter>Core\Reflection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AppFramework\QiGame.h">
@@ -159,6 +162,9 @@
       <Filter>Core\Reflection</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Core\Reflection\ReflectionPrimitiveTypes.h">
+      <Filter>Core\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Reflection\PointerTable.h">
       <Filter>Core\Reflection</Filter>
     </ClInclude>
   </ItemGroup>

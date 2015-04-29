@@ -8,6 +8,8 @@
 
 #include "ReflectedVariable.h"
 #include "ReflectionData.h"
+#include "PointerTable.h"
+#include <sstream>
 
 namespace Qi
 {
@@ -46,14 +48,33 @@ const void *ReflectedVariable::GetInstanceData() const
     return m_instanceData;
 }
 
+void ReflectedVariable::SetInstanceData(const void *data)
+{
+	m_instanceData = const_cast<void *>(data);
+}
+
 void ReflectedVariable::Serialize(std::ostream &stream) const
 {
-    m_reflectionData->Serialize(this, stream);
+	PointerTable table;
+	std::stringstream tmpStream;
+	m_reflectionData->Serialize(this, tmpStream, table);
+
+	// At this point, we'll have a valid pointer table that needs to be serialized.
+	// Write that to the output stream first followed by the serialization of this
+	// reflected variable.
+	table.Serialize(stream);
+
+	stream << tmpStream.str();
 }
 
 void ReflectedVariable::Deserialize(std::istream &stream)
 {
-	m_reflectionData->Deserialize(this, stream);
+	// First, deserialize the pointer table which is located
+	// at the beginning of the stream.
+	PointerTable table;
+	table.Deserialize(stream);
+
+	m_reflectionData->Deserialize(this, stream, table);
 }
 
 } // namespace Qi
