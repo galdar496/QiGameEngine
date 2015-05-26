@@ -155,48 +155,48 @@ class QiExample : public QiGameImpl
         
         virtual void Deinit() override {}
     
-        virtual bool Step(const float dt) override
-        {   
-//             const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Test");
-//             data->PrintMembers();
-// 
-// 			Derived d;
-// 			d.base1 = false;
-// 			d.derived1 = false;
-// 			Qi::ReflectedVariable v(d);
-// 			std::stringstream stream;
-// 			v.Serialize(std::cout);
+		virtual bool Step(const float dt) override
+		{
+		//             const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("Test");
+		//             data->PrintMembers();
+		// 
+		// 			Derived d;
+		// 			d.base1 = false;
+		// 			d.derived1 = false;
+		// 			Qi::ReflectedVariable v(d);
+		// 			std::stringstream stream;
+		// 			v.Serialize(std::cout);
 
-// 			Derived d2;
-// 			Qi::ReflectedVariable v2(d2);
-// 			v2.Deserialize(stream);
-            
-//             Test t;
-// 			t.variable1 = 100;
-//  			t.variable3 = 'c';
-// 			t.array[0] = 'x';
-// 			t.array[1] = 'y';
-// 			t.array[2] = 'z';
-//             Qi::ReflectedVariable v(t);
-// 			std::stringstream stream;
-// 			v.Serialize(std::cout);
-            
-// 			Test t2;
-// 			Qi::ReflectedVariable v2(t2);
-// 			v2.Deserialize(stream);
+		// 			Derived d2;
+		// 			Qi::ReflectedVariable v2(d2);
+		// 			v2.Deserialize(stream);
 
-			std::cout << std::endl;
+		//             Test t;
+		// 			t.variable1 = 100;
+		//  			t.variable3 = 'c';
+		// 			t.array[0] = 'x';
+		// 			t.array[1] = 'y';
+		// 			t.array[2] = 'z';
+		//             Qi::ReflectedVariable v(t);
+		// 			std::stringstream stream;
+		// 			v.Serialize(std::cout);
 
-			Gimli test;
-			test.p = new PointerTest;
-			test.p->x = 11;
-			Qi::ReflectedVariable v(test);
-			std::stringstream stream;
-			v.Serialize(std::cout);
+		// 			Test t2;
+		// 			Qi::ReflectedVariable v2(t2);
+		// 			v2.Deserialize(stream);
 
-// 			Gimli test2;
-// 			Qi::ReflectedVariable v2(test2);
-// 			v2.Deserialize(stream);
+		// 			std::cout << std::endl;
+		// 
+		// 			Gimli test;
+		// 			test.p = new PointerTest;
+		// 			test.p->x = 11;
+		// 			Qi::ReflectedVariable v(test);
+		// 			std::stringstream stream;
+		// 			v.Serialize(std::cout);
+
+		// 			Gimli test2;
+		// 			Qi::ReflectedVariable v2(test2);
+		// 			v2.Deserialize(stream);
 
             #ifdef QI_WINDOWS
                 int x;
