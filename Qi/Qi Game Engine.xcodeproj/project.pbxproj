@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C31BE4E01ABA8F60003F11D6 /* LocklessQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = C31BE4DE1ABA8F60003F11D6 /* LocklessQueue.h */; };
 		C31BE4E41ABAA38B003F11D6 /* MathUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C31BE4E31ABAA38B003F11D6 /* MathUtilities.h */; };
+		C3586C3E1B158744004D8698 /* PointerTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3586C3C1B158744004D8698 /* PointerTable.cpp */; };
+		C3586C3F1B158744004D8698 /* PointerTable.h in Headers */ = {isa = PBXBuildFile; fileRef = C3586C3D1B158744004D8698 /* PointerTable.h */; };
 		C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */; };
 		C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */; };
 		C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCBF1A8732C000DAC0A2 /* MemoryAllocator.cpp */; };
@@ -51,6 +53,8 @@
 		C31BE4DE1ABA8F60003F11D6 /* LocklessQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocklessQueue.h; path = Source/Core/Containers/LocklessQueue.h; sourceTree = "<group>"; };
 		C31BE4E31ABAA38B003F11D6 /* MathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MathUtilities.h; path = Source/Core/Utility/MathUtilities.h; sourceTree = "<group>"; };
 		C31BE4E51ABAA3C9003F11D6 /* LocklessQueue.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = LocklessQueue.inl; path = Source/Core/Containers/LocklessQueue.inl; sourceTree = "<group>"; };
+		C3586C3C1B158744004D8698 /* PointerTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointerTable.cpp; path = Source/Core/Reflection/PointerTable.cpp; sourceTree = "<group>"; };
+		C3586C3D1B158744004D8698 /* PointerTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointerTable.h; path = Source/Core/Reflection/PointerTable.h; sourceTree = "<group>"; };
 		C358FF101AA3A72A00115E31 /* libQi Game Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libQi Game Engine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EngineConfig.h; path = Source/Engine/EngineConfig.h; sourceTree = "<group>"; };
 		C393DCBF1A8732C000DAC0A2 /* MemoryAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MemoryAllocator.cpp; path = Source/Core/Memory/MemoryAllocator.cpp; sourceTree = "<group>"; };
@@ -233,6 +237,8 @@
 		C3F50FB11AD61D3900AE7472 /* Reflection */ = {
 			isa = PBXGroup;
 			children = (
+				C3586C3C1B158744004D8698 /* PointerTable.cpp */,
+				C3586C3D1B158744004D8698 /* PointerTable.h */,
 				C3F50FB21AD61D5E00AE7472 /* QualifierRemover.h */,
 				C3F50FB31AD61D5E00AE7472 /* ReflectedVariable.cpp */,
 				C3F50FB41AD61D5E00AE7472 /* ReflectedVariable.h */,
@@ -275,6 +281,7 @@
 				C3D7EC821A62649100FC46B6 /* Timer.h in Headers */,
 				C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */,
 				C3F50FC11AD61D5E00AE7472 /* ReflectionData.h in Headers */,
+				C3586C3F1B158744004D8698 /* PointerTable.h in Headers */,
 				C3F50FAC1AD4C48400AE7472 /* Defines.h in Headers */,
 				C393DC9C1A81EBEC00DAC0A2 /* EngineConfig.h in Headers */,
 				C3D7EC771A622EEC00FC46B6 /* Random.h in Headers */,
@@ -346,6 +353,7 @@
 				C3F50F931AC515D900AE7472 /* HTMLLogFileWriter.cpp in Sources */,
 				C3F50FBD1AD61D5E00AE7472 /* ReflectedVariable.cpp in Sources */,
 				C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */,
+				C3586C3E1B158744004D8698 /* PointerTable.cpp in Sources */,
 				C3F50F8F1AC4E7E500AE7472 /* Logger.cpp in Sources */,
 				C3D7EC941A7CC90700FC46B6 /* Engine.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix4.cpp in Sources */,

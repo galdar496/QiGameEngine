@@ -56,7 +56,7 @@ void SerializePrimitivePointer(const ReflectedVariable *variable, std::ostream &
 {
 	T address = variable->GetValue<T>();
 	ReflectedVariable v(variable->GetReflectionData(), address);
-	stream << "{ " << pointerTable.AddPointer(v) << " }" << std::endl;
+	stream << "{ " << pointerTable.AddPointer(v, false) << " }" << std::endl;
 }
 
 template<class T>

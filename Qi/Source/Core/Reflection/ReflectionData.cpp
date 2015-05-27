@@ -200,7 +200,6 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 			const ReflectionData *data = member->GetData();
 			size_t baseTypeSize = data->GetSize();
 			QI_ASSERT(baseTypeSize > 0 && "Attempted to serialize unknown type");
-			size_t arrayLength = member->GetSize() / baseTypeSize;
 			for (size_t ii = 0; ii < member->GetSize(); ii += baseTypeSize)
 			{
 				Pad(stream, padding);
@@ -305,7 +304,6 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 				{
 					const ReflectionData *data = member->GetData();
 					size_t baseTypeSize = data->GetSize();
-					size_t arrayLength = member->GetSize() / baseTypeSize;
 					for (size_t ii = 0; ii < member->GetSize(); ii += baseTypeSize)
 					{
 						// Get the next element to serialize.

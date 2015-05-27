@@ -9,6 +9,7 @@
 #include "PointerTable.h"
 #include "ReflectionDataManager.h"
 #include "../Defines.h"
+#include <istream>
 
 namespace Qi
 {
