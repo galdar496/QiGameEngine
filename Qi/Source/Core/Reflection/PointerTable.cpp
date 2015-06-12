@@ -32,7 +32,7 @@ void PointerTable::Populate(const ReflectedVariable &reflectedVariable, bool nee
 	if (!HasPointer(reflectedVariable))
 	{
 		// Add this object's instance to the table.
-		TableIndex index = AddPointer(reflectedVariable, needsSerialization);
+		AddPointer(reflectedVariable, needsSerialization);
 
 		// Loop over each of this member's variables and add them to the table using a depth-first
 		// recursive call.

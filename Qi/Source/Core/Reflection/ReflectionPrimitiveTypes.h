@@ -51,21 +51,21 @@ void DeserializePrimitiveValue(ReflectedVariable *variable, std::istream &stream
 	stream >> variable->GetValue<T>();
 }
 
-template<class T>
-void SerializePrimitivePointer(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable)
-{
-	T address = variable->GetValue<T>();
-	ReflectedVariable v(variable->GetReflectionData(), address);
-	stream << "{ " << pointerTable.AddPointer(v, false) << " }" << std::endl;
-}
-
-template<class T>
-void DeserializePrimitivePointer(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable)
-{
-	PointerTable::TableIndex index;
-	stream >> index;
-	variable->SetInstanceData(pointerTable.GetPointer(index).GetInstanceData());
-}
+//template<class T>
+//void SerializePrimitivePointer(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable)
+//{
+//	T address = variable->GetValue<T>();
+//	ReflectedVariable v(variable->GetReflectionData(), address);
+//	stream << "{ " << pointerTable.AddPointer(v, false) << " }" << std::endl;
+//}
+//
+//template<class T>
+//void DeserializePrimitivePointer(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable)
+//{
+//	PointerTable::TableIndex index;
+//	stream >> index;
+//	variable->SetInstanceData(pointerTable.GetPointer(index).GetInstanceData());
+//}
 
 
 // Declare all supported POD reflected types.

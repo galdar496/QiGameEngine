@@ -278,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_X86_VECTOR_INSTRUCTIONS = sse4.2;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS = build/Debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -288,6 +289,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_X86_VECTOR_INSTRUCTIONS = sse4.2;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
 				LIBRARY_SEARCH_PATHS = build/Release;
 				PRODUCT_NAME = "$(TARGET_NAME)";

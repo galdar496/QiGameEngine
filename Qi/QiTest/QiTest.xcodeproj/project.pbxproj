@@ -219,6 +219,7 @@
 					"$(inherited)",
 					/Users/Cody/QiGameEngine/Qi/ThirdPartyLibs,
 				);
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -238,6 +239,7 @@
 					"$(inherited)",
 					/Users/Cody/QiGameEngine/Qi/ThirdPartyLibs,
 				);
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

@@ -30,11 +30,7 @@ class ReflectionDataManager
         ///
         /// This class is static and can only be accessed through this instance.
         ///
-        static ReflectionDataManager &GetInstance()
-        {
-            static ReflectionDataManager manager;
-            return manager;
-        }
+        static ReflectionDataManager &GetInstance();
     
         ///
         /// Add a reflected type to the manager.

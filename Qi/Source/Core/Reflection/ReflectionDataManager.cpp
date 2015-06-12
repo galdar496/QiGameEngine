@@ -22,6 +22,12 @@ ReflectionDataManager::~ReflectionDataManager()
     m_reflectedData.clear();
 }
 
+ReflectionDataManager &ReflectionDataManager::GetInstance()
+{
+    static ReflectionDataManager manager;
+    return manager;
+}
+
 void ReflectionDataManager::AddReflectedData(const ReflectionData *data)
 {
     QI_ASSERT(data != nullptr);
