@@ -55,17 +55,14 @@ void ReflectedVariable::SetInstanceData(const void *data)
 
 void ReflectedVariable::Serialize(std::ostream &stream) const
 {
+	// Add all objects that are referenceable from this variable
+	// to the pointer table. This table will then be used to patch
+	// pointers later while serializing.
 	PointerTable table;
 	table.Populate(*this, true);
-	std::stringstream tmpStream;
-	//m_reflectionData->Serialize(this, tmpStream, table);
 
 	// At this point, we'll have a valid pointer table that needs to be serialized.
-	// Write that to the output stream first followed by the serialization of this
-	// reflected variable.
 	table.Serialize(stream);
-
-	stream << tmpStream.str();
 }
 
 void ReflectedVariable::Deserialize(std::istream &stream)

@@ -50,6 +50,9 @@ void PointerTable::Populate(const ReflectedVariable &reflectedVariable, bool nee
 				{
 					void *pointerData = &(*(memberVariable.GetValue<char *>()));
 					ReflectedVariable resolvedPointer(member->GetReflectionData(), pointerData);
+					
+					// Tell the serialization code that this variable needs to be manually serialized
+					// as we don't have direct access to it under the current object.
 					Populate(resolvedPointer, true);
 				}
 				else
@@ -78,7 +81,9 @@ PointerTable::TableIndex PointerTable::GetIndex(const ReflectedVariable &variabl
 
 void PointerTable::Serialize(std::ostream &stream)
 {
+	// First write out the size of the table.
 	stream << m_dataTable.size() << std::endl;
+
 	for (size_t ii = 0; ii < m_dataTable.size(); ++ii)
 	{
 		// Only serialize this object if it won't be serialized by some other object (is a child
@@ -88,6 +93,10 @@ void PointerTable::Serialize(std::ostream &stream)
 			stream << ii << " ";
 
 			const ReflectedVariable *tableVariable = &(m_dataTable[ii].first);
+
+			// This function will auto-serialize all objects contained within the current object unless
+			// they are only associated via pointers. In that case, only the index into the table will
+			// be written.
 			tableVariable->GetReflectionData()->Serialize(tableVariable, stream, *this);
 		}
 	}

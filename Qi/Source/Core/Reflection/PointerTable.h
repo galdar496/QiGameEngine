@@ -9,9 +9,9 @@
 #pragma once
 
 ///
-/// Define a pointer table to use during serialization/deserialization. This table
-/// will be searchable by address and will store the the actual address of the variables
-/// to serialize out.
+/// Define a table which will contain the address of all objects to serialize
+/// during serialization. The objects are loosely related based on pointers
+/// defined in the objects which reference other objects in the table.
 ///
 
 #include "ReflectedVariable.h"
@@ -48,7 +48,7 @@ class PointerTable
 		///
 		/// @param reflectedVariable Variable to add to the table. All member variables under this variable will
 		///                          be added to the table as well.
-		/// @param needsSerialization If true, this value needs to be serialized manually by the table.
+		/// @param needsSerialization If true, this variable needs to be serialized manually by the table.
 		///
 		void Populate(const ReflectedVariable &reflectedVariable, bool needsSerialization);
 
