@@ -24,8 +24,8 @@ ReflectedVariable::ReflectedVariable(const T &value) :
 
 template <typename T>
 const T &ReflectedVariable::GetValue() const
-{
-    return *reinterpret_cast<const T *>(m_instanceData);
+{		
+	return *reinterpret_cast<const T *>(m_instanceData);
 }
 
 template <typename T>

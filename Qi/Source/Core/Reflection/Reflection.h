@@ -57,9 +57,10 @@
 /// Reflect a specific member of a class. This must be called within
 /// the scope of the macro QI_REFLECT_CLASS.
 ///
+// sizeof(Qi::QualifierRemover<std::remove_all_extents<decltype(NullCast()->memberName)>::type >::type)
 #define QI_REFLECT_MEMBER(memberName) \
     AddMember(#memberName, (size_t)(&(NullCast()->memberName)), \
-              sizeof(Qi::QualifierRemover<std::remove_all_extents<decltype(NullCast()->memberName)>::type >::type), \
+              sizeof(NullCast()->memberName), \
 			  Qi::QualifierRemover<decltype(NullCast()->memberName)>::IsPointer, \
              &(Qi::ReflectionDataCreator<Qi::QualifierRemover<std::remove_all_extents<decltype(NullCast()->memberName)>::type >::type>::GetInstance()));
 

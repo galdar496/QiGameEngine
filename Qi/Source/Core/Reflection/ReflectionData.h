@@ -197,7 +197,7 @@ class ReflectedMember
         ///
         /// @return Reflection data for this variable.
         ///
-        const ReflectionData *GetData() const;
+        const ReflectionData *GetReflectionData() const;
 
 		///
 		/// Get the size of this member variable (in bytes). If this member

@@ -56,8 +56,9 @@ void ReflectedVariable::SetInstanceData(const void *data)
 void ReflectedVariable::Serialize(std::ostream &stream) const
 {
 	PointerTable table;
+	table.Populate(*this, true);
 	std::stringstream tmpStream;
-	m_reflectionData->Serialize(this, tmpStream, table);
+	//m_reflectionData->Serialize(this, tmpStream, table);
 
 	// At this point, we'll have a valid pointer table that needs to be serialized.
 	// Write that to the output stream first followed by the serialization of this

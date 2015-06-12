@@ -39,7 +39,7 @@ size_t ReflectedMember::GetOffset() const
     return m_offset;
 }
 
-const ReflectionData *ReflectedMember::GetData() const
+const ReflectionData *ReflectedMember::GetReflectionData() const
 {
     return m_data;
 }
@@ -144,7 +144,7 @@ void ReflectionData::PrintMembers() const
 	for (auto iter = m_members.begin(); iter != m_members.end(); ++iter)
 	{
 		const ReflectedMember *member = *iter;
-		std::cout << "\t" << member->GetData()->GetName() << " " << member->GetName() << ":" << member->GetOffset() << std::endl;
+		std::cout << "\t" << member->GetReflectionData()->GetName() << " " << member->GetName() << ":" << member->GetOffset() << std::endl;
 	}
 }
 
@@ -174,30 +174,52 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
         return;
     }
     
-    // For each member of this type, ask it to serialize itself. ///
+    // For each member of this type, ask it to serialize itself.
 
-	// Write out the name of this type along with this specific instance's index in the pointer table.
+	// Write out the name of this type.
+	stream << m_name << std::endl;
+
+	// Make sure the instance data for this object is valid (could be a null pointer).
+	if (variable->GetInstanceData() == nullptr)
 	{
-		ReflectedVariable classInstance(variable->GetReflectionData(), variable->GetValue<void *>());
-		stream << m_name << " * " << pointerTable.AddPointer(classInstance, false) << std::endl;
+		Pad(stream, padding);
+		stream << "[" << std::endl;
+		++padding;
+		Pad(stream, padding);
+		stream << "null" << std::endl;
+		--padding;
+		Pad(stream, padding);
+		stream << "]" << std::endl;
+		return;
 	}
 
 	Pad(stream, padding);
     stream << "[" << std::endl;
     ++padding;
-    //while (member)
 	for (auto iter = m_members.begin(); iter != m_members.end(); ++iter)
     {
 		const ReflectedMember *member = *iter;
 		Pad(stream, padding);
 
+		// If this is a pointer type, serialize its index in the pointer table.
+		if (member->IsPointer())
+		{
+			void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+			ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
+
+			void *pointerData = &(*(memberVariable.GetValue<char *>()));
+			ReflectedVariable resolvedPointer(member->GetReflectionData(), pointerData);
+
+			stream << member->GetName() << " " << pointerTable.GetIndex(resolvedPointer) << std::endl;
+		}
+
 		// If this type is an array, we have to serialize each element of the array before moving on 
 		// to the next member variable.
-		if (member->IsArray())
+		else if (member->IsArray())
 		{
 			stream << member->GetName() << std::endl;
 			++padding;
-			const ReflectionData *data = member->GetData();
+			const ReflectionData *data = member->GetReflectionData();
 			size_t baseTypeSize = data->GetSize();
 			QI_ASSERT(baseTypeSize > 0 && "Attempted to serialize unknown type");
 			for (size_t ii = 0; ii < member->GetSize(); ii += baseTypeSize)
@@ -211,19 +233,12 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 			}
 			--padding;
 		}
-		else if (member->IsPointer())
-		{
-			void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
-			ReflectedVariable memberVariable(member->GetData(), offsetData);
-
-			stream << member->GetName() << " * " << pointerTable.AddPointer(memberVariable, true) << std::endl;
-		}
 		else // non-array/pointer type.
 		{
 			stream << member->GetName() << " ";
 			void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
-			ReflectedVariable memberVariable(member->GetData(), offsetData);
-			member->GetData()->Serialize(&memberVariable, stream, pointerTable, padding);
+			ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
+			member->GetReflectionData()->Serialize(&memberVariable, stream, pointerTable, padding);
 		}
     }
 
@@ -280,11 +295,11 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 			*variable = tablePointer;
 			shouldDeserialize = false;
 		}
-		else
-		{
-			// Add this instance to the pointer table so that future instances can reference it.
-			pointerTable.AddPointer(*variable, pointerIndex);
-		}
+// 		else
+// 		{
+// 			// Add this instance to the pointer table so that future instances can reference it.
+// 			pointerTable.AddPointer(*variable, pointerIndex);
+// 		}
 	}
 
 	while (streamInput != "]")
@@ -302,7 +317,7 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 				// If this member is an array type, read in each element of the array individually.
 				if (member->IsArray())
 				{
-					const ReflectionData *data = member->GetData();
+					const ReflectionData *data = member->GetReflectionData();
 					size_t baseTypeSize = data->GetSize();
 					for (size_t ii = 0; ii < member->GetSize(); ii += baseTypeSize)
 					{
@@ -315,8 +330,8 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 				else // non-array type.
 				{
 					void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
-					ReflectedVariable memberVariable(member->GetData(), offsetData);
-					member->GetData()->Deserialize(&memberVariable, stream, pointerTable);
+					ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
+					member->GetReflectionData()->Deserialize(&memberVariable, stream, pointerTable);
 				}
 			}
 		}
