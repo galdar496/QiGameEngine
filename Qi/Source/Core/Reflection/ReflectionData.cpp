@@ -164,7 +164,7 @@ void Pad(std::ostream &stream, uint32 pad)
 #define PTR_ADD(PTR, OFFSET) \
 ((void *)(((char *)(PTR)) + (OFFSET)))
 
-void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable, uint32 padding) const
+void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable, uint32 padding, bool isArray) const
 {
 	// If this object has a parent, serialize its data first.
 	if (m_parent)
@@ -182,6 +182,11 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
     // For each member of this type, ask it to serialize itself.
 
 	// Write out the name of this type.
+	if (!isArray)
+	{
+		stream << pointerTable.GetIndex(*variable) << " ";
+	}
+
 	stream << m_name << std::endl;
 
 	// Make sure the instance data for this object is valid (could be a null pointer).
@@ -194,7 +199,7 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 		stream << "null" << std::endl;
 		--padding;
 		Pad(stream, padding);
-		stream << "]";
+		stream << "]" << std::endl;
 		return;
 	}
 
@@ -234,7 +239,7 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 				// Get the next element to serialize.
 				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset() + ii);
 				ReflectedVariable arrayElement(data, offsetData);
-				data->Serialize(&arrayElement, stream, pointerTable, padding);
+				data->Serialize(&arrayElement, stream, pointerTable, padding, true);
 			}
 			--padding;
 		}
@@ -243,16 +248,16 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 			stream << member->GetName() << " ";
 			void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
 			ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
-			member->GetReflectionData()->Serialize(&memberVariable, stream, pointerTable, padding);
+			member->GetReflectionData()->Serialize(&memberVariable, stream, pointerTable, padding, false);
 		}
     }
 
     --padding;
     Pad(stream, padding);
-    stream << "] ";
+	stream << "]" << std::endl;
 }
 
-void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, std::vector<std::pair<PointerTable::TableIndex, ReflectedVariable> > &pointerFixups) const
+void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, std::vector<std::pair<PointerTable::TableIndex, ReflectedVariable> > &pointerFixups, bool isArray) const
 {
 	// If this object has a parent, deserialize its data first.
 	if (m_parent)
@@ -271,10 +276,9 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 
 	std::string streamInput;
 
-	// Read the pointer table index and typename first if we're not deserializing a derived type (will have already been read in
-	// for the base type(s).
+	// Read the pointer table index and typename first if we're not deserializing an array.
 	PointerTable::TableIndex tableIndex = 0;
-	if (!m_parent)
+	if (!isArray)
 	{
 		stream >> tableIndex;
 		QI_ASSERT(tableIndex >= 0);
@@ -334,14 +338,14 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 					// Get the next element to serialize.
 					void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset() + ii);
 					ReflectedVariable arrayElement(data, offsetData);
-					data->Deserialize(&arrayElement, stream, pointerTable, pointerFixups);
+					data->Deserialize(&arrayElement, stream, pointerTable, pointerFixups, true);
 				}
 			}
 			else // non-array/pointer type type.
 			{
 				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
 				ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
-				member->GetReflectionData()->Deserialize(&memberVariable, stream, pointerTable, pointerFixups);
+				member->GetReflectionData()->Deserialize(&memberVariable, stream, pointerTable, pointerFixups, false);
 			}
 		}
 	}

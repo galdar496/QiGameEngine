@@ -125,7 +125,7 @@ class ReflectionData
 		/// @param pointerTable Table to write to when coming across pointer types.
 		/// @param padding Padding to apply to the output (in terms of tabs).
         ///
-        void Serialize(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable, uint32 padding = 0) const;
+        void Serialize(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable, uint32 padding = 0, bool isArray = false) const;
 
 		///
 		/// Deserialize the reflected variable from the stream.
@@ -133,8 +133,9 @@ class ReflectionData
 		/// @param variable Reflected variable to deserialize.
 		/// @param stream Input stream to serialize from.
 		/// @param pointerTable Table to read from when coming across pointer types.
+		/// @param isArray If true, we're currently deserializing elements of an array (don't try to read the pointer index as there isn't one per array element).
 		///
-		void Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, std::vector<std::pair<size_t, ReflectedVariable> > &pointerFixups) const;
+		void Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, std::vector<std::pair<size_t, ReflectedVariable> > &pointerFixups, bool isArray = false) const;
         
 		typedef void(*SerializeFunction)(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable);
 		typedef void(*DeserializeFunction)(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable);

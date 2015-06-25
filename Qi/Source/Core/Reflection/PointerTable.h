@@ -110,9 +110,16 @@ class PointerTable
 
 		///
 		/// Lookup table to map pointer addresses to indices in the 'Pointers' table.
-		/// First argument is the pointer address, second is the table index.
+		/// First argument is the pointer address, second is the table index per type that sits
+		/// at that address. Assume an object looks like this:
+		/// class Foo { int x; };
+		/// Foo f;
+		/// In this case, &f == &x because of how memory is laid out by the compiler. Therefore, two different
+		/// objects can report the same address, hence the list of pairs in the lookup table.
 		///
-		typedef std::unordered_map<PointerAddress, TableIndex> LookupTable;
+		typedef std::pair<const ReflectionData *, TableIndex> Instance;
+		typedef std::list<Instance> Objects;
+		typedef std::unordered_map<PointerAddress, Objects> LookupTable;
 
 		Pointers m_dataTable;      ///< Pointer data stored linearly by index.
 		LookupTable m_lookupTable; ///< Lookup table storing correlations between pointer addresses and table indices.

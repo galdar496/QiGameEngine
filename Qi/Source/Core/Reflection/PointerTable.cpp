@@ -34,6 +34,12 @@ void PointerTable::Populate(const ReflectedVariable &reflectedVariable, bool nee
 		// Add this object's instance to the table.
 		AddPointer(reflectedVariable, needsSerialization);
 
+		if (reflectedVariable.GetInstanceData() == nullptr)
+		{
+			// No need to keep processing this type, it is null.
+			return;
+		}
+
 		// Loop over each of this member's variables and add them to the table using a depth-first
 		// recursive call.
 		const ReflectionData *reflectionData = reflectedVariable.GetReflectionData();
@@ -76,13 +82,28 @@ PointerTable::TableIndex PointerTable::GetIndex(const ReflectedVariable &variabl
 	LookupTable::const_iterator iter = m_lookupTable.find(address);
 	
 	QI_ASSERT(iter != m_lookupTable.end());
-	return iter->second;
+
+	// Look though the possible entires at this address to match up the typename to the passed
+	// in variable type.
+	const std::string &typeName = variable.GetReflectionData()->GetName();
+	Objects::const_iterator objectIter = iter->second.begin();
+	for (; objectIter != iter->second.end(); ++objectIter)
+	{
+		if (objectIter->first->GetName() == typeName)
+		{
+			return objectIter->second;
+		}
+	}
+
+	// Shouldn't ever get here.
+	QI_ASSERT(0);
+	return static_cast<TableIndex>(-1);
 }
 
 void PointerTable::Serialize(std::ostream &stream)
 {
 	// First write out the size of the table.
-	stream << m_dataTable.size();// << std::endl;
+	stream << m_dataTable.size() << std::endl;
 
 	for (size_t ii = 0; ii < m_dataTable.size(); ++ii)
 	{
@@ -90,7 +111,7 @@ void PointerTable::Serialize(std::ostream &stream)
 		// of an object already being serialized).
 		if (m_dataTable[ii].second)
 		{
-			stream << std::endl; 
+			//stream << std::endl; 
 			const ReflectionData *reflectionData = m_dataTable[ii].first.GetReflectionData();
 			if (reflectionData->HasParent())
 			{
@@ -98,8 +119,6 @@ void PointerTable::Serialize(std::ostream &stream)
 				// belong to).
 				stream << "(" << reflectionData->GetName() << ") ";
 			}
-
-			stream << std::endl << ii << " ";
 
 			const ReflectedVariable *tableVariable = &(m_dataTable[ii].first);
 
@@ -127,7 +146,10 @@ void PointerTable::Deserialize(std::istream &stream)
 	ReflectionDataManager &manager = ReflectionDataManager::GetInstance();
 	std::vector<std::pair<PointerTable::TableIndex, ReflectedVariable> > pointersToPatch;
 
-	do 
+	// Eat the newline character.
+	stream.ignore(256, '\n');
+
+	while (stream.peek() > 0) // Valid characters have an ascii value > 0.
 	{
 		// See if there is a derived type that we're about to read in.
 		bool inheritedObject = false;
@@ -169,13 +191,11 @@ void PointerTable::Deserialize(std::istream &stream)
 		stream.seekg(streamPosition);
 
 		// Allow this variable to deserialize itself.
-		reflectionData->Deserialize(&variable, stream, *this, pointersToPatch);
+		reflectionData->Deserialize(&variable, stream, *this, pointersToPatch, false);
 
 		// Eat the newline character.
 		stream.ignore(256, '\n');
-
-	} while (stream.good());
-
+	} 
 
 	// Fixup any pointers now that the entire table has been read.
 	for (size_t ii = 0; ii < pointersToPatch.size(); ++ii)
@@ -195,25 +215,53 @@ PointerTable::TableIndex PointerTable::AddPointer(const ReflectedVariable &point
 	LookupTable::iterator iter = m_lookupTable.find(address);
 	if (iter != m_lookupTable.end())
 	{
-		// This pointer already exists in the table, return its index.
-		TableIndex index = iter->second;
-
-		// If this pointer already exists and also wants to be serialized, update its
-		// serialization status. There may be the case where the pointer does not need
-		// to be serialized anymore as what it points to has already been serialized.
-		if (m_dataTable[index].second == true)
+		// An entry for this address already exists. Make sure we have a matching entry for this type.
+		const std::string &typeName = pointer.GetReflectionData()->GetName();
+		Objects::iterator objectIter = iter->second.begin();
+		for (; objectIter != iter->second.end(); ++objectIter)
 		{
-			m_dataTable[index].second = needsSerialization;
+			if (objectIter->first->GetName() == typeName)
+			{
+				// This pointer already exists in the table, return its index.
+				TableIndex index = objectIter->second;
+
+				// If this pointer already exists and also wants to be serialized, update its
+				// serialization status. There may be the case where the pointer does not need
+				// to be serialized anymore as what it points to has already been serialized.
+				if (m_dataTable[index].second == true)
+				{
+					m_dataTable[index].second = needsSerialization;
+				}
+
+				return index;
+			}
 		}
+
+		// If we got to this point, then that means that this specific type doesn't exist at this address (for example, the first
+		// member variable in a struct). Add it now.
+		TableIndex index = m_dataTable.size();
+		Instance instance(pointer.GetReflectionData(), index);
+		TableRecord record(pointer, needsSerialization);
+		m_dataTable.push_back(record);
+
+		iter->second.push_back(instance);
 
 		return index;
 	}
 
+	// We don't yet have an entry for this address. Create one and add it to the table.
+
+	// First create the Objects list to push into the lookup table.
 	TableIndex index = m_dataTable.size();
+	Instance instance(pointer.GetReflectionData(), index);
+	Objects objects;
+	objects.push_back(instance);
+
+	// Push the data onto the table record.
 	TableRecord record(pointer, needsSerialization);
 	m_dataTable.push_back(record);
 
-	m_lookupTable[address] = index;
+	m_lookupTable[address] = objects;
 	return index;
 }
 
@@ -222,7 +270,22 @@ bool PointerTable::HasPointer(const ReflectedVariable &variable) const
 	PointerAddress address = reinterpret_cast<PointerAddress>(variable.GetInstanceData());
 	LookupTable::const_iterator iter = m_lookupTable.find(address);
 
-	return (iter != m_lookupTable.end());
+	if (iter == m_lookupTable.end())
+	{
+		return false;
+	}
+
+	// We have an entry for this address, make sure that we have a type match as well.
+	const std::string &typeName = variable.GetReflectionData()->GetName();
+	for (Objects::const_iterator objectIter = iter->second.begin(); objectIter != iter->second.end(); ++objectIter)
+	{
+		if (objectIter->first->GetName() == typeName)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 } // namespace Qi

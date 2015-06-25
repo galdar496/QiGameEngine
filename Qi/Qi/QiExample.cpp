@@ -12,17 +12,31 @@
 #include <iostream>
 #include <sstream>
 
-// class Lame
-// {
-//     public:
-//     
-// 		QI_DECLARE_REFLECTED_CLASS(Lame);
-//  
-// 		Lame() : x(15) {}
-//     private:
-//     
-//         int x;
-// };
+class Gra
+{
+public:
+
+	QI_DECLARE_REFLECTED_CLASS(Gra);
+
+	int x;
+};
+
+QI_REFLECT_CLASS(Gra)
+{
+	QI_REFLECT_MEMBER(x);
+}
+
+class Lame
+{
+    public:
+    
+		QI_DECLARE_REFLECTED_CLASS(Lame);
+ 
+		//Lame() : x(15) {}
+    //private:
+    
+		Gra g[5];
+};
 // 
 // 
 // class Test
@@ -65,10 +79,10 @@
 // 	QI_REFLECT_MEMBER(pointer2);
 // }
 // 
-// QI_REFLECT_CLASS(Lame)
-// {
-//     QI_REFLECT_MEMBER(x);
-// }
+QI_REFLECT_CLASS(Lame)
+{
+    QI_REFLECT_MEMBER(g);
+}
 
 class Base
 {
@@ -102,56 +116,70 @@ QI_REFLECT_CLASS(Derived)
 	QI_DECLARE_PARENT(Derived, Base);
 	QI_REFLECT_MEMBER(derived1);
 }
+// 
+// class PointerTest
+// {
+// public:
+// 
+// 	QI_DECLARE_REFLECTED_CLASS(PointerTest);
+// 
+// 	PointerTest() :
+// 		x(10),
+// 		y(1)
+// 	{
+// 
+// 	}
+// 
+// 	int x;
+// 	int y;
+// };
+// 
+// class Gimli
+// {
+// public:
+// 
+// 	QI_DECLARE_REFLECTED_CLASS(Gimli);
+// 
+// 	Gimli() : x(15), y(1) { }
+// 
+//   	PointerTest *p;
+//   	PointerTest *t;
+// 
+// 	int x;
+// 	int y;
+// 
+// 	Derived *d;
+// };
 
-class PointerTest
+// QI_REFLECT_CLASS(PointerTest)
+// {
+// 	QI_REFLECT_MEMBER(x);
+// 	QI_REFLECT_MEMBER(y);
+// }
+// 
+// QI_REFLECT_CLASS(Gimli)
+// {
+//   	QI_REFLECT_MEMBER(p);
+//   	QI_REFLECT_MEMBER(t);
+// 
+// 	QI_REFLECT_MEMBER(x);
+// 	QI_REFLECT_MEMBER(y);
+//  
+//  	QI_REFLECT_MEMBER(d);
+// }
+
+class Test
 {
 public:
 
-	QI_DECLARE_REFLECTED_CLASS(PointerTest);
-
-	PointerTest() :
-		x(10),
-		y(1)
-	{
-
-	}
-
-	int x;
-	int y;
-};
-
-class Gimli
-{
-public:
-
-	QI_DECLARE_REFLECTED_CLASS(Gimli);
-
-	Gimli() : x(15), y(1) { }
-
-  	PointerTest *p;
-  	PointerTest *t;
-
-	int x;
-	int y;
+	QI_DECLARE_REFLECTED_CLASS(Test);
 
 	Derived *d;
 };
 
-QI_REFLECT_CLASS(PointerTest)
+QI_REFLECT_CLASS(Test)
 {
-	QI_REFLECT_MEMBER(x);
-	QI_REFLECT_MEMBER(y);
-}
-
-QI_REFLECT_CLASS(Gimli)
-{
-  	QI_REFLECT_MEMBER(p);
-  	QI_REFLECT_MEMBER(t);
-
-	QI_REFLECT_MEMBER(x);
-	QI_REFLECT_MEMBER(y);
- 
- 	QI_REFLECT_MEMBER(d);
+	QI_REFLECT_MEMBER(d);
 }
 
 class QiExample : public QiGameImpl
@@ -202,25 +230,66 @@ class QiExample : public QiGameImpl
 		// 			std::cout << std::endl;
 		// 
 
-					Derived derived;
-					derived.derived1 = false;
- 		 			Gimli test;
-					test.x = 123;
-					test.y = -125;
- 					test.d = &derived;
-		 			test.p = new PointerTest;
- 		 			test.p->x = 11;
-  					test.t = new PointerTest;
-					test.t->x = 124;
-		 			Qi::ReflectedVariable v(test);
-		 			std::stringstream stream;
-					v.Serialize(stream);
+// 					Derived derived;
+// 					derived.derived1 = false;
+//  		 			Gimli test;
+// 					test.x = 123;
+// 					test.y = -125;
+//  					test.d = &derived;
+// 		 			test.p = new PointerTest;
+//  		 			test.p->x = 11;
+//   					test.t = new PointerTest;
+// 					test.t->x = 124;
+// 		 			Qi::ReflectedVariable v(test);
+// 		 			std::stringstream stream;
+// 					v.Serialize(stream);
+// 
+// 					std::cout << stream.str() << std::endl;
+// 
+// 					Gimli *test2 = nullptr;
+// 					Qi::ReflectedVariable v2(test2);
+// 				    v2.Deserialize(stream);
 
-					std::cout << stream.str() << std::endl;
+// 			Test t;
+// 			t.l.g[0].x = 1;
+// 			t.l.g[1].x = 2;
+// 			t.l.g[2].x = 3;
+// 			t.l.g[3].x = 4;
+// 			t.l.g[4].x = 5;
+// 			Qi::ReflectedVariable v(t);
+// 			std::stringstream stream;
+// 			v.Serialize(stream);
+// 
+// 			std::cout << stream.str() << std::endl;
+// 
+// 			Test *t2;
+// 			Qi::ReflectedVariable v2(t2);
+// 			v2.Deserialize(stream);
 
-					Gimli *test2 = nullptr;
-					Qi::ReflectedVariable v2(test2);
-				    v2.Deserialize(stream);
+			Derived d;
+			d.base1 = false;
+
+// 			Qi::ReflectedVariable v(d);
+// 			std::stringstream stream;
+// 			v.Serialize(stream);
+// 
+// 			std::cout << stream.str() << std::endl;
+// 
+// 			Derived *d2 = nullptr;
+// 			Qi::ReflectedVariable v2(d2);
+// 			v2.Deserialize(stream);
+
+			Test t;
+			t.d = &d;
+			Qi::ReflectedVariable v(t);
+			std::stringstream stream;
+			v.Serialize(stream);
+
+			std::cout << stream.str() << std::endl;
+
+			Test *t2;
+			Qi::ReflectedVariable v2(t2);
+			v2.Deserialize(stream);
 
             #ifdef QI_WINDOWS
                 int x;
