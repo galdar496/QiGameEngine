@@ -39,6 +39,8 @@ class ReflectionData
         ReflectionData(const std::string name = "", size_t size = 0);
         
         ~ReflectionData();
+
+		typedef void *(*AllocateInstanceFunction)();
         
         ///
         /// Initialize this object for use.
@@ -46,7 +48,7 @@ class ReflectionData
         /// @param name Name of this type.
         /// @param size Size of this type (in bytes).
         ///
-        void Init(const std::string &name, size_t size);
+		void Init(const std::string &name, size_t size);
         
         ///
         /// Get the name of this type.
@@ -116,6 +118,13 @@ class ReflectionData
         /// Print the members of a class to the debug console.
         ///
         void PrintMembers() const;
+
+		///
+		/// Allocate an instance the object that this reflection data represents.
+		///
+		/// @return A created instance for this type.
+		///
+		void *AllocateInstance() const;
         
         ///
         /// Serialize the reflected variable to the stream.
@@ -155,6 +164,9 @@ class ReflectionData
 		/// @param function Function to use for deserialization of this type.
 		///
 		void SetDeserializeFunction(DeserializeFunction function = nullptr);
+
+		/// @param allocateFunction Function to use for allocating an instance of this type.
+		void SetAllocationFunction(AllocateInstanceFunction function = nullptr);
         
     private:
         
@@ -165,6 +177,8 @@ class ReflectionData
         
         SerializeFunction   m_serializeFunction;   ///< Serialization function to use if this type is a primitive type defined in ReflectionPrimitiveTypes.h
 		DeserializeFunction m_deserializeFunction; ///< Deserialization function to use if this type is a primitive type defined in ReflectionPrimitiveTypes.h
+
+		AllocateInstanceFunction m_allocateInstanceFunction; ///< Function to use to allocate an instance of this type (returns a void *).
 };
 
 class ReflectedMember
@@ -276,6 +290,7 @@ class ReflectionDataCreator
         {
             ReflectionData &data = GetInstance();
             data.Init(name, size);
+			data.SetAllocationFunction(AllocateInstance);
             
 			RegisterReflectionData();
             ReflectionDataManager::GetInstance().AddReflectedData(&data);
@@ -318,6 +333,17 @@ class ReflectionDataCreator
         /// This function is used to populate the reflected member variables per-class.
         ///
 		static void RegisterReflectionData();
+
+		///
+		/// Allocate an instance of this type.
+		///
+		/// @return A new instance of this type to use.
+		///
+		static void *AllocateInstance()
+		{
+			T *instance = new T;
+			return static_cast<void *>(instance);
+		}
 };
 
 } // namespace Qi

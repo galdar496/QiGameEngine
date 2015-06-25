@@ -153,6 +153,11 @@ void ReflectionData::PrintMembers() const
 	}
 }
 
+void *ReflectionData::AllocateInstance() const
+{
+	return m_allocateInstanceFunction();
+}
+
 void Pad(std::ostream &stream, uint32 pad)
 {
     for (uint32 ii = 0; ii < pad; ++ii)
@@ -363,6 +368,11 @@ void ReflectionData::SetSerializeFunction(SerializeFunction function)
 void ReflectionData::SetDeserializeFunction(DeserializeFunction function)
 {
 	m_deserializeFunction = function;
+}
+
+void ReflectionData::SetAllocationFunction(AllocateInstanceFunction function)
+{
+	m_allocateInstanceFunction = function;
 }
     
 // ReflectionData implementation end ---------------------------------------------------------

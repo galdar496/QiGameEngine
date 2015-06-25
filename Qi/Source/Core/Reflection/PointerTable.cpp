@@ -182,7 +182,7 @@ void PointerTable::Deserialize(std::istream &stream)
 		QI_ASSERT(reflectionData);
 
 		// Allocate the space for this type.
-		char *instanceData = new char[reflectionData->GetSize()];
+		void *instanceData = reflectionData->AllocateInstance();
 		ReflectedVariable variable(reflectionData, static_cast<void *>(instanceData));
 
 		// Reset the stream position before moving on so that the reflection deserialization code can
