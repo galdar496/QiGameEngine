@@ -76,11 +76,23 @@ class PointerTable
 		void Serialize(std::ostream &stream);
 
 		///
-		/// Deserialize the table from an input stream.
+		/// Deserialize the table from an input stream. The deserialization process works by first allocating a pointer
+		/// table that is large enough to hold references to all of the objects to be deserialized. Then each element in the table
+		/// is read from the stream. While reading, if a pointer is encountered, it's index is saved for later patching after
+		/// the entire table has been read in.
 		///
 		/// @param stream The input stream containing a serialized table for reading.
 		///
 		void Deserialize(std::istream &stream);
+
+		///
+		/// Add a pointer to the patch table. Any pointers added here will have their instance data set to
+		/// the corresponding table index data after deserialization of the table.
+		///
+		/// @param index Index location in the table to patch this pointer to.
+		/// @param pointer Pointer to patch.
+		///
+		void AddPatchPointer(PointerTable::TableIndex index, ReflectedVariable &pointer);
 
 	private:
 
@@ -123,6 +135,9 @@ class PointerTable
 
 		Pointers m_dataTable;      ///< Pointer data stored linearly by index.
 		LookupTable m_lookupTable; ///< Lookup table storing correlations between pointer addresses and table indices.
+
+		typedef std::vector<std::pair<PointerTable::TableIndex, ReflectedVariable> > PointerPatchTable;
+		PointerPatchTable m_pointersToPatch; ///< Pointers to patch-up after deserializing the entire table.
 };
 
 } // namespace Qi

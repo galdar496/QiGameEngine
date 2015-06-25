@@ -257,12 +257,12 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 	stream << "]" << std::endl;
 }
 
-void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, std::vector<std::pair<PointerTable::TableIndex, ReflectedVariable> > &pointerFixups, bool isArray) const
+void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, bool isArray) const
 {
 	// If this object has a parent, deserialize its data first.
 	if (m_parent)
 	{
-		m_parent->Deserialize(variable, stream, pointerTable, pointerFixups);
+		m_parent->Deserialize(variable, stream, pointerTable, isArray);
 	}
 
 	// If this type has a valid deserialization function then it knows how to deserialize itself, let it.
@@ -324,10 +324,7 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 
 				// Add this pointer to the patch table to deffer resolving it until the pointer table
 				// has been entirely deserialized.
-				std::pair<PointerTable::TableIndex, ReflectedVariable> pointerToPatch;
-				pointerToPatch.first  = pointerIndex;
-				pointerToPatch.second = memberVariable;
-				pointerFixups.push_back(pointerToPatch);
+				pointerTable.AddPatchPointer(pointerIndex, memberVariable);
  			}
 			else if (member->IsArray()) // If this member is an array type, read in each element of the array individually.
 			{
@@ -338,14 +335,14 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 					// Get the next element to serialize.
 					void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset() + ii);
 					ReflectedVariable arrayElement(data, offsetData);
-					data->Deserialize(&arrayElement, stream, pointerTable, pointerFixups, true);
+					data->Deserialize(&arrayElement, stream, pointerTable, true);
 				}
 			}
 			else // non-array/pointer type type.
 			{
 				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
 				ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
-				member->GetReflectionData()->Deserialize(&memberVariable, stream, pointerTable, pointerFixups, false);
+				member->GetReflectionData()->Deserialize(&memberVariable, stream, pointerTable, false);
 			}
 		}
 	}

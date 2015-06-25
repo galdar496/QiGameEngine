@@ -135,7 +135,7 @@ class ReflectionData
 		/// @param pointerTable Table to read from when coming across pointer types.
 		/// @param isArray If true, we're currently deserializing elements of an array (don't try to read the pointer index as there isn't one per array element).
 		///
-		void Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, std::vector<std::pair<size_t, ReflectedVariable> > &pointerFixups, bool isArray = false) const;
+		void Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, bool isArray = false) const;
         
 		typedef void(*SerializeFunction)(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable);
 		typedef void(*DeserializeFunction)(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable);

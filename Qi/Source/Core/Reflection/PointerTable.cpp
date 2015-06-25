@@ -144,7 +144,6 @@ void PointerTable::Deserialize(std::istream &stream)
 	std::string streamInput;
 
 	ReflectionDataManager &manager = ReflectionDataManager::GetInstance();
-	std::vector<std::pair<PointerTable::TableIndex, ReflectedVariable> > pointersToPatch;
 
 	// Eat the newline character.
 	stream.ignore(256, '\n');
@@ -191,22 +190,30 @@ void PointerTable::Deserialize(std::istream &stream)
 		stream.seekg(streamPosition);
 
 		// Allow this variable to deserialize itself.
-		reflectionData->Deserialize(&variable, stream, *this, pointersToPatch, false);
+		reflectionData->Deserialize(&variable, stream, *this, false);
 
 		// Eat the newline character.
 		stream.ignore(256, '\n');
 	} 
 
 	// Fixup any pointers now that the entire table has been read.
-	for (size_t ii = 0; ii < pointersToPatch.size(); ++ii)
+	for (size_t ii = 0; ii < m_pointersToPatch.size(); ++ii)
 	{ 
-		PointerTable::TableIndex index = pointersToPatch[ii].first;
+		PointerTable::TableIndex index = m_pointersToPatch[ii].first;
 		ReflectedVariable tablePointer = m_dataTable[index].first;
-		ReflectedVariable v = pointersToPatch[ii].second;
+		ReflectedVariable v = m_pointersToPatch[ii].second;
 
 		// Set the pointer to the proper pointer in the table.
 		v.GetValue<void *>() = (void *)tablePointer.GetInstanceData();
 	}
+}
+
+void PointerTable::AddPatchPointer(PointerTable::TableIndex index, ReflectedVariable &pointer)
+{
+	std::pair<PointerTable::TableIndex, ReflectedVariable> pointerToPatch;
+	pointerToPatch.first = index;
+	pointerToPatch.second = pointer;
+	m_pointersToPatch.push_back(pointerToPatch);
 }
 
 PointerTable::TableIndex PointerTable::AddPointer(const ReflectedVariable &pointer, bool needsSerialization)
