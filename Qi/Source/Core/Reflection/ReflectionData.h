@@ -68,6 +68,13 @@ class ReflectionData
 		/// @param parent Parent object to this type.
 		///
 		void DeclareParent(const ReflectionData *parent);
+
+		///
+		/// Does this type have a parent (inheritance) or not?
+		///
+		/// @return If true, this type has a parent.
+		///
+		bool HasParent() const;
         
         ///
         /// Add a member to this type.
@@ -127,7 +134,7 @@ class ReflectionData
 		/// @param stream Input stream to serialize from.
 		/// @param pointerTable Table to read from when coming across pointer types.
 		///
-		void Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable) const;
+		void Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, std::vector<std::pair<size_t, ReflectedVariable> > &pointerFixups) const;
         
 		typedef void(*SerializeFunction)(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable);
 		typedef void(*DeserializeFunction)(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable);

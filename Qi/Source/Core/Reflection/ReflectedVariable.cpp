@@ -26,6 +26,18 @@ ReflectedVariable::ReflectedVariable(const ReflectedVariable &other)
     m_instanceData   = other.m_instanceData;
 }
 
+
+ReflectedVariable &ReflectedVariable::operator=(const ReflectedVariable &other)
+{
+	if (this != &other)
+	{
+		m_reflectionData = other.m_reflectionData;
+		m_instanceData = other.m_instanceData;
+	}
+
+	return *this;
+}
+
 ReflectedVariable::~ReflectedVariable()
 {
     m_reflectionData = nullptr;
@@ -67,12 +79,15 @@ void ReflectedVariable::Serialize(std::ostream &stream) const
 
 void ReflectedVariable::Deserialize(std::istream &stream)
 {
-	// First, deserialize the pointer table which is located
-	// at the beginning of the stream.
+	// Create the pointer table to use for pointer patching while deserializing.
 	PointerTable table;
+
+	// Deserialize the stream into the table.
 	table.Deserialize(stream);
 
-	m_reflectionData->Deserialize(this, stream, table);
+	// Extract the first element of the table since element 0 represents 
+	// the main (parent) variable being extracted.
+	this->GetValue<void *>() = table.GetPointer(0).m_instanceData;
 }
 
 } // namespace Qi

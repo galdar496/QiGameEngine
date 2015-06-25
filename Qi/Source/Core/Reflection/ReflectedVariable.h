@@ -28,6 +28,7 @@ class ReflectedVariable
         // Constructors/destructor.
         ReflectedVariable();
         ReflectedVariable(const ReflectedVariable &other);
+		ReflectedVariable &operator=(const ReflectedVariable &other);
         ~ReflectedVariable();
     
         ///

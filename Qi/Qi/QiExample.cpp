@@ -103,22 +103,22 @@ QI_REFLECT_CLASS(Derived)
 	QI_REFLECT_MEMBER(derived1);
 }
 
-// class PointerTest
-// {
-// public:
-// 
-// 	QI_DECLARE_REFLECTED_CLASS(PointerTest);
-// 
-// 	PointerTest() :
-// 		x(10),
-// 		y(1)
-// 	{
-// 
-// 	}
-// 
-// 	int x;
-// 	int y;
-// };
+class PointerTest
+{
+public:
+
+	QI_DECLARE_REFLECTED_CLASS(PointerTest);
+
+	PointerTest() :
+		x(10),
+		y(1)
+	{
+
+	}
+
+	int x;
+	int y;
+};
 
 class Gimli
 {
@@ -128,8 +128,8 @@ public:
 
 	Gimli() : x(15), y(1) { }
 
-//  	PointerTest *p;
-//  	PointerTest *t;
+  	PointerTest *p;
+  	PointerTest *t;
 
 	int x;
 	int y;
@@ -137,21 +137,21 @@ public:
 	Derived *d;
 };
 
-// QI_REFLECT_CLASS(PointerTest)
-// {
-// 	QI_REFLECT_MEMBER(x);
-// 	QI_REFLECT_MEMBER(y);
-// }
+QI_REFLECT_CLASS(PointerTest)
+{
+	QI_REFLECT_MEMBER(x);
+	QI_REFLECT_MEMBER(y);
+}
 
 QI_REFLECT_CLASS(Gimli)
 {
-//  	QI_REFLECT_MEMBER(p);
-//  	QI_REFLECT_MEMBER(t);
+  	QI_REFLECT_MEMBER(p);
+  	QI_REFLECT_MEMBER(t);
 
 	QI_REFLECT_MEMBER(x);
 	QI_REFLECT_MEMBER(y);
-
-	QI_REFLECT_MEMBER(d);
+ 
+ 	QI_REFLECT_MEMBER(d);
 }
 
 class QiExample : public QiGameImpl
@@ -204,18 +204,23 @@ class QiExample : public QiGameImpl
 
 					Derived derived;
 					derived.derived1 = false;
-		 			Gimli test;
-					test.d = &derived;
-// 		 			test.p = new PointerTest;
-// 		 			test.p->x = 11;
-//  					test.t = nullptr;
+ 		 			Gimli test;
+					test.x = 123;
+					test.y = -125;
+ 					test.d = &derived;
+		 			test.p = new PointerTest;
+ 		 			test.p->x = 11;
+  					test.t = new PointerTest;
+					test.t->x = 124;
 		 			Qi::ReflectedVariable v(test);
 		 			std::stringstream stream;
-		 			v.Serialize(std::cout);
+					v.Serialize(stream);
 
-		// 			Gimli test2;
-		// 			Qi::ReflectedVariable v2(test2);
-		// 			v2.Deserialize(stream);
+					std::cout << stream.str() << std::endl;
+
+					Gimli *test2 = nullptr;
+					Qi::ReflectedVariable v2(test2);
+				    v2.Deserialize(stream);
 
             #ifdef QI_WINDOWS
                 int x;

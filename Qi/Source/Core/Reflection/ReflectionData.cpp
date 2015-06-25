@@ -103,6 +103,11 @@ void ReflectionData::DeclareParent(const ReflectionData *parent)
 {
 	m_parent = parent;
 }
+
+bool ReflectionData::HasParent() const
+{
+	return (m_parent != nullptr);
+}
     
 void ReflectionData::AddMember(const ReflectedMember *member)
 {
@@ -189,7 +194,7 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 		stream << "null" << std::endl;
 		--padding;
 		Pad(stream, padding);
-		stream << "]" << std::endl;
+		stream << "]";
 		return;
 	}
 
@@ -244,15 +249,15 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 
     --padding;
     Pad(stream, padding);
-    stream << "]" << std::endl;
+    stream << "] ";
 }
 
-void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable) const
+void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, std::vector<std::pair<PointerTable::TableIndex, ReflectedVariable> > &pointerFixups) const
 {
 	// If this object has a parent, deserialize its data first.
 	if (m_parent)
 	{
-		m_parent->Deserialize(variable, stream, pointerTable);
+		m_parent->Deserialize(variable, stream, pointerTable, pointerFixups);
 	}
 
 	// If this type has a valid deserialization function then it knows how to deserialize itself, let it.
@@ -264,42 +269,24 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 
 	// For each member read from this object, ask it to deserialize itself if we have a definition for it.
 
-	// Read the incoming '[' first.
 	std::string streamInput;
-	stream >> streamInput; // Read the class type first.
-	QI_ASSERT(streamInput == m_name);
-	
-	// Read the index in the pointer table for this type. The format should be
-	// "Type * index"
-	PointerTable::TableIndex pointerIndex = 0;
+
+	// Read the pointer table index and typename first if we're not deserializing a derived type (will have already been read in
+	// for the base type(s).
+	PointerTable::TableIndex tableIndex = 0;
+	if (!m_parent)
 	{
-		stream >> streamInput;
-		QI_ASSERT(streamInput == "*");
-		
-		stream >> pointerIndex;
+		stream >> tableIndex;
+		QI_ASSERT(tableIndex >= 0);
 	}
+
+	stream >> streamInput;
+	QI_ASSERT(streamInput == m_name);
 
 	// Read the starting bracket denoting the start of member variables for this type.
 	{
 		stream >> streamInput;
 		QI_ASSERT(streamInput == "[");
-	}
-
-	// We may have already deserialized this object, check the pointer table for any references.
-	bool shouldDeserialize = true;
-	{
-		ReflectedVariable tablePointer = pointerTable.GetPointer(pointerIndex);
-		if (tablePointer.GetInstanceData() != nullptr)
-		{
-			// This instance has already been deserialized, just use that.
-			*variable = tablePointer;
-			shouldDeserialize = false;
-		}
-// 		else
-// 		{
-// 			// Add this instance to the pointer table so that future instances can reference it.
-// 			pointerTable.AddPointer(*variable, pointerIndex);
-// 		}
 	}
 
 	while (streamInput != "]")
@@ -308,33 +295,62 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 		stream >> streamInput;
         QI_ASSERT(stream);
 
-		// Only deserialize if we have to, otherwise just skip over this type.
-		if (shouldDeserialize)
+		// Handle deserializing a NULL pointer. In this case, there will be no other
+		// members to deserialize as this instance has no data.
+		if (streamInput == "null")
 		{
-			const ReflectedMember *member = GetMember(streamInput);
-			if (member)
+			variable->SetInstanceData(nullptr);
+			continue;
+		}
+	
+		const ReflectedMember *member = GetMember(streamInput);
+		if (member)
+		{
+			if (member->IsPointer())
 			{
-				// If this member is an array type, read in each element of the array individually.
-				if (member->IsArray())
+				// Read in the index for this pointer that corresponds to the pointer table.
+				PointerTable::TableIndex pointerIndex = 0;
+				stream >> pointerIndex;
+				QI_ASSERT(pointerIndex >= 0);
+
+				ReflectedVariable &tablePointer = pointerTable.GetPointer(pointerIndex);
+
+				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+				ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
+
+				// Add this pointer to the patch table to deffer resolving it until the pointer table
+				// has been entirely deserialized.
+				std::pair<PointerTable::TableIndex, ReflectedVariable> pointerToPatch;
+				pointerToPatch.first  = pointerIndex;
+				pointerToPatch.second = memberVariable;
+				pointerFixups.push_back(pointerToPatch);
+ 			}
+			else if (member->IsArray()) // If this member is an array type, read in each element of the array individually.
+			{
+				const ReflectionData *data = member->GetReflectionData();
+				size_t baseTypeSize = data->GetSize();
+				for (size_t ii = 0; ii < member->GetSize(); ii += baseTypeSize)
 				{
-					const ReflectionData *data = member->GetReflectionData();
-					size_t baseTypeSize = data->GetSize();
-					for (size_t ii = 0; ii < member->GetSize(); ii += baseTypeSize)
-					{
-						// Get the next element to serialize.
-						void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset() + ii);
-						ReflectedVariable arrayElement(data, offsetData);
-						data->Deserialize(&arrayElement, stream, pointerTable);
-					}
-				}
-				else // non-array type.
-				{
-					void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
-					ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
-					member->GetReflectionData()->Deserialize(&memberVariable, stream, pointerTable);
+					// Get the next element to serialize.
+					void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset() + ii);
+					ReflectedVariable arrayElement(data, offsetData);
+					data->Deserialize(&arrayElement, stream, pointerTable, pointerFixups);
 				}
 			}
+			else // non-array/pointer type type.
+			{
+				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+				ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
+				member->GetReflectionData()->Deserialize(&memberVariable, stream, pointerTable, pointerFixups);
+			}
 		}
+	}
+
+	// Add this variable to the pointer table if it hasn't already been added by a base type.
+	if (!m_parent)
+	{
+		ReflectedVariable &tableVariable = pointerTable.GetPointer(tableIndex);
+		tableVariable = *variable;
 	}
 }
 

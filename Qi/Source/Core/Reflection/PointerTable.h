@@ -58,7 +58,7 @@ class PointerTable
 		/// @param index Location of the pointer in the table.
 		/// @return The reflection data of the pointer requested.
 		///
-		ReflectedVariable GetPointer(TableIndex index) const;
+		ReflectedVariable &GetPointer(TableIndex index);
 
 		///
 		/// Get the index in the table for a particular pointer.
