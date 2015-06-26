@@ -180,6 +180,11 @@ public:
 
 	Base() : base1(true) {}
 
+	virtual int func()
+	{
+		return 1;
+	}
+
 	bool base1;
 };
 
@@ -190,6 +195,11 @@ public:
 	QI_DECLARE_REFLECTED_CLASS(Derived);
 
 	Derived() : derived1(true) {}
+
+	virtual int func()
+	{
+		return 2;
+	}
 
 	bool derived1;
 };
@@ -220,6 +230,13 @@ TEST(Reflection, InheritanceTest)
 
 	EXPECT_EQ(false, d2->base1);
 	EXPECT_EQ(true,  d2->derived1);
+
+	// Make sure the deserialized version has a proper vtable.
+	EXPECT_EQ(2, d2->func());
+
+	Base *b = static_cast<Base *>(d2);
+	EXPECT_EQ(2, b->func());
+	EXPECT_EQ(1, b->Base::func());
 
 	// Cleanup.
 	delete d2;
