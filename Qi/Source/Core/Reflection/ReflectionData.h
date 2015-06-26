@@ -9,6 +9,7 @@
 #pragma once
 
 #include "ReflectionDataManager.h"
+#include "../Memory/MemoryAllocator.h"
 #include <ostream>
 #include <string>
 #include <list>
@@ -346,7 +347,7 @@ class ReflectionDataCreator
 		///
 		static void *AllocateInstance()
 		{
-			T *instance = new T;
+			T *instance = Qi_AllocateMemory(T);
 			return static_cast<void *>(instance);
 		}
 };
