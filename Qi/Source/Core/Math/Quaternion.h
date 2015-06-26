@@ -12,6 +12,7 @@
 #include "Matrix4.h"
 #include "../Defines.h"
 #include "SSEUtils.h"
+#include "../Reflection/Reflection.h"
 #include <cmath>
 
 ///
@@ -23,10 +24,11 @@ namespace Qi
 
 class QI_ALIGN(QI_SSE_ALIGNMENT) Quaternion
 {
-
     public:
+
+		QI_DECLARE_REFLECTED_CLASS(Quaternion);
     
-        Quaternion() { SetIdentity(); }
+		Quaternion();
         Quaternion(const Vec4 &axis, float angle)
         {
             m_quat = axis.m_sseValue;
@@ -256,6 +258,7 @@ class QI_ALIGN(QI_SSE_ALIGNMENT) Quaternion
         union
         {
             struct {float x, y, z, w; }; ///< Simple access to simd quaternion.
+			float q[4];                  ///< Array access.
             SSEType m_quat;              ///< SIMD quaternion.
         };
 

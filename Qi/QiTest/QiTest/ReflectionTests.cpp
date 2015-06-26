@@ -10,6 +10,9 @@
 
 #include "../../Source/Core/Reflection/Reflection.h"
 #include "../../Source/Core/Reflection/ReflectedVariable.h"
+#include "../../Source/Core/Math/Vec4.h"
+#include "../../Source/Core/Math/Quaternion.h"
+#include "../../Source/Core/Math/Matrix4.h"
 #include <sstream>
 
 using namespace Qi;
@@ -339,6 +342,88 @@ TEST(Reflection, ComplexTest)
 
 	delete c.p1->s;
 	delete c.p1;
-
 }
 
+TEST(Reflection, VectorTest)
+{
+	Qi::Vec4 v;
+	v.v[0] = 1.0f;
+	v.v[1] = 2.0f;
+	v.v[2] = 3.0f;
+	v.v[3] = 4.0f;
+	Qi::ReflectedVariable variable(v);
+	std::stringstream stream;
+	variable.Serialize(stream);
+
+	Qi::Vec4 *v2;
+	Qi::ReflectedVariable variable2(v2);
+	variable2.Deserialize(stream);
+
+	EXPECT_EQ(1.0f, v2->v[0]);
+	EXPECT_EQ(2.0f, v2->v[1]);
+	EXPECT_EQ(3.0f, v2->v[2]);
+	EXPECT_EQ(4.0f, v2->v[3]);
+
+	delete v2;
+}
+
+TEST(Reflection, QuaternionTest)
+{
+	Qi::Quaternion q;
+	q.q[0] = 1.0f;
+	q.q[1] = 2.0f;
+	q.q[2] = 3.0f;
+	q.q[3] = 4.0f;
+	Qi::ReflectedVariable variable(q);
+	std::stringstream stream;
+	variable.Serialize(stream);
+
+	Qi::Quaternion *q2;
+	Qi::ReflectedVariable variable2(q2);
+	variable2.Deserialize(stream);
+
+	EXPECT_EQ(1.0f, q2->q[0]);
+	EXPECT_EQ(2.0f, q2->q[1]);
+	EXPECT_EQ(3.0f, q2->q[2]);
+	EXPECT_EQ(4.0f, q2->q[3]);
+
+	delete q2;
+}
+
+TEST(Reflection, MatrixTest)
+{
+	Qi::Matrix4 m(1, 2, 3, 4,
+		          5, 6, 7, 8,
+		          9, 10, 11, 12,
+		          13, 14, 15, 16);
+
+	Qi::ReflectedVariable variable(m);
+	std::stringstream stream;
+	variable.Serialize(stream);
+
+	Qi::Matrix4 *m2;
+	Qi::ReflectedVariable variable2(m2);
+	variable2.Deserialize(stream);
+
+	EXPECT_EQ(1, (*m2)(0, 0));
+	EXPECT_EQ(2, (*m2)(0, 1));
+	EXPECT_EQ(3, (*m2)(0, 2));
+	EXPECT_EQ(4, (*m2)(0, 3));
+
+	EXPECT_EQ(5, (*m2)(1, 0));
+	EXPECT_EQ(6, (*m2)(1, 1));
+	EXPECT_EQ(7, (*m2)(1, 2));
+	EXPECT_EQ(8, (*m2)(1, 3));
+
+	EXPECT_EQ(9,  (*m2)(2, 0));
+	EXPECT_EQ(10, (*m2)(2, 1));
+	EXPECT_EQ(11, (*m2)(2, 2));
+	EXPECT_EQ(12, (*m2)(2, 3));
+
+	EXPECT_EQ(13, (*m2)(3, 0));
+	EXPECT_EQ(14, (*m2)(3, 1));
+	EXPECT_EQ(15, (*m2)(3, 2));
+	EXPECT_EQ(16, (*m2)(3, 3));
+
+	delete m2;
+}

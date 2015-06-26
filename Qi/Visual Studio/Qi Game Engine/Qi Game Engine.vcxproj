@@ -125,6 +125,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp" />
     <ClCompile Include="..\..\Source\Core\Math\Matrix4.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\Quaternion.cpp" />
+    <ClCompile Include="..\..\Source\Core\Math\Vec4.cpp" />
     <ClCompile Include="..\..\Source\Core\Memory\MemoryAllocator.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\PointerTable.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\ReflectedVariable.cpp" />

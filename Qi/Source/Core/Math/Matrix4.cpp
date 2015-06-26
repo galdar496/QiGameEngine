@@ -12,6 +12,11 @@
 namespace Qi
 {
 
+QI_REFLECT_CLASS(Matrix4)
+{
+	QI_REFLECT_MEMBER(m);
+}
+
 Matrix4::Matrix4()
 {
     m_rows[0] = SSEZero();

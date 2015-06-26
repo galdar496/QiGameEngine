@@ -10,6 +10,7 @@
 
 #include "SSEUtils.h"
 #include "../Defines.h"
+#include "../Reflection/Reflection.h"
 #include "Vec4.h"
 
 namespace Qi
@@ -22,6 +23,8 @@ namespace Qi
 class QI_ALIGN(QI_SSE_ALIGNMENT) Matrix4
 {
     public:
+
+		QI_DECLARE_REFLECTED_CLASS(Matrix4);
     
         ///
         /// Initializes the matrix to the identity matrix.

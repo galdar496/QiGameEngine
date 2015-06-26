@@ -10,6 +10,7 @@
 
 #include "SSEUtils.h"
 #include "../Defines.h"
+#include "../Reflection/Reflection.h"
 #include <cmath>
 
 namespace Qi
@@ -23,11 +24,11 @@ namespace Qi
 class QI_ALIGN(QI_SSE_ALIGNMENT) Vec4
 {
     public:
+
+		QI_DECLARE_REFLECTED_CLASS(Vec4);
     
-        Vec4()
-        {
-            Zero();
-        }
+		Vec4();
+        
     
         ~Vec4() {}
     

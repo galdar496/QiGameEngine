@@ -72,6 +72,12 @@
     <ClCompile Include="..\..\Source\Core\Reflection\PointerTable.cpp">
       <Filter>Core\Reflection</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Math\Vec4.cpp">
+      <Filter>Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Math\Quaternion.cpp">
+      <Filter>Core\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AppFramework\QiGame.h">
