@@ -66,9 +66,9 @@ bool ReflectedMember::IsPointer() const
 
 // ReflectionData implementation begin -------------------------------------------------------
 
-ReflectionData::ReflectionData(const std::string name, size_t size) :
-    m_name(name),
-    m_size(size),
+ReflectionData::ReflectionData() :
+    m_name(""),
+    m_size(0),
     m_serializeFunction(nullptr),
 	m_parent(nullptr)
 {
@@ -82,11 +82,15 @@ ReflectionData::~ReflectionData()
 	}
 }
     
-void ReflectionData::Init(const std::string &name, size_t size)
+void ReflectionData::Init(ReflectionDataCInfo &info)
 {
-	QI_ASSERT(size > 0 && "Invalid size specified as a reflected type");
-    m_name = name;
-    m_size = size;
+	QI_ASSERT(info.size > 0 && "Invalid size specified as a reflected type");
+	QI_ASSERT(info.name.length() && "Type has no name");
+	QI_ASSERT(info.allocateFunction != nullptr && "No allocation function specified for type");
+
+	m_name = info.name;
+	m_size = info.size;
+	m_allocateInstanceFunction = info.allocateFunction;
 }
     
 const std::string &ReflectionData::GetName() const
@@ -137,22 +141,6 @@ const ReflectionData::Members &ReflectionData::GetMembers() const
     return m_members;
 }
     
-void ReflectionData::PrintMembers() const
-{
-	// First, check to see if we have a parent type. If so, print its members first.
-	if (m_parent)
-	{
-		m_parent->PrintMembers();
-	}
-
-    std::cout << "Members for type " << m_name << std::endl;
-	for (auto iter = m_members.begin(); iter != m_members.end(); ++iter)
-	{
-		const ReflectedMember *member = *iter;
-		std::cout << "\t" << member->GetReflectionData()->GetName() << " " << member->GetName() << ":" << member->GetOffset() << std::endl;
-	}
-}
-
 void *ReflectionData::AllocateInstance() const
 {
 	return m_allocateInstanceFunction();
@@ -180,7 +168,7 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
     // If this type has a valid serialization function then it knows how to serialize itself, let it.
     if (m_serializeFunction)
     {
-        m_serializeFunction(variable, stream, pointerTable);
+        m_serializeFunction(variable, stream);
         return;
     }
     
@@ -273,7 +261,7 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 	// If this type has a valid deserialization function then it knows how to deserialize itself, let it.
 	if (m_deserializeFunction)
 	{
-		m_deserializeFunction(variable, stream, pointerTable);
+		m_deserializeFunction(variable, stream);
 		return;
 	}
 
@@ -370,10 +358,6 @@ void ReflectionData::SetDeserializeFunction(DeserializeFunction function)
 	m_deserializeFunction = function;
 }
 
-void ReflectionData::SetAllocationFunction(AllocateInstanceFunction function)
-{
-	m_allocateInstanceFunction = function;
-}
     
 // ReflectionData implementation end ---------------------------------------------------------
 

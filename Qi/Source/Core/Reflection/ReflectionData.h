@@ -12,6 +12,7 @@
 #include <ostream>
 #include <string>
 #include <list>
+#include <functional>
 
 ///
 /// Classes which contain reflected data members and
@@ -21,7 +22,7 @@
 namespace Qi
 {
 
-// Foward declarations.
+// Forward declarations.
 class ReflectedMember;
 class ReflectedVariable;
 class PointerTable;
@@ -30,25 +31,34 @@ class ReflectionData
 {
     public:
         
-        ///
-        /// Default constructor.
-        ///
-        /// @param name Name of this type.
-        /// @param size Size of this type (in bytes).
-        ///
-        ReflectionData(const std::string name = "", size_t size = 0);
-        
+
+        ReflectionData();
         ~ReflectionData();
 
-		typedef void *(*AllocateInstanceFunction)();
+		///
+		/// Function pointer typedefs.
+		///
+		typedef std::function<void *()> AllocateInstanceFunction;
+		typedef std::function<void(const ReflectedVariable *variable, std::ostream &stream)> SerializeFunction;
+		typedef std::function<void(ReflectedVariable *variable, std::istream &stream)> DeserializeFunction;
+
+		///
+		/// Info struct to use for initializing this object.
+		///
+		struct ReflectionDataCInfo
+		{
+			std::string name; ///< Name of this type.
+			size_t      size; ///< Size of this type (in bytes).
+
+			AllocateInstanceFunction allocateFunction; ///< Function to use for allocating an instance of this object.
+		};
         
         ///
         /// Initialize this object for use.
         ///
-        /// @param name Name of this type.
-        /// @param size Size of this type (in bytes).
+        /// @param info Initialization object to use for setting up the reflection data.
         ///
-		void Init(const std::string &name, size_t size);
+		void Init(ReflectionDataCInfo &info);
         
         ///
         /// Get the name of this type.
@@ -113,11 +123,6 @@ class ReflectionData
         /// @return List of members. If the list is empty then there are no members.
         ///
         const Members &GetMembers() const;
-        
-        ///
-        /// Print the members of a class to the debug console.
-        ///
-        void PrintMembers() const;
 
 		///
 		/// Allocate an instance the object that this reflection data represents.
@@ -146,9 +151,6 @@ class ReflectionData
 		///
 		void Deserialize(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable, bool isArray = false) const;
         
-		typedef void(*SerializeFunction)(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable);
-		typedef void(*DeserializeFunction)(ReflectedVariable *variable, std::istream &stream, PointerTable &pointerTable);
-    
         ///
         /// Set the serialization function. Some types (such as the primitive types defined in ReflectionPrimitiveTypes.h) know
         /// how to serialize themselves. This provides a function callback to use for serialization of known types.
@@ -164,9 +166,6 @@ class ReflectionData
 		/// @param function Function to use for deserialization of this type.
 		///
 		void SetDeserializeFunction(DeserializeFunction function = nullptr);
-
-		/// @param allocateFunction Function to use for allocating an instance of this type.
-		void SetAllocationFunction(AllocateInstanceFunction function = nullptr);
         
     private:
         
@@ -289,8 +288,14 @@ class ReflectionDataCreator
         static void Init(const std::string &name, size_t size)
         {
             ReflectionData &data = GetInstance();
-            data.Init(name, size);
-			data.SetAllocationFunction(AllocateInstance);
+
+			ReflectionData::ReflectionDataCInfo info;
+			info.name = name;
+			info.size = size;
+			info.allocateFunction = std::bind(AllocateInstance);
+
+			// Initialize this reflection data.
+			data.Init(info);
             
 			RegisterReflectionData();
             ReflectionDataManager::GetInstance().AddReflectedData(&data);
