@@ -9,6 +9,7 @@
 #include "ReflectionData.h"
 #include "ReflectedVariable.h"
 #include "PointerTable.h"
+#include "ReflectionUtilities.h"
 #include <iostream>
 
 namespace Qi
@@ -153,9 +154,6 @@ void Pad(std::ostream &stream, uint32 pad)
         stream << "\t";
     }
 }
-
-#define PTR_ADD(PTR, OFFSET) \
-((void *)(((char *)(PTR)) + (OFFSET)))
 
 void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &stream, PointerTable &pointerTable, uint32 padding, bool isArray) const
 {

@@ -34,6 +34,7 @@
 		C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D7ECA31A7CD1E100FC46B6 /* QiGameImpl.h */; };
 		C3EE8CC91B3E4C6700208DF8 /* Vec4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EE8CC81B3E4C6700208DF8 /* Vec4.cpp */; };
 		C3EE8CCB1B3E4CBB00208DF8 /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EE8CCA1B3E4CBB00208DF8 /* Quaternion.cpp */; };
+		C3EE8CCD1B3F12A100208DF8 /* ReflectionUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C3EE8CCC1B3F12A100208DF8 /* ReflectionUtilities.h */; };
 		C3F50F8B1AC4E75E00AE7472 /* LogFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F891AC4E75E00AE7472 /* LogFileWriter.h */; };
 		C3F50F8D1AC4E79B00AE7472 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F8C1AC4E79B00AE7472 /* Logger.h */; };
 		C3F50F8F1AC4E7E500AE7472 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50F8E1AC4E7E500AE7472 /* Logger.cpp */; };
@@ -83,6 +84,7 @@
 		C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QiGame.cpp; path = Source/AppFramework/QiGame.cpp; sourceTree = "<group>"; };
 		C3EE8CC81B3E4C6700208DF8 /* Vec4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vec4.cpp; path = Source/Core/Math/Vec4.cpp; sourceTree = "<group>"; };
 		C3EE8CCA1B3E4CBB00208DF8 /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Quaternion.cpp; path = Source/Core/Math/Quaternion.cpp; sourceTree = "<group>"; };
+		C3EE8CCC1B3F12A100208DF8 /* ReflectionUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionUtilities.h; path = Source/Core/Reflection/ReflectionUtilities.h; sourceTree = "<group>"; };
 		C3F50F891AC4E75E00AE7472 /* LogFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogFileWriter.h; path = Source/Core/Utility/Logger/LogFileWriter.h; sourceTree = "<group>"; };
 		C3F50F8C1AC4E79B00AE7472 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logger.h; path = Source/Core/Utility/Logger/Logger.h; sourceTree = "<group>"; };
 		C3F50F8E1AC4E7E500AE7472 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Logger.cpp; path = Source/Core/Utility/Logger/Logger.cpp; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				C3F50FB91AD61D5E00AE7472 /* ReflectionDataManager.cpp */,
 				C3F50FBA1AD61D5E00AE7472 /* ReflectionDataManager.h */,
 				C3F50FBB1AD61D5E00AE7472 /* ReflectionPrimitiveTypes.h */,
+				C3EE8CCC1B3F12A100208DF8 /* ReflectionUtilities.h */,
 			);
 			name = Reflection;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				C393DCC71A8B3A8400DAC0A2 /* Quaternion.h in Headers */,
 				C3D7EC721A61FDCD00FC46B6 /* Constants.h in Headers */,
 				C3F50F8D1AC4E79B00AE7472 /* Logger.h in Headers */,
+				C3EE8CCD1B3F12A100208DF8 /* ReflectionUtilities.h in Headers */,
 				C3D7EC821A62649100FC46B6 /* Timer.h in Headers */,
 				C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */,
 				C3F50FC11AD61D5E00AE7472 /* ReflectionData.h in Headers */,

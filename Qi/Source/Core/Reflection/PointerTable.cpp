@@ -9,6 +9,7 @@
 #include "PointerTable.h"
 #include "ReflectionDataManager.h"
 #include "../Defines.h"
+#include "ReflectionUtilities.h"
 #include <istream>
 
 namespace Qi
@@ -23,9 +24,6 @@ PointerTable::~PointerTable()
 {
 
 }
-
-#define PTR_ADD(PTR, OFFSET) \
-((void *)(((char *)(PTR)) + (OFFSET)))
 
 void PointerTable::Populate(const ReflectedVariable &reflectedVariable, bool needsSerialization)
 {
