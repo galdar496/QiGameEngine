@@ -13,6 +13,7 @@
 #include "../Defines.h"
 #include "SSEUtils.h"
 #include "../Reflection/Reflection.h"
+#include <float.h>
 #include <cmath>
 
 ///

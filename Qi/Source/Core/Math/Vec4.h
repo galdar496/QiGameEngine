@@ -28,7 +28,6 @@ class QI_ALIGN(QI_SSE_ALIGNMENT) Vec4
 		QI_DECLARE_REFLECTED_CLASS(Vec4);
     
 		Vec4();
-        
     
         ~Vec4() {}
     

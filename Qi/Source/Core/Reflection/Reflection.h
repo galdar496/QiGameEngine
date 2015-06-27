@@ -40,7 +40,7 @@
 /// with QI_DECLARE_REFLECTED_CLASS().
 ///
 #define QI_REFLECT_CLASS(classType) \
-    Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type> QI_UNIQUE_NAME( )(#classType, sizeof(classType)); \
+    const Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type> QI_UNIQUE_NAME( )(#classType, sizeof(classType)); \
     Qi::QualifierRemover<classType>::type *classType::NullCast() { return (Qi::QualifierRemover<classType>::type *)(nullptr); } \
     void classType::AddMember(const std::string &name, size_t offset, size_t size, bool isPointer, const Qi::ReflectionData *data) { return Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::AddMember(name, offset, size, isPointer, data); } \
     template<> void Qi::ReflectionDataCreator<Qi::QualifierRemover<classType>::type>::RegisterReflectionData() { classType::RegisterReflectionData(); } \

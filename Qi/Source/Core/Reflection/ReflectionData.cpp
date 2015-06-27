@@ -310,8 +310,6 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 				stream >> pointerIndex;
 				QI_ASSERT(pointerIndex >= 0);
 
-				ReflectedVariable &tablePointer = pointerTable.GetPointer(pointerIndex);
-
 				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
 				ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
 

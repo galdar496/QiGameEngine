@@ -13,6 +13,7 @@
 		C393DCCE1AA3915800DAC0A2 /* ContainerTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C393DCCD1AA3915800DAC0A2 /* ContainerTests.cpp */; };
 		C3E2A7B71AB3CE06002F0EB9 /* gtest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E2A7B61AB3CE06002F0EB9 /* gtest.framework */; };
 		C3E2A7B81AB3FFD4002F0EB9 /* gtest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C3E2A7B61AB3CE06002F0EB9 /* gtest.framework */; };
+		C3EE8CC71B3E4BD500208DF8 /* ReflectionTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EE8CC61B3E4BD500208DF8 /* ReflectionTests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +36,7 @@
 		C393DCBB1A87225600DAC0A2 /* libQi Game Engine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libQi Game Engine.a"; path = "../build/Debug/libQi Game Engine.a"; sourceTree = "<group>"; };
 		C393DCCD1AA3915800DAC0A2 /* ContainerTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ContainerTests.cpp; sourceTree = "<group>"; };
 		C3E2A7B61AB3CE06002F0EB9 /* gtest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gtest.framework; path = ../ThirdPartyLibs/gtest.framework; sourceTree = "<group>"; };
+		C3EE8CC61B3E4BD500208DF8 /* ReflectionTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReflectionTests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		C393DCA81A8721BE00DAC0A2 /* QiTest */ = {
 			isa = PBXGroup;
 			children = (
+				C3EE8CC61B3E4BD500208DF8 /* ReflectionTests.cpp */,
 				C393DCA91A8721BE00DAC0A2 /* main.cpp */,
 				C393DCB91A87224200DAC0A2 /* MathTests.cpp */,
 				C393DCCD1AA3915800DAC0A2 /* ContainerTests.cpp */,
@@ -128,6 +131,7 @@
 			files = (
 				C393DCAA1A8721BE00DAC0A2 /* main.cpp in Sources */,
 				C393DCBA1A87224200DAC0A2 /* MathTests.cpp in Sources */,
+				C3EE8CC71B3E4BD500208DF8 /* ReflectionTests.cpp in Sources */,
 				C393DCCE1AA3915800DAC0A2 /* ContainerTests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
