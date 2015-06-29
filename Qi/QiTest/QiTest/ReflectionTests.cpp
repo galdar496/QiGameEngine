@@ -17,6 +17,17 @@
 
 using namespace Qi;
 
+template<class T>
+void SerializeDeserialize(const T &in, T *&out)
+{
+	ReflectedVariable tmp1(in);
+	std::stringstream stream;
+	tmp1.Serialize(stream);
+
+	ReflectedVariable tmp2(out);
+	tmp2.Deserialize(stream);
+}
+
 class Simple
 {
 	public:
@@ -39,13 +50,8 @@ TEST(Reflection, SimpleTest)
 	s.x = 100;
 	s.y = -123;
 
-	Qi::ReflectedVariable v(s);
-	std::stringstream stream;
-	v.Serialize(stream);
-
 	Simple *s2 = nullptr;
-	Qi::ReflectedVariable v2(s2);
-	v2.Deserialize(stream);
+	SerializeDeserialize(s, s2);
 
 	EXPECT_EQ(s.x, s2->x);
 	EXPECT_EQ(s.y, s2->y);
@@ -77,13 +83,8 @@ TEST(Reflection, SimpleArrayTest)
 		s.x[ii] = ii;
 	}
 
-	Qi::ReflectedVariable v(s);
-	std::stringstream stream;
-	v.Serialize(stream);
-
 	SimpleArray *s2 = nullptr;
-	Qi::ReflectedVariable v2(s2);
-	v2.Deserialize(stream);
+	SerializeDeserialize(s, s2);
 
 	for (int ii = 0; ii < 10; ++ii)
 	{
@@ -118,13 +119,8 @@ TEST(Reflection, ArrayOfObjectsTest)
 		array.s[ii].y = ii;
 	}
 
-	Qi::ReflectedVariable v(array);
-	std::stringstream stream;
-	v.Serialize(stream);
-
 	ArrayOfObjects *array2 = nullptr;
-	Qi::ReflectedVariable v2(array2);
-	v2.Deserialize(stream);
+	SerializeDeserialize(array, array2);
 
 	for (int ii = 0; ii < 10; ++ii)
 	{
@@ -158,13 +154,8 @@ TEST(Reflection, PointerTest)
 	p.s->x = 123;
 	p.s->y = 456;
 
-	Qi::ReflectedVariable v(p);
-	std::stringstream stream;
-	v.Serialize(stream);
-
 	Pointer *p2 = nullptr;
-	Qi::ReflectedVariable v2(p2);
-	v2.Deserialize(stream);
+	SerializeDeserialize(p, p2);
 
 	EXPECT_EQ(123, p2->s->x);
 	EXPECT_EQ(456, p2->s->y);
@@ -223,13 +214,8 @@ TEST(Reflection, InheritanceTest)
 	Derived d;
 	d.base1 = false;
 
-	Qi::ReflectedVariable v(d);
-	std::stringstream stream;
-	v.Serialize(stream);
-
 	Derived *d2 = nullptr;
-	Qi::ReflectedVariable v2(d2);
-	v2.Deserialize(stream);
+	SerializeDeserialize(d, d2);
 
 	EXPECT_EQ(false, d2->base1);
 	EXPECT_EQ(true,  d2->derived1);
@@ -305,13 +291,8 @@ TEST(Reflection, ComplexTest)
 		c.complexArray.s[ii].y = ii;
 	}
 
-	Qi::ReflectedVariable v(c);
-	std::stringstream stream;
-	v.Serialize(stream);
-
 	Complex *c2 = nullptr;
-	Qi::ReflectedVariable v2(c2);
-	v2.Deserialize(stream);
+	SerializeDeserialize(c, c2);
 
 	EXPECT_EQ(true, c2->derived->base1);
 	EXPECT_EQ(false, c2->derived->derived1);
@@ -351,13 +332,9 @@ TEST(Reflection, VectorTest)
 	v.v[1] = 2.0f;
 	v.v[2] = 3.0f;
 	v.v[3] = 4.0f;
-	Qi::ReflectedVariable variable(v);
-	std::stringstream stream;
-	variable.Serialize(stream);
 
 	Qi::Vec4 *v2;
-	Qi::ReflectedVariable variable2(v2);
-	variable2.Deserialize(stream);
+	SerializeDeserialize(v, v2);
 
 	EXPECT_EQ(1.0f, v2->v[0]);
 	EXPECT_EQ(2.0f, v2->v[1]);
@@ -374,13 +351,9 @@ TEST(Reflection, QuaternionTest)
 	q.q[1] = 2.0f;
 	q.q[2] = 3.0f;
 	q.q[3] = 4.0f;
-	Qi::ReflectedVariable variable(q);
-	std::stringstream stream;
-	variable.Serialize(stream);
 
 	Qi::Quaternion *q2;
-	Qi::ReflectedVariable variable2(q2);
-	variable2.Deserialize(stream);
+	SerializeDeserialize(q, q2);
 
 	EXPECT_EQ(1.0f, q2->q[0]);
 	EXPECT_EQ(2.0f, q2->q[1]);
@@ -397,13 +370,8 @@ TEST(Reflection, MatrixTest)
 		          9, 10, 11, 12,
 		          13, 14, 15, 16);
 
-	Qi::ReflectedVariable variable(m);
-	std::stringstream stream;
-	variable.Serialize(stream);
-
 	Qi::Matrix4 *m2;
-	Qi::ReflectedVariable variable2(m2);
-	variable2.Deserialize(stream);
+	SerializeDeserialize(m, m2);
 
 	EXPECT_EQ(1, (*m2)(0, 0));
 	EXPECT_EQ(2, (*m2)(0, 1));
@@ -426,4 +394,37 @@ TEST(Reflection, MatrixTest)
 	EXPECT_EQ(16, (*m2)(3, 3));
 
 	delete m2;
+}
+
+class StringObject
+{
+	public:
+
+		QI_DECLARE_REFLECTED_CLASS(StringObject);
+
+		std::string s1;
+		std::string s2;
+};
+
+QI_REFLECT_CLASS(StringObject)
+{
+	QI_REFLECT_MEMBER(s1);
+	QI_REFLECT_MEMBER(s2);
+}
+
+
+
+TEST(Reflection, StringTest)
+{
+	StringObject object;
+	object.s1 = "This is a string";
+	object.s2 = "This is also a string";
+
+	StringObject *object2 = nullptr;
+	SerializeDeserialize(object, object2);
+
+	EXPECT_EQ("This is a string", object2->s1);
+	EXPECT_EQ("This is also a string", object2->s2);
+
+	delete object2;
 }

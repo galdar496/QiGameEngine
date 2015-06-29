@@ -43,6 +43,33 @@ void DeserializePrimitiveValue(ReflectedVariable *variable, std::istream &stream
 	stream >> variable->GetValue<T>();
 }
 
+/////// Specializations for serializing string types (have to be able to handle multiple words).
+template<>
+void SerializePrimitiveValue<std::string>(const ReflectedVariable *variable, std::ostream &stream)
+{
+	std::string string = variable->GetValue<std::string>();
+
+	stream << string.length() << " " << string << std::endl;
+}
+
+template<>
+void DeserializePrimitiveValue<std::string>(ReflectedVariable *variable, std::istream &stream)
+{
+	size_t stringLength = 0;
+	stream >> stringLength;
+
+	QI_ASSERT(stringLength > 0);
+
+	// seek ahead one character to avoid reading the space inserted by the serialization function.
+	stream.seekg(1, std::ios_base::cur);
+
+	char tmpArray[1024];
+	stream.read(tmpArray, stringLength);
+	std::string tmp(tmpArray, stringLength);
+	variable->GetValue<std::string>() = tmp;
+}
+////////
+
 // Declare all supported POD reflected types.
 QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(int);
 QI_DECLARE_REFLECTION_PRIMITIVE_TYPE(float);
