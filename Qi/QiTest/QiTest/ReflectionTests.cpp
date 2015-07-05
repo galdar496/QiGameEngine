@@ -412,8 +412,6 @@ QI_REFLECT_CLASS(StringObject)
 	QI_REFLECT_MEMBER(s2);
 }
 
-
-
 TEST(Reflection, StringTest)
 {
 	StringObject object;
@@ -427,4 +425,19 @@ TEST(Reflection, StringTest)
 	EXPECT_EQ("This is also a string", object2->s2);
 
 	delete object2;
+}
+
+TEST(Reflection, GetTypeTest)
+{
+    const std::string typeName = "StringObject";
+    
+    void *object = Qi::ReflectionDataManager::GetInstance().GetReflectionData(typeName)->AllocateInstance();
+    
+    EXPECT_EQ(true, object != nullptr);
+}
+
+TEST(Reflection, DataMemberCountTest)
+{
+    const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("StringObject");
+    EXPECT_EQ(2, data->GetMembers().size());
 }
