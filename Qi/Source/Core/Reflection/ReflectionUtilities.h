@@ -12,8 +12,15 @@
 /// Utility functions to be used by the reflection system.
 ///
 
+namespace Qi
+{
+
 ///
 /// Simple pointer manipulation.
 ///
-#define PTR_ADD(PTR, OFFSET) \
-    ((void *)(((char *)(PTR)) + (OFFSET)))
+inline void *PointerOffset(const void *ptr, size_t offset)
+{
+    return (void *)((char *)ptr + offset);
+}
+
+} // namespace Qi

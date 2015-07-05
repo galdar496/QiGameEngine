@@ -205,7 +205,7 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 		// If this is a pointer type, serialize its index in the pointer table.
 		if (member->IsPointer())
 		{
-			void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+			void *offsetData = PointerOffset(variable->GetInstanceData(), member->GetOffset());
 			ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
 
 			void *pointerData = &(*(memberVariable.GetValue<char *>()));
@@ -228,7 +228,7 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 				Pad(stream, padding);
 
 				// Get the next element to serialize.
-				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset() + ii);
+				void *offsetData = PointerOffset(variable->GetInstanceData(), member->GetOffset() + ii);
 				ReflectedVariable arrayElement(data, offsetData);
 				data->Serialize(&arrayElement, stream, pointerTable, padding, true);
 			}
@@ -237,7 +237,7 @@ void ReflectionData::Serialize(const ReflectedVariable *variable, std::ostream &
 		else // non-array/pointer type.
 		{
 			stream << member->GetName() << " ";
-			void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+			void *offsetData = PointerOffset(variable->GetInstanceData(), member->GetOffset());
 			ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
 			member->GetReflectionData()->Serialize(&memberVariable, stream, pointerTable, padding, false);
 		}
@@ -308,7 +308,7 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 				stream >> pointerIndex;
 				QI_ASSERT(pointerIndex >= 0);
 
-				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+				void *offsetData = PointerOffset(variable->GetInstanceData(), member->GetOffset());
 				ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
 
 				// Add this pointer to the patch table to deffer resolving it until the pointer table
@@ -322,14 +322,14 @@ void ReflectionData::Deserialize(ReflectedVariable *variable, std::istream &stre
 				for (size_t ii = 0; ii < member->GetSize(); ii += baseTypeSize)
 				{
 					// Get the next element to serialize.
-					void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset() + ii);
+					void *offsetData = PointerOffset(variable->GetInstanceData(), member->GetOffset() + ii);
 					ReflectedVariable arrayElement(data, offsetData);
 					data->Deserialize(&arrayElement, stream, pointerTable, true);
 				}
 			}
 			else // non-array/pointer type type.
 			{
-				void *offsetData = PTR_ADD(variable->GetInstanceData(), member->GetOffset());
+				void *offsetData = PointerOffset(variable->GetInstanceData(), member->GetOffset());
 				ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
 				member->GetReflectionData()->Deserialize(&memberVariable, stream, pointerTable, false);
 			}

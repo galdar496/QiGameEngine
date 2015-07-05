@@ -48,7 +48,7 @@ void PointerTable::Populate(const ReflectedVariable &reflectedVariable, bool nee
 			// Only add objects who also have data members.
 			if (member->GetReflectionData()->HasDataMembers() || member->IsPointer())
 			{
-				void *offsetData = PTR_ADD(reflectedVariable.GetInstanceData(), member->GetOffset());
+				void *offsetData = PointerOffset(reflectedVariable.GetInstanceData(), member->GetOffset());
 				ReflectedVariable memberVariable(member->GetReflectionData(), offsetData);
 				if (member->IsPointer())
 				{

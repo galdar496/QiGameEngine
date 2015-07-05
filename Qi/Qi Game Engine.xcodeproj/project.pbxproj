@@ -35,6 +35,7 @@
 		C3EE8CC91B3E4C6700208DF8 /* Vec4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EE8CC81B3E4C6700208DF8 /* Vec4.cpp */; };
 		C3EE8CCB1B3E4CBB00208DF8 /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EE8CCA1B3E4CBB00208DF8 /* Quaternion.cpp */; };
 		C3EE8CCD1B3F12A100208DF8 /* ReflectionUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C3EE8CCC1B3F12A100208DF8 /* ReflectionUtilities.h */; };
+		C3EE8CCF1B491A9E00208DF8 /* StringUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C3EE8CCE1B491A9E00208DF8 /* StringUtilities.h */; };
 		C3F50F8B1AC4E75E00AE7472 /* LogFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F891AC4E75E00AE7472 /* LogFileWriter.h */; };
 		C3F50F8D1AC4E79B00AE7472 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F50F8C1AC4E79B00AE7472 /* Logger.h */; };
 		C3F50F8F1AC4E7E500AE7472 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3F50F8E1AC4E7E500AE7472 /* Logger.cpp */; };
@@ -85,6 +86,7 @@
 		C3EE8CC81B3E4C6700208DF8 /* Vec4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Vec4.cpp; path = Source/Core/Math/Vec4.cpp; sourceTree = "<group>"; };
 		C3EE8CCA1B3E4CBB00208DF8 /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Quaternion.cpp; path = Source/Core/Math/Quaternion.cpp; sourceTree = "<group>"; };
 		C3EE8CCC1B3F12A100208DF8 /* ReflectionUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionUtilities.h; path = Source/Core/Reflection/ReflectionUtilities.h; sourceTree = "<group>"; };
+		C3EE8CCE1B491A9E00208DF8 /* StringUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringUtilities.h; path = Source/Core/Utility/StringUtilities.h; sourceTree = "<group>"; };
 		C3F50F891AC4E75E00AE7472 /* LogFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogFileWriter.h; path = Source/Core/Utility/Logger/LogFileWriter.h; sourceTree = "<group>"; };
 		C3F50F8C1AC4E79B00AE7472 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Logger.h; path = Source/Core/Utility/Logger/Logger.h; sourceTree = "<group>"; };
 		C3F50F8E1AC4E7E500AE7472 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Logger.cpp; path = Source/Core/Utility/Logger/Logger.cpp; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			children = (
 				C3F50F871AC4E73700AE7472 /* Logger */,
 				C31BE4E31ABAA38B003F11D6 /* MathUtilities.h */,
+				C3EE8CCE1B491A9E00208DF8 /* StringUtilities.h */,
 				C3D7EC741A622EEC00FC46B6 /* Random.cpp */,
 				C3D7EC751A622EEC00FC46B6 /* Random.h */,
 				C3D7EC811A62649100FC46B6 /* Timer.h */,
@@ -281,6 +284,7 @@
 				C3D7ECA21A7CD18600FC46B6 /* QiGame.h in Headers */,
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix4.h in Headers */,
 				C3F50F941AC515D900AE7472 /* HTMLLogFileWriter.h in Headers */,
+				C3EE8CCF1B491A9E00208DF8 /* StringUtilities.h in Headers */,
 				C3F50FC41AD61D5E00AE7472 /* ReflectionPrimitiveTypes.h in Headers */,
 				C393DCCC1AA38D0200DAC0A2 /* Array.h in Headers */,
 				C3F50F8B1AC4E75E00AE7472 /* LogFileWriter.h in Headers */,
