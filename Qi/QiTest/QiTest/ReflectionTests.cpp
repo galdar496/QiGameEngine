@@ -441,3 +441,11 @@ TEST(Reflection, DataMemberCountTest)
     const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData("StringObject");
     EXPECT_EQ(2, data->GetMembers().size());
 }
+
+TEST(Reflection, UnknownType)
+{
+	const std::string typeName = "unknownType";
+
+	const Qi::ReflectionData *data = Qi::ReflectionDataManager::GetInstance().GetReflectionData(typeName);
+	EXPECT_EQ(nullptr, data);
+}
