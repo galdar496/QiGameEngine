@@ -7,8 +7,9 @@
 //
 
 #include "../Source/AppFramework/QiGame.h"
-#include "../Source/Core/Math/Vec4.h"
 #include <iostream>
+
+#include "../Source/Core/Reflection/ReflectionDataManager.h"
 
 class QiExample : public QiGameImpl
 {

@@ -56,6 +56,21 @@ const ReflectionData *ReflectionDataManager::GetReflectionData(uint32 hashedName
     
     return nullptr;
 }
+
+void ReflectionDataManager::GetAllTypenames(Typenames &typenames) const
+{
+	QI_ASSERT(!m_reflectedData.empty());
+
+	typenames.resize(m_reflectedData.size());
+
+	// Add all typenames to the list by simply iterating over them.
+	int index = 0;
+	ReflectionTable::const_iterator iter = m_reflectedData.begin();
+	for (; iter != m_reflectedData.end(); ++iter)
+	{
+		typenames[index++] = iter->second->GetName();
+	}
+}
     
 } // namespace Qi
 

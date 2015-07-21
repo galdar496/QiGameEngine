@@ -54,6 +54,15 @@ class ReflectionDataManager
         /// @return The reflection data, or nullptr if this type was not found.
         ///
         const ReflectionData *GetReflectionData(uint32 hashedName);
+
+		///
+		/// Get all type names stored in the reflection system.
+		///
+		/// @param typenames List of typenames to populate for the calling function.
+		///
+		typedef std::vector<std::string> Typenames;
+		void GetAllTypenames(Typenames &typenames) const;
+
     
     private:
     
