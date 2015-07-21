@@ -132,6 +132,7 @@
     <ClCompile Include="QiTest\ContainerTests.cpp" />
     <ClCompile Include="QiTest\main.cpp" />
     <ClCompile Include="QiTest\MathTests.cpp" />
+    <ClCompile Include="QiTest\ObjectTests.cpp" />
     <ClCompile Include="QiTest\ReflectionTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

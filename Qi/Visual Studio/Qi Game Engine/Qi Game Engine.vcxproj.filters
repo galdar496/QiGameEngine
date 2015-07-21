@@ -34,6 +34,9 @@
     <Filter Include="Core\Reflection">
       <UniqueIdentifier>{7f9cf564-b058-4515-ac2d-f57274087255}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Object">
+      <UniqueIdentifier>{ec280732-39d4-4e84-a6b0-5ce42f834d00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp">
@@ -77,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Core\Math\Quaternion.cpp">
       <Filter>Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Object\RefCountedObject.cpp">
+      <Filter>Core\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Core\Reflection\PointerTable.h">
       <Filter>Core\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Object\RefCountedObject.h">
+      <Filter>Core\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

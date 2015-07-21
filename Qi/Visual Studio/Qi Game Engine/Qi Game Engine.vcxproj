@@ -128,6 +128,7 @@
     <ClCompile Include="..\..\Source\Core\Math\Quaternion.cpp" />
     <ClCompile Include="..\..\Source\Core\Math\Vec4.cpp" />
     <ClCompile Include="..\..\Source\Core\Memory\MemoryAllocator.cpp" />
+    <ClCompile Include="..\..\Source\Core\Object\RefCountedObject.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\PointerTable.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\ReflectedVariable.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\ReflectionData.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="..\..\Source\Core\Math\SSEUtils.h" />
     <ClInclude Include="..\..\Source\Core\Math\Vec4.h" />
     <ClInclude Include="..\..\Source\Core\Memory\MemoryAllocator.h" />
+    <ClInclude Include="..\..\Source\Core\Object\RefCountedObject.h" />
     <ClInclude Include="..\..\Source\Core\Reflection\PointerTable.h" />
     <ClInclude Include="..\..\Source\Core\Reflection\QualifierRemover.h" />
     <ClInclude Include="..\..\Source\Core\Reflection\ReflectedVariable.h" />
