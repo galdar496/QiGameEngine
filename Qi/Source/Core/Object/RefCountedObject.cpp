@@ -14,6 +14,11 @@
 namespace Qi
 {
 
+QI_REFLECT_CLASS(RefCountedObject)
+{
+	QI_REFLECT_MEMBER(m_refCount);
+}
+
 RefCountedObject::RefCountedObject() :
 	m_refCount(1)
 {
