@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
-#pragma once
-
 #include "RefCountedObject.h"
 #include "../Memory/MemoryAllocator.h"
 
