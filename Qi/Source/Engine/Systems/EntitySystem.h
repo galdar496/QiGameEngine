@@ -44,11 +44,8 @@ class EntitySystem : public SystemBase
         virtual std::string GetName() const override;
         //////////////////////////////////////////
     
-        struct EntityHandle
-        {
-            Entity *entity;
-            uint32 id;
-        };
+		typedef uint32 EntityHandle;
+		static const EntityHandle INVALID_HANDLE = INT_MAX;
     
         ///
         /// Reserve an entity for use in the game world.
@@ -63,6 +60,14 @@ class EntitySystem : public SystemBase
         /// @param handle Handle to the entity to remove.
         ///
         void RemoveEntity(const EntityHandle &handle);
+
+		///
+		/// Get an entity from the system that has already been created.
+		///
+		/// @param handle Handle to the entity to retrieve.
+		/// @return Reference to the internal entity.
+		///
+		Entity &GetEntity(const EntityHandle &handle);
     
     private:
     
@@ -77,8 +82,8 @@ class EntitySystem : public SystemBase
                                   ///  to be tightly packed together.
     
         uint32 m_currentIndex; ///< Index in m_entities immediately following the last entity in the world.
-        Array<uint32> m_idMap; ///< Map of entity handles to indices within 'm_entities'. The index of an entity may
-                               ///  change during removal of dead entites to handle fragmentation.
+		Array<EntityHandle> m_idMap; ///< Map of entity handles to indices within 'm_entities'. The index of an entity may
+                                     ///  change during removal of dead entites to handle fragmentation.
 
 };
 

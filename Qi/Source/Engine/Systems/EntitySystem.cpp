@@ -46,6 +46,14 @@ Result EntitySystem::Init(const Cinfo *info)
     if (result.IsValid())
     {
         result = m_idMap.Resize(cinfo->maxEntities);
+		if (result.IsValid())
+		{
+			// Set the id map values to an invalid ID value.
+			for (uint32 ii = 0; ii < m_idMap.GetSize(); ++ii)
+			{
+				m_idMap[ii] = INVALID_HANDLE;
+			}
+		}
     }
     
     m_initialized = true;
@@ -79,25 +87,22 @@ EntitySystem::EntityHandle EntitySystem::CreateEntity()
 {
     QI_ASSERT(m_initialized);
     
-    EntityHandle handle;
-    handle.entity = &(m_entities[m_currentIndex]);
-    handle.id     = m_currentIndex;
-    
+	EntityHandle handle = m_currentIndex;
+
     // Entities start out with their original location in the map.
-    m_idMap[handle.id] = handle.id;
+    m_idMap[handle] = handle;
     
     ++m_currentIndex;
-    
     return handle;
 }
 
 void EntitySystem::RemoveEntity(const Qi::EntitySystem::EntityHandle &handle)
 {
     QI_ASSERT(m_initialized);
-    QI_ASSERT(handle.id < m_currentIndex);
+    QI_ASSERT(handle < m_currentIndex);
     
     uint32 endEntity = m_currentIndex - 1;
-    uint32 mappedId  = m_idMap[handle.id];
+    uint32 mappedId  = m_idMap[handle];
     
     // Swap the entity to be removed with the last entity in the list.
     m_entities[mappedId] = m_entities[endEntity];
@@ -107,6 +112,14 @@ void EntitySystem::RemoveEntity(const Qi::EntitySystem::EntityHandle &handle)
     
     // Decrement the current index now that we've removed an entity.
     --m_currentIndex;
+}
+
+Entity &EntitySystem::GetEntity(const EntityHandle &handle)
+{
+	EntityHandle mappedID = m_idMap[handle];
+	QI_ASSERT(mappedID != INVALID_HANDLE);
+
+	return m_entities[mappedID];
 }
 
 std::string EntitySystem::GetName() const
