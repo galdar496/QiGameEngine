@@ -27,7 +27,9 @@ class Entity
         Entity();
 		~Entity();
         Entity(const Entity &other);
+		Entity(Entity &&other);
         Entity &operator=(const Entity &other);
+		Entity &operator=(Entity &&other);
     
         ///
         /// Update this entity for the current simulation step. The time

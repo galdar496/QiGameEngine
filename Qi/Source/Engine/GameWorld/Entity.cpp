@@ -27,6 +27,10 @@ Entity::Entity(const Entity &other)
 {
 }
 
+Entity::Entity(Entity &&other)
+{
+}
+
 Entity &Entity::operator=(const Entity &other)
 {
     if (this != &other)
@@ -35,6 +39,11 @@ Entity &Entity::operator=(const Entity &other)
     }
     
     return *this;
+}
+
+Entity &Entity::operator=(Entity &&other)
+{
+	return *this;
 }
 
 void Entity::Update(const float dt)
