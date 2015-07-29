@@ -13,19 +13,19 @@
 /// Typically, this refers to dynamic objects in the scene.
 ///
 
-#include "../../Core/Object/RefCountedObject.h"
 #include "../../Core/Reflection/Reflection.h"
 
 namespace Qi
 {
 
-class Entity : public RefCountedObject
+class Entity
 {
     public:
     
         QI_DECLARE_REFLECTED_CLASS(Entity);
     
         Entity();
+		~Entity();
         Entity(const Entity &other);
         Entity &operator=(const Entity &other);
     
@@ -37,10 +37,6 @@ class Entity : public RefCountedObject
         /// @param dt Time since the last update in seconds.
         ///
         void Update(const float dt);
-    
-    protected:
-    
-        virtual ~Entity();
 };
 
 } // namespace Qi

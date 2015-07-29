@@ -122,6 +122,7 @@ Result Engine::CreateInternalSystems(const EngineConfig &config)
         Result result = m_entitySystem->Init(&info);
         if (!result.IsValid())
         {
+			Qi_LogError("Unable to initialize system %s", m_entitySystem->GetName().c_str());
             return result;
         }
     }

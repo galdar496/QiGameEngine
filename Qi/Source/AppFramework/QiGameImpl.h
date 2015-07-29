@@ -14,14 +14,19 @@
 /// and override its members to easily drive a engine.
 ///
 
+#include "../Engine/Engine.h"
 #include "../Engine/EngineConfig.h"
 #include "../Core/Containers/Array.h"
 
 // Forward declarations.
 namespace Qi
 {
-    class SystemBase;
+
+class SystemBase;
+class Engine;
+
 } // namespace Qi
+
 class QiGameImpl
 {
     public:
@@ -65,4 +70,6 @@ class QiGameImpl
         /// terminated.
         ///
         virtual bool Step(const float dt) { return true; }
+
+		Qi::Engine *m_engine;
 };

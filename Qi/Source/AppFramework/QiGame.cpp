@@ -23,6 +23,7 @@ void QiGame::RunGame(QiGameImpl *game)
     QI_ASSERT(game != nullptr);
     
     Qi::Engine engine;
+	game->m_engine = &engine;
     
     // Configure and initialize the engine and game.
     {

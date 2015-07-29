@@ -13,7 +13,6 @@ namespace Qi
 
 QI_REFLECT_CLASS(Entity)
 {
-    QI_DECLARE_PARENT(Entity, RefCountedObject);
 }
 
 Entity::Entity()

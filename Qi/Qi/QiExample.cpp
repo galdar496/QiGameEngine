@@ -9,8 +9,6 @@
 #include "../Source/AppFramework/QiGame.h"
 #include <iostream>
 
-#include "../Source/Core/Reflection/ReflectionDataManager.h"
-
 class QiExample : public QiGameImpl
 {
     public:

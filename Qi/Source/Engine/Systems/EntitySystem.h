@@ -45,7 +45,7 @@ class EntitySystem : public SystemBase
         //////////////////////////////////////////
     
 		typedef uint32 EntityHandle;
-		static const EntityHandle INVALID_HANDLE = INT_MAX;
+		static const EntityHandle INVALID_HANDLE = UINT_MAX;
     
         ///
         /// Reserve an entity for use in the game world.
@@ -55,7 +55,8 @@ class EntitySystem : public SystemBase
         EntityHandle CreateEntity();
     
         ///
-        /// Remove an entity from the world.
+        /// Remove an entity from the world. This cannot be called while
+		/// the entities are being updated.
         ///
         /// @param handle Handle to the entity to remove.
         ///
@@ -76,15 +77,26 @@ class EntitySystem : public SystemBase
         EntitySystem &operator=(const EntitySystem &other) = delete;
     
         static const std::string M_NAME; ///< Name of this class.
-    
-        Array<Entity> m_entities; ///< Array of all entities in the world. This array is allocated once and
-                                  ///  handles to entities within are returned. All live entities are guaranteed
-                                  ///  to be tightly packed together.
-    
-        uint32 m_currentIndex; ///< Index in m_entities immediately following the last entity in the world.
-		Array<EntityHandle> m_idMap; ///< Map of entity handles to indices within 'm_entities'. The index of an entity may
-                                     ///  change during removal of dead entites to handle fragmentation.
 
+		///
+		/// Record to use for associated a unique ID with a specific entity.
+		///
+		struct EntityRecord
+		{
+			EntityHandle uniqueId; ///< ID that is unique to only this entity.
+			Entity entity;         ///< Entity itself.
+		};
+    
+		Array<EntityRecord> m_entities; ///< Array of all entities in the world. This array is allocated once and
+                                        ///  handles to entities within are returned. All live entities are guaranteed
+                                        ///  to be tightly packed together.
+    
+		uint32 m_numLiveEntities; ///< Number of live entities in the system.
+		Array<EntityHandle> m_idMap; ///< Map of entity handles to indices within 'm_entities'. The index of an entity may
+                                     ///  change during removal of dead entities to handle fragmentation.
+
+		Array<EntityHandle> m_entityHandleFreeList; ///< List of free unique IDs for new entities.
+		uint32 m_numFreeHandles; ///< Number of free IDs in the freelist.
 };
 
 } // namespace Qi
