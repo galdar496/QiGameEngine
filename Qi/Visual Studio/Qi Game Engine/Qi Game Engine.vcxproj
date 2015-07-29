@@ -137,6 +137,9 @@
     <ClCompile Include="..\..\Source\Core\Utility\Logger\Logger.cpp" />
     <ClCompile Include="..\..\Source\Core\Utility\Random.cpp" />
     <ClCompile Include="..\..\Source\Engine\Engine.cpp" />
+    <ClCompile Include="..\..\Source\Engine\GameWorld\Entity.cpp" />
+    <ClCompile Include="..\..\Source\Engine\Systems\EntitySystem.cpp" />
+    <ClCompile Include="..\..\Source\Engine\Systems\SystemBase.cpp" />
     <ClCompile Include="..\..\Source\ThirdParty\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +172,8 @@
     <ClInclude Include="..\..\Source\Core\Utility\Timer.h" />
     <ClInclude Include="..\..\Source\Engine\Engine.h" />
     <ClInclude Include="..\..\Source\Engine\EngineConfig.h" />
+    <ClInclude Include="..\..\Source\Engine\GameWorld\Entity.h" />
+    <ClInclude Include="..\..\Source\Engine\Systems\EntitySystem.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\SystemBase.h" />
     <ClInclude Include="..\..\Source\ThirdParty\FastDelegate.h" />
     <ClInclude Include="..\..\Source\ThirdParty\tinyxml2.h" />

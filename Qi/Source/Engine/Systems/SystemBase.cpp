@@ -29,6 +29,7 @@ SystemBase::~SystemBase()
 Result SystemBase::Init(const Cinfo *info)
 {
     QI_ASSERT(0 && "This function should be overriden");
+	return Result(ReturnCode::kUnknownError);
 }
     
 void SystemBase::Deinit()
@@ -44,6 +45,7 @@ void SystemBase::Update(const float dt)
 std::string SystemBase::GetName() const
 {
     QI_ASSERT(0 && "This function should be overriden");
+	return std::string();
 }
 
 } // namespace Qi

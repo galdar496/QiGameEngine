@@ -37,6 +37,9 @@
     <Filter Include="Core\Object">
       <UniqueIdentifier>{ec280732-39d4-4e84-a6b0-5ce42f834d00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameWorld">
+      <UniqueIdentifier>{e42bae83-039a-48b2-82f6-807bae6a65f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp">
@@ -83,6 +86,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Core\Object\RefCountedObject.cpp">
       <Filter>Core\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Engine\Systems\EntitySystem.cpp">
+      <Filter>Engine\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Engine\Systems\SystemBase.cpp">
+      <Filter>Engine\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Engine\GameWorld\Entity.cpp">
+      <Filter>Engine\GameWorld</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +193,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Core\Object\RefCountedObject.h">
       <Filter>Core\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\Systems\EntitySystem.h">
+      <Filter>Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\GameWorld\Entity.h">
+      <Filter>Engine\GameWorld</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

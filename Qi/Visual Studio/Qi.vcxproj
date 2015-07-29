@@ -21,6 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{86B028B2-A6CE-476D-81EC-07D06D558938}</ProjectGuid>
     <RootNamespace>Qi</RootNamespace>
+    <ProjectName>QiExample</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
