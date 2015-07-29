@@ -21,18 +21,21 @@ public:
 	TestObject()
 	{
 	}
+    
+    float value;
+    
+protected:
 
 	virtual ~TestObject()
 	{
 	}
-
-	float value;
 };
 
 TEST(RefCounting, SimpleTest)
 {
-	TestObject t;
-	EXPECT_EQ(1, t.GetReferenceCount());
+	TestObject *t = Qi_AllocateMemory(TestObject);
+	EXPECT_EQ(1, t->GetReferenceCount());
+    t->ReleaseReference();
 }
 
 TEST(RefCounting, MultipleReferencesTest)

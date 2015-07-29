@@ -20,7 +20,10 @@ class QiExample : public QiGameImpl
             config.flushLogFile = true;
         }
         
-        virtual bool Init() override { return true; }
+        virtual bool Init() override
+        {
+            return true;
+        }
 
         virtual void AddCustomSystems(Qi::Array<Qi::SystemBase *> &systems) const override {}
         

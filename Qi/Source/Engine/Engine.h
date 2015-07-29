@@ -29,6 +29,7 @@ namespace Qi
 
 // Forward declarations.
 class SystemBase;
+class EntitySystem;
 
 class Engine
 {
@@ -76,6 +77,16 @@ class Engine
         Engine(const Engine &other) = delete;
         Engine &operator=(const Engine &other) = delete;
     
+        ///
+        /// Create the internal systems to handle various engine tasks (rendering, entities, physics, etc.).
+        ///
+        Result CreateInternalSystems(const EngineConfig &config);
+    
+        ///
+        /// Shutdown any internal systems and make sure all memory is cleaned up.
+        ///
+        void ShutdownInternalSystems();
+    
     #ifdef QI_DEBUG
         ///
         /// Default message handler for message logging. This function prints the incoming
@@ -89,7 +100,10 @@ class Engine
     
         bool m_initiailzed; ///< If true, the engine has been properly initialized.
     
-        Array<SystemBase *> m_systems; ///< All systems managed by the engine.
+        Array<SystemBase *> m_customSystems; ///< All custom systems managed by the engine.
+    
+        // Internal systems created and owned by the engine.
+        EntitySystem *m_entitySystem;
 };
 
 } // namespace Qi

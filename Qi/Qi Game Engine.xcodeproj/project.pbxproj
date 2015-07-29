@@ -11,6 +11,11 @@
 		C31BE4E41ABAA38B003F11D6 /* MathUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C31BE4E31ABAA38B003F11D6 /* MathUtilities.h */; };
 		C33F00811B670B6A005A260E /* RefCountedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33F007F1B670B6A005A260E /* RefCountedObject.cpp */; };
 		C33F00821B670B6A005A260E /* RefCountedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = C33F00801B670B6A005A260E /* RefCountedObject.h */; };
+		C33F00861B670C5B005A260E /* EntitySystem.h in Headers */ = {isa = PBXBuildFile; fileRef = C33F00851B670C5B005A260E /* EntitySystem.h */; };
+		C33F00881B670DA6005A260E /* EntitySystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33F00871B670DA6005A260E /* EntitySystem.cpp */; };
+		C33F008C1B670F25005A260E /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33F008A1B670F25005A260E /* Entity.cpp */; };
+		C33F008D1B670F25005A260E /* Entity.h in Headers */ = {isa = PBXBuildFile; fileRef = C33F008B1B670F25005A260E /* Entity.h */; };
+		C33F008F1B671E24005A260E /* SystemBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33F008E1B671E24005A260E /* SystemBase.cpp */; };
 		C3586C3E1B158744004D8698 /* PointerTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3586C3C1B158744004D8698 /* PointerTable.cpp */; };
 		C3586C3F1B158744004D8698 /* PointerTable.h in Headers */ = {isa = PBXBuildFile; fileRef = C3586C3D1B158744004D8698 /* PointerTable.h */; };
 		C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */; };
@@ -61,6 +66,11 @@
 		C31BE4E51ABAA3C9003F11D6 /* LocklessQueue.inl */ = {isa = PBXFileReference; lastKnownFileType = text; name = LocklessQueue.inl; path = Source/Core/Containers/LocklessQueue.inl; sourceTree = "<group>"; };
 		C33F007F1B670B6A005A260E /* RefCountedObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RefCountedObject.cpp; path = Source/Core/Object/RefCountedObject.cpp; sourceTree = "<group>"; };
 		C33F00801B670B6A005A260E /* RefCountedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RefCountedObject.h; path = Source/Core/Object/RefCountedObject.h; sourceTree = "<group>"; };
+		C33F00851B670C5B005A260E /* EntitySystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EntitySystem.h; path = Source/Engine/Systems/EntitySystem.h; sourceTree = "<group>"; };
+		C33F00871B670DA6005A260E /* EntitySystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EntitySystem.cpp; path = Source/Engine/Systems/EntitySystem.cpp; sourceTree = "<group>"; };
+		C33F008A1B670F25005A260E /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Entity.cpp; path = Source/Engine/GameWorld/Entity.cpp; sourceTree = "<group>"; };
+		C33F008B1B670F25005A260E /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = Source/Engine/GameWorld/Entity.h; sourceTree = "<group>"; };
+		C33F008E1B671E24005A260E /* SystemBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SystemBase.cpp; path = Source/Engine/Systems/SystemBase.cpp; sourceTree = "<group>"; };
 		C3586C3C1B158744004D8698 /* PointerTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointerTable.cpp; path = Source/Core/Reflection/PointerTable.cpp; sourceTree = "<group>"; };
 		C3586C3D1B158744004D8698 /* PointerTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointerTable.h; path = Source/Core/Reflection/PointerTable.h; sourceTree = "<group>"; };
 		C358FF101AA3A72A00115E31 /* libQi Game Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libQi Game Engine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +140,15 @@
 				C33F00801B670B6A005A260E /* RefCountedObject.h */,
 			);
 			name = Object;
+			sourceTree = "<group>";
+		};
+		C33F00891B670EB0005A260E /* GameWorld */ = {
+			isa = PBXGroup;
+			children = (
+				C33F008A1B670F25005A260E /* Entity.cpp */,
+				C33F008B1B670F25005A260E /* Entity.h */,
+			);
+			name = GameWorld;
 			sourceTree = "<group>";
 		};
 		C393DCBE1A87329300DAC0A2 /* Memory */ = {
@@ -220,6 +239,7 @@
 		C3D7EC901A7CC8EA00FC46B6 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				C33F00891B670EB0005A260E /* GameWorld */,
 				C393DC9B1A81EBEC00DAC0A2 /* EngineConfig.h */,
 				C3D7EC921A7CC90700FC46B6 /* Engine.cpp */,
 				C3D7EC931A7CC90700FC46B6 /* Engine.h */,
@@ -232,6 +252,9 @@
 			isa = PBXGroup;
 			children = (
 				C3D7EC961A7CC93000FC46B6 /* SystemBase.h */,
+				C33F008E1B671E24005A260E /* SystemBase.cpp */,
+				C33F00851B670C5B005A260E /* EntitySystem.h */,
+				C33F00871B670DA6005A260E /* EntitySystem.cpp */,
 			);
 			name = Systems;
 			sourceTree = "<group>";
@@ -292,6 +315,7 @@
 				C3D7EC671A61DC8700FC46B6 /* Vec4.h in Headers */,
 				C31BE4E41ABAA38B003F11D6 /* MathUtilities.h in Headers */,
 				C3D7EC971A7CC93000FC46B6 /* SystemBase.h in Headers */,
+				C33F00861B670C5B005A260E /* EntitySystem.h in Headers */,
 				C3F50FBF1AD61D5E00AE7472 /* Reflection.h in Headers */,
 				C3D7EC8F1A74C46D00FC46B6 /* FastDelegate.h in Headers */,
 				C3D7EC8B1A6657B000FC46B6 /* tinyxml2.h in Headers */,
@@ -308,6 +332,7 @@
 				C3EE8CCD1B3F12A100208DF8 /* ReflectionUtilities.h in Headers */,
 				C3D7EC821A62649100FC46B6 /* Timer.h in Headers */,
 				C3D7ECA51A7CD1E100FC46B6 /* QiGameImpl.h in Headers */,
+				C33F008D1B670F25005A260E /* Entity.h in Headers */,
 				C3F50FC11AD61D5E00AE7472 /* ReflectionData.h in Headers */,
 				C33F00821B670B6A005A260E /* RefCountedObject.h in Headers */,
 				C3586C3F1B158744004D8698 /* PointerTable.h in Headers */,
@@ -379,6 +404,7 @@
 				C3F50FC21AD61D5E00AE7472 /* ReflectionDataManager.cpp in Sources */,
 				C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */,
 				C3D7EC761A622EEC00FC46B6 /* Random.cpp in Sources */,
+				C33F00881B670DA6005A260E /* EntitySystem.cpp in Sources */,
 				C3F50F931AC515D900AE7472 /* HTMLLogFileWriter.cpp in Sources */,
 				C3EE8CC91B3E4C6700208DF8 /* Vec4.cpp in Sources */,
 				C3EE8CCB1B3E4CBB00208DF8 /* Quaternion.cpp in Sources */,
@@ -386,9 +412,11 @@
 				C393DCC11A8732C000DAC0A2 /* MemoryAllocator.cpp in Sources */,
 				C3586C3E1B158744004D8698 /* PointerTable.cpp in Sources */,
 				C33F00811B670B6A005A260E /* RefCountedObject.cpp in Sources */,
+				C33F008F1B671E24005A260E /* SystemBase.cpp in Sources */,
 				C3F50F8F1AC4E7E500AE7472 /* Logger.cpp in Sources */,
 				C3D7EC941A7CC90700FC46B6 /* Engine.cpp in Sources */,
 				C3D7EC701A61FA9600FC46B6 /* Matrix4.cpp in Sources */,
+				C33F008C1B670F25005A260E /* Entity.cpp in Sources */,
 				C3F50FC01AD61D5E00AE7472 /* ReflectionData.cpp in Sources */,
 				C3D7EC8A1A6657B000FC46B6 /* tinyxml2.cpp in Sources */,
 			);

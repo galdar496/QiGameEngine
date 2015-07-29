@@ -48,7 +48,7 @@ class Array
         ///
         /// @param num_elements Target size for the array (in terms of element count).
         ///
-        inline void Resize(uint32 num_elements);
+        inline Result Resize(uint32 num_elements);
     
         ///
         /// Get the number of elements currently in the Array.

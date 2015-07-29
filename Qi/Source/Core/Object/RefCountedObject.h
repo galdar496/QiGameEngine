@@ -28,7 +28,6 @@ class RefCountedObject
 		QI_DECLARE_REFLECTED_CLASS(RefCountedObject);
 
 		RefCountedObject();
-		virtual ~RefCountedObject();
 		RefCountedObject(const RefCountedObject &other);
 		RefCountedObject &operator=(const RefCountedObject &other);
 
@@ -51,6 +50,12 @@ class RefCountedObject
 		uint32 GetReferenceCount() const;
 
 	protected:
+    
+        ///
+        /// Destructor is under the 'protected' section of the class in order to prevent
+        /// accidental deletion of ref-counted objects.
+        ///
+        virtual ~RefCountedObject();
 
 		///
 		/// Delete this object. Called by RemoveReference() if the object's reference count gets

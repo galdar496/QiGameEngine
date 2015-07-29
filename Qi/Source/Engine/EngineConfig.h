@@ -27,11 +27,13 @@ struct EngineConfig
     EngineConfig() :
         screenWidth(800),
         screenHeight(800),
+        maxWorldEntities(10),
         flushLogFile(false)
     {}
     
-    uint32 screenWidth;  ///< Width of the screen in pixels.
-    uint32 screenHeight; ///< Height of the screen in pixels.
+    uint32 screenWidth;      ///< Width of the screen in pixels.
+    uint32 screenHeight;     ///< Height of the screen in pixels.
+    uint32 maxWorldEntities; ///< Maximum number of entities that can be contained in the game world.
     
     bool flushLogFile; ///< If true, the logfile is flushed after each write.
 };

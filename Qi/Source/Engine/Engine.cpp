@@ -10,6 +10,7 @@
 #include "../Core/Utility/Logger/Logger.h"
 #include "../Core/Memory/MemoryAllocator.h"
 #include "Systems/SystemBase.h"
+#include "Systems/EntitySystem.h"
 #include <iostream>
 
 namespace Qi
@@ -54,8 +55,13 @@ Result Engine::Init(const EngineConfig &config)
     }
     
     Qi_LogInfo("-Initializing engine-");
-    
     Qi_LogInfo("EngingConfig -- screen (%u x %u)", config.screenWidth, config.screenHeight);
+    
+    result = CreateInternalSystems(config);
+    if (!result.IsValid())
+    {
+        return result;
+    }
     
     Qi_LogInfo("-Engine successfully initialized-");
     m_initiailzed = true;
@@ -72,6 +78,14 @@ void Engine::Step(const float dt)
     // Add system updates to the job queue here.
     // After the job queue is finished processing, kick of the renderer to process the
     // render job queue.
+    
+    
+    
+    // Update custom systems.
+    for (uint32 ii = 0; ii < m_customSystems.GetSize(); ++ii)
+    {
+        m_customSystems[ii]->Update(dt);
+    }
 }
 
 void Engine::Shutdown()
@@ -81,18 +95,46 @@ void Engine::Shutdown()
     
     Qi_LogInfo("-Shutting down the engine-");
     
-    // De-initialize all systems and delete the memory for them.
-    for (uint32 ii = 0; ii < m_systems.GetSize(); ++ii)
+    // De-initialize all custom systems and delete the memory for them.
+    for (uint32 ii = 0; ii < m_customSystems.GetSize(); ++ii)
     {
-        Qi_LogInfo("Shutting down system %s", m_systems[ii]->GetName().c_str());
-        m_systems[ii]->Deinit();
-        delete m_systems[ii];
-        m_systems[ii] = nullptr;
+        Qi_LogInfo("Shutting down system %s", m_customSystems[ii]->GetName().c_str());
+        m_customSystems[ii]->Deinit();
+        delete m_customSystems[ii];
+        m_customSystems[ii] = nullptr;
     }
+    
+    ShutdownInternalSystems();
     
     // Shutdown singleton objects. Be sure to always shutdown the logger last.
     MemoryAllocator::GetInstance().Deinit();
     Logger::GetInstance().Deinit();
+}
+
+Result Engine::CreateInternalSystems(const EngineConfig &config)
+{
+    {
+        m_entitySystem = Qi_AllocateMemory(EntitySystem);
+        Qi_LogInfo("Adding system %s", m_entitySystem->GetName().c_str());
+        
+        EntitySystem::EntitySystemCInfo info;
+        info.maxEntities = config.maxWorldEntities;
+        Result result = m_entitySystem->Init(&info);
+        if (!result.IsValid())
+        {
+            return result;
+        }
+    }
+    
+    return Result(ReturnCode::kSuccess);
+}
+
+void Engine::ShutdownInternalSystems()
+{
+    Qi_LogInfo("Shutting down %s", m_entitySystem->GetName().c_str());
+    m_entitySystem->Deinit();
+    Qi_FreeMemory(m_entitySystem);
+    m_entitySystem = nullptr;
 }
 
 void Engine::AddSystem(SystemBase *system)
@@ -101,7 +143,7 @@ void Engine::AddSystem(SystemBase *system)
     
     Qi_LogInfo("Adding system %s to the engine", system->GetName().c_str());
     
-    m_systems.PushBack(system);
+    m_customSystems.PushBack(system);
 }
 
 #ifdef QI_DEBUG

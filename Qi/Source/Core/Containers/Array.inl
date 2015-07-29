@@ -83,16 +83,28 @@ Result Array<T>::PushBack(const T &value)
 }
 
 template<class T>
-void Array<T>::Resize(uint32 num_elements)
+Result Array<T>::Resize(uint32 num_elements)
 {
     if (m_count > 0)
     {
         Clear();
     }
     
+    Result result;
+    
     m_elements = Qi_AllocateMemoryArray(T, num_elements);
-    m_count = num_elements;
-    m_allocatedSize = num_elements;
+    if (!m_elements)
+    {
+        result.code = ReturnCode::kOutOfMemory;
+    }
+    else
+    {
+        m_count = num_elements;
+        m_allocatedSize = num_elements;
+        result.code = ReturnCode::kSuccess;
+    }
+    
+    return result;
 }
 
 template<class T>
