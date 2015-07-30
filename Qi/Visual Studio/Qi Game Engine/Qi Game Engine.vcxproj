@@ -148,6 +148,7 @@
     <ClInclude Include="..\..\Source\Core\BaseTypes.h" />
     <ClInclude Include="..\..\Source\Core\Containers\Array.h" />
     <ClInclude Include="..\..\Source\Core\Containers\LocklessQueue.h" />
+    <ClInclude Include="..\..\Source\Core\Containers\TightlyPackedArray.h" />
     <ClInclude Include="..\..\Source\Core\Defines.h" />
     <ClInclude Include="..\..\Source\Core\Math\Constants.h" />
     <ClInclude Include="..\..\Source\Core\Math\Matrix4.h" />
@@ -181,6 +182,7 @@
   <ItemGroup>
     <None Include="..\..\Source\Core\Containers\Array.inl" />
     <None Include="..\..\Source\Core\Containers\LocklessQueue.inl" />
+    <None Include="..\..\Source\Core\Containers\TightlyPackedArray.inl" />
     <None Include="..\..\Source\Core\Memory\MemoryAllocator.inl" />
     <None Include="..\..\Source\Core\Reflection\ReflectedVariable.inl" />
   </ItemGroup>

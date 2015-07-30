@@ -200,6 +200,9 @@
     <ClInclude Include="..\..\Source\Engine\GameWorld\Entity.h">
       <Filter>Engine\GameWorld</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Containers\TightlyPackedArray.h">
+      <Filter>Core\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Core\Containers\Array.inl">
@@ -213,6 +216,9 @@
     </None>
     <None Include="..\..\Source\Core\Reflection\ReflectedVariable.inl">
       <Filter>Core\Reflection</Filter>
+    </None>
+    <None Include="..\..\Source\Core\Containers\TightlyPackedArray.inl">
+      <Filter>Core\Containers</Filter>
     </None>
   </ItemGroup>
 </Project>

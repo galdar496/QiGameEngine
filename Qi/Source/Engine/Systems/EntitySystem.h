@@ -14,7 +14,7 @@
 ///
 
 #include "SystemBase.h"
-#include "../../Core/Containers/Array.h"
+#include "../../Core/Containers/TightlyPackedArray.h"
 #include "../../Core/Reflection/Reflection.h"
 #include "../GameWorld/Entity.h"
 #include <string>
@@ -44,7 +44,7 @@ class EntitySystem : public SystemBase
         virtual std::string GetName() const override;
         //////////////////////////////////////////
     
-		typedef uint32 EntityHandle;
+		typedef TightlyPackedArray<Entity>::Handle EntityHandle;
 		static const EntityHandle INVALID_HANDLE = UINT_MAX;
     
         ///
@@ -78,25 +78,7 @@ class EntitySystem : public SystemBase
     
         static const std::string M_NAME; ///< Name of this class.
 
-		///
-		/// Record to use for associated a unique ID with a specific entity.
-		///
-		struct EntityRecord
-		{
-			EntityHandle uniqueId; ///< ID that is unique to only this entity.
-			Entity entity;         ///< Entity itself.
-		};
-    
-		Array<EntityRecord> m_entities; ///< Array of all entities in the world. This array is allocated once and
-                                        ///  handles to entities within are returned. All live entities are guaranteed
-                                        ///  to be tightly packed together.
-    
-		uint32 m_numLiveEntities; ///< Number of live entities in the system.
-		Array<EntityHandle> m_idMap; ///< Map of entity handles to indices within 'm_entities'. The index of an entity may
-                                     ///  change during removal of dead entities to handle fragmentation.
-
-		Array<EntityHandle> m_entityHandleFreeList; ///< List of free unique IDs for new entities.
-		uint32 m_numFreeHandles; ///< Number of free IDs in the freelist.
+		TightlyPackedArray<Entity> m_entities; ///< Entities managed by this system.
 };
 
 } // namespace Qi
