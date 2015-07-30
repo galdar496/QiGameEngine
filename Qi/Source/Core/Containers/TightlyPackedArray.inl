@@ -85,7 +85,7 @@ void TightlyPackedArray<T>::Clear()
 }
 
 template<class T>
-uint32 TightlyPackedArray<T>::GetValidNumHandles() const
+uint32 TightlyPackedArray<T>::GetNumValidHandles() const
 {
 	return m_numValidElements;
 }

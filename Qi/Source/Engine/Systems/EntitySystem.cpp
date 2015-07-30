@@ -58,7 +58,7 @@ void EntitySystem::Update(const float dt)
     // the entities in parallel.
     QI_ASSERT(m_initialized);
     
-	for (uint32 ii = 0; ii < m_entities.GetValidNumHandles(); ++ii)
+	for (uint32 ii = 0; ii < m_entities.GetNumValidHandles(); ++ii)
     {
 		m_entities[ii].Update(dt);
     }

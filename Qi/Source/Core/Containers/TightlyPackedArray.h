@@ -51,7 +51,7 @@ class TightlyPackedArray
 		///
 		/// @return Number of valid handles.
 		///
-		inline uint32 GetValidNumHandles() const;
+		inline uint32 GetNumValidHandles() const;
 
 		///
 		/// Handle to use when querying this container. A handle is always guaranteed to be unique
