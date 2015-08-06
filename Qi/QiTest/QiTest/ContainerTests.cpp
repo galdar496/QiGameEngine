@@ -10,6 +10,7 @@
 
 #include "../../Source/Core/Containers/Array.h"
 #include "../../Source/Core/Containers/LocklessQueue.h"
+#include "../../Source/Core/Containers/TightlyPackedArray.h"
 #include <thread>
 
 using namespace Qi;
@@ -248,4 +249,48 @@ TEST(LocklessQueue, ThreadedPushPop)
     t3.join();
     
     EXPECT_EQ(0, q.GetSize());
+}
+
+TEST(TightlyPackedArray, SimpleAddRemove)
+{
+	TightlyPackedArray<int> a;
+	a.SetSize(10);
+
+	a.AquireHandle();
+	a.AquireHandle();
+	a.AquireHandle();
+	a.AquireHandle();
+	TightlyPackedArray<int>::Handle h = a.AquireHandle();
+
+	EXPECT_EQ(5, a.GetNumValidHandles());
+
+	a.ReleaseHandle(h);
+
+	EXPECT_EQ(4, a.GetNumValidHandles());
+
+	a.Clear();
+	EXPECT_EQ(0, a.GetNumValidHandles());
+}
+
+TEST(TightlyPackedArray, RemoveMiddle)
+{
+	TightlyPackedArray<int> a;
+	a.SetSize(10);
+
+	TightlyPackedArray<int>::Handle h1 = a.AquireHandle();
+	TightlyPackedArray<int>::Handle h2 = a.AquireHandle();
+	TightlyPackedArray<int>::Handle h3 = a.AquireHandle();
+	TightlyPackedArray<int>::Handle h4 = a.AquireHandle();
+	TightlyPackedArray<int>::Handle h5 = a.AquireHandle();
+
+	// Set the element at h5 to something we can check later.
+	a.GetElement(h5) = 10;
+
+	// Release a handle in the middle.
+	a.ReleaseHandle(h3);
+
+	// Make sure h5 still references the correct value after compacting.
+	EXPECT_EQ(10, a.GetElement(h5));
+
+	a.Clear();
 }
