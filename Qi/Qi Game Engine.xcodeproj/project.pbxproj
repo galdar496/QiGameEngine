@@ -16,6 +16,7 @@
 		C33F008C1B670F25005A260E /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33F008A1B670F25005A260E /* Entity.cpp */; };
 		C33F008D1B670F25005A260E /* Entity.h in Headers */ = {isa = PBXBuildFile; fileRef = C33F008B1B670F25005A260E /* Entity.h */; };
 		C33F008F1B671E24005A260E /* SystemBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C33F008E1B671E24005A260E /* SystemBase.cpp */; };
+		C33F00961B733D51005A260E /* TightlyPackedArray.h in Headers */ = {isa = PBXBuildFile; fileRef = C33F00941B733D51005A260E /* TightlyPackedArray.h */; };
 		C3586C3E1B158744004D8698 /* PointerTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3586C3C1B158744004D8698 /* PointerTable.cpp */; };
 		C3586C3F1B158744004D8698 /* PointerTable.h in Headers */ = {isa = PBXBuildFile; fileRef = C3586C3D1B158744004D8698 /* PointerTable.h */; };
 		C358FF151AA3AB5800115E31 /* QiGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3D7ECA91A7CD89000FC46B6 /* QiGame.cpp */; };
@@ -71,6 +72,8 @@
 		C33F008A1B670F25005A260E /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Entity.cpp; path = Source/Engine/GameWorld/Entity.cpp; sourceTree = "<group>"; };
 		C33F008B1B670F25005A260E /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = Source/Engine/GameWorld/Entity.h; sourceTree = "<group>"; };
 		C33F008E1B671E24005A260E /* SystemBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SystemBase.cpp; path = Source/Engine/Systems/SystemBase.cpp; sourceTree = "<group>"; };
+		C33F00941B733D51005A260E /* TightlyPackedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TightlyPackedArray.h; path = Source/Core/Containers/TightlyPackedArray.h; sourceTree = "<group>"; };
+		C33F00951B733D51005A260E /* TightlyPackedArray.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TightlyPackedArray.inl; path = Source/Core/Containers/TightlyPackedArray.inl; sourceTree = "<group>"; };
 		C3586C3C1B158744004D8698 /* PointerTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointerTable.cpp; path = Source/Core/Reflection/PointerTable.cpp; sourceTree = "<group>"; };
 		C3586C3D1B158744004D8698 /* PointerTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PointerTable.h; path = Source/Core/Reflection/PointerTable.h; sourceTree = "<group>"; };
 		C358FF101AA3A72A00115E31 /* libQi Game Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libQi Game Engine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +167,8 @@
 		C393DCC81AA38CE900DAC0A2 /* Containers */ = {
 			isa = PBXGroup;
 			children = (
+				C33F00941B733D51005A260E /* TightlyPackedArray.h */,
+				C33F00951B733D51005A260E /* TightlyPackedArray.inl */,
 				C393DCCF1AA3A3D100DAC0A2 /* Array.inl */,
 				C393DCCA1AA38D0200DAC0A2 /* Array.h */,
 				C31BE4E51ABAA3C9003F11D6 /* LocklessQueue.inl */,
@@ -323,6 +328,7 @@
 				C3D7EC6E1A61F8A000FC46B6 /* Matrix4.h in Headers */,
 				C3F50F941AC515D900AE7472 /* HTMLLogFileWriter.h in Headers */,
 				C3EE8CCF1B491A9E00208DF8 /* StringUtilities.h in Headers */,
+				C33F00961B733D51005A260E /* TightlyPackedArray.h in Headers */,
 				C3F50FC41AD61D5E00AE7472 /* ReflectionPrimitiveTypes.h in Headers */,
 				C393DCCC1AA38D0200DAC0A2 /* Array.h in Headers */,
 				C3F50F8B1AC4E75E00AE7472 /* LogFileWriter.h in Headers */,
