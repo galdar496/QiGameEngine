@@ -277,10 +277,10 @@ TEST(TightlyPackedArray, RemoveMiddle)
 	TightlyPackedArray<int> a;
 	a.SetSize(10);
 
-	TightlyPackedArray<int>::Handle h1 = a.AquireHandle();
-	TightlyPackedArray<int>::Handle h2 = a.AquireHandle();
+    a.AquireHandle();
+    a.AquireHandle();
 	TightlyPackedArray<int>::Handle h3 = a.AquireHandle();
-	TightlyPackedArray<int>::Handle h4 = a.AquireHandle();
+    a.AquireHandle();
 	TightlyPackedArray<int>::Handle h5 = a.AquireHandle();
 
 	// Set the element at h5 to something we can check later.
