@@ -9,7 +9,7 @@
 #pragma once
 
 #include "ReflectionDataManager.h"
-#include "../Memory/MemoryAllocator.h"
+#include "../Memory/MemorySystem.h"
 #include <ostream>
 #include <string>
 #include <list>

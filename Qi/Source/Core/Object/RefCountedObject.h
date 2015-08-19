@@ -30,6 +30,7 @@ class RefCountedObject
 		RefCountedObject();
 		RefCountedObject(const RefCountedObject &other);
 		RefCountedObject &operator=(const RefCountedObject &other);
+		virtual ~RefCountedObject();
 
 		///
 		/// Add a reference to this object (increment the reference count).
@@ -51,12 +52,6 @@ class RefCountedObject
 
 	protected:
     
-        ///
-        /// Destructor is under the 'protected' section of the class in order to prevent
-        /// accidental deletion of ref-counted objects.
-        ///
-        virtual ~RefCountedObject();
-
 		///
 		/// Delete this object. Called by RemoveReference() if the object's reference count gets
 		/// to 0. This function is virtual so that any deriving type may override how an object is

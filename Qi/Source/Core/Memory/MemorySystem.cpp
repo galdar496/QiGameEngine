@@ -1,12 +1,12 @@
 //
-//  MemoryAllocator.cpp
+//  MemorySystem.cpp
 //  Qi Game Engine
 //
 //  Created by Cody White on 2/7/15.
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
-#include "MemoryAllocator.h"
+#include "MemorySystem.h"
 #include "../Utility/Logger/Logger.h"
 #include "../Defines.h"
 
@@ -15,29 +15,35 @@ namespace Qi
 
 
 
-MemoryAllocator::MemoryAllocator() :
-    m_initialized(false)
+MemorySystem::MemorySystem() :
+    m_initialized(false),
+	m_allocator(nullptr)
 {
 }
 
-MemoryAllocator::~MemoryAllocator()
+MemorySystem::~MemorySystem()
 {
 }
 
-MemoryAllocator &MemoryAllocator::GetInstance()
+MemorySystem &MemorySystem::GetInstance()
 {
-    static MemoryAllocator allocator;
+	static MemorySystem allocator;
     return allocator;
 }
     
-Result MemoryAllocator::Init()
+Result MemorySystem::Init(Allocator *allocator)
 {
     QI_ASSERT(!m_initialized);
+	QI_ASSERT(allocator != nullptr);
+	QI_ASSERT(allocator->IsInitialized());
+
+	m_allocator = allocator;
+
     m_initialized = true;
     return Result(ReturnCode::kSuccess);
 }
     
-void MemoryAllocator::Deinit()
+void MemorySystem::Deinit()
 {
     QI_ASSERT(m_initialized);
     
@@ -55,6 +61,11 @@ void MemoryAllocator::Deinit()
 
     m_records.clear();
 #endif
+
+	// Make sure the allocator is cleaned up as well.
+	m_allocator->Deinit();
+	delete m_allocator;
+	m_allocator = nullptr;
 
     m_initialized = false;
 }

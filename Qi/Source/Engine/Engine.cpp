@@ -8,7 +8,8 @@
 
 #include "Engine.h"
 #include "../Core/Utility/Logger/Logger.h"
-#include "../Core/Memory/MemoryAllocator.h"
+#include "../Core/Memory/MemorySystem.h"
+#include "../Core/Memory/HeapAllocator.h"
 #include "Systems/SystemBase.h"
 #include "Systems/EntitySystem.h"
 #include <iostream>
@@ -45,14 +46,21 @@ Result Engine::Init(const EngineConfig &config)
         Logger::GetInstance().RegisterForMessages(handler, LogChannel::kError);
     #endif
     
-    Result result;
-    
-    // Initialize the memory allocation system after the logger but before everything else.
-    result = MemoryAllocator::GetInstance().Init();
-    if (!result.IsValid())
-    {
-        return result;
-    }
+	Result result(ReturnCode::kUnknownError);
+
+	// Initialize the memory allocation system after the logger but before everything else.
+	{
+		// Install a heap allocator for now until more allocators are available, then make
+		// the allocator type optional.
+		HeapAllocator *allocator = new HeapAllocator;
+		allocator->Init(nullptr);
+
+		result = MemorySystem::GetInstance().Init(allocator);
+		if (!result.IsValid())
+		{
+			return result;
+		}
+	}
     
     Qi_LogInfo("-Initializing engine-");
     Qi_LogInfo("EngingConfig -- screen (%u x %u)", config.screenWidth, config.screenHeight);
@@ -107,7 +115,7 @@ void Engine::Shutdown()
     ShutdownInternalSystems();
     
     // Shutdown singleton objects. Be sure to always shutdown the logger last.
-    MemoryAllocator::GetInstance().Deinit();
+	MemorySystem::GetInstance().Deinit();
     Logger::GetInstance().Deinit();
 }
 

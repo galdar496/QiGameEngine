@@ -48,9 +48,6 @@
     <ClCompile Include="..\..\Source\Core\Math\Matrix4.cpp">
       <Filter>Core\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Core\Memory\MemoryAllocator.cpp">
-      <Filter>Core\Memory</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Core\Utility\Random.cpp">
       <Filter>Core\Utility</Filter>
     </ClCompile>
@@ -96,6 +93,9 @@
     <ClCompile Include="..\..\Source\Engine\GameWorld\Entity.cpp">
       <Filter>Engine\GameWorld</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Core\Memory\MemorySystem.cpp">
+      <Filter>Core\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AppFramework\QiGame.h">
@@ -130,9 +130,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Core\Math\Vec4.h">
       <Filter>Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Core\Memory\MemoryAllocator.h">
-      <Filter>Core\Memory</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Core\Utility\MathUtilities.h">
       <Filter>Core\Utility</Filter>
@@ -203,6 +200,15 @@
     <ClInclude Include="..\..\Source\Core\Containers\TightlyPackedArray.h">
       <Filter>Core\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Memory\MemorySystem.h">
+      <Filter>Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Memory\Allocator.h">
+      <Filter>Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Core\Memory\HeapAllocator.h">
+      <Filter>Core\Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\Core\Containers\Array.inl">
@@ -211,14 +217,14 @@
     <None Include="..\..\Source\Core\Containers\LocklessQueue.inl">
       <Filter>Core\Containers</Filter>
     </None>
-    <None Include="..\..\Source\Core\Memory\MemoryAllocator.inl">
-      <Filter>Core\Memory</Filter>
-    </None>
     <None Include="..\..\Source\Core\Reflection\ReflectedVariable.inl">
       <Filter>Core\Reflection</Filter>
     </None>
     <None Include="..\..\Source\Core\Containers\TightlyPackedArray.inl">
       <Filter>Core\Containers</Filter>
+    </None>
+    <None Include="..\..\Source\Core\Memory\MemorySystem.inl">
+      <Filter>Core\Memory</Filter>
     </None>
   </ItemGroup>
 </Project>

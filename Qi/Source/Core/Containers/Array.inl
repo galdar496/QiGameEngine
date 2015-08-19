@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
-#include "../Memory/MemoryAllocator.h"
+#include "../Memory/MemorySystem.h"
 #include <algorithm>
 
 namespace Qi

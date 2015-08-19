@@ -7,7 +7,7 @@
 //
 
 #include "RefCountedObject.h"
-#include "../Memory/MemoryAllocator.h"
+#include "../Memory/MemorySystem.h"
 
 namespace Qi
 {

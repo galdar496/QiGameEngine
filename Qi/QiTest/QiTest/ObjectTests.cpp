@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 #include "../../Source/Core/Object/RefCountedObject.h"
-#include "../../Source/Core/Memory/MemoryAllocator.h"
+#include "../../Source/Core/Memory/MemorySystem.h"
 #include <thread>
 
 using namespace Qi;

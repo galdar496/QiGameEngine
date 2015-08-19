@@ -7,7 +7,8 @@
 //
 
 #include "../../Source/Core/Utility/Logger/Logger.h"
-#include "../../Source/Core/Memory/MemoryAllocator.h"
+#include "../../Source/Core/Memory/MemorySystem.h"
+#include "../../Source/Core/Memory/HeapAllocator.h"
 #include <gtest/gtest.h>
 #include <iostream>
 
@@ -17,13 +18,15 @@ int main(int argc, const char * argv[])
     
     // Make sure that the logger and memory allocator has been initialized for
     // any tests that might use it.
-    bool ready = Qi::MemoryAllocator::GetInstance().Init().IsValid();
+	Qi::HeapAllocator *allocator = new Qi::HeapAllocator();
+	allocator->Init(nullptr);
+	bool ready = Qi::MemorySystem::GetInstance().Init(allocator).IsValid();
     ready &= Qi::Logger::GetInstance().Init(Qi::Logger::LogFileType::kHTML, true).IsValid();
     QI_ASSERT(ready);
     
     int result = RUN_ALL_TESTS();
     
-    Qi::MemoryAllocator::GetInstance().Deinit();
+	Qi::MemorySystem::GetInstance().Deinit();
     Qi::Logger::GetInstance().Deinit();
 
 #ifdef QI_WINDOWS

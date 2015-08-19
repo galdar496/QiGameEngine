@@ -1,5 +1,5 @@
 //
-//  MemoryAllocator.h
+//  MemorySystem.h
 //  Qi Game Engine
 //
 //  Created by Cody White on 2/7/15.
@@ -9,44 +9,47 @@
 #pragma once
 
 ///
-/// Memory allocator for the Qi Game Engine. This allocator
+/// Memory management system for the Qi Game Engine. This system
 /// will handle all memory allocation/deallocation requests
 /// and keep track of how much memory has been allocated
 /// (to detect memory leaks). This class is implemented
 /// as a singleton.
 ///
 
+#include "Allocator.h"
 #include "../BaseTypes.h"
 #include <string>
 #include <unordered_map>
 
-#define Qi_AllocateMemory(type) Qi::MemoryAllocator::GetInstance().Allocate<type>(sizeof(type), __FILE__, __LINE__)
-#define Qi_AllocateMemoryArray(type, count) Qi::MemoryAllocator::GetInstance().Allocate<type>(sizeof(type) * count, __FILE__, __LINE__)
-#define Qi_FreeMemory(address) Qi::MemoryAllocator::GetInstance().Free(address)
+#define Qi_AllocateMemory(type) Qi::MemorySystem::GetInstance().Allocate<type>(sizeof(type), __FILE__, __LINE__)
+#define Qi_AllocateMemoryArray(type, count) Qi::MemorySystem::GetInstance().Allocate<type>(sizeof(type) * count, __FILE__, __LINE__)
+#define Qi_FreeMemory(address) Qi::MemorySystem::GetInstance().Free(address)
 
 namespace Qi
 {
 
-class MemoryAllocator
+class MemorySystem
 {
     public:
     
         ///
         /// Instance accessor to get to the singleton object.
         ///
-        /// @return Static instance of MemoryAllocator.
+        /// @return Static instance of MemorySystem.
         ///
-        static MemoryAllocator &GetInstance();
+		static MemorySystem &GetInstance();
     
         ///
-        /// Initialize the memory allocator for use.
+        /// Initialize the memory system for use.
         ///
+		/// @param allocator Allocator to install and use in this memory system. After
+		///                  this call, the memory system owns the Allocator instance.
         /// @return Initialization success.
         ///
-        Result Init();
+        Result Init(Allocator *allocator);
     
         ///
-        /// Deinitialize the memory allocator. Any still-allocated
+        /// Deinitialize the memory system. Any still-allocated
         /// memory will be reported.
         ///
         void Deinit();
@@ -74,13 +77,13 @@ class MemoryAllocator
     private:
     
         // Do not implement.
-        MemoryAllocator(const MemoryAllocator &other) = delete;
-        MemoryAllocator & operator=(const MemoryAllocator &other) = delete;
+		MemorySystem(const MemorySystem &other) = delete;
+		MemorySystem & operator=(const MemorySystem &other) = delete;
     
-        MemoryAllocator();
-        ~MemoryAllocator();
+		MemorySystem();
+		~MemorySystem();
     
-        bool m_initialized; ///< If true, the memory allocated is initialized.
+        bool m_initialized; ///< If true, the memory system is initialized.
     
         ///
         /// Record stored for each allocation (debug only).
@@ -95,10 +98,16 @@ class MemoryAllocator
     
         typedef std::unordered_map<void *, MemoryRecord> Record;
         Record m_records; ///< All current allocations in the system (debug only). Stored by address.
-    
-    
+
+		struct MemoryHeader
+		{
+			size_t memorySize;
+		};
+
+		Allocator *m_allocator; ///< Memory allocator installed into this memory system. All memory allocations/
+		                        ///< deallocations will go through this allocator.
 };
 
 } // namespace Qi
 
-#include "MemoryAllocator.inl"
+#include "MemorySystem.inl"

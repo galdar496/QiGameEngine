@@ -127,7 +127,7 @@
     <ClCompile Include="..\..\Source\Core\Math\Matrix4.cpp" />
     <ClCompile Include="..\..\Source\Core\Math\Quaternion.cpp" />
     <ClCompile Include="..\..\Source\Core\Math\Vec4.cpp" />
-    <ClCompile Include="..\..\Source\Core\Memory\MemoryAllocator.cpp" />
+    <ClCompile Include="..\..\Source\Core\Memory\MemorySystem.cpp" />
     <ClCompile Include="..\..\Source\Core\Object\RefCountedObject.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\PointerTable.cpp" />
     <ClCompile Include="..\..\Source\Core\Reflection\ReflectedVariable.cpp" />
@@ -155,7 +155,9 @@
     <ClInclude Include="..\..\Source\Core\Math\Quaternion.h" />
     <ClInclude Include="..\..\Source\Core\Math\SSEUtils.h" />
     <ClInclude Include="..\..\Source\Core\Math\Vec4.h" />
-    <ClInclude Include="..\..\Source\Core\Memory\MemoryAllocator.h" />
+    <ClInclude Include="..\..\Source\Core\Memory\Allocator.h" />
+    <ClInclude Include="..\..\Source\Core\Memory\HeapAllocator.h" />
+    <ClInclude Include="..\..\Source\Core\Memory\MemorySystem.h" />
     <ClInclude Include="..\..\Source\Core\Object\RefCountedObject.h" />
     <ClInclude Include="..\..\Source\Core\Reflection\PointerTable.h" />
     <ClInclude Include="..\..\Source\Core\Reflection\QualifierRemover.h" />
@@ -183,7 +185,7 @@
     <None Include="..\..\Source\Core\Containers\Array.inl" />
     <None Include="..\..\Source\Core\Containers\LocklessQueue.inl" />
     <None Include="..\..\Source\Core\Containers\TightlyPackedArray.inl" />
-    <None Include="..\..\Source\Core\Memory\MemoryAllocator.inl" />
+    <None Include="..\..\Source\Core\Memory\MemorySystem.inl" />
     <None Include="..\..\Source\Core\Reflection\ReflectedVariable.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
