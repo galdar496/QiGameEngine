@@ -56,9 +56,10 @@ class Allocator
 		/// Allocate a user-defined amount of memory.
 		///
 		/// @param numBytes Number of bytes to allocate.
+		/// @param alignment Alignment to use when performing the allocation.
 		/// @return Pointer to an allocated buffer.
 		///
-		virtual void *Allocate(uint32 numBytes) const = 0;
+		virtual void *Allocate(uint32 numBytes, uint32 alignment) const = 0;
 
 		///
 		/// Deallocates an allocated buffer.

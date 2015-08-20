@@ -8,8 +8,9 @@
 
 #pragma once
 
-#include <cstdlib>
 #include "../Defines.h"
+#include <cstdlib>
+#include <stdalign.h>
 
 namespace Qi
 {
@@ -20,7 +21,7 @@ T *MemorySystem::Allocate(uint32 numBytes, const char *filename, int lineNumber)
     QI_ASSERT(m_initialized);
     
 	uint32 totalSize = numBytes + sizeof(MemoryHeader);
-	void *memory = m_allocator->Allocate(totalSize);
+	void *memory = m_allocator->Allocate(totalSize, alignof(T));
 
 	// Place a small header at the beginning of the memory block that denotes the size 
 	// of this memory.

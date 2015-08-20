@@ -17,7 +17,7 @@
 namespace Qi
 {
 
-#define QI_SSE_ALIGNMENT sizeof(float) * 4
+#define QI_SSE_ALIGNMENT 16
 typedef __m128 SSEType;
     
 ///
