@@ -15,12 +15,12 @@ namespace Qi
 {
 
 template<class T>
-T *MemorySystem::Allocate(size_t numBytes, const char *filename, int lineNumber)
+T *MemorySystem::Allocate(uint32 numBytes, const char *filename, int lineNumber)
 {
     QI_ASSERT(m_initialized);
     
-	size_t totalSize = numBytes + sizeof(MemoryHeader);
-	void *memory = m_allocator->Allocate(numBytes);
+	uint32 totalSize = numBytes + sizeof(MemoryHeader);
+	void *memory = m_allocator->Allocate(totalSize);
 
 	// Place a small header at the beginning of the memory block that denotes the size 
 	// of this memory.

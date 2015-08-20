@@ -49,6 +49,8 @@ void EntitySystem::Deinit()
     Qi_LogInfo("Deallocating world entities");
     
 	m_entities.Clear();
+    
+    m_initialized = false;
 }
 
 void EntitySystem::Update(const float dt)

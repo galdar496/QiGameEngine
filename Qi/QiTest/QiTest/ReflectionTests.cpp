@@ -57,8 +57,7 @@ TEST(Reflection, SimpleTest)
 	EXPECT_EQ(s.y, s2->y);
 
 	// Cleanup.
-	delete s2;
-	s2 = nullptr;
+    Qi_FreeMemory(s2);
 }
 
 class SimpleArray
@@ -92,8 +91,7 @@ TEST(Reflection, SimpleArrayTest)
 	}
 
 	// Cleanup.
-	delete s2;
-	s2 = nullptr;
+    Qi_FreeMemory(s2);
 }
 
 class ArrayOfObjects
@@ -129,8 +127,7 @@ TEST(Reflection, ArrayOfObjectsTest)
 	}
 
 	// Cleanup.
-	delete array2;
-	array2 = nullptr;
+    Qi_FreeMemory(array2);
 }
 
 class Pointer
@@ -162,8 +159,8 @@ TEST(Reflection, PointerTest)
 
 	// Cleanup.
 	delete p.s;
-	delete p2->s;
-	delete p2;
+    Qi_FreeMemory(p2->s);
+    Qi_FreeMemory(p2);
 }
 
 class Base
@@ -228,7 +225,7 @@ TEST(Reflection, InheritanceTest)
 	EXPECT_EQ(1, b->Base::func());
 
 	// Cleanup.
-	delete d2;
+    Qi_FreeMemory(d2);
 }
 
 class Complex
@@ -316,10 +313,10 @@ TEST(Reflection, ComplexTest)
 		EXPECT_EQ(ii, c2->complexArray.s[ii].y);
 	}
 
-	delete c2->derived;
-	delete c2->p1->s;
-	delete c2->p1;
-	delete c2;
+    Qi_FreeMemory(c2->derived);
+    Qi_FreeMemory(c2->p1->s);
+    Qi_FreeMemory(c2->p1);
+    Qi_FreeMemory(c2);
 
 	delete c.p1->s;
 	delete c.p1;
@@ -341,7 +338,7 @@ TEST(Reflection, VectorTest)
 	EXPECT_EQ(3.0f, v2->v[2]);
 	EXPECT_EQ(4.0f, v2->v[3]);
 
-	delete v2;
+    Qi_FreeMemory(v2);
 }
 
 TEST(Reflection, QuaternionTest)
@@ -360,7 +357,7 @@ TEST(Reflection, QuaternionTest)
 	EXPECT_EQ(3.0f, q2->q[2]);
 	EXPECT_EQ(4.0f, q2->q[3]);
 
-	delete q2;
+    Qi_FreeMemory(q2);
 }
 
 TEST(Reflection, MatrixTest)
@@ -393,7 +390,7 @@ TEST(Reflection, MatrixTest)
 	EXPECT_EQ(15, (*m2)(3, 2));
 	EXPECT_EQ(16, (*m2)(3, 3));
 
-	delete m2;
+    Qi_FreeMemory(m2);
 }
 
 class StringObject
@@ -424,7 +421,7 @@ TEST(Reflection, StringTest)
 	EXPECT_EQ("This is a string", object2->s1);
 	EXPECT_EQ("This is also a string", object2->s2);
 
-	delete object2;
+    Qi_FreeMemory(object2);
 }
 
 TEST(Reflection, GetTypeTest)

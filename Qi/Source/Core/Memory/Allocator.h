@@ -22,6 +22,8 @@ class Allocator
 {
     public:
     
+        virtual ~Allocator() {}
+    
 		///
 		/// Override this object to add fields for initialization.
 		///
@@ -56,7 +58,7 @@ class Allocator
 		/// @param numBytes Number of bytes to allocate.
 		/// @return Pointer to an allocated buffer.
 		///
-		virtual void *Allocate(size_t numBytes) const = 0;
+		virtual void *Allocate(uint32 numBytes) const = 0;
 
 		///
 		/// Deallocates an allocated buffer.

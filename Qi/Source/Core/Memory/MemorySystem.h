@@ -63,7 +63,7 @@ class MemorySystem
         /// @return Pointer to an allocated buffer.
         ///
         template<class T>
-        T *Allocate(size_t numBytes, const char *filename = nullptr, int lineNumber = 0);
+        T *Allocate(uint32 numBytes, const char *filename = nullptr, int lineNumber = 0);
     
         ///
         /// Frees an allocated buffer.
@@ -101,7 +101,7 @@ class MemorySystem
 
 		struct MemoryHeader
 		{
-			size_t memorySize;
+			uint32 memorySize;
 		};
 
 		Allocator *m_allocator; ///< Memory allocator installed into this memory system. All memory allocations/
