@@ -55,10 +55,9 @@ class HeapAllocator : public Allocator
 			return m_initialized;
 		}
 
-		void *Allocate(uint32 numBytes, uint32 alignment) const override
+		void *Allocate(uint32 numBytes) const override
 		{
 			QI_ASSERT(m_initialized);
-			QI_ASSERT(alignment > 0);
 
 			void *memory = ::operator new(numBytes);
 			return memory;

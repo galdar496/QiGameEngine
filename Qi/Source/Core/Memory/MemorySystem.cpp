@@ -13,8 +13,6 @@
 namespace Qi
 {
 
-
-
 MemorySystem::MemorySystem() :
     m_initialized(false),
 	m_allocator(nullptr)
@@ -68,6 +66,12 @@ void MemorySystem::Deinit()
 	m_allocator = nullptr;
 
     m_initialized = false;
+}
+
+Allocator *MemorySystem::GetAllocator() const
+{
+	QI_ASSERT(m_initialized);
+	return m_allocator;
 }
     
 } // namespace Qi

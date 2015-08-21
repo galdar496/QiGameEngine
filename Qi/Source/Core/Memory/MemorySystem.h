@@ -21,9 +21,10 @@
 #include <string>
 #include <unordered_map>
 
-#define Qi_AllocateMemory(type) Qi::MemorySystem::GetInstance().Allocate<type>(sizeof(type), __FILE__, __LINE__)
-#define Qi_AllocateMemoryArray(type, count) Qi::MemorySystem::GetInstance().Allocate<type>(sizeof(type) * count, __FILE__, __LINE__)
+#define Qi_AllocateMemory(type) Qi::MemorySystem::GetInstance().Allocate<type>(__FILE__, __LINE__)
+#define Qi_AllocateMemoryArray(type, count) new type[count] //Qi::MemorySystem::GetInstance().AllocateArray<type>(count, __FILE__, __LINE__)
 #define Qi_FreeMemory(address) Qi::MemorySystem::GetInstance().Free(address)
+#define Qi_FreeMemoryArray(address) Qi::MemorySystem::GetInstance().FreeArray(address)
 
 namespace Qi
 {
@@ -55,24 +56,49 @@ class MemorySystem
         void Deinit();
     
         ///
-        /// Allocate a user-defined amount of memory.
+        /// Allocate an instance for a specific type.
         ///
-        /// @param numBytes Number of bytes to allocate.
         /// @param filename Filename that this allocation came from.
         /// @param lineNumber Line number where this allocation took place.
         /// @return Pointer to an allocated buffer.
         ///
         template<class T>
-        T *Allocate(uint32 numBytes, const char *filename = nullptr, int lineNumber = 0);
+        T *Allocate(const char *filename = nullptr, int lineNumber = 0);
+
+		///
+		/// Allocate an array of type T.
+		///
+		/// @param arraySize Number of elements to allocate with the array.
+		/// @param filename Filename that this allocation came from.
+		/// @param lineNumber Line number where this allocation took place. 
+		///
+		template<class T>
+		T *AllocateArray(uint32 arraySize, const char *filename = nullptr, int lineNumber = 0);
     
         ///
-        /// Frees an allocated buffer.
+        /// Frees an allocated type.
         ///
         /// @param address Address of the buffer to free. If
         ///        null, this function will not do anything.
         ///
         template<class T>
         void Free(T *address);
+
+		///
+		/// Frees an allocated array buffer.
+		///
+		/// @param address Address of the buffer to free. If
+		///        null, this function will not do anything.
+		///
+		template<class T>
+		void FreeArray(T *address);
+
+		///
+		/// Get the allocator currently installed into the memory system.
+		///
+		/// @return Allocator instance.
+		///
+		Allocator *GetAllocator() const;
     
     private:
     
@@ -82,7 +108,7 @@ class MemorySystem
     
 		MemorySystem();
 		~MemorySystem();
-    
+
         bool m_initialized; ///< If true, the memory system is initialized.
     
         ///
@@ -92,17 +118,13 @@ class MemorySystem
         {
             unsigned long long numBytes; ///< Number of bytes allocated.
             
-            int lineNumber;      ///< Line number this allocation came from.
-            std::string filename; ///< Filename that allocated this memory.
+			std::string filename; ///< Filename that allocated this memory.
+            int lineNumber;       ///< Line number this allocation came from.
+			bool isArray;         ///< If true, the allocation is an array type.
         };
     
         typedef std::unordered_map<void *, MemoryRecord> Record;
         Record m_records; ///< All current allocations in the system (debug only). Stored by address.
-
-		struct MemoryHeader
-		{
-			uint32 memorySize;
-		};
 
 		Allocator *m_allocator; ///< Memory allocator installed into this memory system. All memory allocations/
 		                        ///< deallocations will go through this allocator.

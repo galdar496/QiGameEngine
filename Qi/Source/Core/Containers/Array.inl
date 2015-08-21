@@ -146,7 +146,7 @@ void Array<T>::Clear()
         m_count = 0;
         m_back = 0;
         m_allocatedSize = 0;
-        Qi_FreeMemory(m_elements);
+        Qi_FreeMemoryArray(m_elements);
         m_elements = nullptr;
     }
 }
@@ -173,7 +173,7 @@ Result Array<T>::Reallocate()
     // Copy the old data from the previous array into the new one and free
     // the old one.
     memcpy((void *)tmp_array, (void *)m_elements, m_allocatedSize * sizeof(T));
-    Qi_FreeMemory(m_elements);
+    Qi_FreeMemoryArray(m_elements);
     m_elements = tmp_array;
     m_allocatedSize = new_size;
     
