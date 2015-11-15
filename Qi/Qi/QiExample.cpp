@@ -32,8 +32,6 @@ class QiExample : public QiGameImpl
     
 		virtual bool Step(const float dt) override
 		{
-            //Qi::Vec4 *v = Qi_AllocateMemory(Qi::Vec4);
-            
             #ifdef QI_WINDOWS
                 int x;
                 std::cin >> x;
