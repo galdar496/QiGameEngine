@@ -122,7 +122,7 @@ class Logger
     
         // One vector per channel. Note that vectors are in use here instead of Qi::Array
         // to avoid a circular dependency between the logger and the memory manager.
-        typedef std::vector<const MessageEvent> PerChannelHandlers;
+        typedef std::vector<MessageEvent> PerChannelHandlers;
         typedef std::vector<PerChannelHandlers> MessageHandlers;
         MessageHandlers m_messageHandlers; ///< All registered message handlers ordered by channel.
     

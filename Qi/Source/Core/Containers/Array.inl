@@ -141,13 +141,14 @@ void Array<T>::Sort(SortOrder order)
 template<class T>
 void Array<T>::Clear()
 {
-    if (m_allocatedSize)
+    if (m_allocatedSize > 0)
     {
-        m_count = 0;
-        m_back = 0;
-        m_allocatedSize = 0;
         Qi_FreeMemoryArray(m_elements);
         m_elements = nullptr;
+
+		m_count = 0;
+		m_back = 0;
+		m_allocatedSize = 0;
     }
 }
 

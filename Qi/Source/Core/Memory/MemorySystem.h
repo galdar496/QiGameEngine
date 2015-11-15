@@ -22,7 +22,7 @@
 #include <unordered_map>
 
 #define Qi_AllocateMemory(type) Qi::MemorySystem::GetInstance().Allocate<type>(__FILE__, __LINE__)
-#define Qi_AllocateMemoryArray(type, count) new type[count] //Qi::MemorySystem::GetInstance().AllocateArray<type>(count, __FILE__, __LINE__)
+#define Qi_AllocateMemoryArray(type, count) Qi::MemorySystem::GetInstance().AllocateArray<type>(count, __FILE__, __LINE__)
 #define Qi_FreeMemory(address) Qi::MemorySystem::GetInstance().Free(address)
 #define Qi_FreeMemoryArray(address) Qi::MemorySystem::GetInstance().FreeArray(address)
 
