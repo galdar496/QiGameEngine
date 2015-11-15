@@ -8,6 +8,8 @@
 
 #include "HTMLLogFileWriter.h"
 #include "../../Defines.h"
+#include <ctime>
+#include <chrono>
 
 // If we're in windows, map _snprintf_s to snprintf for
 // cross-platformability.
@@ -50,6 +52,12 @@ Result HTMLLogFileWriter::OpenFile(const std::string &filename, unsigned int fla
     
     // Write out the HTML header stuff to mark this file as containing HTML.
     m_stream << "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><title>Qi Game Engine Log</title></head></body>" << std::endl;
+	
+	// Get the current time to write into the begging of the log.
+	std::time_t currentTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+	char timeOutputBuffer[1024];
+	ctime_s(timeOutputBuffer, 1024, &currentTime);
+	m_stream << "<font color=\"#000000\"><br><br>LOG BEGIN -- " << timeOutputBuffer << " <br></font></body></html>" << std::endl;
     
     return Result(ReturnCode::kSuccess);
 }
