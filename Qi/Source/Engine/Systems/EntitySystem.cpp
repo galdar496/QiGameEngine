@@ -32,6 +32,7 @@ EntitySystem::~EntitySystem()
 Result EntitySystem::Init(const Cinfo *info)
 {
     QI_ASSERT(!m_initialized);
+	QI_ASSERT(info);
     
     const EntitySystemCInfo *cinfo = static_cast<const EntitySystemCInfo *>(info);
     

@@ -12,13 +12,16 @@
 #include "../Core/Memory/HeapAllocator.h"
 #include "Systems/SystemBase.h"
 #include "Systems/EntitySystem.h"
+#include "Systems/WindowingSystem.h"
 #include <iostream>
 
 namespace Qi
 {
 
 Engine::Engine() :
-    m_initiailzed(false)
+    m_initiailzed(false),
+	m_entitySystem(nullptr),
+	m_windowingSystem(nullptr)
 {
 }
 
@@ -63,7 +66,9 @@ Result Engine::Init(const EngineConfig &config)
 	}
     
     Qi_LogInfo("-Initializing engine-");
-    Qi_LogInfo("EngingConfig -- screen (%u x %u)", config.screenWidth, config.screenHeight);
+    Qi_LogInfo("EngingConfig -- ");
+	Qi_LogInfo("\tscreen (%u x %u)", config.screenWidth, config.screenHeight);
+	Qi_LogInfo("\tmax entity count: %u", config.maxWorldEntities);
     
     result = CreateInternalSystems(config);
     if (!result.IsValid())
@@ -81,11 +86,13 @@ void Engine::Step(const float dt)
 {
     QI_ASSERT(m_initiailzed);
     
-    Qi_LogInfo("Engine stepping frame forward %f seconds", dt);
+    //Qi_LogInfo("Engine stepping frame forward %f seconds", dt);
     
     // Add system updates to the job queue here.
     // After the job queue is finished processing, kick of the renderer to process the
     // render job queue.
+
+	m_windowingSystem->Update(dt);
     
     
     
@@ -121,6 +128,7 @@ void Engine::Shutdown()
 
 Result Engine::CreateInternalSystems(const EngineConfig &config)
 {
+	// Entity system.
     {
         m_entitySystem = Qi_AllocateMemory(EntitySystem);
         Qi_LogInfo("Adding system %s", m_entitySystem->GetName().c_str());
@@ -134,6 +142,25 @@ Result Engine::CreateInternalSystems(const EngineConfig &config)
             return result;
         }
     }
+
+	// Windowing system.
+	{
+		m_windowingSystem = Qi_AllocateMemory(WindowingSystem);
+		Qi_LogInfo("Adding system %s", m_windowingSystem->GetName().c_str());
+
+		WindowingSystem::WindowingSystemCInfo info;
+		info.screenWidth  = config.screenWidth;
+		info.screenHeight = config.screenHeight;
+		info.fullscreen   = false;
+		info.windowName   = config.gameTitle;
+
+		Result result = m_windowingSystem->Init(&info);
+		if (!result.IsValid())
+		{
+			Qi_LogError("Unable to initialize system %s", m_windowingSystem->GetName().c_str());
+			return result;
+		}
+	}
     
     return Result(ReturnCode::kSuccess);
 }
@@ -144,6 +171,11 @@ void Engine::ShutdownInternalSystems()
     m_entitySystem->Deinit();
     Qi_FreeMemory(m_entitySystem);
     m_entitySystem = nullptr;
+
+	Qi_LogInfo("Shutting down %s", m_windowingSystem->GetName().c_str());
+	m_windowingSystem->Deinit();
+	Qi_FreeMemory(m_windowingSystem);
+	m_windowingSystem = nullptr;
 }
 
 void Engine::AddSystem(SystemBase *system)

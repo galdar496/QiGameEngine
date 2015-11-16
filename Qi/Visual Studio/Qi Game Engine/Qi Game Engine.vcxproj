@@ -141,6 +141,9 @@
     <ClCompile Include="..\..\Source\Engine\GameWorld\Entity.cpp" />
     <ClCompile Include="..\..\Source\Engine\Systems\EntitySystem.cpp" />
     <ClCompile Include="..\..\Source\Engine\Systems\SystemBase.cpp" />
+    <ClCompile Include="..\..\Source\Engine\Systems\WindowingSystem.cpp" />
+    <ClCompile Include="..\..\Source\Engine\Systems\Window\DirectXWindow.cpp" />
+    <ClCompile Include="..\..\Source\Engine\Systems\Window\WindowBase.cpp" />
     <ClCompile Include="..\..\Source\ThirdParty\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +182,9 @@
     <ClInclude Include="..\..\Source\Engine\GameWorld\Entity.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\EntitySystem.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\SystemBase.h" />
+    <ClInclude Include="..\..\Source\Engine\Systems\WindowingSystem.h" />
+    <ClInclude Include="..\..\Source\Engine\Systems\Window\DirectXWindow.h" />
+    <ClInclude Include="..\..\Source\Engine\Systems\Window\WindowBase.h" />
     <ClInclude Include="..\..\Source\ThirdParty\FastDelegate.h" />
     <ClInclude Include="..\..\Source\ThirdParty\tinyxml2.h" />
   </ItemGroup>

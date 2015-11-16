@@ -29,7 +29,7 @@ class EntitySystem : public SystemBase
         QI_DECLARE_REFLECTED_CLASS(EntitySystem);
     
         EntitySystem();
-        virtual ~EntitySystem();
+        virtual ~EntitySystem() override;
     
         ////// Overrides for SystemBase API //////
     

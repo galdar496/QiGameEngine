@@ -19,6 +19,7 @@ class QiExample : public QiGameImpl
         virtual void Configure(Qi::EngineConfig &config) const override
         {
             config.flushLogFile = true;
+			config.gameTitle    = "QiExample";
         }
         
         virtual bool Init() override
@@ -32,11 +33,7 @@ class QiExample : public QiGameImpl
     
 		virtual bool Step(const float dt) override
 		{
-            #ifdef QI_WINDOWS
-                int x;
-                std::cin >> x;
-            #endif
-            return false;
+			return true;
         }
 };
 

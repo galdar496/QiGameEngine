@@ -29,7 +29,7 @@ class HeapAllocator : public Allocator
 		{
 		}
 
-		virtual ~HeapAllocator()
+		virtual ~HeapAllocator() override
 		{
 		}
 

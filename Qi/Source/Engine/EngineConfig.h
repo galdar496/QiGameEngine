@@ -15,6 +15,7 @@
 
 #include "../Core/Defines.h"
 #include "../Core/BaseTypes.h"
+#include <string>
 
 namespace Qi
 {
@@ -34,6 +35,8 @@ struct EngineConfig
     uint32 screenWidth;      ///< Width of the screen in pixels.
     uint32 screenHeight;     ///< Height of the screen in pixels.
     uint32 maxWorldEntities; ///< Maximum number of entities that can be contained in the game world.
+
+	std::string gameTitle; ///< Title of the game.
     
     bool flushLogFile; ///< If true, the logfile is flushed after each write.
 };

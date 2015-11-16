@@ -25,10 +25,11 @@ typedef uint32_t uint32;
 ///
 enum class ReturnCode
 {
-    kSuccess,          ///< No error occurred.
-    kUnknownError,     ///< An unknown error occured.
-    kUnknownFileType,  ///< An unknown filetype was found.
-    kOutOfMemory,      ///< The system has ran out of memory.
+    kSuccess,              ///< No error occurred.
+    kUnknownError,         ///< An unknown error occured.
+    kUnknownFileType,      ///< An unknown filetype was found.
+    kOutOfMemory,          ///< The system has ran out of memory.
+	kWindowCreationFailed  ///< Creation of the rendering window failed.
 };
 
 ///

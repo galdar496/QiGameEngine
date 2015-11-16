@@ -40,6 +40,9 @@
     <Filter Include="Engine\GameWorld">
       <UniqueIdentifier>{e42bae83-039a-48b2-82f6-807bae6a65f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Systems\Window">
+      <UniqueIdentifier>{f76288af-2312-4e21-9ef2-3d940670f0f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp">
@@ -95,6 +98,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Core\Memory\MemorySystem.cpp">
       <Filter>Core\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Engine\Systems\WindowingSystem.cpp">
+      <Filter>Engine\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Engine\Systems\Window\WindowBase.cpp">
+      <Filter>Engine\Systems\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Engine\Systems\Window\DirectXWindow.cpp">
+      <Filter>Engine\Systems\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +220,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Core\Memory\HeapAllocator.h">
       <Filter>Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\Systems\WindowingSystem.h">
+      <Filter>Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\Systems\Window\WindowBase.h">
+      <Filter>Engine\Systems\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\Systems\Window\DirectXWindow.h">
+      <Filter>Engine\Systems\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
