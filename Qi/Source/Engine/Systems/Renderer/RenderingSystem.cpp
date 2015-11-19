@@ -1,43 +1,43 @@
 //
-//  WindowingSystem.h
+//  RenderingSystem.h
 //  Qi Game Engine
 //
 //  Created by Cody White on 11/11/15.
 //  Copyright (c) 2015 Cody White. All rights reserved.
 //
 
-#include "WindowingSystem.h"
+#include "RenderingSystem.h"
 #include "Window/WindowBase.h"
-#include "../../Core/Defines.h"
-#include "../../Core/Utility/Logger/Logger.h"
-#include "../../Core/Memory/MemorySystem.h"
+#include "../../../Core/Defines.h"
+#include "../../../Core/Utility/Logger/Logger.h"
+#include "../../../Core/Memory/MemorySystem.h"
 
 // NOTE: Currently Qi only supports windows and DirectX.
 #ifdef QI_WINDOWS
-	#include "Window\DirectXWindow.h"
+	#include "Window/DirectXWindow.h"
 #endif
 
 namespace Qi
 {
 
-WindowingSystem::WindowingSystem() :
+	RenderingSystem::RenderingSystem() :
 	m_initialized(false),
 	m_window(nullptr)
 {
 }
 
-WindowingSystem::~WindowingSystem()
+	RenderingSystem::~RenderingSystem()
 {
 	
 }
 
-Result WindowingSystem::Init(const Cinfo *info)
+Result RenderingSystem::Init(const Cinfo *info)
 {
 	QI_ASSERT(!m_initialized);
 	QI_ASSERT(info);
 	Qi_LogInfo("Initializing windowing system...");
 
-	const WindowingSystemCInfo *cinfo = static_cast<const WindowingSystemCInfo *>(info);
+	const RenderingSystemCInfo *cinfo = static_cast<const RenderingSystemCInfo *>(info);
 
 	// Create the windowing system and initialize it.
 	#ifdef QI_WINDOWS
@@ -59,7 +59,7 @@ Result WindowingSystem::Init(const Cinfo *info)
 	return result;
 }
 
-void WindowingSystem::Deinit()
+void RenderingSystem::Deinit()
 {
 	QI_ASSERT(m_initialized);
 	Qi_LogInfo("Deinitializing windowing system...");
@@ -71,16 +71,16 @@ void WindowingSystem::Deinit()
 	m_initialized = false;
 }
 
-void WindowingSystem::Update(const float dt)
+void RenderingSystem::Update(const float dt)
 {
 	QI_ASSERT(m_initialized);
 
 	m_window->Update(dt);
 }
 
-std::string WindowingSystem::GetName() const
+std::string RenderingSystem::GetName() const
 {
-	return "WindowingSystem";
+	return "RenderingSystem";
 }
 
 } // namespace Qi

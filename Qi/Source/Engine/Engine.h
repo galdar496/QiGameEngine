@@ -30,7 +30,7 @@ namespace Qi
 // Forward declarations.
 class SystemBase;
 class EntitySystem;
-class WindowingSystem;
+class RenderingSystem;
 
 class Engine
 {
@@ -105,7 +105,7 @@ class Engine
     
         // Internal systems created and owned by the engine.
         EntitySystem    *m_entitySystem;
-		WindowingSystem *m_windowingSystem;
+		RenderingSystem *m_renderingSystem;
 };
 
 } // namespace Qi

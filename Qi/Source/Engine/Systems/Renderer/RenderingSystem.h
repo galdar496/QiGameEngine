@@ -1,5 +1,5 @@
 //
-//  WindowingSystem.h
+//  RenderingSystem.h
 //  Qi Game Engine
 //
 //  Created by Cody White on 11/11/15.
@@ -13,7 +13,7 @@
 /// windowing environment and contains all interactions with it.
 ///
 
-#include "SystemBase.h"
+#include "../SystemBase.h"
 #include <string>
 
 namespace Qi
@@ -22,16 +22,16 @@ namespace Qi
 // Forward declarations.
 class WindowBase;
 
-class WindowingSystem : public SystemBase
+class RenderingSystem : public SystemBase
 {
 	public:
 
-		WindowingSystem();
-		virtual ~WindowingSystem() override;
+		RenderingSystem();
+		virtual ~RenderingSystem() override;
 
 		////// Overrides for SystemBase API //////
 
-		struct WindowingSystemCInfo : public Cinfo
+		struct RenderingSystemCInfo : public Cinfo
 		{
 			uint32 screenWidth;  ///< Width to create the screen (in pixels).
 			uint32 screenHeight; ///< Height to create the screen (in pixels).

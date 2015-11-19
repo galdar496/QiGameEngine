@@ -12,7 +12,7 @@
 #include "../Core/Memory/HeapAllocator.h"
 #include "Systems/SystemBase.h"
 #include "Systems/EntitySystem.h"
-#include "Systems/WindowingSystem.h"
+#include "Systems/Renderer/RenderingSystem.h"
 #include <iostream>
 
 namespace Qi
@@ -21,7 +21,7 @@ namespace Qi
 Engine::Engine() :
     m_initiailzed(false),
 	m_entitySystem(nullptr),
-	m_windowingSystem(nullptr)
+	m_renderingSystem(nullptr)
 {
 }
 
@@ -92,7 +92,7 @@ void Engine::Step(const float dt)
     // After the job queue is finished processing, kick of the renderer to process the
     // render job queue.
 
-	m_windowingSystem->Update(dt);
+	m_renderingSystem->Update(dt);
     
     
     
@@ -145,19 +145,19 @@ Result Engine::CreateInternalSystems(const EngineConfig &config)
 
 	// Windowing system.
 	{
-		m_windowingSystem = Qi_AllocateMemory(WindowingSystem);
-		Qi_LogInfo("Adding system %s", m_windowingSystem->GetName().c_str());
+		m_renderingSystem = Qi_AllocateMemory(RenderingSystem);
+		Qi_LogInfo("Adding system %s", m_renderingSystem->GetName().c_str());
 
-		WindowingSystem::WindowingSystemCInfo info;
+		RenderingSystem::RenderingSystemCInfo info;
 		info.screenWidth  = config.screenWidth;
 		info.screenHeight = config.screenHeight;
 		info.fullscreen   = false;
 		info.windowName   = config.gameTitle;
 
-		Result result = m_windowingSystem->Init(&info);
+		Result result = m_renderingSystem->Init(&info);
 		if (!result.IsValid())
 		{
-			Qi_LogError("Unable to initialize system %s", m_windowingSystem->GetName().c_str());
+			Qi_LogError("Unable to initialize system %s", m_renderingSystem->GetName().c_str());
 			return result;
 		}
 	}
@@ -172,10 +172,10 @@ void Engine::ShutdownInternalSystems()
     Qi_FreeMemory(m_entitySystem);
     m_entitySystem = nullptr;
 
-	Qi_LogInfo("Shutting down %s", m_windowingSystem->GetName().c_str());
-	m_windowingSystem->Deinit();
-	Qi_FreeMemory(m_windowingSystem);
-	m_windowingSystem = nullptr;
+	Qi_LogInfo("Shutting down %s", m_renderingSystem->GetName().c_str());
+	m_renderingSystem->Deinit();
+	Qi_FreeMemory(m_renderingSystem);
+	m_renderingSystem = nullptr;
 }
 
 void Engine::AddSystem(SystemBase *system)

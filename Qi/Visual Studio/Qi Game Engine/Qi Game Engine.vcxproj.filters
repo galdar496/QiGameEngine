@@ -40,8 +40,11 @@
     <Filter Include="Engine\GameWorld">
       <UniqueIdentifier>{e42bae83-039a-48b2-82f6-807bae6a65f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Systems\Window">
-      <UniqueIdentifier>{f76288af-2312-4e21-9ef2-3d940670f0f0}</UniqueIdentifier>
+    <Filter Include="Engine\Systems\Renderer">
+      <UniqueIdentifier>{1d34d220-ab18-40fc-ae32-0e572462986f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Systems\Renderer\Window">
+      <UniqueIdentifier>{4c871f7b-f6d4-46a2-a055-cae3b853e636}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -99,14 +102,14 @@
     <ClCompile Include="..\..\Source\Core\Memory\MemorySystem.cpp">
       <Filter>Core\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Engine\Systems\WindowingSystem.cpp">
-      <Filter>Engine\Systems</Filter>
+    <ClCompile Include="..\..\Source\Engine\Systems\Renderer\Window\DirectXWindow.cpp">
+      <Filter>Engine\Systems\Renderer\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Engine\Systems\Window\WindowBase.cpp">
-      <Filter>Engine\Systems\Window</Filter>
+    <ClCompile Include="..\..\Source\Engine\Systems\Renderer\Window\WindowBase.cpp">
+      <Filter>Engine\Systems\Renderer\Window</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Engine\Systems\Window\DirectXWindow.cpp">
-      <Filter>Engine\Systems\Window</Filter>
+    <ClCompile Include="..\..\Source\Engine\Systems\Renderer\RenderingSystem.cpp">
+      <Filter>Engine\Systems\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,14 +224,14 @@
     <ClInclude Include="..\..\Source\Core\Memory\HeapAllocator.h">
       <Filter>Core\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Engine\Systems\WindowingSystem.h">
-      <Filter>Engine\Systems</Filter>
+    <ClInclude Include="..\..\Source\Engine\Systems\Renderer\Window\DirectXWindow.h">
+      <Filter>Engine\Systems\Renderer\Window</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Engine\Systems\Window\WindowBase.h">
-      <Filter>Engine\Systems\Window</Filter>
+    <ClInclude Include="..\..\Source\Engine\Systems\Renderer\Window\WindowBase.h">
+      <Filter>Engine\Systems\Renderer\Window</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Engine\Systems\Window\DirectXWindow.h">
-      <Filter>Engine\Systems\Window</Filter>
+    <ClInclude Include="..\..\Source\Engine\Systems\Renderer\RenderingSystem.h">
+      <Filter>Engine\Systems\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

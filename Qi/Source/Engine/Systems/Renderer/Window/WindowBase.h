@@ -12,7 +12,7 @@
 /// Provide an interface for a platform-specific window to work with. This window will be controlled through the WindowingSystem.
 ///
 
-#include "../../../Core/BaseTypes.h"
+#include "../../../../Core/BaseTypes.h"
 #include <string>
 
 namespace Qi

@@ -13,7 +13,7 @@
 ///
 
 #include "WindowBase.h"
-#include "../../../Core/Defines.h"
+#include "../../../../Core/Defines.h"
 
 #ifdef QI_WINDOWS
 	#define WIN32_LEAN_AND_MEAN
