@@ -46,6 +46,9 @@
     <Filter Include="Engine\Systems\Renderer\Window">
       <UniqueIdentifier>{4c871f7b-f6d4-46a2-a055-cae3b853e636}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Systems\SystemConfig">
+      <UniqueIdentifier>{8d3bc891-e1bc-4f83-98b0-ed4c57cb8e69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp">
@@ -232,6 +235,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Engine\Systems\Renderer\RenderingSystem.h">
       <Filter>Engine\Systems\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\Systems\SystemConfig\ConfigVariables.h">
+      <Filter>Engine\Systems\SystemConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\Systems\SystemConfig\ConfigFileReader.h">
+      <Filter>Engine\Systems\SystemConfig</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

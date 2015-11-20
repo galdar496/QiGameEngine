@@ -11,6 +11,7 @@
 #include "../../../Core/Defines.h"
 #include "../../../Core/Utility/Logger/Logger.h"
 #include "../../../Core/Memory/MemorySystem.h"
+#include "../SystemConfig/ConfigFileReader.h"
 
 // NOTE: Currently Qi only supports windows and DirectX.
 #ifdef QI_WINDOWS
@@ -20,43 +21,51 @@
 namespace Qi
 {
 
-	RenderingSystem::RenderingSystem() :
-	m_initialized(false),
+RenderingSystem::RenderingSystem() :
+	SystemBase("RenderingSystem", "RenderSettings"),
 	m_window(nullptr)
 {
 }
 
-	RenderingSystem::~RenderingSystem()
+RenderingSystem::~RenderingSystem()
 {
 	
 }
 
-Result RenderingSystem::Init(const Cinfo *info)
+Result RenderingSystem::Init(const tinyxml2::XMLElement *rootEngineConfig)
 {
-	QI_ASSERT(!m_initialized);
-	QI_ASSERT(info);
-	Qi_LogInfo("Initializing windowing system...");
+    QI_ASSERT(!m_initialized);
 
-	const RenderingSystemCInfo *cinfo = static_cast<const RenderingSystemCInfo *>(info);
+    Result result(ReturnCode::kSuccess);
 
-	// Create the windowing system and initialize it.
-	#ifdef QI_WINDOWS
-		m_window = Qi_AllocateMemory(DirectXWindow);
-	#endif
+    // Read the RenderingSystems config node.
+    const tinyxml2::XMLElement *settings = rootEngineConfig->FirstChildElement(m_configNodeName.c_str());
+    if (!settings)
+    {
+        result = ReturnCode::kMissingConfigNode;
+    }
+    else
+    {
+        ConfigFileReader reader(settings);
 
-	WindowBase::WindowCInfo windowInfo;
-	windowInfo.screenWidth  = cinfo->screenWidth;
-	windowInfo.screenHeight = cinfo->screenHeight;
-	windowInfo.fullscreen   = cinfo->fullscreen;
-	windowInfo.windowName   = cinfo->windowName;
+        {
+            // Create the windowing system and initialize it.
+            #ifdef QI_WINDOWS
+                m_window = Qi_AllocateMemory(DirectXWindow);
+            #endif
 
-	Result result = m_window->Init(windowInfo);
-	if (result.IsValid())
-	{
-		m_initialized = true;
-	}
+            WindowBase::WindowCInfo cinfo;
+            cinfo.screenWidth  = reader.GetVariableValue<int>(g_ConfigVariables[ConfigVariable::kWindowWidth]);
+            cinfo.screenHeight = reader.GetVariableValue<int>(g_ConfigVariables[ConfigVariable::kWindowHeight]);
+            cinfo.fullscreen   = reader.GetVariableValue<bool>(g_ConfigVariables[ConfigVariable::kFullscreen]);
+            cinfo.windowName   = reader.GetVariableValue<std::string>(g_ConfigVariables[ConfigVariable::kGameName]);
 
-	return result;
+            result = m_window->Init(cinfo);
+        }
+    }
+
+    m_initialized = result.IsValid();
+    return result;
 }
 
 void RenderingSystem::Deinit()
@@ -76,11 +85,6 @@ void RenderingSystem::Update(const float dt)
 	QI_ASSERT(m_initialized);
 
 	m_window->Update(dt);
-}
-
-std::string RenderingSystem::GetName() const
-{
-	return "RenderingSystem";
 }
 
 } // namespace Qi

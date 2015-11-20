@@ -27,7 +27,7 @@ Engine::Engine() :
 
 Engine::~Engine()
 {
-
+    Shutdown();
 }
 
 Result Engine::Init(const EngineConfig &config)
@@ -66,9 +66,6 @@ Result Engine::Init(const EngineConfig &config)
 	}
     
     Qi_LogInfo("-Initializing engine-");
-    Qi_LogInfo("EngingConfig -- ");
-	Qi_LogInfo("\tscreen (%u x %u)", config.screenWidth, config.screenHeight);
-	Qi_LogInfo("\tmax entity count: %u", config.maxWorldEntities);
     
     result = CreateInternalSystems(config);
     if (!result.IsValid())
@@ -92,14 +89,10 @@ void Engine::Step(const float dt)
     // After the job queue is finished processing, kick of the renderer to process the
     // render job queue.
 
-	m_renderingSystem->Update(dt);
-    
-    
-    
-    // Update custom systems.
-    for (uint32 ii = 0; ii < m_customSystems.GetSize(); ++ii)
+    // Update engine systems systems.
+    for (uint32 ii = 0; ii < m_engineSystems.GetSize(); ++ii)
     {
-        m_customSystems[ii]->Update(dt);
+        m_engineSystems[ii]->Update(dt);
     }
 }
 
@@ -110,72 +103,79 @@ void Engine::Shutdown()
     
     Qi_LogInfo("-Shutting down the engine-");
     
-    // De-initialize all custom systems and delete the memory for them.
-    for (uint32 ii = 0; ii < m_customSystems.GetSize(); ++ii)
-    {
-        Qi_LogInfo("Shutting down system %s", m_customSystems[ii]->GetName().c_str());
-        m_customSystems[ii]->Deinit();
-        delete m_customSystems[ii];
-        m_customSystems[ii] = nullptr;
-    }
-    
-    ShutdownInternalSystems();
+    ShutdownEngineSystems();
     
     // Shutdown singleton objects. Be sure to always shutdown the logger last.
 	MemorySystem::GetInstance().Deinit();
     Logger::GetInstance().Deinit();
 }
 
+#include <direct.h>
+
 Result Engine::CreateInternalSystems(const EngineConfig &config)
 {
-	// Entity system.
+    Qi_LogInfo("Creating base engine systems...");
+    Result result(ReturnCode::kSuccess);
+    
+    m_renderingSystem = Qi_AllocateMemory(RenderingSystem);
+    m_engineSystems.PushBack(m_renderingSystem);
+
+    m_entitySystem = Qi_AllocateMemory(EntitySystem);
+    m_engineSystems.PushBack(m_entitySystem);
+
+    // Make sure the config XML file contains that proper root node type.
+    const tinyxml2::XMLElement *rootConfigNode = nullptr;
+    tinyxml2::XMLDocument xmlConfigFile;
+    if (xmlConfigFile.LoadFile(config.configFile.c_str()) != tinyxml2::XML_SUCCESS)
     {
-        m_entitySystem = Qi_AllocateMemory(EntitySystem);
-        Qi_LogInfo("Adding system %s", m_entitySystem->GetName().c_str());
-        
-        EntitySystem::EntitySystemCInfo info;
-        info.maxEntities = config.maxWorldEntities;
-        Result result = m_entitySystem->Init(&info);
-        if (!result.IsValid())
+        Qi_LogError("Unable to load configuration file %s", config.configFile.c_str());
+        result = ReturnCode::kMissingConfigNode;
+    }
+    else
+    {
+        rootConfigNode = xmlConfigFile.FirstChildElement(m_engineConfigNodeName);
+        if (rootConfigNode == nullptr)
         {
-			Qi_LogError("Unable to initialize system %s", m_entitySystem->GetName().c_str());
-            return result;
+            Qi_LogError("Unable to load root config node %s in configuration file %s", m_engineConfigNodeName, config.configFile.c_str());
+            result = ReturnCode::kMissingConfigNode;
+        }
+        else
+        {
+            // Initialize the systems for use.
+            for (uint32 ii = 0; ii < m_engineSystems.GetSize(); ++ii)
+            {
+                SystemBase *system = m_engineSystems[ii];
+
+                result = system->Init(rootConfigNode);
+                if (!result.IsValid())
+                {
+                    break;
+                }
+
+                Qi_LogInfo("\t%s successfully created", system->GetName().c_str());
+            }
         }
     }
 
-	// Windowing system.
-	{
-		m_renderingSystem = Qi_AllocateMemory(RenderingSystem);
-		Qi_LogInfo("Adding system %s", m_renderingSystem->GetName().c_str());
-
-		RenderingSystem::RenderingSystemCInfo info;
-		info.screenWidth  = config.screenWidth;
-		info.screenHeight = config.screenHeight;
-		info.fullscreen   = false;
-		info.windowName   = config.gameTitle;
-
-		Result result = m_renderingSystem->Init(&info);
-		if (!result.IsValid())
-		{
-			Qi_LogError("Unable to initialize system %s", m_renderingSystem->GetName().c_str());
-			return result;
-		}
-	}
-    
-    return Result(ReturnCode::kSuccess);
+    return result;
 }
 
-void Engine::ShutdownInternalSystems()
+void Engine::ShutdownEngineSystems()
 {
-    Qi_LogInfo("Shutting down %s", m_entitySystem->GetName().c_str());
-    m_entitySystem->Deinit();
-    Qi_FreeMemory(m_entitySystem);
-    m_entitySystem = nullptr;
+    for (uint32 ii = 0; ii < m_engineSystems.GetSize(); ++ii)
+    {
+        SystemBase *system = m_engineSystems[ii];
+        Qi_LogInfo("Shutting down %s", system->GetName());
+        
+        system->Deinit();
+        Qi_FreeMemory(system);
+    }
 
-	Qi_LogInfo("Shutting down %s", m_renderingSystem->GetName().c_str());
-	m_renderingSystem->Deinit();
-	Qi_FreeMemory(m_renderingSystem);
-	m_renderingSystem = nullptr;
+    m_engineSystems.Clear();
+
+    // Make sure the system pointers are all nulled out.
+    m_entitySystem    = nullptr;
+    m_renderingSystem = nullptr;
 }
 
 void Engine::AddSystem(SystemBase *system)
@@ -184,7 +184,7 @@ void Engine::AddSystem(SystemBase *system)
     
     Qi_LogInfo("Adding system %s to the engine", system->GetName().c_str());
     
-    m_customSystems.PushBack(system);
+    m_engineSystems.PushBack(system);
 }
 
 #ifdef QI_DEBUG

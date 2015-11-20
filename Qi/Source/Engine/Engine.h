@@ -84,9 +84,9 @@ class Engine
         Result CreateInternalSystems(const EngineConfig &config);
     
         ///
-        /// Shutdown any internal systems and make sure all memory is cleaned up.
+        /// Shutdown any engine systems and make sure all memory is cleaned up.
         ///
-        void ShutdownInternalSystems();
+        void ShutdownEngineSystems();
     
     #ifdef QI_DEBUG
         ///
@@ -101,11 +101,14 @@ class Engine
     
         bool m_initiailzed; ///< If true, the engine has been properly initialized.
     
-        Array<SystemBase *> m_customSystems; ///< All custom systems managed by the engine.
+        Array<SystemBase *> m_engineSystems; ///< All engine systems that the engine knows about (both internal and custom systems).
     
-        // Internal systems created and owned by the engine.
+        // Internal system references created and owned by the engine. The systems all live inside of "m_engineSystems" but these
+        // pointers exist for quick access to a specific system.
         EntitySystem    *m_entitySystem;
 		RenderingSystem *m_renderingSystem;
+
+        const char * const  m_engineConfigNodeName = "QiEngineConfig";
 };
 
 } // namespace Qi

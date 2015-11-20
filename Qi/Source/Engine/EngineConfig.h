@@ -22,23 +22,17 @@ namespace Qi
 
 struct EngineConfig
 {
-    ///
-    /// Initialize the default configuration.
-    ///
-    EngineConfig() :
-        screenWidth(800),
-        screenHeight(800),
-        maxWorldEntities(10),
-        flushLogFile(false)
-    {}
-    
-    uint32 screenWidth;      ///< Width of the screen in pixels.
-    uint32 screenHeight;     ///< Height of the screen in pixels.
-    uint32 maxWorldEntities; ///< Maximum number of entities that can be contained in the game world.
+    public:
 
-	std::string gameTitle; ///< Title of the game.
-    
-    bool flushLogFile; ///< If true, the logfile is flushed after each write.
+        ///
+        /// Initialize the default configuration.
+        ///
+        EngineConfig() :
+            flushLogFile(false)
+        {}
+
+        std::string configFile; ///< Configuration file to use for configuring the engine. If this is not set, the engine will use internal defaults.
+        bool flushLogFile;      ///< If true, the logfile is flushed after each write.
 };
 
 } // namespace Qi

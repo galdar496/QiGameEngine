@@ -8,11 +8,11 @@
 
 #include "EntitySystem.h"
 #include "../../Core/Utility/Logger/Logger.h"
+#include "../EngineConfig.h"
+#include "SystemConfig/ConfigFileReader.h"
 
 namespace Qi
 {
-
-const std::string EntitySystem::M_NAME = "EntitySystem";
 
 QI_REFLECT_CLASS(EntitySystem)
 {
@@ -21,7 +21,7 @@ QI_REFLECT_CLASS(EntitySystem)
 }
 
 EntitySystem::EntitySystem() :
-    SystemBase()
+    SystemBase("EntitySystem", "GameSettings")
 {
 }
 
@@ -29,18 +29,30 @@ EntitySystem::~EntitySystem()
 {
 }
 
-Result EntitySystem::Init(const Cinfo *info)
+Result EntitySystem::Init(const tinyxml2::XMLElement *rootEngineConfig)
 {
     QI_ASSERT(!m_initialized);
-	QI_ASSERT(info);
-    
-    const EntitySystemCInfo *cinfo = static_cast<const EntitySystemCInfo *>(info);
-    
-    Qi_LogInfo("Allocating space for %d entities", cinfo->maxEntities);
-    
-	Result result = m_entities.SetSize(cinfo->maxEntities);
-    m_initialized = result.IsValid();
 
+    Result result(ReturnCode::kSuccess);
+
+    // Read the EntitySystems config node.
+    const tinyxml2::XMLElement *settings = rootEngineConfig->FirstChildElement(m_configNodeName.c_str());
+    if (!settings)
+    {
+        result = ReturnCode::kMissingConfigNode;
+    }
+    else
+    {
+        ConfigFileReader reader(settings);
+
+        {
+            int maxEntities = reader.GetVariableValue<int>(g_ConfigVariables[ConfigVariable::kMaxWorldEntities]);
+
+            result = m_entities.SetSize(maxEntities);
+        }
+    }
+    
+    m_initialized = result.IsValid();
     return result;
 }
 
@@ -82,11 +94,6 @@ void EntitySystem::RemoveEntity(const Qi::EntitySystem::EntityHandle &handle)
 Entity &EntitySystem::GetEntity(const EntityHandle &handle)
 {
 	return m_entities.GetElement(handle);
-}
-
-std::string EntitySystem::GetName() const
-{
-    return M_NAME;
 }
 
 } // namespace Qi

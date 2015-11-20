@@ -3,4 +3,7 @@
   <ItemGroup>
     <ClCompile Include="..\Qi\QiExample.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Qi\QiExampleConfig.xml" />
+  </ItemGroup>
 </Project>

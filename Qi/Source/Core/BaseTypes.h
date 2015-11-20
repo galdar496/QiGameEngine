@@ -29,7 +29,8 @@ enum class ReturnCode
     kUnknownError,         ///< An unknown error occured.
     kUnknownFileType,      ///< An unknown filetype was found.
     kOutOfMemory,          ///< The system has ran out of memory.
-	kWindowCreationFailed  ///< Creation of the rendering window failed.
+	kWindowCreationFailed, ///< Creation of the rendering window failed.
+    kMissingConfigNode     ///< Missing a config node in the engine XML config file.
 };
 
 ///

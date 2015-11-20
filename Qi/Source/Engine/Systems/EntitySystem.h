@@ -31,17 +31,9 @@ class EntitySystem : public SystemBase
         EntitySystem();
         virtual ~EntitySystem() override;
     
-        ////// Overrides for SystemBase API //////
-    
-        struct EntitySystemCInfo : public Cinfo
-        {
-            uint32 maxEntities; ///< Maximum number of entities to allow in the game world at any one time.
-        };
-    
-        virtual Result Init(const Cinfo *info) override;
+        virtual Result Init(const tinyxml2::XMLElement *rootEngineConfig) override;
         virtual void Deinit() override;
         virtual void Update(const float dt) override;
-        virtual std::string GetName() const override;
         //////////////////////////////////////////
     
 		typedef TightlyPackedArray<Entity>::Handle EntityHandle;
@@ -75,8 +67,6 @@ class EntitySystem : public SystemBase
         // This object is non-copyable.
         EntitySystem(const EntitySystem &other) = delete;
         EntitySystem &operator=(const EntitySystem &other) = delete;
-    
-        static const std::string M_NAME; ///< Name of this class.
 
 		TightlyPackedArray<Entity> m_entities; ///< Entities managed by this system.
 };

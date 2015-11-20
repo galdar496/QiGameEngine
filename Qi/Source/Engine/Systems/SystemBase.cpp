@@ -7,6 +7,7 @@
 //
 
 #include "SystemBase.h"
+#include "../EngineConfig.h"
 
 namespace Qi
 {
@@ -17,7 +18,17 @@ QI_REFLECT_CLASS(SystemBase)
 }
 
 SystemBase::SystemBase() :
-    m_initialized(false)
+    m_initialized(false),
+    m_systemName("UnnamedSystem"),
+    m_configNodeName("UnknownConfigNode")
+{
+
+}
+
+SystemBase::SystemBase(const std::string &systemName, const std::string & configNodeName) :
+    m_initialized(false),
+    m_systemName(systemName),
+    m_configNodeName(configNodeName)
 {
 }
 
@@ -26,7 +37,7 @@ SystemBase::~SystemBase()
     QI_ASSERT(!m_initialized);
 }
     
-Result SystemBase::Init(const Cinfo *info)
+Result SystemBase::Init(const tinyxml2::XMLElement *rootEngineConfig)
 {
     QI_ASSERT(0 && "This function should be overriden");
 	return Result(ReturnCode::kUnknownError);
@@ -42,10 +53,9 @@ void SystemBase::Update(const float dt)
     QI_ASSERT(0 && "This function should be overriden");
 }
 
-std::string SystemBase::GetName() const
+const std::string SystemBase::GetName() const
 {
-    QI_ASSERT(0 && "This function should be overriden");
-	return std::string();
+    return m_systemName;
 }
 
 } // namespace Qi

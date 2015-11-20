@@ -19,7 +19,7 @@ class QiExample : public QiGameImpl
         virtual void Configure(Qi::EngineConfig &config) const override
         {
             config.flushLogFile = true;
-			config.gameTitle    = "QiExample";
+            config.configFile   = "QiExampleConfig.xml";
         }
         
         virtual bool Init() override

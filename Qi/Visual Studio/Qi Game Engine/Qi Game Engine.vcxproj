@@ -185,6 +185,8 @@
     <ClInclude Include="..\..\Source\Engine\Systems\Renderer\Window\DirectXWindow.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\Renderer\Window\WindowBase.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\SystemBase.h" />
+    <ClInclude Include="..\..\Source\Engine\Systems\SystemConfig\ConfigFileReader.h" />
+    <ClInclude Include="..\..\Source\Engine\Systems\SystemConfig\ConfigVariables.h" />
     <ClInclude Include="..\..\Source\ThirdParty\FastDelegate.h" />
     <ClInclude Include="..\..\Source\ThirdParty\tinyxml2.h" />
   </ItemGroup>
