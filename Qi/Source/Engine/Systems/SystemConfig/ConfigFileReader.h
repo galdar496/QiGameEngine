@@ -46,7 +46,8 @@ class ConfigFileReader
             }
             else
             {
-                //returnValue = (T)variable.value;
+                Qi_LogWarning("Unable to find config variable \"%s\" in config file, value will be default.", variable.name.c_str());
+                SetToDefault<T>(variable, returnValue);
             }
 
             return returnValue;
@@ -86,6 +87,36 @@ class ConfigFileReader
         {
             value = element->GetText();
             Qi_LogInfo("Config variable %s: %s", element->Name(), value.c_str());
+        }
+
+        template<class T>
+        void SetToDefault(const Variable &variable, T &value) const
+        {
+            QI_ASSERT(0 && "Unimplemented ConfigVariable type");
+        }
+
+        template<>
+        void SetToDefault(const Variable &variable, int &value) const
+        {
+            value = variable.value.i;
+        }
+
+        template<>
+        void SetToDefault(const Variable &variable, float &value) const
+        {
+            value = variable.value.f;
+        }
+
+        template<>
+        void SetToDefault(const Variable &variable, bool &value) const
+        {
+            value = variable.value.b;
+        }
+
+        template<>
+        void SetToDefault(const Variable &variable, std::string &value) const
+        {
+            value = std::string(variable.value.c);
         }
 
         const tinyxml2::XMLElement *m_configNode; ///< Root config node for a group of options. Should be ready by a call to SystemBase::GetConfigNodeName().
