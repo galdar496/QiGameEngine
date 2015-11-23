@@ -74,6 +74,7 @@ void MemorySystem::Free(T *address)
 	#endif
 
 		m_allocator->Deallocate(address);
+        address = nullptr;
     }
 }
 
@@ -93,6 +94,7 @@ void MemorySystem::FreeArray(T *address)
 #endif
 
 		m_allocator->Deallocate(address);
+        address = nullptr;
 	}
 }
     
