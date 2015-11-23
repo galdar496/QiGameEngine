@@ -64,24 +64,28 @@ class ConfigFileReader
         void ReadVariable(const tinyxml2::XMLElement *element, int &value) const
         {
             element->QueryIntText(&value);
+            Qi_LogInfo("Config variable %s: %d", element->Name(), value);
         }
 
         template<>
         void ReadVariable(const tinyxml2::XMLElement *element, float &value) const
         {
             element->QueryFloatText(&value);
+            Qi_LogInfo("Config variable %s: %f", element->Name(), value);
         }
 
         template<>
         void ReadVariable(const tinyxml2::XMLElement *element, bool &value) const
         {
             element->QueryBoolText(&value);
+            Qi_LogInfo("Config variable %s: %s", element->Name(), value ? "true" : "false");
         }
 
         template<>
         void ReadVariable(const tinyxml2::XMLElement *element, std::string &value) const
         {
             value = element->GetText();
+            Qi_LogInfo("Config variable %s: %s", element->Name(), value.c_str());
         }
 
         const tinyxml2::XMLElement *m_configNode; ///< Root config node for a group of options. Should be ready by a call to SystemBase::GetConfigNodeName().
