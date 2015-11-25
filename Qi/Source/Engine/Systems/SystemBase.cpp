@@ -19,16 +19,14 @@ QI_REFLECT_CLASS(SystemBase)
 
 SystemBase::SystemBase() :
     m_initialized(false),
-    m_systemName("UnnamedSystem"),
-    m_configNodeName("UnknownConfigNode")
+    m_systemName("UnnamedSystem")
 {
 
 }
 
-SystemBase::SystemBase(const std::string &systemName, const std::string & configNodeName) :
+SystemBase::SystemBase(const std::string &systemName) :
     m_initialized(false),
-    m_systemName(systemName),
-    m_configNodeName(configNodeName)
+    m_systemName(systemName)
 {
 }
 
@@ -37,7 +35,7 @@ SystemBase::~SystemBase()
     QI_ASSERT(!m_initialized);
 }
     
-Result SystemBase::Init(const tinyxml2::XMLElement *rootEngineConfig)
+Result SystemBase::Init(const ConfigVariables &configVariables)
 {
     QI_ASSERT(0 && "This function should be overriden");
 	return Result(ReturnCode::kUnknownError);

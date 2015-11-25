@@ -114,6 +114,9 @@
     <ClCompile Include="..\..\Source\Engine\Systems\Renderer\RenderingSystem.cpp">
       <Filter>Engine\Systems\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\Engine\Systems\SystemConfig\ConfigVariables.cpp">
+      <Filter>Engine\Systems\SystemConfig</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AppFramework\QiGame.h">

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <QiEngineConfig>
-  <RenderSettings>
-    <GameName>Qi Example</GameName>
-    <WindowWidth>800</WindowWidth>
-    <WindowHeight>800</WindowHeight>
-    <Fullscreen>false</Fullscreen>
-  </RenderSettings>
-  <GameSettings>
-    <MaxWorldEntities>10</MaxWorldEntities>
-  </GameSettings>
+  <GameName>Qi Example</GameName>
+  <WindowWidth>800</WindowWidth>
+  <WindowHeight>800</WindowHeight>
+  <Fullscreen>false</Fullscreen>
+  <MaxWorldEntities>10</MaxWorldEntities>
 </QiEngineConfig>

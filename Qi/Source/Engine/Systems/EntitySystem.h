@@ -31,7 +31,7 @@ class EntitySystem : public SystemBase
         EntitySystem();
         virtual ~EntitySystem() override;
     
-        virtual Result Init(const tinyxml2::XMLElement *rootEngineConfig) override;
+        virtual Result Init(const ConfigVariables &configVariables) override;
         virtual void Deinit() override;
         virtual void Update(const float dt) override;
         //////////////////////////////////////////

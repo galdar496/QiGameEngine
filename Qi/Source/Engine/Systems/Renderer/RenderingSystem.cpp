@@ -22,7 +22,7 @@ namespace Qi
 {
 
 RenderingSystem::RenderingSystem() :
-	SystemBase("RenderingSystem", "RenderSettings"),
+	SystemBase("RenderingSystem"),
 	m_window(nullptr)
 {
 }
@@ -32,38 +32,25 @@ RenderingSystem::~RenderingSystem()
 	
 }
 
-Result RenderingSystem::Init(const tinyxml2::XMLElement *rootEngineConfig)
+Result RenderingSystem::Init(const ConfigVariables &configVariables)
 {
     QI_ASSERT(!m_initialized);
 
     Result result(ReturnCode::kSuccess);
 
-    // Read the RenderingSystems config node.
-    const tinyxml2::XMLElement *settings = rootEngineConfig->FirstChildElement(m_configNodeName.c_str());
-    if (!settings)
-    {
-        result = ReturnCode::kMissingConfigNode;
-    }
-    else
-    {
-        ConfigFileReader reader(settings);
+    WindowBase::WindowCInfo cinfo;
+    configVariables.GetVariableValue<uint32>(ConfigVariables::kWindowWidth, cinfo.screenWidth);
+    configVariables.GetVariableValue<uint32>(ConfigVariables::kWindowHeight, cinfo.screenHeight);
+    configVariables.GetVariableValue<bool>(ConfigVariables::kFullscreen, cinfo.fullscreen);
+    configVariables.GetVariableValue<std::string>(ConfigVariables::kGameName, cinfo.windowName);
 
-        {
-            // Create the windowing system and initialize it.
-            #ifdef QI_WINDOWS
-                m_window = Qi_AllocateMemory(DirectXWindow);
-            #endif
+    // Create the windowing system and initialize it.
+    #ifdef QI_WINDOWS
+        m_window = Qi_AllocateMemory(DirectXWindow);
+    #endif
 
-            WindowBase::WindowCInfo cinfo;
-            cinfo.screenWidth  = reader.GetVariableValue<int>(g_ConfigVariables[ConfigVariable::kWindowWidth]);
-            cinfo.screenHeight = reader.GetVariableValue<int>(g_ConfigVariables[ConfigVariable::kWindowHeight]);
-            cinfo.fullscreen   = reader.GetVariableValue<bool>(g_ConfigVariables[ConfigVariable::kFullscreen]);
-            cinfo.windowName   = reader.GetVariableValue<std::string>(g_ConfigVariables[ConfigVariable::kGameName]);
-
-            result = m_window->Init(cinfo);
-        }
-    }
-
+    result = m_window->Init(cinfo);
+  
     m_initialized = result.IsValid();
     return result;
 }

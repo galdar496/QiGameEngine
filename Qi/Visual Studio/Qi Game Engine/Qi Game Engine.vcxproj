@@ -144,6 +144,7 @@
     <ClCompile Include="..\..\Source\Engine\Systems\Renderer\Window\DirectXWindow.cpp" />
     <ClCompile Include="..\..\Source\Engine\Systems\Renderer\Window\WindowBase.cpp" />
     <ClCompile Include="..\..\Source\Engine\Systems\SystemBase.cpp" />
+    <ClCompile Include="..\..\Source\Engine\Systems\SystemConfig\ConfigVariables.cpp" />
     <ClCompile Include="..\..\Source\ThirdParty\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>

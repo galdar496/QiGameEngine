@@ -13,10 +13,10 @@
 /// for all systems that must be obeyed.
 ///
 
+#include "SystemConfig/ConfigVariables.h"
 #include "../../Core/BaseTypes.h"
 #include "../../Core/Defines.h"
 #include "../../Core/Reflection/Reflection.h"
-#include "../../ThirdParty/tinyxml2.h"
 #include <string>
 
 namespace Qi
@@ -29,16 +29,16 @@ class SystemBase
         QI_DECLARE_REFLECTED_CLASS(SystemBase);
     
         SystemBase();
-        SystemBase(const std::string &systemName, const std::string & configNodeName);
+        SystemBase(const std::string &systemName);
         virtual ~SystemBase();
     
         ///
         /// Initialize the system for use.
         ///
-        /// @param rootEngineConfig XML node specifying the root of the engine config file.
+        /// @param configVariables Configuration variables to use to setup the system.
         /// @return If the system was properly initialized or not.
         ///
-        virtual Result Init(const tinyxml2::XMLElement *rootEngineConfig);
+        virtual Result Init(const ConfigVariables &configVariables);
         
         ///
         /// Deinitialize the system. At this point, nothing should be allocated
@@ -66,7 +66,6 @@ class SystemBase
         bool m_initialized; ///< If this class has been initialized, set this value to true.
 
         const std::string m_systemName;     ///< Name of this system.
-        const std::string m_configNodeName; ///< Name for the config node for this system.
 };
 
 } // namespace Qi

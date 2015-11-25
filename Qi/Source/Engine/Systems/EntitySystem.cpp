@@ -21,7 +21,7 @@ QI_REFLECT_CLASS(EntitySystem)
 }
 
 EntitySystem::EntitySystem() :
-    SystemBase("EntitySystem", "GameSettings")
+    SystemBase("EntitySystem")
 {
 }
 
@@ -29,28 +29,15 @@ EntitySystem::~EntitySystem()
 {
 }
 
-Result EntitySystem::Init(const tinyxml2::XMLElement *rootEngineConfig)
+Result EntitySystem::Init(const ConfigVariables &configVariables)
 {
     QI_ASSERT(!m_initialized);
 
     Result result(ReturnCode::kSuccess);
 
-    // Read the EntitySystems config node.
-    const tinyxml2::XMLElement *settings = rootEngineConfig->FirstChildElement(m_configNodeName.c_str());
-    if (!settings)
-    {
-        result = ReturnCode::kMissingConfigNode;
-    }
-    else
-    {
-        ConfigFileReader reader(settings);
-
-        {
-            int maxEntities = reader.GetVariableValue<int>(g_ConfigVariables[ConfigVariable::kMaxWorldEntities]);
-
-            result = m_entities.SetSize(maxEntities);
-        }
-    }
+    int maxEntities = 0;
+    configVariables.GetVariableValue<int>(ConfigVariables::kMaxWorldEntities, maxEntities);
+    result = m_entities.SetSize(maxEntities);
     
     m_initialized = result.IsValid();
     return result;

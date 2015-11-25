@@ -12,8 +12,8 @@
 /// Abstracts the reading of the engine config file.
 ///
 
-#include "ConfigVariables.h"
 #include "../../../Core/Defines.h"
+#include "../../../Core/Utility/Logger/Logger.h"
 #include "../../../ThirdParty/tinyxml2.h"
 
 namespace Qi
@@ -28,29 +28,23 @@ class ConfigFileReader
         {}
 
         ///
-        /// Read the config file and return the requested value. If the config variable does not
+        /// Read the config file and populate the passed-in variable. If the config variable does not
         /// exist in the config file, then the variable's default value will be used.
         ///
-        /// @param variable ConfigVariable to read.
-        /// @return Read config value or variable default.
+        /// @param variable ConfigVariable to read from the file and update the value of.
         ///
         template<class T>
-        T GetVariableValue(const Variable &variable) const
+        void ReadVariableValue(const std::string &variableName, T &value) const
         {
-            T returnValue;
-
-            const tinyxml2::XMLElement *element = m_configNode->FirstChildElement(variable.name.c_str());
+            const tinyxml2::XMLElement *element = m_configNode->FirstChildElement(variableName.c_str());
             if (element)
             {
-                ReadVariable<T>(element, returnValue);
+                ReadVariable<T>(element, value);
             }
             else
             {
-                Qi_LogWarning("Unable to find config variable \"%s\" in config file, value will be default.", variable.name.c_str());
-                SetToDefault<T>(variable, returnValue);
+                Qi_LogWarning("Unable to find config variable \"%s\" in config file, value will be default.", variableName.c_str());
             }
-
-            return returnValue;
         }
 
     private:
@@ -87,36 +81,6 @@ class ConfigFileReader
         {
             value = element->GetText();
             Qi_LogInfo("Config variable %s: %s", element->Name(), value.c_str());
-        }
-
-        template<class T>
-        void SetToDefault(const Variable &variable, T &value) const
-        {
-            QI_ASSERT(0 && "Unimplemented ConfigVariable type");
-        }
-
-        template<>
-        void SetToDefault(const Variable &variable, int &value) const
-        {
-            value = variable.value.i;
-        }
-
-        template<>
-        void SetToDefault(const Variable &variable, float &value) const
-        {
-            value = variable.value.f;
-        }
-
-        template<>
-        void SetToDefault(const Variable &variable, bool &value) const
-        {
-            value = variable.value.b;
-        }
-
-        template<>
-        void SetToDefault(const Variable &variable, std::string &value) const
-        {
-            value = std::string(variable.value.c);
         }
 
         const tinyxml2::XMLElement *m_configNode; ///< Root config node for a group of options. Should be ready by a call to SystemBase::GetConfigNodeName().

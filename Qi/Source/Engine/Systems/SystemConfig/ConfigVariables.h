@@ -12,6 +12,8 @@
 /// Define a configuration variables to read from an XML config file for each system.
 ///
 
+#include "../../../Core/BaseTypes.h"
+#include "../../../Core/Defines.h"
 #include <string>
 
 namespace Qi
@@ -21,74 +23,91 @@ namespace Qi
 // "VariableName (as it is present in the config file), "VariableType", "VariableDefaultValue". Each system
 // should have their own set of config variables.
 
-#define RENDERING_SYSTEM_CONFIG_VARIABLES \
-    X(WindowWidth, kInt, 800) \
-    X(WindowHeight, kInt, 800) \
-    X(Fullscreen, kBool, false) \
-    X(GameName, kString, "Qi")
-
-#define ENTITY_SYSTEM_CONFIG_VARIABLES \
-    X(MaxWorldEntities, kInt, 10)
+#define SYSTEM_CONFIG_VARIABLES \
+    X(WindowWidth, kInt, 800)     \
+    X(WindowHeight, kInt, 800)    \
+    X(Fullscreen, kBool, false)   \
+    X(GameName, kString, "Qi")    \
+    X(MaxWorldEntities, kInt, 10)    
 
 ////////////////////////////////////////////////////////////////////////////////
 
-// All config variables present in the system.
-enum ConfigVariable
+class ConfigVariables
 {
-#define X(variableName, type, defaultValue) k##variableName,
+    public:
 
-    RENDERING_SYSTEM_CONFIG_VARIABLES
-    ENTITY_SYSTEM_CONFIG_VARIABLES
+        // All config variables present in the system.
+        enum ConfigVariable
+        {
+            #define X(variableName, type, defaultValue) k##variableName,
 
-#undef X
+                SYSTEM_CONFIG_VARIABLES
+                kNumConfigVariables
+
+            #undef X
+        };
+
+        ConfigVariables();
+        ~ConfigVariables();
+
+        ///
+        /// Read the config file and populate the list of config variables.
+        /// 
+        /// @filename Path to the config XML file which contains the engine configuration.
+        /// @return If valid, the file was successfully parsed.
+        ///
+        Result ParseConfigFile(const std::string &filename);
+
+        template<class T>
+        void GetVariableValue(const ConfigVariable &variable, T &value) const
+        {
+            ReadVariable<T>(variable, value);
+        }
+
+    private:
+
+        template<class T>
+        void ReadVariable(const ConfigVariable &variable, T &value) const
+        {
+            QI_ASSERT(0 && "Unknown variable type");
+        }
+
+        template<>
+        void ReadVariable(const ConfigVariable &variable, int &value) const
+        {
+            value = ReadIntVariable(variable);
+        }
+
+        template<>
+        void ReadVariable(const ConfigVariable &variable, uint32 &value) const
+        {
+            value = ReadIntVariable(variable);
+        }
+
+        template<>
+        void ReadVariable(const ConfigVariable &variable, bool &value) const
+        {
+            value = ReadBoolVariable(variable);
+        }
+
+        template<>
+        void ReadVariable(const ConfigVariable &variable, float &value) const
+        {
+            value = ReadFloatVariable(variable);
+        }
+
+        template<>
+        void ReadVariable(const ConfigVariable &variable, std::string &value) const
+        {
+            value = ReadStringVariable(variable);
+        }
+
+        // Type-specific read functions that read a specific config variable's value
+        // from the internal table of config variables.
+        int ReadIntVariable(const ConfigVariable &variable) const;
+        bool ReadBoolVariable(const ConfigVariable &variable) const;
+        float ReadFloatVariable(const ConfigVariable &variable) const;
+        std::string ReadStringVariable(const ConfigVariable &variable) const;
 };
-
-enum class VariableType
-{
-    kInt,
-    kFloat,
-    kBool,
-    kString
-};
-
-struct Variable
-{
-    union Value
-    {
-        Value() {}
-        Value(int integer) { i = integer; }
-        Value(bool boolean) { b = boolean; }
-        Value(float decimal) { f = decimal; }
-        Value(const char *string) { strcpy_s(c, string); }
-
-        int    i;
-        bool   b;
-        float  f;
-        char   c[256];
-    };
-
-    explicit Variable(const std::string varName, VariableType varType, Value varDefaultValue) :
-        name(varName),
-        type(varType),
-        value(varDefaultValue)
-    {
-    }
-
-    VariableType type;
-    const std::string  name;
-    Value value;
-};
-
-#define X(variableName, type, defaultValue) Variable(#variableName, VariableType::type, (Variable::Value)defaultValue),
-    
-    // Table of all config variables in the system along with their default values.
-    static const Variable g_ConfigVariables[] =
-    {
-        RENDERING_SYSTEM_CONFIG_VARIABLES
-        ENTITY_SYSTEM_CONFIG_VARIABLES
-        Variable("INVALID_VALUE", VariableType::kBool, (Variable::Value)10)
-    };
-
-#undef X
 
 } // namespace Qi

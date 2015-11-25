@@ -13,6 +13,7 @@
 #include "Systems/SystemBase.h"
 #include "Systems/EntitySystem.h"
 #include "Systems/Renderer/RenderingSystem.h"
+#include "Systems/SystemConfig/ConfigVariables.h"
 #include <iostream>
 
 namespace Qi
@@ -114,7 +115,6 @@ void Engine::Shutdown()
 
 Result Engine::CreateInternalSystems(const EngineConfig &config)
 {
-    Qi_LogInfo("Creating base engine systems...");
     Result result(ReturnCode::kSuccess);
     
     m_renderingSystem = Qi_AllocateMemory(RenderingSystem);
@@ -123,37 +123,26 @@ Result Engine::CreateInternalSystems(const EngineConfig &config)
     m_entitySystem = Qi_AllocateMemory(EntitySystem);
     m_engineSystems.PushBack(m_entitySystem);
 
-    // Make sure the config XML file contains that proper root node type.
-    const tinyxml2::XMLElement *rootConfigNode = nullptr;
-    tinyxml2::XMLDocument xmlConfigFile;
-    if (xmlConfigFile.LoadFile(config.configFile.c_str()) != tinyxml2::XML_SUCCESS)
+    // Read the config file.
+    ConfigVariables configVariables;
+    result = configVariables.ParseConfigFile(config.configFile);
+    
+    if (result.IsValid())
     {
-        Qi_LogError("Unable to load configuration file %s", config.configFile.c_str());
-        result = ReturnCode::kMissingConfigNode;
-    }
-    else
-    {
-        rootConfigNode = xmlConfigFile.FirstChildElement(m_engineConfigNodeName);
-        if (rootConfigNode == nullptr)
+        Qi_LogInfo("Creating base engine systems...");
+
+        // Initialize the systems for use.
+        for (uint32 ii = 0; ii < m_engineSystems.GetSize(); ++ii)
         {
-            Qi_LogError("Unable to load root config node %s in configuration file %s", m_engineConfigNodeName, config.configFile.c_str());
-            result = ReturnCode::kMissingConfigNode;
-        }
-        else
-        {
-            // Initialize the systems for use.
-            for (uint32 ii = 0; ii < m_engineSystems.GetSize(); ++ii)
+            SystemBase *system = m_engineSystems[ii];
+
+            result = system->Init(configVariables);
+            if (!result.IsValid())
             {
-                SystemBase *system = m_engineSystems[ii];
-
-                result = system->Init(rootConfigNode);
-                if (!result.IsValid())
-                {
-                    break;
-                }
-
-                Qi_LogInfo("\t%s successfully created", system->GetName().c_str());
+                break;
             }
+
+            Qi_LogInfo("\t%s successfully created", system->GetName().c_str());
         }
     }
 

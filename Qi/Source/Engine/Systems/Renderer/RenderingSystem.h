@@ -30,7 +30,7 @@ class RenderingSystem : public SystemBase
 		virtual ~RenderingSystem() override;
 
 		////// Overrides for SystemBase API //////
-		virtual Result Init(const tinyxml2::XMLElement *rootEngineConfig) override;
+		virtual Result Init(const ConfigVariables &configVariables) override;
 		virtual void Deinit() override;
 		virtual void Update(const float dt) override;
 		//////////////////////////////////////////
