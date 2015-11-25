@@ -111,8 +111,6 @@ void Engine::Shutdown()
     Logger::GetInstance().Deinit();
 }
 
-#include <direct.h>
-
 Result Engine::CreateInternalSystems(const EngineConfig &config)
 {
     Result result(ReturnCode::kSuccess);
