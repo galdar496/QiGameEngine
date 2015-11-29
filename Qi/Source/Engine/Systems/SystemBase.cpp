@@ -28,6 +28,7 @@ SystemBase::SystemBase(const std::string &systemName) :
     m_initialized(false),
     m_systemName(systemName)
 {
+    QI_ASSERT(m_systemName.length());
 }
 
 SystemBase::~SystemBase()
@@ -35,7 +36,7 @@ SystemBase::~SystemBase()
     QI_ASSERT(!m_initialized);
 }
     
-Result SystemBase::Init(const ConfigVariables &configVariables)
+Result SystemBase::Init(const CInfo &cinfo)
 {
     QI_ASSERT(0 && "This function should be overriden");
 	return Result(ReturnCode::kUnknownError);

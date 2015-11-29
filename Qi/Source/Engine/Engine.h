@@ -15,6 +15,7 @@
 ///
 
 #include "EngineConfig.h"
+#include "WindowMessage.h"
 #include "../Core/Defines.h"
 #include "../Core/BaseTypes.h"
 
@@ -53,8 +54,9 @@ class Engine
         /// as well as starts rendering.
         ///
         /// @param dt Delta time. Elapsed time from the previous call to "step()".
+        /// @return If false, the engine has been requested to shutdown.
         ///
-        void Step(const float dt);
+        bool Step(const float dt);
     
         ///
         /// Shutdown the engine. All systems will be shutdown
@@ -71,6 +73,17 @@ class Engine
         /// @param system Already initialized system to add to the engine.
         ///
         void AddSystem(SystemBase *system);
+
+        ///
+        /// Handle an incoming message from the windowing system. This message is usually
+        /// piped through a platform-specific window. NOTE: the definition of this function 
+        /// will be defined in "PLATFFORM_NAME"MessageHandler.cpp where "PLATFORMNAME" is something
+        /// like Win32 or OSX.
+        ///
+        /// @param message WindowMessage object which contains the message contents.
+        /// @return If true, the message was handled.
+        ///
+        bool HandleMessage(WindowMessage *message);
     
     private:
     
@@ -99,7 +112,8 @@ class Engine
         void HandleLogMessages(const char *message, LogChannel channel);
     #endif
     
-        bool m_initiailzed; ///< If true, the engine has been properly initialized.
+        bool m_initiailzed;     ///< If true, the engine has been properly initialized.
+        bool m_shouldShutdown;  ///< If true, the engine should shutdown on the next update tick.
     
         Array<SystemBase *> m_engineSystems; ///< All engine systems that the engine knows about (both internal and custom systems).
     
@@ -107,8 +121,6 @@ class Engine
         // pointers exist for quick access to a specific system.
         EntitySystem    *m_entitySystem;
 		RenderingSystem *m_renderingSystem;
-
-        const char * const  m_engineConfigNodeName = "QiEngineConfig";
 };
 
 } // namespace Qi

@@ -7,7 +7,9 @@
 //
 
 #include "DirectXWindow.h"
+#include "../../../WindowMessage.h"
 #include "../../../../Core/Utility/Logger/Logger.h"
+#include "../../../Engine.h"
 
 #ifdef QI_WINDOWS
 
@@ -98,6 +100,10 @@ Result DirectXWindow::Init(WindowCInfo config)
 	}
 	else
 	{
+        // Give the engine pointer to the windowing system so that the engine can handle 
+        // all necessary messages.
+        SetWindowLongPtr(m_window, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(config.engine));
+
 		// Bring the window up on the screen and set it as main focus.
 		ShowWindow(m_window, SW_SHOW);
 		SetForegroundWindow(m_window);
@@ -135,15 +141,11 @@ void DirectXWindow::Deinit()
 
 void DirectXWindow::Update(const float dt)
 {
-	// MOVE THIS CODE OUT OF HERE AND INTO AN INPUT HANDLER LATER ON!!!
-
 	MSG msg;
-
-	// Initialize the message structure.
 	ZeroMemory(&msg, sizeof(MSG));
 
 	// Handle the windows messages.
-	if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+	while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
@@ -154,29 +156,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {
 	LRESULT result = 0;
 
-	switch (umessage)
-	{
-		// Check if the window is being destroyed.
-		case WM_DESTROY:
-		{
-			PostQuitMessage(0);
-			break;
-		}
+    // Extract the engine pointer.
+    Engine *engine = reinterpret_cast<Engine *>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 
-		// Check if the window is being closed.
-		case WM_CLOSE:
-		{
-			PostQuitMessage(0);
-			break;
-		}
-
-		// All other messages pass to the message handler in the system class.
-		default:
-		{
-			// in the future, pass this to a handler within the engine.
-			return DefWindowProc(hwnd, umessage, wparam, lparam);
-		}
-	}
+    bool messageHandled = false;
+    if (engine != nullptr)
+    {
+        Win32WindowMessage message(umessage, wparam, lparam);
+        messageHandled = engine->HandleMessage(&message);
+    }
+    
+    // Either the engine object is not yet valid OR the engine did not handle
+    // the message. Either way, let Windows take care of the message.
+    if (!messageHandled)
+    {
+        result =  DefWindowProc(hwnd, umessage, wparam, lparam);
+    }
 
 	return result;
 }

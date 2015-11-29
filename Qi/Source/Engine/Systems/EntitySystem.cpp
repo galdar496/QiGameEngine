@@ -29,14 +29,14 @@ EntitySystem::~EntitySystem()
 {
 }
 
-Result EntitySystem::Init(const ConfigVariables &configVariables)
+Result EntitySystem::Init(const CInfo &cinfo)
 {
     QI_ASSERT(!m_initialized);
 
     Result result(ReturnCode::kSuccess);
 
     int maxEntities = 0;
-    configVariables.GetVariableValue<int>(ConfigVariables::kMaxWorldEntities, maxEntities);
+    cinfo.configVariables->GetVariableValue<int>(ConfigVariables::kMaxWorldEntities, maxEntities);
     result = m_entities.SetSize(maxEntities);
     
     m_initialized = result.IsValid();

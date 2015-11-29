@@ -45,4 +45,4 @@ class DirectXWindow : public WindowBase
 
 } // namespace Qi
 
-#endif
+#endif // QI_WINDOWS

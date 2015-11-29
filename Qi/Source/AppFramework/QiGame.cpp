@@ -55,11 +55,8 @@ void QiGame::RunGame(QiGameImpl *game)
     {
         float dt = timer.Dt();
         
-        // Step the engine forward first.
-        engine.Step(dt);
-        
-        // Now step the game forward.
-        run = game->Step(dt);
+        // Step the game forward first.
+        run = game->Step(dt) && engine.Step(dt);
     }
     
     // Game is over, deinitialize the game and shut the engine down.

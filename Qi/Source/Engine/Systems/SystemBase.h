@@ -22,6 +22,9 @@
 namespace Qi
 {
 
+// Forward declaration.
+class Engine;
+
 class SystemBase
 {
     public:
@@ -31,14 +34,23 @@ class SystemBase
         SystemBase();
         SystemBase(const std::string &systemName);
         virtual ~SystemBase();
+
+        ///
+        /// Initialization struct to be passed to the Init() function.
+        ///
+        struct CInfo
+        {
+            const ConfigVariables *configVariables; // List of all config variables supplied by the user.
+            const Engine          *engine;          // Reference to the main engine object.
+        };
     
         ///
         /// Initialize the system for use.
         ///
-        /// @param configVariables Configuration variables to use to setup the system.
+        /// @param cinfo Configuration object to use to setup the system.
         /// @return If the system was properly initialized or not.
         ///
-        virtual Result Init(const ConfigVariables &configVariables);
+        virtual Result Init(const CInfo &cinfo);
         
         ///
         /// Deinitialize the system. At this point, nothing should be allocated

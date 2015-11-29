@@ -145,6 +145,7 @@
     <ClCompile Include="..\..\Source\Engine\Systems\Renderer\Window\WindowBase.cpp" />
     <ClCompile Include="..\..\Source\Engine\Systems\SystemBase.cpp" />
     <ClCompile Include="..\..\Source\Engine\Systems\SystemConfig\ConfigVariables.cpp" />
+    <ClCompile Include="..\..\Source\Engine\Win32WindowMessageHandler.cpp" />
     <ClCompile Include="..\..\Source\ThirdParty\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -182,12 +183,14 @@
     <ClInclude Include="..\..\Source\Engine\EngineConfig.h" />
     <ClInclude Include="..\..\Source\Engine\GameWorld\Entity.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\EntitySystem.h" />
+    <ClInclude Include="..\..\Source\Engine\Systems\Input\InputSystem.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\Renderer\RenderingSystem.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\Renderer\Window\DirectXWindow.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\Renderer\Window\WindowBase.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\SystemBase.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\SystemConfig\ConfigFileReader.h" />
     <ClInclude Include="..\..\Source\Engine\Systems\SystemConfig\ConfigVariables.h" />
+    <ClInclude Include="..\..\Source\Engine\WindowMessage.h" />
     <ClInclude Include="..\..\Source\ThirdParty\FastDelegate.h" />
     <ClInclude Include="..\..\Source\ThirdParty\tinyxml2.h" />
   </ItemGroup>

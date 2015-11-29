@@ -49,6 +49,9 @@
     <Filter Include="Engine\Systems\SystemConfig">
       <UniqueIdentifier>{8d3bc891-e1bc-4f83-98b0-ed4c57cb8e69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Systems\Input">
+      <UniqueIdentifier>{b6213535-51e4-48fd-b309-3b12bd7ea9c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AppFramework\QiGame.cpp">
@@ -116,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Engine\Systems\SystemConfig\ConfigVariables.cpp">
       <Filter>Engine\Systems\SystemConfig</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Engine\Win32WindowMessageHandler.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +250,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Engine\Systems\SystemConfig\ConfigFileReader.h">
       <Filter>Engine\Systems\SystemConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\Systems\Input\InputSystem.h">
+      <Filter>Engine\Systems\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Engine\WindowMessage.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

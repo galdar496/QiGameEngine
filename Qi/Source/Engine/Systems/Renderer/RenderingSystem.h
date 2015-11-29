@@ -26,11 +26,14 @@ class RenderingSystem : public SystemBase
 {
 	public:
 
-		RenderingSystem();
+        ///
+        ///
+        ///
+		explicit RenderingSystem();
 		virtual ~RenderingSystem() override;
 
 		////// Overrides for SystemBase API //////
-		virtual Result Init(const ConfigVariables &configVariables) override;
+		virtual Result Init(const CInfo &cinfo) override;
 		virtual void Deinit() override;
 		virtual void Update(const float dt) override;
 		//////////////////////////////////////////

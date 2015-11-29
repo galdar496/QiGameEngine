@@ -12,6 +12,7 @@
 #include "../../../Core/Utility/Logger/Logger.h"
 #include "../../../Core/Memory/MemorySystem.h"
 #include "../SystemConfig/ConfigFileReader.h"
+#include "../../Engine.h"
 
 // NOTE: Currently Qi only supports windows and DirectX.
 #ifdef QI_WINDOWS
@@ -32,24 +33,25 @@ RenderingSystem::~RenderingSystem()
 	
 }
 
-Result RenderingSystem::Init(const ConfigVariables &configVariables)
+Result RenderingSystem::Init(const CInfo &cinfo)
 {
     QI_ASSERT(!m_initialized);
 
     Result result(ReturnCode::kSuccess);
 
-    WindowBase::WindowCInfo cinfo;
-    configVariables.GetVariableValue<uint32>(ConfigVariables::kWindowWidth, cinfo.screenWidth);
-    configVariables.GetVariableValue<uint32>(ConfigVariables::kWindowHeight, cinfo.screenHeight);
-    configVariables.GetVariableValue<bool>(ConfigVariables::kFullscreen, cinfo.fullscreen);
-    configVariables.GetVariableValue<std::string>(ConfigVariables::kGameName, cinfo.windowName);
+    WindowBase::WindowCInfo windowCinfo;
+    cinfo.configVariables->GetVariableValue<uint32>(ConfigVariables::kWindowWidth, windowCinfo.screenWidth);
+    cinfo.configVariables->GetVariableValue<uint32>(ConfigVariables::kWindowHeight, windowCinfo.screenHeight);
+    cinfo.configVariables->GetVariableValue<bool>(ConfigVariables::kFullscreen, windowCinfo.fullscreen);
+    cinfo.configVariables->GetVariableValue<std::string>(ConfigVariables::kGameName, windowCinfo.windowName);
+    windowCinfo.engine = cinfo.engine;
 
     // Create the windowing system and initialize it.
     #ifdef QI_WINDOWS
         m_window = Qi_AllocateMemory(DirectXWindow);
     #endif
 
-    result = m_window->Init(cinfo);
+    result = m_window->Init(windowCinfo);
   
     m_initialized = result.IsValid();
     return result;

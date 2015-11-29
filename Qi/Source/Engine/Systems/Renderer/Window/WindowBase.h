@@ -18,6 +18,9 @@
 namespace Qi
 {
 
+// Forward declarations.
+class Engine;
+
 class WindowBase
 {
 	public:
@@ -27,9 +30,10 @@ class WindowBase
 
 		struct WindowCInfo
 		{
-			uint32 screenWidth;  ///< Width of the window (in pixels).
-			uint32 screenHeight; ///< Height of the window (in pixels).
-			bool   fullscreen;   ///< If true, create the window in fullscreen mode.
+            const Engine *engine;   ///< Pointer to the main engine object.
+			uint32 screenWidth;     ///< Width of the window (in pixels).
+			uint32 screenHeight;    ///< Height of the window (in pixels).
+			bool   fullscreen;      ///< If true, create the window in fullscreen mode.
 
 			std::string windowName; ///< Name to use for the window title.
 		};

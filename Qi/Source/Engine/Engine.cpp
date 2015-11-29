@@ -21,6 +21,7 @@ namespace Qi
 
 Engine::Engine() :
     m_initiailzed(false),
+    m_shouldShutdown(false),
 	m_entitySystem(nullptr),
 	m_renderingSystem(nullptr)
 {
@@ -80,9 +81,14 @@ Result Engine::Init(const EngineConfig &config)
     return result; 
 }
 
-void Engine::Step(const float dt)
+bool Engine::Step(const float dt)
 {
     QI_ASSERT(m_initiailzed);
+
+    if (m_shouldShutdown)
+    {
+        return false; // Trigger a shutdown from the code controlling the engine.
+    }
     
     //Qi_LogInfo("Engine stepping frame forward %f seconds", dt);
     
@@ -95,6 +101,8 @@ void Engine::Step(const float dt)
     {
         m_engineSystems[ii]->Update(dt);
     }
+
+    return true;
 }
 
 void Engine::Shutdown()
@@ -129,12 +137,16 @@ Result Engine::CreateInternalSystems(const EngineConfig &config)
     {
         Qi_LogInfo("Creating base engine systems...");
 
+        SystemBase::CInfo cinfo;
+        cinfo.engine = this;
+        cinfo.configVariables = &configVariables;
+
         // Initialize the systems for use.
         for (uint32 ii = 0; ii < m_engineSystems.GetSize(); ++ii)
         {
             SystemBase *system = m_engineSystems[ii];
 
-            result = system->Init(configVariables);
+            result = system->Init(cinfo);
             if (!result.IsValid())
             {
                 break;
@@ -152,7 +164,7 @@ void Engine::ShutdownEngineSystems()
     for (uint32 ii = 0; ii < m_engineSystems.GetSize(); ++ii)
     {
         SystemBase *system = m_engineSystems[ii];
-        Qi_LogInfo("Shutting down %s", system->GetName());
+        Qi_LogInfo("Shutting down %s", system->GetName().c_str());
         
         system->Deinit();
         Qi_FreeMemory(system);
